@@ -1,0 +1,31 @@
+<Project>
+  <PropertyGroup>
+    <!-- general properties -->
+    <Nullable>enable</Nullable>
+    <LangVersion>Latest</LangVersion>
+    <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <Optimize>False</Optimize>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- We want to remove JSImportGenerator by default, becuase it takes a good deal of compilation time -->
+    <RemoveAnalyzer Include="Microsoft.Interop.JavaScript.JSImportGenerator" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <CoreCompileDependsOn>$(CoreCompileDependsOn);_DisableAnalyzers</CoreCompileDependsOn>
+  </PropertyGroup>
+
+  <Target Name="_DisableAnalyzers" DependsOnTargets="ResolveTargetingPackAssets" Inputs="@(RemoveAnalyzer)" Outputs="|%(Identity)|">
+    <PropertyGroup>
+      <_RemoveAnalyzer>%(RemoveAnalyzer.Identity)</_RemoveAnalyzer>
+    </PropertyGroup>
+    <ItemGroup>
+      <Analyzer Remove="$(_RemoveAnalyzer)"/>
+      <Analyzer Remove="@(Analyzer)" Condition="'%(Analyzer.Filename)' == '$(_RemoveAnalyzer)'"/>
+    </ItemGroup>
+  </Target>
+</Project>

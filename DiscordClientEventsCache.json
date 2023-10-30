@@ -1,0 +1,548 @@
+[
+  {
+    "EventName": "SocketErrored",
+    "ArgumentType": "SocketErrorEventArgs",
+    "MethodName": "OnSocketErrored",
+    "InterfaceName": "ISocketErroredEventHandler",
+    "WithHandlerSuffix": "SocketErroredHandler"
+  },
+  {
+    "EventName": "SocketOpened",
+    "ArgumentType": "SocketEventArgs",
+    "MethodName": "OnSocketOpened",
+    "InterfaceName": "ISocketOpenedEventHandler",
+    "WithHandlerSuffix": "SocketOpenedHandler"
+  },
+  {
+    "EventName": "SocketClosed",
+    "ArgumentType": "SocketCloseEventArgs",
+    "MethodName": "OnSocketClosed",
+    "InterfaceName": "ISocketClosedEventHandler",
+    "WithHandlerSuffix": "SocketClosedHandler"
+  },
+  {
+    "EventName": "SessionCreated",
+    "ArgumentType": "SessionReadyEventArgs",
+    "MethodName": "OnSessionCreated",
+    "InterfaceName": "ISessionCreatedEventHandler",
+    "WithHandlerSuffix": "SessionCreatedHandler"
+  },
+  {
+    "EventName": "SessionResumed",
+    "ArgumentType": "SessionReadyEventArgs",
+    "MethodName": "OnSessionResumed",
+    "InterfaceName": "ISessionResumedEventHandler",
+    "WithHandlerSuffix": "SessionResumedHandler"
+  },
+  {
+    "EventName": "Heartbeated",
+    "ArgumentType": "HeartbeatEventArgs",
+    "MethodName": "OnHeartbeated",
+    "InterfaceName": "IHeartbeatedEventHandler",
+    "WithHandlerSuffix": "HeartbeatedHandler"
+  },
+  {
+    "EventName": "Zombied",
+    "ArgumentType": "ZombiedEventArgs",
+    "MethodName": "OnZombied",
+    "InterfaceName": "IZombiedEventHandler",
+    "WithHandlerSuffix": "ZombiedHandler"
+  },
+  {
+    "EventName": "ApplicationCommandPermissionsUpdated",
+    "ArgumentType": "ApplicationCommandPermissionsUpdatedEventArgs",
+    "MethodName": "OnApplicationCommandPermissionsUpdated",
+    "InterfaceName": "IApplicationCommandPermissionsUpdatedEventHandler",
+    "WithHandlerSuffix": "ApplicationCommandPermissionsUpdatedHandler"
+  },
+  {
+    "EventName": "ChannelCreated",
+    "ArgumentType": "ChannelCreateEventArgs",
+    "MethodName": "OnChannelCreated",
+    "InterfaceName": "IChannelCreatedEventHandler",
+    "WithHandlerSuffix": "ChannelCreatedHandler"
+  },
+  {
+    "EventName": "ChannelUpdated",
+    "ArgumentType": "ChannelUpdateEventArgs",
+    "MethodName": "OnChannelUpdated",
+    "InterfaceName": "IChannelUpdatedEventHandler",
+    "WithHandlerSuffix": "ChannelUpdatedHandler"
+  },
+  {
+    "EventName": "ChannelDeleted",
+    "ArgumentType": "ChannelDeleteEventArgs",
+    "MethodName": "OnChannelDeleted",
+    "InterfaceName": "IChannelDeletedEventHandler",
+    "WithHandlerSuffix": "ChannelDeletedHandler"
+  },
+  {
+    "EventName": "DmChannelDeleted",
+    "ArgumentType": "DmChannelDeleteEventArgs",
+    "MethodName": "OnDmChannelDeleted",
+    "InterfaceName": "IDmChannelDeletedEventHandler",
+    "WithHandlerSuffix": "DmChannelDeletedHandler"
+  },
+  {
+    "EventName": "ChannelPinsUpdated",
+    "ArgumentType": "ChannelPinsUpdateEventArgs",
+    "MethodName": "OnChannelPinsUpdated",
+    "InterfaceName": "IChannelPinsUpdatedEventHandler",
+    "WithHandlerSuffix": "ChannelPinsUpdatedHandler"
+  },
+  {
+    "EventName": "GuildCreated",
+    "ArgumentType": "GuildCreateEventArgs",
+    "MethodName": "OnGuildCreated",
+    "InterfaceName": "IGuildCreatedEventHandler",
+    "WithHandlerSuffix": "GuildCreatedHandler"
+  },
+  {
+    "EventName": "GuildAvailable",
+    "ArgumentType": "GuildCreateEventArgs",
+    "MethodName": "OnGuildAvailable",
+    "InterfaceName": "IGuildAvailableEventHandler",
+    "WithHandlerSuffix": "GuildAvailableHandler"
+  },
+  {
+    "EventName": "GuildUpdated",
+    "ArgumentType": "GuildUpdateEventArgs",
+    "MethodName": "OnGuildUpdated",
+    "InterfaceName": "IGuildUpdatedEventHandler",
+    "WithHandlerSuffix": "GuildUpdatedHandler"
+  },
+  {
+    "EventName": "GuildDeleted",
+    "ArgumentType": "GuildDeleteEventArgs",
+    "MethodName": "OnGuildDeleted",
+    "InterfaceName": "IGuildDeletedEventHandler",
+    "WithHandlerSuffix": "GuildDeletedHandler"
+  },
+  {
+    "EventName": "GuildUnavailable",
+    "ArgumentType": "GuildDeleteEventArgs",
+    "MethodName": "OnGuildUnavailable",
+    "InterfaceName": "IGuildUnavailableEventHandler",
+    "WithHandlerSuffix": "GuildUnavailableHandler"
+  },
+  {
+    "EventName": "GuildDownloadCompleted",
+    "ArgumentType": "GuildDownloadCompletedEventArgs",
+    "MethodName": "OnGuildDownloadCompleted",
+    "InterfaceName": "IGuildDownloadCompletedEventHandler",
+    "WithHandlerSuffix": "GuildDownloadCompletedHandler"
+  },
+  {
+    "EventName": "GuildEmojisUpdated",
+    "ArgumentType": "GuildEmojisUpdateEventArgs",
+    "MethodName": "OnGuildEmojisUpdated",
+    "InterfaceName": "IGuildEmojisUpdatedEventHandler",
+    "WithHandlerSuffix": "GuildEmojisUpdatedHandler"
+  },
+  {
+    "EventName": "GuildStickersUpdated",
+    "ArgumentType": "GuildStickersUpdateEventArgs",
+    "MethodName": "OnGuildStickersUpdated",
+    "InterfaceName": "IGuildStickersUpdatedEventHandler",
+    "WithHandlerSuffix": "GuildStickersUpdatedHandler"
+  },
+  {
+    "EventName": "GuildIntegrationsUpdated",
+    "ArgumentType": "GuildIntegrationsUpdateEventArgs",
+    "MethodName": "OnGuildIntegrationsUpdated",
+    "InterfaceName": "IGuildIntegrationsUpdatedEventHandler",
+    "WithHandlerSuffix": "GuildIntegrationsUpdatedHandler"
+  },
+  {
+    "EventName": "GuildAuditLogCreated",
+    "ArgumentType": "GuildAuditLogCreatedEventArgs",
+    "MethodName": "OnGuildAuditLogCreated",
+    "InterfaceName": "IGuildAuditLogCreatedEventHandler",
+    "WithHandlerSuffix": "GuildAuditLogCreatedHandler"
+  },
+  {
+    "EventName": "ScheduledGuildEventCreated",
+    "ArgumentType": "ScheduledGuildEventCreateEventArgs",
+    "MethodName": "OnScheduledGuildEventCreated",
+    "InterfaceName": "IScheduledGuildEventCreatedEventHandler",
+    "WithHandlerSuffix": "ScheduledGuildEventCreatedHandler"
+  },
+  {
+    "EventName": "ScheduledGuildEventUpdated",
+    "ArgumentType": "ScheduledGuildEventUpdateEventArgs",
+    "MethodName": "OnScheduledGuildEventUpdated",
+    "InterfaceName": "IScheduledGuildEventUpdatedEventHandler",
+    "WithHandlerSuffix": "ScheduledGuildEventUpdatedHandler"
+  },
+  {
+    "EventName": "ScheduledGuildEventDeleted",
+    "ArgumentType": "ScheduledGuildEventDeleteEventArgs",
+    "MethodName": "OnScheduledGuildEventDeleted",
+    "InterfaceName": "IScheduledGuildEventDeletedEventHandler",
+    "WithHandlerSuffix": "ScheduledGuildEventDeletedHandler"
+  },
+  {
+    "EventName": "ScheduledGuildEventCompleted",
+    "ArgumentType": "ScheduledGuildEventCompletedEventArgs",
+    "MethodName": "OnScheduledGuildEventCompleted",
+    "InterfaceName": "IScheduledGuildEventCompletedEventHandler",
+    "WithHandlerSuffix": "ScheduledGuildEventCompletedHandler"
+  },
+  {
+    "EventName": "ScheduledGuildEventUserAdded",
+    "ArgumentType": "ScheduledGuildEventUserAddEventArgs",
+    "MethodName": "OnScheduledGuildEventUserAdded",
+    "InterfaceName": "IScheduledGuildEventUserAddedEventHandler",
+    "WithHandlerSuffix": "ScheduledGuildEventUserAddedHandler"
+  },
+  {
+    "EventName": "ScheduledGuildEventUserRemoved",
+    "ArgumentType": "ScheduledGuildEventUserRemoveEventArgs",
+    "MethodName": "OnScheduledGuildEventUserRemoved",
+    "InterfaceName": "IScheduledGuildEventUserRemovedEventHandler",
+    "WithHandlerSuffix": "ScheduledGuildEventUserRemovedHandler"
+  },
+  {
+    "EventName": "GuildBanAdded",
+    "ArgumentType": "GuildBanAddEventArgs",
+    "MethodName": "OnGuildBanAdded",
+    "InterfaceName": "IGuildBanAddedEventHandler",
+    "WithHandlerSuffix": "GuildBanAddedHandler"
+  },
+  {
+    "EventName": "GuildBanRemoved",
+    "ArgumentType": "GuildBanRemoveEventArgs",
+    "MethodName": "OnGuildBanRemoved",
+    "InterfaceName": "IGuildBanRemovedEventHandler",
+    "WithHandlerSuffix": "GuildBanRemovedHandler"
+  },
+  {
+    "EventName": "GuildMemberAdded",
+    "ArgumentType": "GuildMemberAddEventArgs",
+    "MethodName": "OnGuildMemberAdded",
+    "InterfaceName": "IGuildMemberAddedEventHandler",
+    "WithHandlerSuffix": "GuildMemberAddedHandler"
+  },
+  {
+    "EventName": "GuildMemberRemoved",
+    "ArgumentType": "GuildMemberRemoveEventArgs",
+    "MethodName": "OnGuildMemberRemoved",
+    "InterfaceName": "IGuildMemberRemovedEventHandler",
+    "WithHandlerSuffix": "GuildMemberRemovedHandler"
+  },
+  {
+    "EventName": "GuildMemberUpdated",
+    "ArgumentType": "GuildMemberUpdateEventArgs",
+    "MethodName": "OnGuildMemberUpdated",
+    "InterfaceName": "IGuildMemberUpdatedEventHandler",
+    "WithHandlerSuffix": "GuildMemberUpdatedHandler"
+  },
+  {
+    "EventName": "GuildMembersChunked",
+    "ArgumentType": "GuildMembersChunkEventArgs",
+    "MethodName": "OnGuildMembersChunked",
+    "InterfaceName": "IGuildMembersChunkedEventHandler",
+    "WithHandlerSuffix": "GuildMembersChunkedHandler"
+  },
+  {
+    "EventName": "GuildRoleCreated",
+    "ArgumentType": "GuildRoleCreateEventArgs",
+    "MethodName": "OnGuildRoleCreated",
+    "InterfaceName": "IGuildRoleCreatedEventHandler",
+    "WithHandlerSuffix": "GuildRoleCreatedHandler"
+  },
+  {
+    "EventName": "GuildRoleUpdated",
+    "ArgumentType": "GuildRoleUpdateEventArgs",
+    "MethodName": "OnGuildRoleUpdated",
+    "InterfaceName": "IGuildRoleUpdatedEventHandler",
+    "WithHandlerSuffix": "GuildRoleUpdatedHandler"
+  },
+  {
+    "EventName": "GuildRoleDeleted",
+    "ArgumentType": "GuildRoleDeleteEventArgs",
+    "MethodName": "OnGuildRoleDeleted",
+    "InterfaceName": "IGuildRoleDeletedEventHandler",
+    "WithHandlerSuffix": "GuildRoleDeletedHandler"
+  },
+  {
+    "EventName": "InviteCreated",
+    "ArgumentType": "InviteCreateEventArgs",
+    "MethodName": "OnInviteCreated",
+    "InterfaceName": "IInviteCreatedEventHandler",
+    "WithHandlerSuffix": "InviteCreatedHandler"
+  },
+  {
+    "EventName": "InviteDeleted",
+    "ArgumentType": "InviteDeleteEventArgs",
+    "MethodName": "OnInviteDeleted",
+    "InterfaceName": "IInviteDeletedEventHandler",
+    "WithHandlerSuffix": "InviteDeletedHandler"
+  },
+  {
+    "EventName": "MessageCreated",
+    "ArgumentType": "MessageCreateEventArgs",
+    "MethodName": "OnMessageCreated",
+    "InterfaceName": "IMessageCreatedEventHandler",
+    "WithHandlerSuffix": "MessageCreatedHandler"
+  },
+  {
+    "EventName": "MessageAcknowledged",
+    "ArgumentType": "MessageAcknowledgeEventArgs",
+    "MethodName": "OnMessageAcknowledged",
+    "InterfaceName": "IMessageAcknowledgedEventHandler",
+    "WithHandlerSuffix": "MessageAcknowledgedHandler"
+  },
+  {
+    "EventName": "MessageUpdated",
+    "ArgumentType": "MessageUpdateEventArgs",
+    "MethodName": "OnMessageUpdated",
+    "InterfaceName": "IMessageUpdatedEventHandler",
+    "WithHandlerSuffix": "MessageUpdatedHandler"
+  },
+  {
+    "EventName": "MessageDeleted",
+    "ArgumentType": "MessageDeleteEventArgs",
+    "MethodName": "OnMessageDeleted",
+    "InterfaceName": "IMessageDeletedEventHandler",
+    "WithHandlerSuffix": "MessageDeletedHandler"
+  },
+  {
+    "EventName": "MessagesBulkDeleted",
+    "ArgumentType": "MessageBulkDeleteEventArgs",
+    "MethodName": "OnMessagesBulkDeleted",
+    "InterfaceName": "IMessagesBulkDeletedEventHandler",
+    "WithHandlerSuffix": "MessagesBulkDeletedHandler"
+  },
+  {
+    "EventName": "MessageReactionAdded",
+    "ArgumentType": "MessageReactionAddEventArgs",
+    "MethodName": "OnMessageReactionAdded",
+    "InterfaceName": "IMessageReactionAddedEventHandler",
+    "WithHandlerSuffix": "MessageReactionAddedHandler"
+  },
+  {
+    "EventName": "MessageReactionRemoved",
+    "ArgumentType": "MessageReactionRemoveEventArgs",
+    "MethodName": "OnMessageReactionRemoved",
+    "InterfaceName": "IMessageReactionRemovedEventHandler",
+    "WithHandlerSuffix": "MessageReactionRemovedHandler"
+  },
+  {
+    "EventName": "MessageReactionsCleared",
+    "ArgumentType": "MessageReactionsClearEventArgs",
+    "MethodName": "OnMessageReactionsCleared",
+    "InterfaceName": "IMessageReactionsClearedEventHandler",
+    "WithHandlerSuffix": "MessageReactionsClearedHandler"
+  },
+  {
+    "EventName": "MessageReactionRemovedEmoji",
+    "ArgumentType": "MessageReactionRemoveEmojiEventArgs",
+    "MethodName": "OnMessageReactionRemovedEmoji",
+    "InterfaceName": "IMessageReactionRemovedEmojiEventHandler",
+    "WithHandlerSuffix": "MessageReactionRemovedEmojiHandler"
+  },
+  {
+    "EventName": "PresenceUpdated",
+    "ArgumentType": "PresenceUpdateEventArgs",
+    "MethodName": "OnPresenceUpdated",
+    "InterfaceName": "IPresenceUpdatedEventHandler",
+    "WithHandlerSuffix": "PresenceUpdatedHandler"
+  },
+  {
+    "EventName": "UserSettingsUpdated",
+    "ArgumentType": "UserSettingsUpdateEventArgs",
+    "MethodName": "OnUserSettingsUpdated",
+    "InterfaceName": "IUserSettingsUpdatedEventHandler",
+    "WithHandlerSuffix": "UserSettingsUpdatedHandler"
+  },
+  {
+    "EventName": "UserUpdated",
+    "ArgumentType": "UserUpdateEventArgs",
+    "MethodName": "OnUserUpdated",
+    "InterfaceName": "IUserUpdatedEventHandler",
+    "WithHandlerSuffix": "UserUpdatedHandler"
+  },
+  {
+    "EventName": "VoiceStateUpdated",
+    "ArgumentType": "VoiceStateUpdateEventArgs",
+    "MethodName": "OnVoiceStateUpdated",
+    "InterfaceName": "IVoiceStateUpdatedEventHandler",
+    "WithHandlerSuffix": "VoiceStateUpdatedHandler"
+  },
+  {
+    "EventName": "VoiceServerUpdated",
+    "ArgumentType": "VoiceServerUpdateEventArgs",
+    "MethodName": "OnVoiceServerUpdated",
+    "InterfaceName": "IVoiceServerUpdatedEventHandler",
+    "WithHandlerSuffix": "VoiceServerUpdatedHandler"
+  },
+  {
+    "EventName": "ThreadCreated",
+    "ArgumentType": "ThreadCreateEventArgs",
+    "MethodName": "OnThreadCreated",
+    "InterfaceName": "IThreadCreatedEventHandler",
+    "WithHandlerSuffix": "ThreadCreatedHandler"
+  },
+  {
+    "EventName": "ThreadUpdated",
+    "ArgumentType": "ThreadUpdateEventArgs",
+    "MethodName": "OnThreadUpdated",
+    "InterfaceName": "IThreadUpdatedEventHandler",
+    "WithHandlerSuffix": "ThreadUpdatedHandler"
+  },
+  {
+    "EventName": "ThreadDeleted",
+    "ArgumentType": "ThreadDeleteEventArgs",
+    "MethodName": "OnThreadDeleted",
+    "InterfaceName": "IThreadDeletedEventHandler",
+    "WithHandlerSuffix": "ThreadDeletedHandler"
+  },
+  {
+    "EventName": "ThreadListSynced",
+    "ArgumentType": "ThreadListSyncEventArgs",
+    "MethodName": "OnThreadListSynced",
+    "InterfaceName": "IThreadListSyncedEventHandler",
+    "WithHandlerSuffix": "ThreadListSyncedHandler"
+  },
+  {
+    "EventName": "ThreadMemberUpdated",
+    "ArgumentType": "ThreadMemberUpdateEventArgs",
+    "MethodName": "OnThreadMemberUpdated",
+    "InterfaceName": "IThreadMemberUpdatedEventHandler",
+    "WithHandlerSuffix": "ThreadMemberUpdatedHandler"
+  },
+  {
+    "EventName": "ThreadMembersUpdated",
+    "ArgumentType": "ThreadMembersUpdateEventArgs",
+    "MethodName": "OnThreadMembersUpdated",
+    "InterfaceName": "IThreadMembersUpdatedEventHandler",
+    "WithHandlerSuffix": "ThreadMembersUpdatedHandler"
+  },
+  {
+    "EventName": "IntegrationCreated",
+    "ArgumentType": "IntegrationCreateEventArgs",
+    "MethodName": "OnIntegrationCreated",
+    "InterfaceName": "IIntegrationCreatedEventHandler",
+    "WithHandlerSuffix": "IntegrationCreatedHandler"
+  },
+  {
+    "EventName": "IntegrationUpdated",
+    "ArgumentType": "IntegrationUpdateEventArgs",
+    "MethodName": "OnIntegrationUpdated",
+    "InterfaceName": "IIntegrationUpdatedEventHandler",
+    "WithHandlerSuffix": "IntegrationUpdatedHandler"
+  },
+  {
+    "EventName": "IntegrationDeleted",
+    "ArgumentType": "IntegrationDeleteEventArgs",
+    "MethodName": "OnIntegrationDeleted",
+    "InterfaceName": "IIntegrationDeletedEventHandler",
+    "WithHandlerSuffix": "IntegrationDeletedHandler"
+  },
+  {
+    "EventName": "StageInstanceCreated",
+    "ArgumentType": "StageInstanceCreateEventArgs",
+    "MethodName": "OnStageInstanceCreated",
+    "InterfaceName": "IStageInstanceCreatedEventHandler",
+    "WithHandlerSuffix": "StageInstanceCreatedHandler"
+  },
+  {
+    "EventName": "StageInstanceUpdated",
+    "ArgumentType": "StageInstanceUpdateEventArgs",
+    "MethodName": "OnStageInstanceUpdated",
+    "InterfaceName": "IStageInstanceUpdatedEventHandler",
+    "WithHandlerSuffix": "StageInstanceUpdatedHandler"
+  },
+  {
+    "EventName": "StageInstanceDeleted",
+    "ArgumentType": "StageInstanceDeleteEventArgs",
+    "MethodName": "OnStageInstanceDeleted",
+    "InterfaceName": "IStageInstanceDeletedEventHandler",
+    "WithHandlerSuffix": "StageInstanceDeletedHandler"
+  },
+  {
+    "EventName": "InteractionCreated",
+    "ArgumentType": "InteractionCreateEventArgs",
+    "MethodName": "OnInteractionCreated",
+    "InterfaceName": "IInteractionCreatedEventHandler",
+    "WithHandlerSuffix": "InteractionCreatedHandler"
+  },
+  {
+    "EventName": "ComponentInteractionCreated",
+    "ArgumentType": "ComponentInteractionCreateEventArgs",
+    "MethodName": "OnComponentInteractionCreated",
+    "InterfaceName": "IComponentInteractionCreatedEventHandler",
+    "WithHandlerSuffix": "ComponentInteractionCreatedHandler"
+  },
+  {
+    "EventName": "ModalSubmitted",
+    "ArgumentType": "ModalSubmitEventArgs",
+    "MethodName": "OnModalSubmitted",
+    "InterfaceName": "IModalSubmittedEventHandler",
+    "WithHandlerSuffix": "ModalSubmittedHandler"
+  },
+  {
+    "EventName": "ContextMenuInteractionCreated",
+    "ArgumentType": "ContextMenuInteractionCreateEventArgs",
+    "MethodName": "OnContextMenuInteractionCreated",
+    "InterfaceName": "IContextMenuInteractionCreatedEventHandler",
+    "WithHandlerSuffix": "ContextMenuInteractionCreatedHandler"
+  },
+  {
+    "EventName": "TypingStarted",
+    "ArgumentType": "TypingStartEventArgs",
+    "MethodName": "OnTypingStarted",
+    "InterfaceName": "ITypingStartedEventHandler",
+    "WithHandlerSuffix": "TypingStartedHandler"
+  },
+  {
+    "EventName": "UnknownEvent",
+    "ArgumentType": "UnknownEventArgs",
+    "MethodName": "OnUnknownEvent",
+    "InterfaceName": "IUnknownEventEventHandler",
+    "WithHandlerSuffix": "UnknownEventHandler"
+  },
+  {
+    "EventName": "WebhooksUpdated",
+    "ArgumentType": "WebhooksUpdateEventArgs",
+    "MethodName": "OnWebhooksUpdated",
+    "InterfaceName": "IWebhooksUpdatedEventHandler",
+    "WithHandlerSuffix": "WebhooksUpdatedHandler"
+  },
+  {
+    "EventName": "ClientErrored",
+    "ArgumentType": "ClientErrorEventArgs",
+    "MethodName": "OnClientErrored",
+    "InterfaceName": "IClientErroredEventHandler",
+    "WithHandlerSuffix": "ClientErroredHandler"
+  },
+  {
+    "EventName": "AutoModerationRuleCreated",
+    "ArgumentType": "AutoModerationRuleCreateEventArgs",
+    "MethodName": "OnAutoModerationRuleCreated",
+    "InterfaceName": "IAutoModerationRuleCreatedEventHandler",
+    "WithHandlerSuffix": "AutoModerationRuleCreatedHandler"
+  },
+  {
+    "EventName": "AutoModerationRuleUpdated",
+    "ArgumentType": "AutoModerationRuleUpdateEventArgs",
+    "MethodName": "OnAutoModerationRuleUpdated",
+    "InterfaceName": "IAutoModerationRuleUpdatedEventHandler",
+    "WithHandlerSuffix": "AutoModerationRuleUpdatedHandler"
+  },
+  {
+    "EventName": "AutoModerationRuleDeleted",
+    "ArgumentType": "AutoModerationRuleDeleteEventArgs",
+    "MethodName": "OnAutoModerationRuleDeleted",
+    "InterfaceName": "IAutoModerationRuleDeletedEventHandler",
+    "WithHandlerSuffix": "AutoModerationRuleDeletedHandler"
+  },
+  {
+    "EventName": "AutoModerationRuleExecuted",
+    "ArgumentType": "AutoModerationRuleExecuteEventArgs",
+    "MethodName": "OnAutoModerationRuleExecuted",
+    "InterfaceName": "IAutoModerationRuleExecutedEventHandler",
+    "WithHandlerSuffix": "AutoModerationRuleExecutedHandler"
+  }
+]

@@ -1,0 +1,46 @@
+﻿<#@ template debug="true" hostspecific="true" language="C#" #>
+<#@ output extension=".cs" #>
+<#@ include file="../../../DiscordEventsTemplateBase.tt" #>
+<#@ assembly name="System.Core" #>
+using System;
+using DSharpPlus.AsyncEvents;
+using DSharpPlus.EventArgs;
+using DSharpPlus.EventsNext.Entities;
+using Microsoft.Extensions.DependencyInjection;
+
+namespace <#=AutomaticNamespace#>;
+
+internal static partial class EventBinderWrappers
+{
+<#
+foreach(EventNaming naming in EventsList)
+{
+    string WrapName = "Wrap" + naming.EventName;
+#>
+    public static AsyncEventHandler<DiscordClient, <#=naming.ArgumentType#>> <#=WrapName#><THandler>() where THandler : class, <#=naming.InterfaceName#> => <#MakeGenericWrapper(naming);#>;
+
+    public static AsyncEventHandler<DiscordClient, <#=naming.ArgumentType#>> <#=WrapName#>(Type handler)
+    {
+        ArgumentNullException.ThrowIfNull(handler);
+        if(!handler.IsAssignableTo(typeof(<#=naming.InterfaceName#>)))
+            throw new ArgumentException($"{handler.Name} does not implement the required interface <#=naming.InterfaceName#>");
+
+        return <#MakeWrapperByType(naming, "handler");#>;
+    }
+
+<#}#>
+}
+<#+
+    void MakeWrapperByType(EventNaming naming, string typeVariableName) => MakeWrapper(naming, $"({naming.InterfaceName})scope.ServiceProvider.GetRequiredService({typeVariableName})");
+    void MakeGenericWrapper(EventNaming naming) => MakeWrapper(naming, $"scope.ServiceProvider.GetRequiredService<{naming.InterfaceName}>()");
+    void MakeWrapper(EventNaming naming, string getServiceMethod)
+    {
+    #>async (client, args) =>
+        {
+            EventsNextExtension ctx = client.GetEventsNext();
+            await using AsyncServiceScope scope = ctx.Provider.CreateAsyncScope();
+            <#=naming.InterfaceName#> instance = <#=getServiceMethod#>;
+            await instance.<#=naming.MethodName#>(client, args);
+        }<#+
+    }
+#>

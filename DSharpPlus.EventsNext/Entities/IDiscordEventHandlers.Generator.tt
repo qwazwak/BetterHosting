@@ -1,0 +1,19 @@
+﻿<#@ template debug="true" hostspecific="true" language="C#" #>
+<#@ output extension=".cs" #>
+<#@ assembly name="System.Core" #>
+<#@ include file="../../DiscordEventsTemplateBase.tt" #>
+using System.Threading.Tasks;
+using DSharpPlus.EventArgs;
+
+namespace <#=AutomaticNamespace#>;
+<# foreach(EventNaming naming in EventsList) { #>
+
+/// <summary>
+/// Event handler for the discord event <see cref="DiscordShardedClient.<#=naming.EventName#>"/>
+/// </summary>
+public interface <#=naming.InterfaceName#> : IDiscordEventHandler<<#=naming.ArgumentType#>>
+{
+    /// <inheritdoc cref="DiscordShardedClient.<#=naming.EventName#>"/>
+    public ValueTask <#=naming.MethodName#>(DiscordClient client, <#=naming.ArgumentType#> args);
+}
+<# } #>

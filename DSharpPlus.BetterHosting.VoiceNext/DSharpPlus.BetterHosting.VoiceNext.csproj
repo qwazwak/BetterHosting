@@ -1,0 +1,7 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(ProjectDir)..\LibraryChild.Build.props" />
+
+  <ItemGroup>
+    <PackageReference Include="DSharpPlus.VoiceNext" />
+  </ItemGroup>
+</Project>

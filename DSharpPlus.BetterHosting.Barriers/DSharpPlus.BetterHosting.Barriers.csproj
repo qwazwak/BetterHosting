@@ -1,0 +1,8 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(ProjectDir)..\LibraryChild.Build.props"/>
+
+  <PropertyGroup>
+    <AssemblyName>DSharpPlus.BetterHosting.Barriers</AssemblyName>
+    <RootNamespace>DSharpPlus.BetterHosting.Barriers</RootNamespace>
+  </PropertyGroup>
+</Project>

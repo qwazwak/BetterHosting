@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(ProjectDir)..\LibraryChild.Build.props" />
+  
+  <ItemGroup>
+    <PackageReference Include="DSharpPlus.SlashCommands" />
+  </ItemGroup>
+  
+  <PropertyGroup>
+    <AssemblyName>DSharpPlus.BetterHosting.SlashCommands</AssemblyName>
+    <RootNamespace>DSharpPlus.BetterHosting.SlashCommands</RootNamespace>
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,20 @@
+﻿<#@ template debug="true" hostspecific="true" language="C#" #>
+<#@ output extension=".cs" #>
+<#@ assembly name="System.Core" #>
+<#@ include file="../../DiscordEventsTemplateBase.tt" #>
+using System;
+using System.Collections.Generic;
+using DSharpPlus.EventsNext.Entities;
+
+namespace <#=AutomaticNamespace#>;
+
+public static partial class HandlerValidation
+{
+    private static partial HashSet<Type> InitHandlerInterfaces() => new()
+    {
+<# foreach(EventNaming naming in EventsList) { #>
+        typeof(<#=naming.InterfaceName#>),
+
+<# } #>
+    };
+}
