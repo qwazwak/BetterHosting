@@ -1,14 +1,22 @@
 ﻿<#@ template debug="true" hostspecific="true" language="C#" #>
 <#@ output extension=".cs" #>
-<#@ include file="../DiscordEventsTemplateBase.tt" #>
+<#@ include file="..\DiscordEventsTemplateBase.tt" #>
 <#@ assembly name="System.Core" #>
 using DSharpPlus.EventsNext.Entities;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace <#=AutomaticNamespace#>;
+<#=AutomaticNamespaceLine#>
 
 public static partial class RegistrationExtensions
 {
+    public static partial IServiceCollection AutoRegisterHandler<TImplementation>(this IServiceCollection services) where TImplementation : class, IDiscordEventHandler
+    {
+<# foreach(EventNaming naming in EventsList) { #>
+        if (typeof(TImplementation).IsAssignableTo(typeof(<#=naming.InterfaceName#>)))
+            services.AddEventHandlers<<#=naming.InterfaceName#>>().RegisterHandler(typeof(TImplementation));
+<#} #>
+        return services;
+    }
 <# foreach(EventNaming naming in EventsList) { #>
     /// <summary>
     /// Gets a builder that forwards handler addition calls for the <see cref="DiscordShardedClient.<#=naming.EventName#>"/> to the underlying service collection

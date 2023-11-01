@@ -2,8 +2,7 @@
   <Import Project="$(ProjectDir)..\LibraryChild.Build.props" />
 
   <PropertyGroup>
-    <AssemblyName>DSharpPlus.EventsNext.BetterHosting</AssemblyName>
-    <RootNamespace>DSharpPlus.EventsNext.BetterHosting</RootNamespace>
+    <LibraryCoreName>DSharpPlus.EventsNext.BetterHosting</LibraryCoreName>
   </PropertyGroup>
 
   <ItemGroup>

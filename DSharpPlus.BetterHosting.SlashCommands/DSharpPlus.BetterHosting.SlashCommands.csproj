@@ -4,9 +4,8 @@
   <ItemGroup>
     <PackageReference Include="DSharpPlus.SlashCommands" />
   </ItemGroup>
-  
+
   <PropertyGroup>
-    <AssemblyName>DSharpPlus.BetterHosting.SlashCommands</AssemblyName>
-    <RootNamespace>DSharpPlus.BetterHosting.SlashCommands</RootNamespace>
+    <LibraryCoreName>DSharpPlus.BetterHosting.SlashCommands</LibraryCoreName>
   </PropertyGroup>
 </Project>

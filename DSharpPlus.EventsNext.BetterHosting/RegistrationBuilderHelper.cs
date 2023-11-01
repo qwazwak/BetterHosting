@@ -2,11 +2,11 @@
 using DSharpPlus.EventsNext.BetterHosting.Options.Internal;
 using System;
 using Microsoft.Extensions.DependencyInjection;
-using DSharpPlus.BetterHosting.ServiceConstruction;
+using DSharpPlus.BetterHosting.Tools.Extensions.Internal;
 
 namespace DSharpPlus.EventsNext.BetterHosting;
-#if false
-internal sealed class RegistrationBuilderHelper
+
+internal static class RegistrationBuilderHelper
 {
 #if false
     public static HandlerRegistryOptions GetHandlerRegistration(IHostBuilder context, Type interfaceType)
@@ -23,7 +23,6 @@ internal sealed class RegistrationBuilderHelper
             throw new InvalidOperationException("HandlerRegistryOptions<TInterface> was replaced with an invalid object!");
         return cast;
     }
-#endif
     public static HandlerRegistryOptions<TInterface> GetHandlerRegistration<TInterface>(IDictionary<object, object> properties) where TInterface : IDiscordEventHandler
     {
         Dictionary<Type, object> registrationDict = GetHandlerRegistrationDict(properties);
@@ -65,8 +64,19 @@ internal sealed class RegistrationBuilderHelper
             throw new InvalidOperationException("HandlerRegistrationDict was replaced with an invalid object!");
         return cast;
     }
-}
 #endif
+    public static HandlerRegistryOptions<TInterface> GetHandlerRegistration<TInterface>(IServiceCollection serviceDescriptors) where TInterface : IDiscordEventHandler
+    {
+        ArgumentNullException.ThrowIfNull(serviceDescriptors);
+        return serviceDescriptors.GetOrAddSingleton<HandlerRegistryOptions<TInterface>>();
+    }
+    public static HandlerRegistryOptions GetHandlerRegistration(IServiceCollection serviceDescriptors, Type interfaceType)
+    {
+        ArgumentNullException.ThrowIfNull(serviceDescriptors);
+        Type registryType = typeof(HandlerRegistryOptions<>).MakeGenericType(interfaceType);
+        return (HandlerRegistryOptions)serviceDescriptors.GetOrAddSingleton(registryType, () => Activator.CreateInstance(registryType)!);
+    }
+}
 
 #if false
 
@@ -94,12 +104,3 @@ internal sealed class HandlerRegistryContainer
 }
 
 #endif
-
-internal static class RegistrationBuilderHelper
-{
-    public static HandlerRegistryOptions<TInterface> GetHandlerRegistration<TInterface>(IServiceCollection serviceDescriptors) where TInterface : IDiscordEventHandler
-    {
-        ArgumentNullException.ThrowIfNull(serviceDescriptors);
-        return serviceDescriptors.GetOrAddSingleton<HandlerRegistryOptions<TInterface>>();
-    }
-}

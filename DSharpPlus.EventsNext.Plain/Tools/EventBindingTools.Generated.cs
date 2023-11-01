@@ -2,7 +2,6 @@
 using System;
 using DSharpPlus.EventsNext.Entities;
 using DSharpPlus.EventsNext.Plain.Tools.Internal;
-using QLib.Extensions.Reflection;
 
 namespace DSharpPlus.EventsNext.Plain.Tools;
 

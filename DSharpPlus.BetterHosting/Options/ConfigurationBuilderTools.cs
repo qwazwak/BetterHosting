@@ -10,15 +10,18 @@ namespace DSharpPlus.BetterHosting.CommandsNext.Options;
 
 internal static class ConfigurationBuilderExtensions
 {
-    public static OptionsBuilder<TOption> BindWorkaround<TOption>(this OptionsBuilder<TOption> builder, string? sectionPathName, Action<OptionsBuilderToolOptions<TOption>>? toolOptions = null) where TOption : class
+    public static OptionsBuilder<TOption> BindWorkaround<TOption>(this OptionsBuilder<TOption> builder, string sectionPathName, Action<OptionsBuilderToolOptions<TOption>>? toolOptions = null, Action<TOption, IConfiguration>? manualBinding = null) where TOption : class
     {
+        ArgumentNullException.ThrowIfNull(builder);
+        ArgumentNullException.ThrowIfNull(sectionPathName);
         return builder.Configure<ConfigurationBuilderTools<TOption>, IConfiguration>((o, builder, configuration) =>
         {
             OptionsBuilderToolOptions<TOption> options = new();
             toolOptions?.Invoke(options);
 
-            IConfiguration section = sectionPathName == null ? configuration : configuration.GetSection(sectionPathName);
+            IConfiguration section = configuration.GetSection(sectionPathName);
             builder.AutoBind(o, section, options);
+            manualBinding?.Invoke(o, configuration);
         });
     }
 

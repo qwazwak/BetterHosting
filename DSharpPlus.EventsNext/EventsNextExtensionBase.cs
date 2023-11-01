@@ -11,7 +11,7 @@ public abstract class EventsNextExtensionBase : BaseExtension
     private readonly EventsNextConfigurationBase config;
     private bool IsDisposed;
 
-    protected EventsNextExtensionBase(EventsNextConfigurationBase config) => this.config = config;
+    private protected EventsNextExtensionBase(EventsNextConfigurationBase config) => this.config = config;
 
     #region DiscordClient Registration
     /// <summary>

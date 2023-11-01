@@ -4,4 +4,8 @@
   <ItemGroup>
     <PackageReference Include="DSharpPlus.VoiceNext" />
   </ItemGroup>
+  
+  <PropertyGroup>
+    <LibraryCoreName>DSharpPlus.BetterHosting.VoiceNext</LibraryCoreName>
+  </PropertyGroup>
 </Project>

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using DSharpPlus.BetterHosting.CommandsNext.Options;
+using Microsoft.Extensions.Logging;
 
 namespace DSharpPlus.BetterHosting;
 
@@ -8,10 +9,11 @@ public static partial class BetterHostExtensions
     private static void AddDiscordConfigurationOption(this IServiceCollection services)
     {
         Microsoft.Extensions.Options.OptionsBuilder<DiscordConfiguration> builder = services.AddOptions<DiscordConfiguration>();
+        builder
 #if true
-        builder.BindWorkaround(nameof(DiscordConfiguration));
+        .BindWorkaround(nameof(DiscordConfiguration))
 #else
-        builder.Configure<IConfiguration>((config, c) =>
+        .Configure<IConfiguration>((config, c) =>
         {
             IConfigurationSection section = c.GetRequiredSection(nameof(DiscordConfiguration));
 
@@ -64,7 +66,8 @@ public static partial class BetterHostExtensions
                 config.LogUnknownEvents = LogUnknownEvents;
             if (TryGetValue(nameof(DiscordConfiguration.LogUnknownAuditlogs), out bool LogUnknownAuditlogs))
                 config.LogUnknownAuditlogs = LogUnknownAuditlogs;
-        });
+        })
 #endif
+        .Configure<ILoggerFactory>((o, f) => o.LoggerFactory = f);
     }
 }

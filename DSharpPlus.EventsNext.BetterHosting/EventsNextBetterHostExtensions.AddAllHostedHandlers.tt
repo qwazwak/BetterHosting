@@ -7,7 +7,7 @@ using DSharpPlus.EventsNext.BetterHosting.Services.Hosted;
 using DSharpPlus.EventsNext.Entities;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace <#=AutomaticNamespace#>;
+<#=AutomaticNamespaceLine#>
 
 public static partial class EventsNextBetterHostExtensions
 {

@@ -4,8 +4,8 @@
   <ItemGroup>
     <PackageReference Include="DSharpPlus.Lavalink"/>
   </ItemGroup>
+  
   <PropertyGroup>
-    <AssemblyName>DSharpPlus.BetterHosting.Lavalink</AssemblyName>
-    <RootNamespace>DSharpPlus.BetterHosting.Lavalink</RootNamespace>
+    <LibraryCoreName>DSharpPlus.BetterHosting.Lavalink</LibraryCoreName>
   </PropertyGroup>
 </Project>

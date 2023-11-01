@@ -1,0 +1,7 @@
+<Project>
+  <Import Project="$(MSBuildThisFileDirectory)EventsNextTemplating/EventsNextTemplating.Build.props" Condition="'$(UseEventsNextTemplating)' != ''" />
+
+  <PropertyGroup>
+    <ProduceReferenceAssembly Condition="'$(ProduceReferenceAssembly)' == ''">False</ProduceReferenceAssembly>
+  </PropertyGroup>
+</Project>

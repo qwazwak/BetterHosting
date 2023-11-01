@@ -19,7 +19,7 @@ public static class BetterLavalinkHostExtensions
     private static IServiceCollection AddLavalink(this IServiceCollection services)
     {
         return services
-            .AddHostedDiscordService<LavalinkBackgroundService>()
+            .AddSimpleHostedDiscordService<LavalinkBackgroundService>()
             .AddTransient<IDiscordClientConfigurator, LavalinkSetup>();
     }
 

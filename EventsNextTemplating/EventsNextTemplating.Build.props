@@ -1,0 +1,30 @@
+<Project InitialTargets="RemoveOld;BuildEventsBase" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <EventsNextTemplatingDir>$(MSBuildThisFileDirectory)</EventsNextTemplatingDir>
+  </PropertyGroup>
+
+  <Target Name="RemoveOld" BeforeTargets="BuildEventsBase;Clean">
+    <ItemGroup>
+      <FilesToRemove Include="$(MSBuildThisFileDirectory)DiscordEventsTemplateBase.tt" />
+    </ItemGroup>
+
+    <Delete Files="@(FilesToRemove)"/>
+  </Target>
+
+  <Target Name="BuildEventsBase" BeforeTargets="Build;Clean">
+    <PropertyGroup>
+      <InputFile>$(MSBuildThisFileDirectory)DiscordEventsTemplateBase_template.tt</InputFile>
+      <CacheDirReplacement>$(SolutionDir)</CacheDirReplacement>
+      <InjectedStructFileName>$(MSBuildThisFileDirectory)EventNaming.cs</InjectedStructFileName>
+      <InjectedStructSource>$([System.IO.File]::ReadAllText($(InjectedStructFileName)).Replace('internal ','public '))</InjectedStructSource>
+      <OutputFile>..\DiscordEventsTemplateBase.tt</OutputFile>
+    </PropertyGroup>
+    <WriteLinesToFile File="$(OutputFile)" Lines="$(
+                      [System.IO.File]::ReadAllText($(InputFile))
+                      .Replace('@@@CACHE_DIR@@@','$(CacheDirReplacement)')
+                      .Replace('@@@INJECTED_STRUCT@@@', $(InjectedStructSource))
+                      )" Overwrite="true" Encoding="Unicode" />
+  </Target>
+<!--.Replace('@@@SOLUTION_DIR@@@','$([System.IO.File]::ReadAllText()'))-->
+
+</Project>

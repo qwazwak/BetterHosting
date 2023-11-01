@@ -7,7 +7,7 @@ using Microsoft.Extensions.Options;
 
 namespace DSharpPlus.BetterHosting.SlashCommands.Services.Configuration;
 
-public sealed class SlashCommandsSetup : ExtensionAdditionTemplate<SlashCommandsExtension>
+internal sealed class SlashCommandsSetup : ExtensionAdditionTemplate<SlashCommandsExtension>
 {
     private readonly SlashCommandsConfiguration configuration;
 

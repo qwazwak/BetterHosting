@@ -1,7 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
-using DSharpPlus;
 
-namespace DiscordExtensions;
+namespace DSharpPlus.BetterHosting.Tools.Extensions.Internal;
 
 internal static class DiscordConfigurationReaderExtensions
 {

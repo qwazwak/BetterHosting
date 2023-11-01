@@ -6,16 +6,14 @@
     <MSExtensionsVersion>8.0.0-rc.2.23479.6</MSExtensionsVersion>
   </PropertyGroup>
   <ItemGroup>
-    <!--DSharp packages-->
     <PackageVersion Include="DSharpPlus" Version="$(DSharpVersion)" />
     <PackageVersion Include="DSharpPlus.CommandsNext" Version="$(DSharpVersion)" />
     <PackageVersion Include="DSharpPlus.SlashCommands" Version="$(DSharpVersion)" />
     <PackageVersion Include="DSharpPlus.Lavalink" Version="$(DSharpVersion)" />
+    <PackageVersion Include="DSharpPlus.Interactivity" Version="$(DSharpVersion)" />
     <PackageVersion Include="DSharpPlus.VoiceNext" Version="$(DSharpVersion)" />
     <PackageVersion Include="DSharpPlus.VoiceNext.Natives" Version="1.0.0" />
-    <!--
-    <PackageVersion Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="4.6.0-1.final" />
-    -->
+
     <PackageVersion Include="Microsoft.Extensions.Options" Version="$(MSExtensionsVersion)" />
     <PackageVersion Include="Microsoft.Extensions.Caching.Memory" Version="$(MSExtensionsVersion)" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="$(MSExtensionsVersion)" />
@@ -24,9 +22,5 @@
     
     <PackageVersion Include="Microsoft.Extensions.Hosting" Version="$(MSExtensionsVersion)" />
     <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="$(MSExtensionsVersion)" />
-    <!--    <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="all"/>-->
-    <!--
-    <PackageVersion Include="System.Text.Json" Version="8.0.0-preview.2.23128.3" />
-    <PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.2" />-->
   </ItemGroup>
 </Project>

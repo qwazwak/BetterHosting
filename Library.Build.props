@@ -7,6 +7,7 @@
     <LangVersion>Latest</LangVersion>
     <OutputType>Library</OutputType>
     <IsPackable>true</IsPackable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     
     <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
     <Authors>Qwazwak</Authors>
@@ -18,6 +19,7 @@
     <PackageIcon>logo.png</PackageIcon>
     <PackageIconUrl>https://raw.githubusercontent.com/qwazwak/DSharpPlus.BetterHosting/master/DSharpPlus.BetterHosting/logo.png</PackageIconUrl>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <PublishDocumentationFile>True</PublishDocumentationFile>
     <!--<NoWarn>CS1591</NoWarn>-->
     <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
     <ManagePackageVersionsCentrally>True</ManagePackageVersionsCentrally>
@@ -27,8 +29,8 @@
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    
-    <Version>0.0.1</Version>
+
+    <Version>0.0.0-alpha</Version>
     <Version Condition="'$(Nightly)' != ''">$(Version)-nightly-$(Nightly)</Version>
   </PropertyGroup>
 
@@ -37,14 +39,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="../logo/logo.png" Pack="true" PackagePath="/"/>
+    <None Include="$(ProjectDir)../logo/logo.png" Pack="true" PackagePath="/"/>
   </ItemGroup>
 
   <ItemGroup>
     <!-- We want to remove JSImportGenerator by default, becuase it takes a good deal of compilation time -->
     <RemoveAnalyzer Include="Microsoft.Interop.JavaScript.JSImportGenerator" />
   </ItemGroup>
-
+<!--
   <PropertyGroup>
     <CoreCompileDependsOn>$(CoreCompileDependsOn);_DisableAnalyzers</CoreCompileDependsOn>
   </PropertyGroup>
@@ -57,5 +59,5 @@
       <Analyzer Remove="$(_RemoveAnalyzer)"/>
       <Analyzer Remove="@(Analyzer)" Condition="'%(Analyzer.Filename)' == '$(_RemoveAnalyzer)'"/>
     </ItemGroup>
-  </Target>
+  </Target>-->
 </Project>

@@ -5,7 +5,7 @@
 using System.Threading.Tasks;
 using DSharpPlus.EventArgs;
 
-namespace <#=AutomaticNamespace#>;
+<#=AutomaticNamespaceLine#>
 <# foreach(EventNaming naming in EventsList) { #>
 
 /// <summary>

@@ -1,31 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(ProjectDir)..\LibraryChild.Build.props" />
+  <!--<Import Project="$(ProjectDir)..\EventsNextSourceGeneration.Build.props" />-->
 
-  <Target Name="RemoveOld" BeforeTargets="BuildEventsBase;Clean">
-    <Delete Files="..\DiscordEventsTemplateBase.tt" />
-  </Target>
-  <Target Name="BuildEventsBase" BeforeTargets="Build;Clean">
-    <PropertyGroup>
-      <InputFile>..\DiscordEventsTemplateBase_template.tt</InputFile>
-      <OutputFile>..\DiscordEventsTemplateBase.tt</OutputFile>
-    </PropertyGroup>
-    <WriteLinesToFile File="$(OutputFile)" Lines="$([System.IO.File]::ReadAllText($(InputFile)).Replace('@@@SOLUTION_DIR@@@','$(SolutionDir)'))" Overwrite="true" Encoding="Unicode" />
-  </Target>
-  
   <PropertyGroup>
-    <AssemblyName>DSharpPlus.EventsNext</AssemblyName>
-    <RootNamespace>DSharpPlus.EventsNext</RootNamespace>
+    <UseEventsNextTemplating>true</UseEventsNextTemplating>
+    <LibraryCoreName>DSharpPlus.EventsNext</LibraryCoreName>
     <!--<DefineConstants>$(DefineConstants);GenericEventHandler</DefineConstants>-->
   </PropertyGroup>
-  
-  <ItemGroup>
-    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
-      <_Parameter1>DSharpPlus.EventsNext.BetterHosting</_Parameter1>
-    </AssemblyAttribute>
-    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
-      <_Parameter1>DSharpPlus.EventsNext.Plain</_Parameter1>
-    </AssemblyAttribute>
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="DSharpPlus" />
@@ -34,29 +15,28 @@
     <PackageReference Include="Microsoft.Extensions.Hosting" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
   </ItemGroup>
-  
+
   <ItemGroup>
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="Tools\Internal\EventHandlerReflector.AutoCaller.Generated.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>EventHandlerReflector.AutoCaller.Generated.tt</DependentUpon>
-    </None>
-    <None Include="Tools\Internal\EventHandlerReflector.EventInfo.Generated.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>EventHandlerReflector.EventInfo.Generated.tt</DependentUpon>
-    </None>
-  </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Entities\IDiscordEventHandlers.Generator.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>IDiscordEventHandlers.Generator.tt</DependentUpon>
-    </Compile>
+
+    <None Update="Tools\HandlerValidation.Generated.tt">
+      <LastGenOutput>HandlerValidation.Generated.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+
+    <None Update="Tools\Internal\EventHandlerReflector.Generated.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>EventHandlerReflector.Generated.cs</LastGenOutput>
+    </None>
+    <None Update="Entities\IDiscordEventHandlers.Generated.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>IDiscordEventHandlers.Generated.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Update="Tools\HandlerValidation.Generated.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -67,42 +47,25 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>AutoCaller.Generated.tt</DependentUpon>
     </Compile>
-    <Compile Update="Tools\Internal\EventHandlerReflector.AutoCaller.Generated.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>EventHandlerReflector.AutoCaller.Generated.tt</DependentUpon>
-    </Compile>
-    <Compile Update="Tools\Internal\EventHandlerReflector.EventInfo.Generated.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>EventHandlerReflector.EventInfo.Generated.tt</DependentUpon>
-    </Compile>
     <Compile Update="Tools\Internal\EventHandlerReflector.Generated.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>EventHandlerReflector.Generated.tt</DependentUpon>
     </Compile>
+    <Compile Update="Entities\IDiscordEventHandlers.Generated.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>IDiscordEventHandlers.Generated.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
+  
   <ItemGroup>
-
-    <None Update="Entities\IDiscordEventHandlers.Generator.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>IDiscordEventHandlers.Generator.cs</LastGenOutput>
-    </None>
-
-    <None Update="Tools\HandlerValidation.Generated.tt">
-      <LastGenOutput>HandlerValidation.Generated.cs</LastGenOutput>
-      <Generator>TextTemplatingFileGenerator</Generator>
-    </None>
-
-    <None Update="Tools\Internal\EventHandlerReflector.AutoCaller.Generated.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>EventHandlerReflector.AutoCaller.Generated.cs</LastGenOutput>
-    </None>
-
-    <None Update="Tools\Internal\EventHandlerReflector.EventInfo.Generated.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>EventHandlerReflector.EventInfo.Generated.cs</LastGenOutput>
-    </None>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>DSharpPlus.EventsNext.BetterHosting</_Parameter1>
+    </AssemblyAttribute>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>DSharpPlus.EventsNext.Plain</_Parameter1>
+    </AssemblyAttribute>
   </ItemGroup>
+
 </Project>

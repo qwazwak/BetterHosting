@@ -6,9 +6,9 @@ using System;
 using System.Collections.Generic;
 using DSharpPlus.EventsNext.Entities;
 
-namespace <#=AutomaticNamespace#>;
+<#=AutomaticNamespaceLine#>
 
-public static partial class HandlerValidation
+internal static partial class HandlerValidation
 {
     private static partial HashSet<Type> InitHandlerInterfaces() => new()
     {
@@ -17,4 +17,25 @@ public static partial class HandlerValidation
 
 <# } #>
     };
+
+    internal static partial bool IsExactInterface<TInterface>() where TInterface : IDiscordEventHandler
+    {
+<# foreach(EventNaming naming in EventsList) { #>
+        if(typeof(TInterface) == typeof(<#=naming.InterfaceName#>))
+            return true;
+<# } #>
+        else
+            return false;
+    }
+
+    internal static partial bool IsExactInterface(Type interfaceType)
+    {
+        ArgumentNullException.ThrowIfNull(interfaceType);
+<# foreach(EventNaming naming in EventsList) { #>
+        if(interfaceType == typeof(<#=naming.InterfaceName#>))
+            return true;
+<# } #>
+        else
+            return false;
+    }
 }

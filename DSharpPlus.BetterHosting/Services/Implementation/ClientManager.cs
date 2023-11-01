@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using DSharpPlus.BetterHosting.Services.Interfaces;
 using Microsoft.Extensions.Logging;
-using QLib.AsyncEventBlock;
+using DSharpPlus.BetterHosting.Tools.AsyncEventBlock;
 
 namespace DSharpPlus.BetterHosting.Services.Implementation;
 
@@ -12,10 +12,7 @@ internal sealed class ClientManager : IClientManager
     private readonly ILogger<ClientManager> logger;
     private readonly OneTimeAsyncEvent<DiscordShardedClient> manualEvent = new(true);
 
-    public ClientManager(ILogger<ClientManager> logger)
-    {
-        this.logger = logger;
-    }
+    public ClientManager(ILogger<ClientManager> logger) => this.logger = logger;
 
     private void ThrowIfDoubleConstructed()
     {
@@ -27,13 +24,6 @@ internal sealed class ClientManager : IClientManager
     }
 
     public ValueTask<DiscordShardedClient> GetClientAsync(CancellationToken cancellationToken) => manualEvent.WaitAsync(cancellationToken);
-
-    public DiscordShardedClient GetClient(CancellationToken cancellationToken)
-    {
-        Task<DiscordShardedClient> task = manualEvent.WaitAsync(cancellationToken).AsTask();
-        task.Wait(cancellationToken);
-        return task.GetAwaiter().GetResult();
-    }
 
     public void SetConnected(DiscordShardedClient client)
     {

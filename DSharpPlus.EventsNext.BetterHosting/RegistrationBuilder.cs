@@ -3,28 +3,48 @@ using DSharpPlus.EventsNext.BetterHosting.Options.Internal;
 using System;
 using Microsoft.Extensions.DependencyInjection;
 using DSharpPlus.EventsNext.Tools;
+using DSharpPlus.EventsNext.Tools.Internal;
 
 namespace DSharpPlus.EventsNext.BetterHosting;
 
-public sealed class RegistrationBuilder<TInterface> where TInterface : class, IDiscordEventHandler
+/// <summary>
+/// Used to configure event handlers derived from <typeparamref name="TEventInterface"/>
+/// </summary>
+/// <typeparam name="TEventInterface">The type of handler to be registered as being requested.</typeparam>
+public sealed class RegistrationBuilder<TEventInterface> where TEventInterface : class, IDiscordEventHandler
 {
-    static RegistrationBuilder() => HandlerValidation.VerifyHandler(typeof(TInterface));
+    static RegistrationBuilder() => HandlerValidation.VerifyExactInterface<TEventInterface>();
 
     private readonly IServiceCollection services;
-    private readonly HandlerRegistryOptions<TInterface> registry;
+    private readonly HandlerRegistryOptions<TEventInterface> registry;
 
-    public RegistrationBuilder(IServiceCollection services)
+    internal RegistrationBuilder(IServiceCollection services)
     {
         ArgumentNullException.ThrowIfNull(services);
         this.services = services;
-        registry = RegistrationBuilderHelper.GetHandlerRegistration<TInterface>(services);
+        registry = RegistrationBuilderHelper.GetHandlerRegistration<TEventInterface>(services);
     }
 
-    public RegistrationBuilder<TInterface> RegisterHandler<TImplementation>() where TImplementation : class, TInterface
+    /// <summary>
+    /// Registers the handler <typeparamref name="TEventInterface"/> in the <see cref="IServiceCollection"/> to recieve events for <typeparamref name="TEventInterface"/>
+    /// </summary>
+    /// <typeparam name="TImplementation"></typeparam>
+    /// <returns>The same <see cref="RegistrationBuilder{TInterface}"/> for chaining</returns>
+    public RegistrationBuilder<TEventInterface> RegisterHandler<TImplementation>() where TImplementation : class, TEventInterface => RegisterHandlerCore(typeof(TImplementation));
+
+    internal RegistrationBuilder<TEventInterface> RegisterHandler(Type handlerType)
     {
-        HandlerRegistration<TInterface> registration = registry.AddHandler();
+        ArgumentNullException.ThrowIfNull(handlerType);
+        if (handlerType.IsAssignableTo(typeof(TEventInterface)))
+            throw new ArgumentException("Invalid handler type");
+        return RegisterHandlerCore(handlerType);
+    }
+
+    private RegistrationBuilder<TEventInterface> RegisterHandlerCore(Type handlerType)
+    {
+        HandlerRegistration<TEventInterface> registration = registry.AddHandler();
         Guid key = registration.Key;
-        services.AddKeyedScoped<TInterface, TImplementation>(key);
+        services.AddKeyedScoped(typeof(TEventInterface), key, handlerType);
         return this;
     }
 }

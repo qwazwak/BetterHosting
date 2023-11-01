@@ -1,10 +1,20 @@
 ﻿using System;
+using System.Data;
 using System.Threading.Tasks;
 using DSharpPlus.SlashCommands;
 
 namespace DSharpPlus.BetterHosting.SlashCommands.Services;
 
-public class SlashCommandRegisterConfigurator : ISlashCommandsExtensionConfigurator
+internal class SlashCommandRegisterConfigurator<TCommand> : ISlashCommandsExtensionConfigurator where TCommand : ApplicationCommandModule
+{
+    public ValueTask Configure(int shardID, SlashCommandsExtension slashCommands)
+    {
+        slashCommands.RegisterCommands<TCommand>();
+        return ValueTask.CompletedTask;
+    }
+}
+
+internal class SlashCommandRegisterConfigurator : ISlashCommandsExtensionConfigurator
 {
     private readonly Type commandType;
 
@@ -18,12 +28,5 @@ public class SlashCommandRegisterConfigurator : ISlashCommandsExtensionConfigura
     {
         slashCommands.RegisterCommands(commandType);
         return ValueTask.CompletedTask;
-    }
-}
-
-public class SlashCommandRegisterConfigurator<TCommand> : SlashCommandRegisterConfigurator where TCommand : ApplicationCommandModule
-{
-    public SlashCommandRegisterConfigurator() : base(typeof(TCommand))
-    {
     }
 }

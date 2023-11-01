@@ -22,7 +22,7 @@ public static partial class EventsNextBetterHostExtensions
             Console.Out.WriteLine($"{typeof(TImplementation).Name} is not a supported type, good luck!");
             //?????
         }
-        services.AddHostedDiscordService<TImplementation>();
+        services.AddSimpleHostedDiscordService<TImplementation>();
     }
     public static IServiceCollection AddEventsNext(this IServiceCollection services) => services.AddEventsNext(nameof(EventsNextConfiguration));
     public static IServiceCollection AddEventsNext(this IServiceCollection services, string EventsNextConfigKey)

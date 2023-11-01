@@ -10,11 +10,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using DSharpPlus.EventsNext.BetterHosting.Options.Internal;
-using DSharpPlus.BetterHosting;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using DSharpPlus.BetterHosting.Services;
 
-namespace <#=AutomaticNamespace#>;
+<#=AutomaticNamespaceLine#>
 
 <#
 foreach(EventNaming naming in EventsList)
@@ -25,7 +25,7 @@ foreach(EventNaming naming in EventsList)
         ($"ILogger<{className}>", "logger"),
         ("IOptions<DiscordConfiguration>", "discordConfig"),
         ($"HandlerRegistryOptions<{naming.InterfaceName}>", "registry"),
-        ("[FromKeyedServices(NamedServices.Internal.RootServiceProvider)] IServiceProvider", "provider")
+        ("[FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider", "provider")
     };
 
 #>

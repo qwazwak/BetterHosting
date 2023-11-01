@@ -5,7 +5,6 @@
     <PackageReference Include="DSharpPlus.CommandsNext"/>
   </ItemGroup>
   <PropertyGroup>
-    <AssemblyName>DSharpPlus.BetterHosting.CommandsNext</AssemblyName>
-    <RootNamespace>DSharpPlus.BetterHosting.CommandsNext</RootNamespace>
+    <LibraryCoreName>DSharpPlus.BetterHosting.CommandsNext</LibraryCoreName>
   </PropertyGroup>
 </Project>

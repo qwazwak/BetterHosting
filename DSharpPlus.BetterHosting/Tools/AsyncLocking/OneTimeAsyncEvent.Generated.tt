@@ -1,0 +1,35 @@
+﻿<#@ template debug="true" hostspecific="true" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Threading.Tasks" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Text.RegularExpressions" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Reflection" #>
+<#@ assembly name="System.Net.Http" #>
+<#@ import namespace="System.Net.Http" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+#define AsyncManualResetEventWithNoValue
+#nullable enable
+<#
+    const string GenericFileName = "OneTimeAsyncEvent.Generic.cs";
+
+    string CurrentDir = Host.ResolvePath(string.Empty);
+    string SourceFile = Path.Combine(CurrentDir, GenericFileName);
+    List<string> sourceLines = new(File.ReadAllLines(SourceFile));
+
+    ReplaceSubString("ValueTask.FromResult(value)", "ValueTask.CompletedTask");
+    ReplaceSubString("(T)", "()");
+    ReplaceSubString("<T>", string.Empty);
+    ReplaceSubString("{T}", string.Empty);
+    ReplaceSubString("T value", string.Empty);
+    //Print bulk
+    sourceLines.ForEach(WriteLine);
+
+    void ReplaceSubString(string substringMatch, string substringInsert)
+    {
+        for (int i = 0; i < sourceLines.Count; i++)
+            sourceLines[i] = sourceLines[i].Replace(substringMatch, substringInsert);
+    }
+#>

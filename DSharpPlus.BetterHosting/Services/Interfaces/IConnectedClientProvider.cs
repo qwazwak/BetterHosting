@@ -3,8 +3,10 @@ using System.Threading.Tasks;
 
 namespace DSharpPlus.BetterHosting.Services.Interfaces;
 
+/// <summary>
+/// Provides <see cref="DiscordShardedClient"/>, only after they have connected
+/// </summary>
 public interface IConnectedClientProvider
 {
-    DiscordShardedClient GetClient(CancellationToken cancellationToken = default);
     ValueTask<DiscordShardedClient> GetClientAsync(CancellationToken cancellationToken = default);
 }

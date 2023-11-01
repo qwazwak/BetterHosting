@@ -1,7 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
 namespace DSharpPlus.EventsNext;
-
 /// <summary>
 /// Represents a configuration for <see cref="EventsNextExtensionBase"/>.
 /// </summary>
