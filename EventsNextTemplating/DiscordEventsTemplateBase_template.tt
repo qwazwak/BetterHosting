@@ -23,6 +23,27 @@
     //public static string CacheDirectory => @"@@@CACHE_DIR@@@";
     private static string CacheFilePath => Path.Combine(CacheDirectory, cacheName);
 
+    public static EventNaming FirstEvent => EventsList[0];
+    public static EventNaming LastEvent
+    {
+        get
+        {
+            var localList = EventsList;
+            return localList[localList.Count - 1];
+        }
+    }
+    
+    public static IEnumerable<EventNaming> SkipFirst => EventsList.Skip(1);
+    public static IEnumerable<EventNaming> MiddleEvents => SkipLast.Skip(1);
+    public static IEnumerable<EventNaming> SkipLast
+    {
+        get
+        {
+            var localList = EventsList;
+            return localList.Take(localList.Count - 1);
+        }
+    }
+
     private static List<EventNaming>? eventsList;
     public static List<EventNaming> EventsList
     {

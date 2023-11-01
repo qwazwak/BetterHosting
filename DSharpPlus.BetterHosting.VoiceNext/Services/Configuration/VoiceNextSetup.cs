@@ -8,11 +8,14 @@ using Microsoft.Extensions.Options;
 
 namespace DSharpPlus.BetterHosting.VoiceNext.Services.Configuration;
 
+/// <inheritdoc/>
 public sealed class VoiceNextSetup : ExtensionAdditionTemplate<VoiceNextExtension>
 {
     private readonly VoiceNextConfiguration configuration;
 
+    /// <inheritdoc/>
     public VoiceNextSetup(IOptions<VoiceNextConfiguration> configuration, IEnumerable<IVoiceNextConfigurator> explicitConfigurators, IEnumerable<IDiscordExtensionConfigurator<VoiceNextExtension>> configurators) : base(explicitConfigurators, configurators) => this.configuration = configuration.Value;
 
+    /// <inheritdoc/>
     protected override async Task<IReadOnlyDictionary<int, VoiceNextExtension>> UseExtension(DiscordShardedClient shard) => await shard.UseVoiceNextAsync(configuration);
 }

@@ -1,0 +1,40 @@
+﻿<#@ template debug="true" hostspecific="true" language="C#" #>
+<#@ output extension=".cs" #>
+<#@ assembly name="System.Core" #>
+<#@ include file="../../DiscordEventsTemplateBase.tt" #>
+using System;
+using DSharpPlus.EventsNext.Entities;
+
+<#=AutomaticNamespaceLine#>
+
+internal static partial class EventInterfaceValidation
+{
+    public static partial bool IsExactInterface<TInterface>() where TInterface : IDiscordEventHandler <# WriteEquals(isGeneric: true, "TInterface"); #>
+
+    public static partial bool IsAssignableToAny<THandler>() where THandler : IDiscordEventHandler <# WriteAssignableTo(isGeneric: true, "THandler"); #>
+
+    public static partial bool IsExactInterface(Type interfaceType) <# WriteEquals(isGeneric: false, "interfaceType"); #>
+
+    public static partial bool IsAssignableToAny(Type handlerType) <# WriteAssignableTo(isGeneric: false, "handlerType"); #>
+}
+
+<#+
+    public void WriteAssignableTo(bool isGeneric, string argumentName) => WriteOperation(isGeneric, argumentName, ".IsAssignableTo");
+    public void WriteEquals(bool isGeneric, string argumentName) => WriteOperation(isGeneric, argumentName, " == ", requiresParentheses: false);
+    public void WriteOperation(bool isGeneric, string argumentName, string operation, bool requiresParentheses = true)
+    {
+        WriteLine(" =>");
+        const string whitespace1 = "    ";
+        const string whitespace2 = whitespace1 + whitespace1;
+        string input = isGeneric ? $"typeof({argumentName})" : argumentName;
+        
+        Func<string, string> formatTarget = requiresParentheses ? (target => $"{operation}({target})") : (target => operation + target);
+        Func<string, string> formatLine = target => $"{whitespace2}{input}{formatTarget(target)}";
+
+        foreach(EventNaming naming in SkipLast)
+        {
+            WriteLine(formatLine($"typeof({naming.InterfaceName})") + " ||");
+        }
+        WriteLine(formatLine($"typeof({LastEvent.InterfaceName})") + ";");
+    }
+#>

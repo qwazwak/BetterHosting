@@ -39,11 +39,11 @@ public static class BindingExtensions
     // Type parameters:
     //   T:
     //     Class which holds commands to Bind.
-    public static void BindEventHandler<T>(this IReadOnlyDictionary<int, EventsNextExtension> extensions) where T : class, IDiscordEventHandler
+    public static void BindEventHandler<THandler>(this IReadOnlyDictionary<int, EventsNextExtension> extensions) where THandler : class, IDiscordEventHandler
     {
-        HandlerValidation.VerifyHandler(typeof(T));
+        HandlerVerification.VerifyValidHandlerCanidate(typeof(THandler));
         foreach (EventsNextExtension value in extensions.Values)
-            value.BindEventHandler<T>();
+            value.BindEventHandler<THandler>();
     }
 
     //
@@ -58,7 +58,7 @@ public static class BindingExtensions
     //     Type of the class which holds commands to Bind.
     public static void BindEventHandler(this IReadOnlyDictionary<int, EventsNextExtension> extensions, Type t)
     {
-        HandlerValidation.VerifyHandler(t);
+        HandlerVerification.VerifyValidHandlerCanidate(t);
         foreach (EventsNextExtension value in extensions.Values)
             value.BindEventHandler(t);
     }

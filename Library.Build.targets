@@ -1,7 +1,8 @@
 <Project>
+  <!--
   <PropertyGroup>
-    <DocumentationFile Condition="'$(DocumentationFile' != '')">$(OutputDir)\$(AssemblyName).xml</DocumentationFile>
-  </PropertyGroup>
+    <DocumentationFile Condition="'$(DocumentationFile)' != ''">$(OutputDir)\$(AssemblyName).xml</DocumentationFile>
+  </PropertyGroup>-->
   <PropertyGroup>
     <!--<LibraryCoreName>DSharpPlus.*.*</LibraryCoreName>-->
     <AssemblyName>$(LibraryCoreName)</AssemblyName>

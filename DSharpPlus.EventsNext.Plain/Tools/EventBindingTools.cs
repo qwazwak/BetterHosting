@@ -15,13 +15,13 @@ public static partial class EventBindingTools
 
     public static void BindHandler<THandler>(DiscordClient client) where THandler : class, IDiscordEventHandler
     {
-        HandlerValidation.VerifyHandler(typeof(THandler));
+        HandlerVerification.VerifyValidHandlerCanidate(typeof(THandler));
         BindHandlerCore(client, typeof(THandler));
     }
 
     public static void BindHandler(DiscordClient client, Type handler)
     {
-        HandlerValidation.VerifyHandler(handler);
+        HandlerVerification.VerifyValidHandlerCanidate(handler);
         BindHandlerCore(client, handler);
     }
     public static void BindAllHandlers(DiscordShardedClient client, IEnumerable<Type> handlers)
@@ -32,13 +32,13 @@ public static partial class EventBindingTools
 
     public static void BindHandler<THandler>(DiscordShardedClient client) where THandler : class, IDiscordEventHandler
     {
-        HandlerValidation.VerifyHandler(typeof(THandler));
+        HandlerVerification.VerifyValidHandlerCanidate(typeof(THandler));
         BindHandlerCore(client, typeof(THandler));
     }
 
     public static void BindHandler(DiscordShardedClient client, Type handler)
     {
-        HandlerValidation.VerifyHandler(handler);
+        HandlerVerification.VerifyValidHandlerCanidate(handler);
         BindHandlerCore(client, handler);
     }
 }

@@ -20,7 +20,7 @@ public static class HandlerExtractor
         ArgumentNullException.ThrowIfNull(assembly);
         Type[] types = assembly.GetExportedTypes();
 #if true
-        return types.Where(HandlerValidation.IsValidHandler);
+        return types.Where(HandlerValidation.IsHandlerCanidate);
     }
 #else
         return FilterHandlerTypesCore(types);

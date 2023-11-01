@@ -3,5 +3,18 @@
 
   <PropertyGroup>
     <ProduceReferenceAssembly Condition="'$(ProduceReferenceAssembly)' == ''">False</ProduceReferenceAssembly>
+    <IsBetterHostLibrary Condition="
+                         $(ProjectName.StartsWith('DSharpPlus.BetterHosting'))
+                         Or $(ProjectName.StartsWith('DSharpPlus.EventsNext.BetterHosting'))
+                         Or ( $(ProjectName.StartsWith('DSharpPlus.')) and $(ProjectName.StartsWith('DSharpPlus.EventsNext.Plain')) )
+                         ">False</IsBetterHostLibrary>
+    <IsLibraryProject Condition="
+                         ('$(IsBetterHostLibrary)' == 'true' or '$(IsBetterHostLibrary)' != 'false')
+                         Or $(ProjectName.StartsWith('DSharpPlus.'))
+                         ">False</IsLibraryProject>
   </PropertyGroup>
+
+  <Import
+          Project="$(MSBuildThisFileDirectory)/Library.Build.props"
+          Condition="'$(IsBetterHostLibrary)' == 'true'" />
 </Project>

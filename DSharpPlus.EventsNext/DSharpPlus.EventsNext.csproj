@@ -22,10 +22,18 @@
 
   <ItemGroup>
 
-    <None Update="Tools\HandlerValidation.Generated.tt">
-      <LastGenOutput>HandlerValidation.Generated.cs</LastGenOutput>
+
+    <None Update="Tools\EventInterfaceValidation.Generated.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>EventInterfaceValidation.Generated.cs</LastGenOutput>
     </None>
+
+
+    <None Update="Tools\HandlerValidation.Generated.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>HandlerValidation.Generated.cs</LastGenOutput>
+    </None>
+
 
     <None Update="Tools\Internal\EventHandlerReflector.Generated.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -37,10 +45,20 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Tools\EventInterfaceValidation.Generated.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>EventInterfaceValidation.Generated.tt</DependentUpon>
+    </Compile>
     <Compile Update="Tools\HandlerValidation.Generated.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>HandlerValidation.Generated.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Tools\HandlerValidation.Type.Generated.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>HandlerValidation.Type.Generated.tt</DependentUpon>
     </Compile>
     <Compile Update="Tools\Internal\AutoCaller.Generated.cs">
       <DesignTime>True</DesignTime>
@@ -58,7 +76,7 @@
       <DependentUpon>IDiscordEventHandlers.Generated.tt</DependentUpon>
     </Compile>
   </ItemGroup>
-  
+
   <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
       <_Parameter1>DSharpPlus.EventsNext.BetterHosting</_Parameter1>
@@ -68,4 +86,16 @@
     </AssemblyAttribute>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="Tools\EventInterfaceValidation.Generated.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>EventInterfaceValidation.Generated.tt</DependentUpon>
+    </None>
+    <None Include="Tools\HandlerValidation.Generated.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>HandlerValidation.Generated.tt</DependentUpon>
+    </None>
+  </ItemGroup>
 </Project>

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using DSharpPlus.EventsNext;
 using DSharpPlus.EventsNext.Entities;
 using DSharpPlus.EventsNext.Tools;
 using DSharpPlus.EventsNext.Plain.Tools;
@@ -11,9 +10,9 @@ namespace DSharpPlus.EventsNext.Plain;
 /// <summary>
 /// This is the class which handles command registration, management, and execution.
 /// </summary>
-public class EventsNextExtension : EventsNextExtensionBase, IDisposable
+public class EventsNextExtension : EventsNextExtensionBase
 {
-    protected new readonly EventsNextConfiguration config;
+    protected readonly EventsNextConfiguration config;
 
     /// <summary>
     /// Gets the service provider this CommandsNext module was configured with.
