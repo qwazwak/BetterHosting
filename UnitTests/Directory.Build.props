@@ -1,6 +1,5 @@
 <Project>
   <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
-  <Import Project="$(MSBuildThisFileDirectory)Directory.Packages.props" />
   <PropertyGroup>
     <Nullable>enable</Nullable>
     <LangVersion>Latest</LangVersion>
@@ -10,6 +9,14 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <Content Include="$(MSBuildThisFileDirectory)UnitTestingSuperGlobalUsings.cs" Link="UnitTestingSuperGlobalUsings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestingSuperGlobalUsings.cs" Link="UnitTestingSuperGlobalUsings.cs" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Library\$(TestingTargetProject)\$(TestingTargetProject).csproj" Condition="'$(TestingTargetProject)' != '' and '$(TestingTargetProject)' != 'False'" />
+  </ItemGroup>
+
+  <Target Name="Print Validation" AfterTargets="Build">
+    <Warning Text="TestingTargetProject was blank, to disable use 'False'" Condition="'$(TestingTargetProject)' == ''"/>
+  </Target>
 </Project>

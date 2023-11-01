@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <PackageReference Include="DSharpPlus.Lavalink"/>
+  </ItemGroup>
+  
+  <PropertyGroup>
+    <LibraryCoreName>DSharpPlus.BetterHosting.Lavalink</LibraryCoreName>
+  </PropertyGroup>
+</Project>

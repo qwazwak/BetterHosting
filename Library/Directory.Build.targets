@@ -1,0 +1,23 @@
+<Project>
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.targets', '$(MSBuildThisFileDirectory)../'))"/>
+  <!--
+  <PropertyGroup>
+    <DocumentationFile Condition="'$(DocumentationFile)' != ''">$(OutputDir)\$(AssemblyName).xml</DocumentationFile>
+  </PropertyGroup>-->
+  <PropertyGroup>
+    <ReferenceBetterHostBase Condition="'$(ProjectName)' != ('DSharpPlus.BetterHosting') and '$(ReferenceBetterHostBase)' == ''">True</ReferenceBetterHostBase>
+    <!--<LibraryCoreName>DSharpPlus.*.*</LibraryCoreName>-->
+    <AssemblyName>$(LibraryCoreName)</AssemblyName>
+    <RootNamespace>$(LibraryCoreName)</RootNamespace>
+    <PackageId>$(LibraryCoreName)</PackageId>
+  </PropertyGroup>
+  
+  <Target Name="ValidateLibraryValues">
+    <Error Text=" The LibraryCoreName must be set in order to set other required values"
+        Condition="'$(LibraryCoreName)' == ''" />
+    
+    <Error Condition="'$(AssemblyName)' == ''" />
+    <Error Condition="'$(RootNamespace)' == ''" />
+    <Error Condition="'$(PackageId)' == ''" />
+  </Target>
+</Project>

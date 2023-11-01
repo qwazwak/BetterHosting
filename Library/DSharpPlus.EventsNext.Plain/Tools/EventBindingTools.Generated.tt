@@ -1,0 +1,22 @@
+﻿<#@ template debug="true" hostspecific="true" language="C#" #>
+<#@ output extension=".cs" #>
+<#@ include file="../../DiscordEventsTemplateBase.tt" #>
+<#@ assembly name="System.Core" #>
+using System;
+using DSharpPlus.EventsNext.Entities;
+using DSharpPlus.EventsNext.Plain.Tools.Internal;
+
+namespace <#=AutomaticNamespace#>;
+
+public static partial class EventBindingTools
+{
+<#foreach(string ClientType in new string[] { "DiscordShardedClient", "DiscordClient" }) { #>
+    private static void BindHandlerCore(<#=ClientType#> client, Type handler)
+    {
+<#    foreach(EventNaming naming in EventsList) { #>
+        if (typeof(<#=naming.InterfaceName#>).IsAssignableFrom(handler))
+            client.<#=naming.EventName#> += EventBinderWrappers.<#="Wrap" + naming.EventName#>(handler);
+<#    }#>
+    }
+<#}#>
+}

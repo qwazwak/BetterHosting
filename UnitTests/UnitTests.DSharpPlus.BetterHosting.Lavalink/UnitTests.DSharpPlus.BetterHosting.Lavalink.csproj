@@ -10,6 +10,14 @@
     <PackageReference Include="NUnit3TestAdapter" />
     <PackageReference Include="NUnit.Analyzers" />
     <PackageReference Include="coverlet.collector" />
+    <!-->
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>-->
   </ItemGroup>
+<!--
+  <ItemGroup>
+    <ProjectReference Include="..\..\Library\DSharpPlus.BetterHosting.Lavalink\DSharpPlus.BetterHosting.Lavalink.csproj" />
+  </ItemGroup>-->
 
 </Project>

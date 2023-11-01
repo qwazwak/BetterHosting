@@ -1,3 +1,7 @@
 <Project>
-  <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.targets', '$(MSBuildThisFileDirectory)../'))" />
+
+  <PropertyGroup>
+    <TestingTargetProject Condition="'$(TestingTargetProject)' == ''">$([System.Text.RegularExpressions.Regex]::Replace("$(MSBuildProjectName)", "^UnitTests\.(.+)$", "$1", "System.Text.RegularExpressions.RegexOptions.ECMAScript"))</TestingTargetProject>
+  </PropertyGroup>
 </Project>

@@ -1,8 +1,12 @@
 <Project>
   <PropertyGroup>
-    <!-- general properties -->
+    <!-- Base values -->
     <Nullable>enable</Nullable>
     <LangVersion>Latest</LangVersion>
+    <ManagePackageVersionsCentrally>True</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+
+  <PropertyGroup>
     <SolutionDirWorkaround>$(MSBuildThisFileDirectory)</SolutionDirWorkaround>
   </PropertyGroup>
 

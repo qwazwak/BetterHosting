@@ -1,6 +1,0 @@
-<Project>
-  <Import Project="$(MSBuildThisFileDirectory)Library.Build.props"/>
-  <ItemGroup>
-    <ProjectReference Include="..\DSharpPlus.BetterHosting\DSharpPlus.BetterHosting.csproj"/>
-  </ItemGroup>
-</Project>
