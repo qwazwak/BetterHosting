@@ -12,9 +12,9 @@ internal class DiscordClientHost : BackgroundService
 {
     private readonly ILogger<DiscordClientHost> logger;
     private readonly IClientManager clientManager;
-    private readonly IShortScopeProvider<IClientConstructor> clientConstructor;
+    private readonly IShortClientConstructor clientConstructor;
 
-    public DiscordClientHost(ILogger<DiscordClientHost> logger, IShortScopeProvider<IClientConstructor> clientConstructor, IClientManager clientManager)
+    public DiscordClientHost(ILogger<DiscordClientHost> logger, IShortClientConstructor clientConstructor, IClientManager clientManager)
     {
         this.logger = logger;
         this.clientConstructor = clientConstructor;
@@ -27,7 +27,7 @@ internal class DiscordClientHost : BackgroundService
         DiscordShardedClient client;
         try
         {
-            client = await clientConstructor.GetAsync(c => c.ConstructClient());
+            client = await clientConstructor.ConstructClient();
             if (stoppingToken.IsCancellationRequested)
                 return;
         }
@@ -69,6 +69,7 @@ internal class DiscordClientHost : BackgroundService
         }
         finally
         {
+            clientManager.SetCancelled(stoppingToken);
             await client.StopAsync();
         }
     }

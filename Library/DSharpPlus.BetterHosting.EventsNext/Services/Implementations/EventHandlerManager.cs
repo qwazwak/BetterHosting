@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using System.Threading;
 using System.Threading.Tasks;
 using DSharpPlus.AsyncEvents;
 using DSharpPlus.EventArgs;
@@ -9,7 +8,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using DSharpPlus.BetterHosting.Services;
-using DSharpPlus.BetterHosting.EventsNext.Tools;
 
 namespace DSharpPlus.BetterHosting.EventsNext.Services.Implementations;
 
@@ -33,20 +31,17 @@ internal abstract class EventHandlerManager<THandler, TArgument> : IEventHandler
 
     public virtual bool CanBeTriggered(DiscordShardedClient client) => registry.Registrations.Count != 0;
 
-    public async Task Run(DiscordShardedClient client, CancellationToken stoppingToken)
+    public void Start(DiscordShardedClient client)
     {
         this.client = client;
         Debug.Assert(client == null);
-        try
-        {
-            Setup();
-            await Task.Delay(Timeout.Infinite, stoppingToken);
-        }
-        finally
-        {
-            TearDown();
-            SetBindingState(false);
-        }
+        Setup();
+    }
+
+    public void Stop()
+    {
+        TearDown();
+        SetBindingState(false);
     }
 
     private void Setup()

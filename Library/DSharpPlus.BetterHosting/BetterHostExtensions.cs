@@ -26,6 +26,7 @@ public static partial class BetterHostExtensions
         AddDiscordConfigurationOption(services);
 
         services.AddTransient<IClientConstructor, ClientConstructor>();
+        services.AddTransient<IShortClientConstructor, ShortClientConstructor>();
         services.AddScoped<IConnectedClientProvider>(sp => sp.GetRequiredService<IClientManager>());
         services.AddSingleton<IClientManager, ClientManager>();
         services.AddTransient<DiscordShardedClient>(sp => sp.GetRequiredService<IConnectedClientProvider>().GetClient(CancellationToken.None));
@@ -40,7 +41,6 @@ public static partial class BetterHostExtensions
             return sp.GetService<IHost>()?.Services ?? sp;
         });
 
-        services.AddTransient(typeof(IShortScopeProvider<>), typeof(ShortScopeProvider<>));
         #endregion Internal helpers
         return services;
     }

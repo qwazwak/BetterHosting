@@ -24,7 +24,8 @@ builder.ConfigureServices(services =>
 
     services.AddTransient<SystemSetupRunner>();
 
-    services.AddTransient<ISystemSetup, DBFileSetup>();
+    services.AddTransient<ISystemSetup, DBFileSetup<SwearJarContext>>();
+    services.AddTransient<ISystemSetup, DBFileSetup<BadPasswordContext>>();
 
     //TODO: services.AddTransient<IDiscordClientConfigurator, ConfigureDiscordClientEvents>();
     services.AddSingleton(Random.Shared); // We're using the shared instance of Random for simplicity.

@@ -10,6 +10,7 @@
 <#@ import namespace="System.Net.Http" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ output extension=".cs" #>
+#if false
 #define AsyncManualResetEventWithNoValue
 #nullable enable
 <#
@@ -33,3 +34,4 @@
             sourceLines[i] = sourceLines[i].Replace(substringMatch, substringInsert);
     }
 #>
+#endif

@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using DSharpPlus.BetterHosting.Services.Interfaces;
 using Microsoft.Extensions.Hosting;
@@ -24,31 +25,33 @@ internal sealed class EventsNextBackgroundHost<TManager> : BackgroundService whe
         DiscordShardedClient client;
         try
         {
-            client = await clientProvider.GetClientAsync(stoppingToken).AsTask();
+            client = await clientProvider.GetClientAsync(stoppingToken);
         }
-        catch (System.OperationCanceledException)
+        catch (OperationCanceledException)
         {
             return;
         }
-        await AfterConnected(client, stoppingToken);
-    }
 
-    private Task AfterConnected(DiscordShardedClient client, CancellationToken stoppingToken)
-    {
+        if (stoppingToken.IsCancellationRequested)
+        {
+            logger.LogInformation("Startup cancellation requested, not starting event manager {type}", typeof(TManager).Name);
+            return;
+        }
+
         if (!manager.CanBeTriggered(client))
         {
             logger.LogInformation("Events for handlers {HandlerType} were declared to not happen, so exiting quick", typeof(TManager).Name);
-            return Task.CompletedTask;
+            return;
         }
-        else if (stoppingToken.IsCancellationRequested)
+
+        try
         {
-            logger.LogInformation("Startup cancellation requested, not starting event manager {type}", typeof(TManager).Name);
-            return Task.CompletedTask;
+            manager.Start(client);
+            await Task.Delay(Timeout.Infinite, stoppingToken);
         }
-        else
+        finally
         {
-            logger.LogDebug("Starting event manager {type}", typeof(TManager).Name);
-            return manager.Run(client, stoppingToken);
+            manager.Stop();
         }
     }
 }

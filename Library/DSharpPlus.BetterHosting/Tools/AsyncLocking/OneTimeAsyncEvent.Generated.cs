@@ -1,4 +1,5 @@
-﻿#define AsyncManualResetEventWithNoValue
+﻿#if false
+#define AsyncManualResetEventWithNoValue
 #nullable enable
 #if !AsyncManualResetEventWithNoValue
 #define AsyncManualResetEventWithValue
@@ -228,9 +229,11 @@ internal sealed partial class OneTimeAsyncEvent
         lock (syncObject)
             return ToString_PreLocked();
     }
+
     /// <summary>
     /// Core implementation for <see cref="ToString"/>, only called while the <see cref="syncObject"/> lock is held
     /// </summary>
     /// <returns>A string represenation of this object</returns>
     private partial string ToString_PreLocked();
 }
+#endif

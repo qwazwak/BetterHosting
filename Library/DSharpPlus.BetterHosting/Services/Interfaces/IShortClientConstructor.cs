@@ -2,7 +2,7 @@
 
 namespace DSharpPlus.BetterHosting.Services.Interfaces;
 
-internal interface IClientConstructor
+internal interface IShortClientConstructor
 {
     Task<DiscordShardedClient> ConstructClient();
 }

@@ -10,635 +10,557 @@ namespace DSharpPlus.BetterHosting.EventsNext.Tools;
 
 internal static partial class EventHandlerReflector
 {
-    public static partial ValueTask AutoCallEventHandler<THandler, TArgument>(IDiscordEventHandler<TArgument> handler, DiscordClient sender, TArgument args) where THandler : IDiscordEventHandler<TArgument> where TArgument : DiscordEventArgs
+    public static partial ValueTask AutoCallEventHandler<TInterface>(IDiscordEventHandler handler, DiscordClient sender, DiscordEventArgs args) where TInterface : IDiscordEventHandler
     {
-        if(typeof(THandler) == typeof(ISocketErroredEventHandler))
+        if(typeof(TInterface) == typeof(ISocketErroredEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(SocketErrorEventArgs));
             ISocketErroredEventHandler castHandler = (ISocketErroredEventHandler)handler;
-            SocketErrorEventArgs castArgs = (SocketErrorEventArgs)(DiscordEventArgs)args;
+            SocketErrorEventArgs castArgs = (SocketErrorEventArgs)args;
             return castHandler.OnSocketErrored(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(ISocketOpenedEventHandler))
+        if(typeof(TInterface) == typeof(ISocketOpenedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(SocketEventArgs));
             ISocketOpenedEventHandler castHandler = (ISocketOpenedEventHandler)handler;
-            SocketEventArgs castArgs = (SocketEventArgs)(DiscordEventArgs)args;
+            SocketEventArgs castArgs = (SocketEventArgs)args;
             return castHandler.OnSocketOpened(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(ISocketClosedEventHandler))
+        if(typeof(TInterface) == typeof(ISocketClosedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(SocketCloseEventArgs));
             ISocketClosedEventHandler castHandler = (ISocketClosedEventHandler)handler;
-            SocketCloseEventArgs castArgs = (SocketCloseEventArgs)(DiscordEventArgs)args;
+            SocketCloseEventArgs castArgs = (SocketCloseEventArgs)args;
             return castHandler.OnSocketClosed(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(ISessionCreatedEventHandler))
+        if(typeof(TInterface) == typeof(ISessionCreatedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(SessionReadyEventArgs));
             ISessionCreatedEventHandler castHandler = (ISessionCreatedEventHandler)handler;
-            SessionReadyEventArgs castArgs = (SessionReadyEventArgs)(DiscordEventArgs)args;
+            SessionReadyEventArgs castArgs = (SessionReadyEventArgs)args;
             return castHandler.OnSessionCreated(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(ISessionResumedEventHandler))
+        if(typeof(TInterface) == typeof(ISessionResumedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(SessionReadyEventArgs));
             ISessionResumedEventHandler castHandler = (ISessionResumedEventHandler)handler;
-            SessionReadyEventArgs castArgs = (SessionReadyEventArgs)(DiscordEventArgs)args;
+            SessionReadyEventArgs castArgs = (SessionReadyEventArgs)args;
             return castHandler.OnSessionResumed(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IHeartbeatedEventHandler))
+        if(typeof(TInterface) == typeof(IHeartbeatedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(HeartbeatEventArgs));
             IHeartbeatedEventHandler castHandler = (IHeartbeatedEventHandler)handler;
-            HeartbeatEventArgs castArgs = (HeartbeatEventArgs)(DiscordEventArgs)args;
+            HeartbeatEventArgs castArgs = (HeartbeatEventArgs)args;
             return castHandler.OnHeartbeated(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IZombiedEventHandler))
+        if(typeof(TInterface) == typeof(IZombiedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(ZombiedEventArgs));
             IZombiedEventHandler castHandler = (IZombiedEventHandler)handler;
-            ZombiedEventArgs castArgs = (ZombiedEventArgs)(DiscordEventArgs)args;
+            ZombiedEventArgs castArgs = (ZombiedEventArgs)args;
             return castHandler.OnZombied(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IApplicationCommandPermissionsUpdatedEventHandler))
+        if(typeof(TInterface) == typeof(IApplicationCommandPermissionsUpdatedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(ApplicationCommandPermissionsUpdatedEventArgs));
             IApplicationCommandPermissionsUpdatedEventHandler castHandler = (IApplicationCommandPermissionsUpdatedEventHandler)handler;
-            ApplicationCommandPermissionsUpdatedEventArgs castArgs = (ApplicationCommandPermissionsUpdatedEventArgs)(DiscordEventArgs)args;
+            ApplicationCommandPermissionsUpdatedEventArgs castArgs = (ApplicationCommandPermissionsUpdatedEventArgs)args;
             return castHandler.OnApplicationCommandPermissionsUpdated(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IChannelCreatedEventHandler))
+        if(typeof(TInterface) == typeof(IChannelCreatedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(ChannelCreateEventArgs));
             IChannelCreatedEventHandler castHandler = (IChannelCreatedEventHandler)handler;
-            ChannelCreateEventArgs castArgs = (ChannelCreateEventArgs)(DiscordEventArgs)args;
+            ChannelCreateEventArgs castArgs = (ChannelCreateEventArgs)args;
             return castHandler.OnChannelCreated(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IChannelUpdatedEventHandler))
+        if(typeof(TInterface) == typeof(IChannelUpdatedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(ChannelUpdateEventArgs));
             IChannelUpdatedEventHandler castHandler = (IChannelUpdatedEventHandler)handler;
-            ChannelUpdateEventArgs castArgs = (ChannelUpdateEventArgs)(DiscordEventArgs)args;
+            ChannelUpdateEventArgs castArgs = (ChannelUpdateEventArgs)args;
             return castHandler.OnChannelUpdated(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IChannelDeletedEventHandler))
+        if(typeof(TInterface) == typeof(IChannelDeletedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(ChannelDeleteEventArgs));
             IChannelDeletedEventHandler castHandler = (IChannelDeletedEventHandler)handler;
-            ChannelDeleteEventArgs castArgs = (ChannelDeleteEventArgs)(DiscordEventArgs)args;
+            ChannelDeleteEventArgs castArgs = (ChannelDeleteEventArgs)args;
             return castHandler.OnChannelDeleted(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IDmChannelDeletedEventHandler))
+        if(typeof(TInterface) == typeof(IDmChannelDeletedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(DmChannelDeleteEventArgs));
             IDmChannelDeletedEventHandler castHandler = (IDmChannelDeletedEventHandler)handler;
-            DmChannelDeleteEventArgs castArgs = (DmChannelDeleteEventArgs)(DiscordEventArgs)args;
+            DmChannelDeleteEventArgs castArgs = (DmChannelDeleteEventArgs)args;
             return castHandler.OnDmChannelDeleted(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IChannelPinsUpdatedEventHandler))
+        if(typeof(TInterface) == typeof(IChannelPinsUpdatedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(ChannelPinsUpdateEventArgs));
             IChannelPinsUpdatedEventHandler castHandler = (IChannelPinsUpdatedEventHandler)handler;
-            ChannelPinsUpdateEventArgs castArgs = (ChannelPinsUpdateEventArgs)(DiscordEventArgs)args;
+            ChannelPinsUpdateEventArgs castArgs = (ChannelPinsUpdateEventArgs)args;
             return castHandler.OnChannelPinsUpdated(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IGuildCreatedEventHandler))
+        if(typeof(TInterface) == typeof(IGuildCreatedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(GuildCreateEventArgs));
             IGuildCreatedEventHandler castHandler = (IGuildCreatedEventHandler)handler;
-            GuildCreateEventArgs castArgs = (GuildCreateEventArgs)(DiscordEventArgs)args;
+            GuildCreateEventArgs castArgs = (GuildCreateEventArgs)args;
             return castHandler.OnGuildCreated(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IGuildAvailableEventHandler))
+        if(typeof(TInterface) == typeof(IGuildAvailableEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(GuildCreateEventArgs));
             IGuildAvailableEventHandler castHandler = (IGuildAvailableEventHandler)handler;
-            GuildCreateEventArgs castArgs = (GuildCreateEventArgs)(DiscordEventArgs)args;
+            GuildCreateEventArgs castArgs = (GuildCreateEventArgs)args;
             return castHandler.OnGuildAvailable(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IGuildUpdatedEventHandler))
+        if(typeof(TInterface) == typeof(IGuildUpdatedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(GuildUpdateEventArgs));
             IGuildUpdatedEventHandler castHandler = (IGuildUpdatedEventHandler)handler;
-            GuildUpdateEventArgs castArgs = (GuildUpdateEventArgs)(DiscordEventArgs)args;
+            GuildUpdateEventArgs castArgs = (GuildUpdateEventArgs)args;
             return castHandler.OnGuildUpdated(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IGuildDeletedEventHandler))
+        if(typeof(TInterface) == typeof(IGuildDeletedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(GuildDeleteEventArgs));
             IGuildDeletedEventHandler castHandler = (IGuildDeletedEventHandler)handler;
-            GuildDeleteEventArgs castArgs = (GuildDeleteEventArgs)(DiscordEventArgs)args;
+            GuildDeleteEventArgs castArgs = (GuildDeleteEventArgs)args;
             return castHandler.OnGuildDeleted(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IGuildUnavailableEventHandler))
+        if(typeof(TInterface) == typeof(IGuildUnavailableEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(GuildDeleteEventArgs));
             IGuildUnavailableEventHandler castHandler = (IGuildUnavailableEventHandler)handler;
-            GuildDeleteEventArgs castArgs = (GuildDeleteEventArgs)(DiscordEventArgs)args;
+            GuildDeleteEventArgs castArgs = (GuildDeleteEventArgs)args;
             return castHandler.OnGuildUnavailable(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IGuildDownloadCompletedEventHandler))
+        if(typeof(TInterface) == typeof(IGuildDownloadCompletedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(GuildDownloadCompletedEventArgs));
             IGuildDownloadCompletedEventHandler castHandler = (IGuildDownloadCompletedEventHandler)handler;
-            GuildDownloadCompletedEventArgs castArgs = (GuildDownloadCompletedEventArgs)(DiscordEventArgs)args;
+            GuildDownloadCompletedEventArgs castArgs = (GuildDownloadCompletedEventArgs)args;
             return castHandler.OnGuildDownloadCompleted(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IGuildEmojisUpdatedEventHandler))
+        if(typeof(TInterface) == typeof(IGuildEmojisUpdatedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(GuildEmojisUpdateEventArgs));
             IGuildEmojisUpdatedEventHandler castHandler = (IGuildEmojisUpdatedEventHandler)handler;
-            GuildEmojisUpdateEventArgs castArgs = (GuildEmojisUpdateEventArgs)(DiscordEventArgs)args;
+            GuildEmojisUpdateEventArgs castArgs = (GuildEmojisUpdateEventArgs)args;
             return castHandler.OnGuildEmojisUpdated(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IGuildStickersUpdatedEventHandler))
+        if(typeof(TInterface) == typeof(IGuildStickersUpdatedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(GuildStickersUpdateEventArgs));
             IGuildStickersUpdatedEventHandler castHandler = (IGuildStickersUpdatedEventHandler)handler;
-            GuildStickersUpdateEventArgs castArgs = (GuildStickersUpdateEventArgs)(DiscordEventArgs)args;
+            GuildStickersUpdateEventArgs castArgs = (GuildStickersUpdateEventArgs)args;
             return castHandler.OnGuildStickersUpdated(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IGuildIntegrationsUpdatedEventHandler))
+        if(typeof(TInterface) == typeof(IGuildIntegrationsUpdatedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(GuildIntegrationsUpdateEventArgs));
             IGuildIntegrationsUpdatedEventHandler castHandler = (IGuildIntegrationsUpdatedEventHandler)handler;
-            GuildIntegrationsUpdateEventArgs castArgs = (GuildIntegrationsUpdateEventArgs)(DiscordEventArgs)args;
+            GuildIntegrationsUpdateEventArgs castArgs = (GuildIntegrationsUpdateEventArgs)args;
             return castHandler.OnGuildIntegrationsUpdated(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IGuildAuditLogCreatedEventHandler))
+        if(typeof(TInterface) == typeof(IGuildAuditLogCreatedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(GuildAuditLogCreatedEventArgs));
             IGuildAuditLogCreatedEventHandler castHandler = (IGuildAuditLogCreatedEventHandler)handler;
-            GuildAuditLogCreatedEventArgs castArgs = (GuildAuditLogCreatedEventArgs)(DiscordEventArgs)args;
+            GuildAuditLogCreatedEventArgs castArgs = (GuildAuditLogCreatedEventArgs)args;
             return castHandler.OnGuildAuditLogCreated(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IScheduledGuildEventCreatedEventHandler))
+        if(typeof(TInterface) == typeof(IScheduledGuildEventCreatedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(ScheduledGuildEventCreateEventArgs));
             IScheduledGuildEventCreatedEventHandler castHandler = (IScheduledGuildEventCreatedEventHandler)handler;
-            ScheduledGuildEventCreateEventArgs castArgs = (ScheduledGuildEventCreateEventArgs)(DiscordEventArgs)args;
+            ScheduledGuildEventCreateEventArgs castArgs = (ScheduledGuildEventCreateEventArgs)args;
             return castHandler.OnScheduledGuildEventCreated(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IScheduledGuildEventUpdatedEventHandler))
+        if(typeof(TInterface) == typeof(IScheduledGuildEventUpdatedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(ScheduledGuildEventUpdateEventArgs));
             IScheduledGuildEventUpdatedEventHandler castHandler = (IScheduledGuildEventUpdatedEventHandler)handler;
-            ScheduledGuildEventUpdateEventArgs castArgs = (ScheduledGuildEventUpdateEventArgs)(DiscordEventArgs)args;
+            ScheduledGuildEventUpdateEventArgs castArgs = (ScheduledGuildEventUpdateEventArgs)args;
             return castHandler.OnScheduledGuildEventUpdated(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IScheduledGuildEventDeletedEventHandler))
+        if(typeof(TInterface) == typeof(IScheduledGuildEventDeletedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(ScheduledGuildEventDeleteEventArgs));
             IScheduledGuildEventDeletedEventHandler castHandler = (IScheduledGuildEventDeletedEventHandler)handler;
-            ScheduledGuildEventDeleteEventArgs castArgs = (ScheduledGuildEventDeleteEventArgs)(DiscordEventArgs)args;
+            ScheduledGuildEventDeleteEventArgs castArgs = (ScheduledGuildEventDeleteEventArgs)args;
             return castHandler.OnScheduledGuildEventDeleted(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IScheduledGuildEventCompletedEventHandler))
+        if(typeof(TInterface) == typeof(IScheduledGuildEventCompletedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(ScheduledGuildEventCompletedEventArgs));
             IScheduledGuildEventCompletedEventHandler castHandler = (IScheduledGuildEventCompletedEventHandler)handler;
-            ScheduledGuildEventCompletedEventArgs castArgs = (ScheduledGuildEventCompletedEventArgs)(DiscordEventArgs)args;
+            ScheduledGuildEventCompletedEventArgs castArgs = (ScheduledGuildEventCompletedEventArgs)args;
             return castHandler.OnScheduledGuildEventCompleted(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IScheduledGuildEventUserAddedEventHandler))
+        if(typeof(TInterface) == typeof(IScheduledGuildEventUserAddedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(ScheduledGuildEventUserAddEventArgs));
             IScheduledGuildEventUserAddedEventHandler castHandler = (IScheduledGuildEventUserAddedEventHandler)handler;
-            ScheduledGuildEventUserAddEventArgs castArgs = (ScheduledGuildEventUserAddEventArgs)(DiscordEventArgs)args;
+            ScheduledGuildEventUserAddEventArgs castArgs = (ScheduledGuildEventUserAddEventArgs)args;
             return castHandler.OnScheduledGuildEventUserAdded(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IScheduledGuildEventUserRemovedEventHandler))
+        if(typeof(TInterface) == typeof(IScheduledGuildEventUserRemovedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(ScheduledGuildEventUserRemoveEventArgs));
             IScheduledGuildEventUserRemovedEventHandler castHandler = (IScheduledGuildEventUserRemovedEventHandler)handler;
-            ScheduledGuildEventUserRemoveEventArgs castArgs = (ScheduledGuildEventUserRemoveEventArgs)(DiscordEventArgs)args;
+            ScheduledGuildEventUserRemoveEventArgs castArgs = (ScheduledGuildEventUserRemoveEventArgs)args;
             return castHandler.OnScheduledGuildEventUserRemoved(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IGuildBanAddedEventHandler))
+        if(typeof(TInterface) == typeof(IGuildBanAddedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(GuildBanAddEventArgs));
             IGuildBanAddedEventHandler castHandler = (IGuildBanAddedEventHandler)handler;
-            GuildBanAddEventArgs castArgs = (GuildBanAddEventArgs)(DiscordEventArgs)args;
+            GuildBanAddEventArgs castArgs = (GuildBanAddEventArgs)args;
             return castHandler.OnGuildBanAdded(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IGuildBanRemovedEventHandler))
+        if(typeof(TInterface) == typeof(IGuildBanRemovedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(GuildBanRemoveEventArgs));
             IGuildBanRemovedEventHandler castHandler = (IGuildBanRemovedEventHandler)handler;
-            GuildBanRemoveEventArgs castArgs = (GuildBanRemoveEventArgs)(DiscordEventArgs)args;
+            GuildBanRemoveEventArgs castArgs = (GuildBanRemoveEventArgs)args;
             return castHandler.OnGuildBanRemoved(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IGuildMemberAddedEventHandler))
+        if(typeof(TInterface) == typeof(IGuildMemberAddedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(GuildMemberAddEventArgs));
             IGuildMemberAddedEventHandler castHandler = (IGuildMemberAddedEventHandler)handler;
-            GuildMemberAddEventArgs castArgs = (GuildMemberAddEventArgs)(DiscordEventArgs)args;
+            GuildMemberAddEventArgs castArgs = (GuildMemberAddEventArgs)args;
             return castHandler.OnGuildMemberAdded(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IGuildMemberRemovedEventHandler))
+        if(typeof(TInterface) == typeof(IGuildMemberRemovedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(GuildMemberRemoveEventArgs));
             IGuildMemberRemovedEventHandler castHandler = (IGuildMemberRemovedEventHandler)handler;
-            GuildMemberRemoveEventArgs castArgs = (GuildMemberRemoveEventArgs)(DiscordEventArgs)args;
+            GuildMemberRemoveEventArgs castArgs = (GuildMemberRemoveEventArgs)args;
             return castHandler.OnGuildMemberRemoved(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IGuildMemberUpdatedEventHandler))
+        if(typeof(TInterface) == typeof(IGuildMemberUpdatedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(GuildMemberUpdateEventArgs));
             IGuildMemberUpdatedEventHandler castHandler = (IGuildMemberUpdatedEventHandler)handler;
-            GuildMemberUpdateEventArgs castArgs = (GuildMemberUpdateEventArgs)(DiscordEventArgs)args;
+            GuildMemberUpdateEventArgs castArgs = (GuildMemberUpdateEventArgs)args;
             return castHandler.OnGuildMemberUpdated(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IGuildMembersChunkedEventHandler))
+        if(typeof(TInterface) == typeof(IGuildMembersChunkedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(GuildMembersChunkEventArgs));
             IGuildMembersChunkedEventHandler castHandler = (IGuildMembersChunkedEventHandler)handler;
-            GuildMembersChunkEventArgs castArgs = (GuildMembersChunkEventArgs)(DiscordEventArgs)args;
+            GuildMembersChunkEventArgs castArgs = (GuildMembersChunkEventArgs)args;
             return castHandler.OnGuildMembersChunked(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IGuildRoleCreatedEventHandler))
+        if(typeof(TInterface) == typeof(IGuildRoleCreatedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(GuildRoleCreateEventArgs));
             IGuildRoleCreatedEventHandler castHandler = (IGuildRoleCreatedEventHandler)handler;
-            GuildRoleCreateEventArgs castArgs = (GuildRoleCreateEventArgs)(DiscordEventArgs)args;
+            GuildRoleCreateEventArgs castArgs = (GuildRoleCreateEventArgs)args;
             return castHandler.OnGuildRoleCreated(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IGuildRoleUpdatedEventHandler))
+        if(typeof(TInterface) == typeof(IGuildRoleUpdatedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(GuildRoleUpdateEventArgs));
             IGuildRoleUpdatedEventHandler castHandler = (IGuildRoleUpdatedEventHandler)handler;
-            GuildRoleUpdateEventArgs castArgs = (GuildRoleUpdateEventArgs)(DiscordEventArgs)args;
+            GuildRoleUpdateEventArgs castArgs = (GuildRoleUpdateEventArgs)args;
             return castHandler.OnGuildRoleUpdated(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IGuildRoleDeletedEventHandler))
+        if(typeof(TInterface) == typeof(IGuildRoleDeletedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(GuildRoleDeleteEventArgs));
             IGuildRoleDeletedEventHandler castHandler = (IGuildRoleDeletedEventHandler)handler;
-            GuildRoleDeleteEventArgs castArgs = (GuildRoleDeleteEventArgs)(DiscordEventArgs)args;
+            GuildRoleDeleteEventArgs castArgs = (GuildRoleDeleteEventArgs)args;
             return castHandler.OnGuildRoleDeleted(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IInviteCreatedEventHandler))
+        if(typeof(TInterface) == typeof(IInviteCreatedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(InviteCreateEventArgs));
             IInviteCreatedEventHandler castHandler = (IInviteCreatedEventHandler)handler;
-            InviteCreateEventArgs castArgs = (InviteCreateEventArgs)(DiscordEventArgs)args;
+            InviteCreateEventArgs castArgs = (InviteCreateEventArgs)args;
             return castHandler.OnInviteCreated(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IInviteDeletedEventHandler))
+        if(typeof(TInterface) == typeof(IInviteDeletedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(InviteDeleteEventArgs));
             IInviteDeletedEventHandler castHandler = (IInviteDeletedEventHandler)handler;
-            InviteDeleteEventArgs castArgs = (InviteDeleteEventArgs)(DiscordEventArgs)args;
+            InviteDeleteEventArgs castArgs = (InviteDeleteEventArgs)args;
             return castHandler.OnInviteDeleted(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IMessageCreatedEventHandler))
+        if(typeof(TInterface) == typeof(IMessageCreatedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(MessageCreateEventArgs));
             IMessageCreatedEventHandler castHandler = (IMessageCreatedEventHandler)handler;
-            MessageCreateEventArgs castArgs = (MessageCreateEventArgs)(DiscordEventArgs)args;
+            MessageCreateEventArgs castArgs = (MessageCreateEventArgs)args;
             return castHandler.OnMessageCreated(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IMessageAcknowledgedEventHandler))
+        if(typeof(TInterface) == typeof(IMessageAcknowledgedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(MessageAcknowledgeEventArgs));
             IMessageAcknowledgedEventHandler castHandler = (IMessageAcknowledgedEventHandler)handler;
-            MessageAcknowledgeEventArgs castArgs = (MessageAcknowledgeEventArgs)(DiscordEventArgs)args;
+            MessageAcknowledgeEventArgs castArgs = (MessageAcknowledgeEventArgs)args;
             return castHandler.OnMessageAcknowledged(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IMessageUpdatedEventHandler))
+        if(typeof(TInterface) == typeof(IMessageUpdatedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(MessageUpdateEventArgs));
             IMessageUpdatedEventHandler castHandler = (IMessageUpdatedEventHandler)handler;
-            MessageUpdateEventArgs castArgs = (MessageUpdateEventArgs)(DiscordEventArgs)args;
+            MessageUpdateEventArgs castArgs = (MessageUpdateEventArgs)args;
             return castHandler.OnMessageUpdated(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IMessageDeletedEventHandler))
+        if(typeof(TInterface) == typeof(IMessageDeletedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(MessageDeleteEventArgs));
             IMessageDeletedEventHandler castHandler = (IMessageDeletedEventHandler)handler;
-            MessageDeleteEventArgs castArgs = (MessageDeleteEventArgs)(DiscordEventArgs)args;
+            MessageDeleteEventArgs castArgs = (MessageDeleteEventArgs)args;
             return castHandler.OnMessageDeleted(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IMessagesBulkDeletedEventHandler))
+        if(typeof(TInterface) == typeof(IMessagesBulkDeletedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(MessageBulkDeleteEventArgs));
             IMessagesBulkDeletedEventHandler castHandler = (IMessagesBulkDeletedEventHandler)handler;
-            MessageBulkDeleteEventArgs castArgs = (MessageBulkDeleteEventArgs)(DiscordEventArgs)args;
+            MessageBulkDeleteEventArgs castArgs = (MessageBulkDeleteEventArgs)args;
             return castHandler.OnMessagesBulkDeleted(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IMessageReactionAddedEventHandler))
+        if(typeof(TInterface) == typeof(IMessageReactionAddedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(MessageReactionAddEventArgs));
             IMessageReactionAddedEventHandler castHandler = (IMessageReactionAddedEventHandler)handler;
-            MessageReactionAddEventArgs castArgs = (MessageReactionAddEventArgs)(DiscordEventArgs)args;
+            MessageReactionAddEventArgs castArgs = (MessageReactionAddEventArgs)args;
             return castHandler.OnMessageReactionAdded(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IMessageReactionRemovedEventHandler))
+        if(typeof(TInterface) == typeof(IMessageReactionRemovedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(MessageReactionRemoveEventArgs));
             IMessageReactionRemovedEventHandler castHandler = (IMessageReactionRemovedEventHandler)handler;
-            MessageReactionRemoveEventArgs castArgs = (MessageReactionRemoveEventArgs)(DiscordEventArgs)args;
+            MessageReactionRemoveEventArgs castArgs = (MessageReactionRemoveEventArgs)args;
             return castHandler.OnMessageReactionRemoved(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IMessageReactionsClearedEventHandler))
+        if(typeof(TInterface) == typeof(IMessageReactionsClearedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(MessageReactionsClearEventArgs));
             IMessageReactionsClearedEventHandler castHandler = (IMessageReactionsClearedEventHandler)handler;
-            MessageReactionsClearEventArgs castArgs = (MessageReactionsClearEventArgs)(DiscordEventArgs)args;
+            MessageReactionsClearEventArgs castArgs = (MessageReactionsClearEventArgs)args;
             return castHandler.OnMessageReactionsCleared(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IMessageReactionRemovedEmojiEventHandler))
+        if(typeof(TInterface) == typeof(IMessageReactionRemovedEmojiEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(MessageReactionRemoveEmojiEventArgs));
             IMessageReactionRemovedEmojiEventHandler castHandler = (IMessageReactionRemovedEmojiEventHandler)handler;
-            MessageReactionRemoveEmojiEventArgs castArgs = (MessageReactionRemoveEmojiEventArgs)(DiscordEventArgs)args;
+            MessageReactionRemoveEmojiEventArgs castArgs = (MessageReactionRemoveEmojiEventArgs)args;
             return castHandler.OnMessageReactionRemovedEmoji(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IPresenceUpdatedEventHandler))
+        if(typeof(TInterface) == typeof(IPresenceUpdatedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(PresenceUpdateEventArgs));
             IPresenceUpdatedEventHandler castHandler = (IPresenceUpdatedEventHandler)handler;
-            PresenceUpdateEventArgs castArgs = (PresenceUpdateEventArgs)(DiscordEventArgs)args;
+            PresenceUpdateEventArgs castArgs = (PresenceUpdateEventArgs)args;
             return castHandler.OnPresenceUpdated(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IUserSettingsUpdatedEventHandler))
+        if(typeof(TInterface) == typeof(IUserSettingsUpdatedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(UserSettingsUpdateEventArgs));
             IUserSettingsUpdatedEventHandler castHandler = (IUserSettingsUpdatedEventHandler)handler;
-            UserSettingsUpdateEventArgs castArgs = (UserSettingsUpdateEventArgs)(DiscordEventArgs)args;
+            UserSettingsUpdateEventArgs castArgs = (UserSettingsUpdateEventArgs)args;
             return castHandler.OnUserSettingsUpdated(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IUserUpdatedEventHandler))
+        if(typeof(TInterface) == typeof(IUserUpdatedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(UserUpdateEventArgs));
             IUserUpdatedEventHandler castHandler = (IUserUpdatedEventHandler)handler;
-            UserUpdateEventArgs castArgs = (UserUpdateEventArgs)(DiscordEventArgs)args;
+            UserUpdateEventArgs castArgs = (UserUpdateEventArgs)args;
             return castHandler.OnUserUpdated(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IVoiceStateUpdatedEventHandler))
+        if(typeof(TInterface) == typeof(IVoiceStateUpdatedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(VoiceStateUpdateEventArgs));
             IVoiceStateUpdatedEventHandler castHandler = (IVoiceStateUpdatedEventHandler)handler;
-            VoiceStateUpdateEventArgs castArgs = (VoiceStateUpdateEventArgs)(DiscordEventArgs)args;
+            VoiceStateUpdateEventArgs castArgs = (VoiceStateUpdateEventArgs)args;
             return castHandler.OnVoiceStateUpdated(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IVoiceServerUpdatedEventHandler))
+        if(typeof(TInterface) == typeof(IVoiceServerUpdatedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(VoiceServerUpdateEventArgs));
             IVoiceServerUpdatedEventHandler castHandler = (IVoiceServerUpdatedEventHandler)handler;
-            VoiceServerUpdateEventArgs castArgs = (VoiceServerUpdateEventArgs)(DiscordEventArgs)args;
+            VoiceServerUpdateEventArgs castArgs = (VoiceServerUpdateEventArgs)args;
             return castHandler.OnVoiceServerUpdated(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IThreadCreatedEventHandler))
+        if(typeof(TInterface) == typeof(IThreadCreatedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(ThreadCreateEventArgs));
             IThreadCreatedEventHandler castHandler = (IThreadCreatedEventHandler)handler;
-            ThreadCreateEventArgs castArgs = (ThreadCreateEventArgs)(DiscordEventArgs)args;
+            ThreadCreateEventArgs castArgs = (ThreadCreateEventArgs)args;
             return castHandler.OnThreadCreated(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IThreadUpdatedEventHandler))
+        if(typeof(TInterface) == typeof(IThreadUpdatedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(ThreadUpdateEventArgs));
             IThreadUpdatedEventHandler castHandler = (IThreadUpdatedEventHandler)handler;
-            ThreadUpdateEventArgs castArgs = (ThreadUpdateEventArgs)(DiscordEventArgs)args;
+            ThreadUpdateEventArgs castArgs = (ThreadUpdateEventArgs)args;
             return castHandler.OnThreadUpdated(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IThreadDeletedEventHandler))
+        if(typeof(TInterface) == typeof(IThreadDeletedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(ThreadDeleteEventArgs));
             IThreadDeletedEventHandler castHandler = (IThreadDeletedEventHandler)handler;
-            ThreadDeleteEventArgs castArgs = (ThreadDeleteEventArgs)(DiscordEventArgs)args;
+            ThreadDeleteEventArgs castArgs = (ThreadDeleteEventArgs)args;
             return castHandler.OnThreadDeleted(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IThreadListSyncedEventHandler))
+        if(typeof(TInterface) == typeof(IThreadListSyncedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(ThreadListSyncEventArgs));
             IThreadListSyncedEventHandler castHandler = (IThreadListSyncedEventHandler)handler;
-            ThreadListSyncEventArgs castArgs = (ThreadListSyncEventArgs)(DiscordEventArgs)args;
+            ThreadListSyncEventArgs castArgs = (ThreadListSyncEventArgs)args;
             return castHandler.OnThreadListSynced(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IThreadMemberUpdatedEventHandler))
+        if(typeof(TInterface) == typeof(IThreadMemberUpdatedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(ThreadMemberUpdateEventArgs));
             IThreadMemberUpdatedEventHandler castHandler = (IThreadMemberUpdatedEventHandler)handler;
-            ThreadMemberUpdateEventArgs castArgs = (ThreadMemberUpdateEventArgs)(DiscordEventArgs)args;
+            ThreadMemberUpdateEventArgs castArgs = (ThreadMemberUpdateEventArgs)args;
             return castHandler.OnThreadMemberUpdated(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IThreadMembersUpdatedEventHandler))
+        if(typeof(TInterface) == typeof(IThreadMembersUpdatedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(ThreadMembersUpdateEventArgs));
             IThreadMembersUpdatedEventHandler castHandler = (IThreadMembersUpdatedEventHandler)handler;
-            ThreadMembersUpdateEventArgs castArgs = (ThreadMembersUpdateEventArgs)(DiscordEventArgs)args;
+            ThreadMembersUpdateEventArgs castArgs = (ThreadMembersUpdateEventArgs)args;
             return castHandler.OnThreadMembersUpdated(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IIntegrationCreatedEventHandler))
+        if(typeof(TInterface) == typeof(IIntegrationCreatedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(IntegrationCreateEventArgs));
             IIntegrationCreatedEventHandler castHandler = (IIntegrationCreatedEventHandler)handler;
-            IntegrationCreateEventArgs castArgs = (IntegrationCreateEventArgs)(DiscordEventArgs)args;
+            IntegrationCreateEventArgs castArgs = (IntegrationCreateEventArgs)args;
             return castHandler.OnIntegrationCreated(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IIntegrationUpdatedEventHandler))
+        if(typeof(TInterface) == typeof(IIntegrationUpdatedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(IntegrationUpdateEventArgs));
             IIntegrationUpdatedEventHandler castHandler = (IIntegrationUpdatedEventHandler)handler;
-            IntegrationUpdateEventArgs castArgs = (IntegrationUpdateEventArgs)(DiscordEventArgs)args;
+            IntegrationUpdateEventArgs castArgs = (IntegrationUpdateEventArgs)args;
             return castHandler.OnIntegrationUpdated(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IIntegrationDeletedEventHandler))
+        if(typeof(TInterface) == typeof(IIntegrationDeletedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(IntegrationDeleteEventArgs));
             IIntegrationDeletedEventHandler castHandler = (IIntegrationDeletedEventHandler)handler;
-            IntegrationDeleteEventArgs castArgs = (IntegrationDeleteEventArgs)(DiscordEventArgs)args;
+            IntegrationDeleteEventArgs castArgs = (IntegrationDeleteEventArgs)args;
             return castHandler.OnIntegrationDeleted(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IStageInstanceCreatedEventHandler))
+        if(typeof(TInterface) == typeof(IStageInstanceCreatedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(StageInstanceCreateEventArgs));
             IStageInstanceCreatedEventHandler castHandler = (IStageInstanceCreatedEventHandler)handler;
-            StageInstanceCreateEventArgs castArgs = (StageInstanceCreateEventArgs)(DiscordEventArgs)args;
+            StageInstanceCreateEventArgs castArgs = (StageInstanceCreateEventArgs)args;
             return castHandler.OnStageInstanceCreated(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IStageInstanceUpdatedEventHandler))
+        if(typeof(TInterface) == typeof(IStageInstanceUpdatedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(StageInstanceUpdateEventArgs));
             IStageInstanceUpdatedEventHandler castHandler = (IStageInstanceUpdatedEventHandler)handler;
-            StageInstanceUpdateEventArgs castArgs = (StageInstanceUpdateEventArgs)(DiscordEventArgs)args;
+            StageInstanceUpdateEventArgs castArgs = (StageInstanceUpdateEventArgs)args;
             return castHandler.OnStageInstanceUpdated(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IStageInstanceDeletedEventHandler))
+        if(typeof(TInterface) == typeof(IStageInstanceDeletedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(StageInstanceDeleteEventArgs));
             IStageInstanceDeletedEventHandler castHandler = (IStageInstanceDeletedEventHandler)handler;
-            StageInstanceDeleteEventArgs castArgs = (StageInstanceDeleteEventArgs)(DiscordEventArgs)args;
+            StageInstanceDeleteEventArgs castArgs = (StageInstanceDeleteEventArgs)args;
             return castHandler.OnStageInstanceDeleted(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IInteractionCreatedEventHandler))
+        if(typeof(TInterface) == typeof(IInteractionCreatedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(InteractionCreateEventArgs));
             IInteractionCreatedEventHandler castHandler = (IInteractionCreatedEventHandler)handler;
-            InteractionCreateEventArgs castArgs = (InteractionCreateEventArgs)(DiscordEventArgs)args;
+            InteractionCreateEventArgs castArgs = (InteractionCreateEventArgs)args;
             return castHandler.OnInteractionCreated(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IComponentInteractionCreatedEventHandler))
+        if(typeof(TInterface) == typeof(IComponentInteractionCreatedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(ComponentInteractionCreateEventArgs));
             IComponentInteractionCreatedEventHandler castHandler = (IComponentInteractionCreatedEventHandler)handler;
-            ComponentInteractionCreateEventArgs castArgs = (ComponentInteractionCreateEventArgs)(DiscordEventArgs)args;
+            ComponentInteractionCreateEventArgs castArgs = (ComponentInteractionCreateEventArgs)args;
             return castHandler.OnComponentInteractionCreated(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IModalSubmittedEventHandler))
+        if(typeof(TInterface) == typeof(IModalSubmittedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(ModalSubmitEventArgs));
             IModalSubmittedEventHandler castHandler = (IModalSubmittedEventHandler)handler;
-            ModalSubmitEventArgs castArgs = (ModalSubmitEventArgs)(DiscordEventArgs)args;
+            ModalSubmitEventArgs castArgs = (ModalSubmitEventArgs)args;
             return castHandler.OnModalSubmitted(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IContextMenuInteractionCreatedEventHandler))
+        if(typeof(TInterface) == typeof(IContextMenuInteractionCreatedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(ContextMenuInteractionCreateEventArgs));
             IContextMenuInteractionCreatedEventHandler castHandler = (IContextMenuInteractionCreatedEventHandler)handler;
-            ContextMenuInteractionCreateEventArgs castArgs = (ContextMenuInteractionCreateEventArgs)(DiscordEventArgs)args;
+            ContextMenuInteractionCreateEventArgs castArgs = (ContextMenuInteractionCreateEventArgs)args;
             return castHandler.OnContextMenuInteractionCreated(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(ITypingStartedEventHandler))
+        if(typeof(TInterface) == typeof(ITypingStartedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(TypingStartEventArgs));
             ITypingStartedEventHandler castHandler = (ITypingStartedEventHandler)handler;
-            TypingStartEventArgs castArgs = (TypingStartEventArgs)(DiscordEventArgs)args;
+            TypingStartEventArgs castArgs = (TypingStartEventArgs)args;
             return castHandler.OnTypingStarted(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IUnknownEventEventHandler))
+        if(typeof(TInterface) == typeof(IUnknownEventEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(UnknownEventArgs));
             IUnknownEventEventHandler castHandler = (IUnknownEventEventHandler)handler;
-            UnknownEventArgs castArgs = (UnknownEventArgs)(DiscordEventArgs)args;
+            UnknownEventArgs castArgs = (UnknownEventArgs)args;
             return castHandler.OnUnknownEvent(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IWebhooksUpdatedEventHandler))
+        if(typeof(TInterface) == typeof(IWebhooksUpdatedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(WebhooksUpdateEventArgs));
             IWebhooksUpdatedEventHandler castHandler = (IWebhooksUpdatedEventHandler)handler;
-            WebhooksUpdateEventArgs castArgs = (WebhooksUpdateEventArgs)(DiscordEventArgs)args;
+            WebhooksUpdateEventArgs castArgs = (WebhooksUpdateEventArgs)args;
             return castHandler.OnWebhooksUpdated(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IClientErroredEventHandler))
+        if(typeof(TInterface) == typeof(IClientErroredEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(ClientErrorEventArgs));
             IClientErroredEventHandler castHandler = (IClientErroredEventHandler)handler;
-            ClientErrorEventArgs castArgs = (ClientErrorEventArgs)(DiscordEventArgs)args;
+            ClientErrorEventArgs castArgs = (ClientErrorEventArgs)args;
             return castHandler.OnClientErrored(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IAutoModerationRuleCreatedEventHandler))
+        if(typeof(TInterface) == typeof(IAutoModerationRuleCreatedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(AutoModerationRuleCreateEventArgs));
             IAutoModerationRuleCreatedEventHandler castHandler = (IAutoModerationRuleCreatedEventHandler)handler;
-            AutoModerationRuleCreateEventArgs castArgs = (AutoModerationRuleCreateEventArgs)(DiscordEventArgs)args;
+            AutoModerationRuleCreateEventArgs castArgs = (AutoModerationRuleCreateEventArgs)args;
             return castHandler.OnAutoModerationRuleCreated(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IAutoModerationRuleUpdatedEventHandler))
+        if(typeof(TInterface) == typeof(IAutoModerationRuleUpdatedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(AutoModerationRuleUpdateEventArgs));
             IAutoModerationRuleUpdatedEventHandler castHandler = (IAutoModerationRuleUpdatedEventHandler)handler;
-            AutoModerationRuleUpdateEventArgs castArgs = (AutoModerationRuleUpdateEventArgs)(DiscordEventArgs)args;
+            AutoModerationRuleUpdateEventArgs castArgs = (AutoModerationRuleUpdateEventArgs)args;
             return castHandler.OnAutoModerationRuleUpdated(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IAutoModerationRuleDeletedEventHandler))
+        if(typeof(TInterface) == typeof(IAutoModerationRuleDeletedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(AutoModerationRuleDeleteEventArgs));
             IAutoModerationRuleDeletedEventHandler castHandler = (IAutoModerationRuleDeletedEventHandler)handler;
-            AutoModerationRuleDeleteEventArgs castArgs = (AutoModerationRuleDeleteEventArgs)(DiscordEventArgs)args;
+            AutoModerationRuleDeleteEventArgs castArgs = (AutoModerationRuleDeleteEventArgs)args;
             return castHandler.OnAutoModerationRuleDeleted(sender, castArgs);
         }
         else
-        if(typeof(THandler) == typeof(IAutoModerationRuleExecutedEventHandler))
+        if(typeof(TInterface) == typeof(IAutoModerationRuleExecutedEventHandler))
         {
-            Debug.Assert(typeof(TArgument) == typeof(AutoModerationRuleExecuteEventArgs));
             IAutoModerationRuleExecutedEventHandler castHandler = (IAutoModerationRuleExecutedEventHandler)handler;
-            AutoModerationRuleExecuteEventArgs castArgs = (AutoModerationRuleExecuteEventArgs)(DiscordEventArgs)args;
+            AutoModerationRuleExecuteEventArgs castArgs = (AutoModerationRuleExecuteEventArgs)args;
             return castHandler.OnAutoModerationRuleExecuted(sender, castArgs);
         }
         else
         {
-            Debug.Fail($"Not a supported type: {typeof(THandler).Name}");
-            return ValueTask.FromException(new InvalidOperationException($"Handler of type {typeof(THandler).Name} not supported"));
+            Debug.Fail($"Not a supported type: {typeof(TInterface).Name}");
+            return ValueTask.FromException(new InvalidOperationException($"Handler of type {typeof(TInterface).Name} not supported"));
         }
     }
 

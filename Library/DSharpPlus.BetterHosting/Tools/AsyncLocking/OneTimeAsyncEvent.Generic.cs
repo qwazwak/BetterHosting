@@ -226,6 +226,7 @@ internal sealed partial class OneTimeAsyncEvent<T>
         lock (syncObject)
             return ToString_PreLocked();
     }
+
     /// <summary>
     /// Core implementation for <see cref="ToString"/>, only called while the <see cref="syncObject"/> lock is held
     /// </summary>

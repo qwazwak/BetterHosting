@@ -14,12 +14,6 @@
   </ItemGroup>
   
   <ItemGroup>
-    <Compile Remove="Services\Implementation\BarrierManager.cs" />
-    <Compile Remove="Services\Interfaces\IDiscord.cs" />
-    <Compile Remove="Services\Interfaces\IDiscordClient.cs" />
-    <Compile Remove="Services\Interfaces\IDiscordShardedClient.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
       <_Parameter1>DSharpPlus.EventsNext.BetterHosting</_Parameter1>
     </AssemblyAttribute>

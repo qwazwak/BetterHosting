@@ -1,50 +1,26 @@
 ﻿using System.Threading.Tasks;
 using System.Threading;
-using FreddyBot.Services.Implementation.Database;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace FreddyBot.Services.Implementation;
 
-public class DBFileSetup : ISystemSetup
+public class DBFileSetup<TContext> : ISystemSetup where TContext : DbContext
 {
-#if hardDefault
-    private readonly FileProviderOptions options;
+    private readonly ILogger<DBFileSetup<TContext>> logger;
+    private readonly TContext context;
 
-    public RequiredFileSetup(IOptions<FileProviderOptions> options) : this(options.Value) { }
-    public RequiredFileSetup(FileProviderOptions options) => this.options = options;
-
-    public Task Run(CancellationToken cancellationToken)
+    public DBFileSetup(ILogger<DBFileSetup<TContext>> logger, TContext context)
     {
-        if(!Path.Exists(options.FreddyFolderPath))
-            Directory.CreateDirectory(options.FreddyFolderPath);
-
-        return File.Exists(options.DBFilePath) || cancellationToken.IsCancellationRequested ? Task.CompletedTask : CopyDefaultDBAsync();
-    }
-
-    private async Task CopyDefaultDBAsync()
-    {
-        string sourceFile = options.DefaultDBFilePath;
-        string destinationFile = options.DBFilePath;
-
-        //File.Copy(sourceFile, destinationFile);
-        using FileStream sourceStream = new(sourceFile, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, FileOptions.Asynchronous | FileOptions.SequentialScan);
-        using FileStream destinationStream = new(destinationFile, FileMode.CreateNew, FileAccess.Write, FileShare.None, 4096, FileOptions.Asynchronous | FileOptions.SequentialScan);
-        await sourceStream.CopyToAsync(destinationStream);
-    }
-}
-#else
-    private readonly SwearJarContext jarsContext;
-    private readonly BadPasswordContext passwordContext;
-
-    public DBFileSetup(SwearJarContext jarsContext, BadPasswordContext passwordContext)
-    {
-        this.jarsContext = jarsContext;
-        this.passwordContext = passwordContext;
+        this.logger = logger;
+        this.context = context;
     }
 
     public async Task Run(CancellationToken cancellationToken)
     {
-        await jarsContext.Database.EnsureCreatedAsync(cancellationToken);
-        await passwordContext.Database.EnsureCreatedAsync(cancellationToken);
+        if(await context.Database.EnsureCreatedAsync(cancellationToken))
+            logger.LogInformation("Created DB file for {ContextName}", typeof(TContext).Name);
+        else
+            logger.LogDebug("DB file for {ContextName} already existed", typeof(TContext).Name);
     }
-#endif
 }

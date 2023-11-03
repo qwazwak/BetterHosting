@@ -13,21 +13,20 @@ using System.Threading.Tasks;
 
 internal static partial class EventHandlerReflector
 {
-    public static partial ValueTask AutoCallEventHandler<THandler, TArgument>(IDiscordEventHandler<TArgument> handler, DiscordClient sender, TArgument args) where THandler : IDiscordEventHandler<TArgument> where TArgument : DiscordEventArgs
+    public static partial ValueTask AutoCallEventHandler<TInterface>(IDiscordEventHandler handler, DiscordClient sender, DiscordEventArgs args) where TInterface : IDiscordEventHandler
     {
 <# foreach(EventNaming naming in EventsList) { #>
-        if(typeof(THandler) == typeof(<#=naming.InterfaceName#>))
+        if(typeof(TInterface) == typeof(<#=naming.InterfaceName#>))
         {
-            Debug.Assert(typeof(TArgument) == typeof(<#=naming.ArgumentType#>));
             <#=naming.InterfaceName#> castHandler = (<#=naming.InterfaceName#>)handler;
-            <#=naming.ArgumentType#> castArgs = (<#=naming.ArgumentType#>)(DiscordEventArgs)args;
+            <#=naming.ArgumentType#> castArgs = (<#=naming.ArgumentType#>)args;
             return castHandler.<#=naming.MethodName#>(sender, castArgs);
         }
         else
 <#}#>
         {
-            Debug.Fail($"Not a supported type: {typeof(THandler).Name}");
-            return ValueTask.FromException(new InvalidOperationException($"Handler of type {typeof(THandler).Name} not supported"));
+            Debug.Fail($"Not a supported type: {typeof(TInterface).Name}");
+            return ValueTask.FromException(new InvalidOperationException($"Handler of type {typeof(TInterface).Name} not supported"));
         }
     }
 

@@ -18,6 +18,7 @@ public static partial class RegistrationExtensions
         return services;
     }
 <# foreach(EventNaming naming in EventsList) { #>
+
     /// <summary>
     /// Gets a builder that forwards handler addition calls for the <see cref="DiscordShardedClient.<#=naming.EventName#>"/> to the underlying service collection
     /// </summary>
@@ -25,17 +26,4 @@ public static partial class RegistrationExtensions
     /// <inheritdoc cref="RegistrationExtensions.AddEventHandlers{T}"/>
     public static RegistrationBuilder<<#=naming.InterfaceName#>> Add<#=naming.EventName#>Handlers(this IServiceCollection services) => services.AddEventHandlers<<#=naming.InterfaceName#>>();
 <#} #>
-<# foreach(EventNaming naming in EventsList) { #>
-
-    /// <summary>
-    /// Shorthand to register <typeparamref name="THandler"/> to the event <see cref="DiscordShardedClient.<#=naming.EventName#>"/>
-    /// </summary>
-    /// <typeparam name="THandler">The <see cref="IDiscordEventHandler{TArgs}"/> to register for the event</typeparam>
-    public static IServiceCollection Add<#=naming.WithHandlerSuffix#><THandler>(IServiceCollection services) where THandler : class, <#=naming.InterfaceName#>
-    {
-        services.AddEventHandlers<<#=naming.InterfaceName#>>().RegisterHandler<THandler>();
-        return services;
-    }
-
-<#}#>
 }
