@@ -10,22 +10,32 @@ using DSharpPlus.BetterHosting.Services.Implementation;
 
 namespace DSharpPlus.BetterHosting.Lavalink;
 
+/// <summary>
+/// Extension methods and adding and configuring <see cref="DSharpPlus.Lavalink"/> to <see cref="BetterHosting"/>
+/// </summary>
 public static class BetterLavalinkHostExtensions
 {
-    public static OptionsBuilder<LavalinkConfiguration> AddLavalink(this IServiceCollection services, LavalinkConfiguration options) => services.AddLavalink().AddLavalinkConfig(options);
-    public static OptionsBuilder<LavalinkConfiguration> AddLavalink(this IServiceCollection services, Func<LavalinkConfiguration> optionsFactory) => services.AddLavalink().AddLavalinkConfig(optionsFactory);
-    // <param name="configSectionPath">The name of the configuration section to bind from.</param>
-    public static OptionsBuilder<LavalinkConfiguration> AddLavalink(this IServiceCollection services, string configSectionPath = nameof(LavalinkConfiguration)) => services.AddLavalink().AddLavalinkConfig(configSectionPath);
-
-    private static IServiceCollection AddLavalink(this IServiceCollection services)
+    /// <summary>
+    /// Entry point to add <see cref="DSharpPlus.Lavalink"/> to <see cref="BetterHosting"/>
+    /// </summary>
+    /// <param name="services"></param>
+    /// <returns>The same <see cref="IServiceCollection"/> for chaining</returns>
+    public static IServiceCollection AddLavalink(this IServiceCollection services)
     {
         return services
-            .AddSimpleHostedDiscordService<LavalinkBackgroundService>()
+            .AddHostedDiscordService<LavalinkBackgroundService>()
             .AddTransient<IDiscordClientConfigurator, LavalinkSetup>();
     }
 
-    private static OptionsBuilder<LavalinkConfiguration> AddLavalinkConfig(this IServiceCollection services, LavalinkConfiguration config) => services.AddSingleton(Microsoft.Extensions.Options.Options.Create(config)).AddOptions<LavalinkConfiguration>();
-    private static OptionsBuilder<LavalinkConfiguration> AddLavalinkConfig(this IServiceCollection services, Func<LavalinkConfiguration> configProvider) => services.AddSingleton<IOptions<LavalinkConfiguration>>(new LazyOptionsWrapper<LavalinkConfiguration>(configProvider)).AddOptions<LavalinkConfiguration>();
+    /// <summary>
+    /// Registers a <see cref="IOptions{TOptions}"/> which will use the provided <paramref name="config"/>
+    /// </summary>
+    public static OptionsBuilder<LavalinkConfiguration> AddLavalinkConfig(this IServiceCollection services, LavalinkConfiguration config) => services.AddSingleton(Microsoft.Extensions.Options.Options.Create(config)).AddOptions<LavalinkConfiguration>();
+
+    /// <summary>
+    /// Registers a <see cref="IOptions{TOptions}"/> which will be laziliy initialized with <see cref="ConfigurationProvider"/>
+    /// </summary>
+    public static OptionsBuilder<LavalinkConfiguration> AddLavalinkConfig(this IServiceCollection services, Func<LavalinkConfiguration> configProvider) => services.AddSingleton<IOptions<LavalinkConfiguration>>(new LazyOptionsWrapper<LavalinkConfiguration>(configProvider)).AddOptions<LavalinkConfiguration>();
 
     /// <summary>
     /// Registers the dependency injection container to bind <see cref="LavalinkConfiguration"/> against
@@ -37,5 +47,5 @@ public static class BetterLavalinkHostExtensions
     /// <paramref name="services"/> or <paramref name="configSectionPath" /> is <see langword="null"/>.
     /// </exception>
     /// <seealso cref="OptionsBuilderConfigurationExtensions.Bind{TOptions}(OptionsBuilder{TOptions}, IConfiguration, Action{BinderOptions})"/>
-    public static OptionsBuilder<LavalinkConfiguration> AddLavalinkConfig(this IServiceCollection services, string configSectionPath = nameof(LavalinkConfiguration)) => services.AddOptions<LavalinkConfiguration>().BindConfiguration(configSectionPath);
+    public static OptionsBuilder<LavalinkConfiguration> AddLavalinkConfig(this IServiceCollection services, string configSectionPath ) => services.AddOptions<LavalinkConfiguration>().BindConfiguration(configSectionPath, o => o.BindNonPublicProperties = true);
 }

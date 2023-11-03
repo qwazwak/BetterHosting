@@ -1,0 +1,117 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <LibraryCoreName>DSharpPlus.BetterHosting.EventsNext</LibraryCoreName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DSharpPlus" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="EventsNextBetterHostExtensions.AddAllHostedHandlers.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>EventsNextBetterHostExtensions.AddAllHostedHandlers.cs</LastGenOutput>
+      <!--<DependentUpon>$(EventsNextTemplatingDir)..\DiscordEventsTemplateBase.tt</DependentUpon>-->
+    </None>
+
+    <Compile Update="EventsNextBetterHostExtensions.AddAllHostedHandlers.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>EventsNextBetterHostExtensions.AddAllHostedHandlers.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="RegistrationExtensions.Generated.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>RegistrationExtensions.Generated.cs</LastGenOutput>
+      <!--<DependentUpon>$(EventsNextTemplatingDir)..\DiscordEventsTemplateBase.tt</DependentUpon>-->
+    </None>
+
+    <Compile Update="RegistrationExtensions.Generated.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>RegistrationExtensions.Generated.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Update="Services\Implementations\EventHandlerManager.Generated.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>EventHandlerManager.Generated.cs</LastGenOutput>
+      <!--<DependentUpon>$(EventsNextTemplatingDir)..\DiscordEventsTemplateBase.tt</DependentUpon>-->
+    </None>
+
+    <Compile Update="Services\Implementations\EventHandlerManager.Generated.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>EventHandlerManager.Generated.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Update="Tools\HandlerValidation.Generated.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>HandlerValidation.Generated.cs</LastGenOutput>
+      <!--<DependentUpon>$(EventsNextTemplatingDir)..\DiscordEventsTemplateBase.tt</DependentUpon>-->
+    </None>
+
+    <Compile Update="Tools\HandlerValidation.Generated.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>HandlerValidation.Generated.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Update="Tools\EventInterfaceValidation.Generated.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>EventInterfaceValidation.Generated.cs</LastGenOutput>
+      <!--<DependentUpon>$(EventsNextTemplatingDir)..\DiscordEventsTemplateBase.tt</DependentUpon>-->
+    </None>
+
+    <Compile Update="Tools\EventInterfaceValidation.Generated.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>EventInterfaceValidation.Generated.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Update="Tools\EventHandlerReflector.Generated.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>EventHandlerReflector.Generated.cs</LastGenOutput>
+      <!--<DependentUpon>$(EventsNextTemplatingDir)..\DiscordEventsTemplateBase.tt</DependentUpon>-->
+    </None>
+
+    <Compile Update="Tools\EventHandlerReflector.Generated.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>EventHandlerReflector.Generated.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  
+  
+  <ItemGroup>
+    <None Update="Services\IDiscordEventHandlers.Generated.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>IDiscordEventHandlers.Generated.cs</LastGenOutput>
+      <!--<DependentUpon>$(EventsNextTemplatingDir)..\DiscordEventsTemplateBase.tt</DependentUpon>-->
+    </None>
+
+    <Compile Update="Services\IDiscordEventHandlers.Generated.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>IDiscordEventHandlers.Generated.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+</Project>

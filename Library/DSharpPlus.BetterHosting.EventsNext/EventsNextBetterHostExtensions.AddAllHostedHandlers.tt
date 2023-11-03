@@ -1,0 +1,18 @@
+﻿<#@ template debug="true" hostspecific="true" language="C#" #>
+<#@ output extension=".cs" #>
+<#@ include file="DiscordEventsBase.tt" #>
+<#@ assembly name="System.Core" #>
+using DSharpPlus.EventArgs;
+using DSharpPlus.BetterHosting.EventsNext.Services;
+using Microsoft.Extensions.DependencyInjection;
+
+<#=AutomaticNamespaceLine#>
+
+public static partial class EventsNextBetterHostExtensions
+{
+    private static partial void AddAllHostedHandlers(IServiceCollection services) => services
+<# foreach(EventNaming naming in SkipLast) {#>
+        .AddHostedHandlerCore<<#=naming.InterfaceName#>, <#=naming.ArgumentType#>>()
+<#} #>
+        .AddHostedHandlerCore<<#=LastEvent.InterfaceName#>, <#=LastEvent.ArgumentType#>>();
+}

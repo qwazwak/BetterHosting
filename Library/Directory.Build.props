@@ -7,6 +7,9 @@
   <Import Project="$(MSBuildThisFileDirectory)EventsNextTemplating/EventsNextTemplating.Build.props" Condition="'$(UseEventsNextTemplating)' != ''" />
 
   <PropertyGroup>
+    <AssemblyName>$(LibraryCoreName)</AssemblyName>
+    <RootNamespace>$(LibraryCoreName)</RootNamespace>
+    <PackageId>$(LibraryCoreName)</PackageId>
     <!-- general properties -->
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>disable</ImplicitUsings>
@@ -73,6 +76,9 @@
   <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
       <_Parameter1>UnitTests.$(MSBuildProjectName)</_Parameter1>
+    </AssemblyAttribute>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>DynamicProxyGenAssembly2</_Parameter1>
     </AssemblyAttribute>
   </ItemGroup>
 </Project>

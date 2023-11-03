@@ -9,15 +9,13 @@ namespace DSharpPlus.BetterHosting;
 /// </summary>
 public static class HostedDiscordServiceExtensions
 {
-    public static IServiceCollection AddHostedDiscordService<TService>(this IServiceCollection services) where TService : DiscordBackgroundServiceBase
-    {
-        if (typeof(TService) == typeof(DiscordBackgroundServiceBase)) throw new ArgumentException($"{typeof(DiscordBackgroundServiceBase).Name} is not a valid service");
-        ArgumentNullException.ThrowIfNull(services);
-        services.AddHostedService<TService>();
-        return services;
-    }
-
-    public static IServiceCollection AddSimpleHostedDiscordService<TService>(this IServiceCollection services) where TService : class, IDiscordBackgroundService
+    /// <summary>
+    /// Registers a <see cref="DiscordBackgroundServiceHost{T}"/> which will handle running of <see cref="AddHostedDiscordService{TService}(IServiceCollection)"/>
+    /// </summary>
+    /// <typeparam name="TService"></typeparam>
+    /// <param name="services"></param>
+    /// <returns>The same <see cref="IServiceCollection"/> for chaining</returns>
+    public static IServiceCollection AddHostedDiscordService<TService>(this IServiceCollection services) where TService : class, IDiscordBackgroundService
     {
         ArgumentNullException.ThrowIfNull(services);
         services.AddTransient<TService>();

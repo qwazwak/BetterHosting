@@ -7,24 +7,25 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="DSharpPlus" Version="5.0.0-nightly-01851" />
-    <PackageReference Include="DSharpPlus.CommandsNext" Version="5.0.0-nightly-01851" />
-    <PackageReference Include="DSharpPlus.SlashCommands" Version="5.0.0-nightly-01851" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0-rc.2.23479.6" />
-    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.0-rc.2.23479.6" />
+    <PackageReference Include="DSharpPlus" />
+    <PackageReference Include="DSharpPlus.CommandsNext" />
+    <PackageReference Include="DSharpPlus.SlashCommands" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DSharpPlus.BetterHosting\DSharpPlus.BetterHosting.csproj" />
-    <ProjectReference Include="..\DSharpPlus.EventsNext\DSharpPlus.EventsNext.csproj" />
-    <ProjectReference Include="..\DSharpPlus.EventsNext.BetterHosting\DSharpPlus.EventsNext.BetterHosting.csproj" />
-    <ProjectReference Include="..\DSharpPlus.BetterHosting.Lavalink\DSharpPlus.BetterHosting.Lavalink.csproj" />
-    <ProjectReference Include="..\DSharpPlus.BetterHosting.CommandsNext\DSharpPlus.BetterHosting.CommandsNext.csproj" />
+    <ProjectReference Include="$(LibraryDir)DSharpPlus.BetterHosting\DSharpPlus.BetterHosting.csproj" />
+    <ProjectReference Include="$(LibraryDir)DSharpPlus.BetterHosting.CommandsNext\DSharpPlus.BetterHosting.CommandsNext.csproj" />
+    <ProjectReference Include="$(LibraryDir)DSharpPlus.BetterHosting.SlashCommands\DSharpPlus.BetterHosting.SlashCommands.csproj" />
+    <ProjectReference Include="$(LibraryDir)DSharpPlus.EventsNext\DSharpPlus.EventsNext.csproj" />
+    <ProjectReference Include="$(LibraryDir)DSharpPlus.EventsNext.BetterHosting\DSharpPlus.EventsNext.BetterHosting.csproj" />
+    <ProjectReference Include="$(LibraryDir)DSharpPlus.BetterHosting.Lavalink\DSharpPlus.BetterHosting.Lavalink.csproj" />
   </ItemGroup>
+  
   <ItemGroup>
-    <None Update="appsettings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Update="appsettings.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
+  
   <ItemGroup>
     <Folder Include="Services\EventHandlers\" />
   </ItemGroup>

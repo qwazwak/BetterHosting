@@ -18,7 +18,7 @@ public class EquivelentServiceDescriptorConstraint : Constraint
     /// <summary>
     /// The type of the actual argument to which the constraint was applied
     /// </summary>
-    protected ServiceDescriptor ActualDescriptor;
+    protected ServiceDescriptor? ActualDescriptor;
 
     /// <summary>
     /// Construct a TypeConstraint for a given Type

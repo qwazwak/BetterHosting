@@ -8,5 +8,9 @@ namespace DSharpPlus.BetterHosting.Services.Interfaces;
 /// </summary>
 public interface IConnectedClientProvider
 {
+    /// <summary>
+    /// Gets the <see cref="DiscordShardedClient"/>, only returning after it is ready
+    /// </summary>
+    /// <param name="cancellationToken"></param>
     ValueTask<DiscordShardedClient> GetClientAsync(CancellationToken cancellationToken = default);
 }

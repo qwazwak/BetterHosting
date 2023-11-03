@@ -7,9 +7,6 @@
   <PropertyGroup>
     <ReferenceBetterHostBase Condition="'$(ProjectName)' != ('DSharpPlus.BetterHosting') and '$(ReferenceBetterHostBase)' == ''">True</ReferenceBetterHostBase>
     <!--<LibraryCoreName>DSharpPlus.*.*</LibraryCoreName>-->
-    <AssemblyName>$(LibraryCoreName)</AssemblyName>
-    <RootNamespace>$(LibraryCoreName)</RootNamespace>
-    <PackageId>$(LibraryCoreName)</PackageId>
   </PropertyGroup>
   
   <Target Name="ValidateLibraryValues">
@@ -19,5 +16,12 @@
     <Error Condition="'$(AssemblyName)' == ''" />
     <Error Condition="'$(RootNamespace)' == ''" />
     <Error Condition="'$(PackageId)' == ''" />
+  </Target>
+
+  <Target Name="CopyPackage" AfterTargets="Pack">
+    <Copy
+      SourceFiles="$(OutputPath)..\$(PackageId).$(PackageVersion).nupkg"
+      DestinationFolder="$(SolutionDirWorkaround)Packages\"
+    />
   </Target>
 </Project>

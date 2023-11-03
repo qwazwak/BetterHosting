@@ -40,7 +40,6 @@ public static partial class BetterHostExtensions
             return sp.GetService<IHost>()?.Services ?? sp;
         });
 
-        services.TryAddTransient(typeof(CommandsNext.Options.ConfigurationBuilderExtensions.ConfigurationBuilderTools<>));
         services.AddTransient(typeof(IShortScopeProvider<>), typeof(ShortScopeProvider<>));
         #endregion Internal helpers
         return services;

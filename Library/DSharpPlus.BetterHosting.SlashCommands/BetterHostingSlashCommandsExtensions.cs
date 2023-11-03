@@ -29,8 +29,17 @@ public static class BetterHostingSlashCommandsExtensions
         return services;
     }
 
+    /// <summary>
+    /// Registers a configurator to register the <typeparamref name="TCommand"/> with <see cref="SlashCommands"/>
+    /// </summary>
+    /// <typeparam name="TCommand"></typeparam>
+    /// <param name="services"></param>
     public static void RegisterSlashCommand<TCommand>(this IServiceCollection services) where TCommand : ApplicationCommandModule => services.AddTransient<ISlashCommandsExtensionConfigurator, SlashCommandRegisterConfigurator<TCommand>>();
 
+    /// <summary>
+    /// Registers a configurator to register all derivations of <see cref="ApplicationCommandModule"/> with <see cref="SlashCommands"/> from the calling assembly
+    /// </summary>
+    /// <param name="services"></param>
     [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
     public static void RegisterSlashCommands(this IServiceCollection services)
     {
@@ -39,6 +48,10 @@ public static class BetterHostingSlashCommandsExtensions
         services.RegisterSlashCommandsCore(callingAssembly);
     }
 
+    /// <summary>
+    /// Registers a configurator to register all derivations of <see cref="ApplicationCommandModule"/> with <see cref="SlashCommands"/> from the given assembly
+    /// </summary>
+    /// <param name="services"></param>
     public static void RegisterSlashCommands(this IServiceCollection services, Assembly assembly)
     {
         ArgumentNullException.ThrowIfNull(services);

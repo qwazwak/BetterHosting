@@ -1,0 +1,6 @@
+@FreddyBot_HostAddress = http://localhost:5068
+
+GET {{FreddyBot_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

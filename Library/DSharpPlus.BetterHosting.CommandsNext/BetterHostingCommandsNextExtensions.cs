@@ -1,17 +1,25 @@
 ﻿using System;
 using DSharpPlus.BetterHosting.CommandsNext.Services;
 using DSharpPlus.BetterHosting.CommandsNext.Services.Configuration;
+using DSharpPlus.BetterHosting.Services.Implementation;
 using DSharpPlus.BetterHosting.Services.Implementation.ExtensionConfigurators;
 using DSharpPlus.BetterHosting.Services.Interfaces.ExtensionConfigurators;
 using DSharpPlus.CommandsNext;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 
 namespace DSharpPlus.BetterHosting.SlashCommands;
 
+/// <summary>
+/// Extension methods to add and configure <see cref="DSharpPlus.CommandsNext"/>
+/// </summary>
 public static partial class BetterHostingCommandsNextExtensions
 {
+    /// <summary>
+    /// Entry point to add and configure <see cref="DSharpPlus.CommandsNext"/>
+    /// </summary>
     public static IServiceCollection AddCommandsNext(this IServiceCollection services)
     {
         ArgumentNullException.ThrowIfNull(services);
@@ -21,65 +29,20 @@ public static partial class BetterHostingCommandsNextExtensions
         services.AddTransient<IDiscordClientConfigurator, CommandsNextSetup>();
         return services;
     }
-}
-#if false
-/// <summary>
-/// Provides a type converter to convert globally unique identifier objects to and from various
-/// other representations.
-/// </summary>
-
-public abstract class ConfigurationConverter<TConfiguration> : TypeConverter
-{
-    /// <summary>
-    /// Gets a value indicating whether this converter can convert an object in the given source
-    /// type to a globally unique identifier object using the context.
-    /// </summary>
-    public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType) => sourceType == typeof(string) || base.CanConvertFrom(context, sourceType);
 
     /// <summary>
-    /// Gets a value indicating whether this converter can convert an object to
-    /// the given destination type using the context.
+    /// Registers the dependency injection container to bind <see cref="CommandsNextConfiguration"/> against
+    /// the <see cref="IConfiguration"/> obtained from the DI service provider.
     /// </summary>
-    public override bool CanConvertTo(ITypeDescriptorContext? context, [NotNullWhen(true)] Type? destinationType)
+    /// <param name="configSectionPath">The name of the configuration section to bind from.</param>
+    /// <returns>The <see cref="OptionsBuilder{TOptions}"/> so that additional calls can be chained.</returns>
+    /// <exception cref="ArgumentNullException">
+    /// <paramref name="services"/> or <paramref name="configSectionPath" /> is <see langword="null"/>.
+    /// </exception>
+    /// <seealso cref="OptionsBuilderConfigurationExtensions.Bind{TOptions}(OptionsBuilder{TOptions}, IConfiguration, Action{BinderOptions})"/>
+    public static OptionsBuilder<CommandsNextConfiguration> AddCommandsNextConfiguration(this IServiceCollection services, string configSectionPath)
     {
-        return false;
-        //            return destinationType == typeof(InstanceDescriptor) || base.CanConvertTo(context, destinationType);
+        ArgumentNullException.ThrowIfNull(services);
+        return services.AddOptions<CommandsNextConfiguration>().BindConfiguration(configSectionPath, o => o.BindNonPublicProperties = true);
     }
-
-    /// <summary>
-    /// Converts the given object to a globally unique identifier object.
-    /// </summary>
-    public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
-    {
-        if (value is string text)
-        {
-            if (text == null)
-                return null;
-            else
-                return ConvertFrom(context, culture, value);
-        }
-
-        return base.ConvertFrom(context, culture, value);
-    }
-
-    public abstract TConfiguration ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, string value);
-
-    public abstract TConfiguration BuildToDictionary(ITypeDescriptorContext? context, CultureInfo? culture, string value);
-
-    /// <summary>
-    /// Converts the given object to another type. The most common types to convert
-    /// are to and from a string object. The default implementation will make a call
-    /// to ToString on the object if the object is valid and if the destination
-    /// type is string. If this cannot convert to the destination type, this will
-    /// throw a NotSupportedException.
-    /// </summary>
-    public override object? ConvertTo(ITypeDescriptorContext? context, CultureInfo? culture, object? value, Type? destinationType) => base.ConvertTo(context, culture, value, destinationType);
-
-    //public virtual string ConvertToString(ITypeDescriptorContext? context, CultureInfo? culture, TConfiguration value) { }
 }
-/*
-public class CommandsNextConfigurationConverter : ConfigurationConverter<CommandsNextConfiguration>
-{
-}*/
-
-#endif
