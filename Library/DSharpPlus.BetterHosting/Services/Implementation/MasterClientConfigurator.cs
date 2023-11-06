@@ -29,6 +29,7 @@ internal sealed class MasterClientConfigurator : IMasterClientConfigurator
 
     private async Task ConfigureAsync(DiscordShardedClient client)
     {
+        List<Exception> exceptions = new(0);
         foreach (IDiscordClientConfigurator configurator in configurators)
         {
             try
@@ -38,8 +39,11 @@ internal sealed class MasterClientConfigurator : IMasterClientConfigurator
             catch (Exception ex)
             {
                 logger.LogError(ex, "configurator of type {typeName} failed to run: {message}", configurator.GetType().Name, ex.Message);
+                exceptions.Add(ex);
                 throw;
             }
         }
+        if (exceptions.Count > 0)
+            throw new AggregateException("One or more exceptions occured while setting up DiscordShardedClient", exceptions);
     }
 }
