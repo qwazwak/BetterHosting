@@ -3,11 +3,10 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using DSharpPlus.AsyncEvents;
+using DSharpPlus.BetterHosting.Services;
 using DSharpPlus.EventArgs;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using DSharpPlus.BetterHosting.Services;
 
 namespace DSharpPlus.BetterHosting.EventsNext.Services.Implementations;
 
@@ -16,15 +15,13 @@ internal abstract class EventHandlerManager<THandler, TArgument> : IEventHandler
     where TArgument : DiscordEventArgs
 {
     private readonly ILogger<EventHandlerManager<THandler, TArgument>> logger;
-    protected readonly DiscordConfiguration discordConfig;
     protected readonly HandlerRegistryOptions<THandler> registry;
     private readonly IServiceProvider provider;
     private DiscordShardedClient client = null!;
 
-    protected EventHandlerManager(ILogger<EventHandlerManager<THandler, TArgument>> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<THandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider)
+    protected EventHandlerManager(ILogger<EventHandlerManager<THandler, TArgument>> logger, HandlerRegistryOptions<THandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider)
     {
         this.logger = logger;
-        this.discordConfig = discordConfig.Value;
         this.registry = registry;
         this.provider = provider;
     }

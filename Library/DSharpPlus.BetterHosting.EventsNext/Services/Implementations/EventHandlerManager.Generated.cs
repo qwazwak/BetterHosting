@@ -14,7 +14,7 @@ namespace DSharpPlus.BetterHosting.EventsNext.Services.Implementations;
 
 internal partial class SocketErroredHandlerManager : EventHandlerManager<ISocketErroredEventHandler, SocketErrorEventArgs>
 {    
-    public SocketErroredHandlerManager(ILogger<SocketErroredHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<ISocketErroredEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public SocketErroredHandlerManager(ILogger<SocketErroredHandlerManager> logger, HandlerRegistryOptions<ISocketErroredEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, SocketErrorEventArgs> handler) => client.SocketErrored += handler;
@@ -28,7 +28,7 @@ internal partial class SocketErroredHandlerManager : EventHandlerManager<ISocket
 
 internal partial class SocketOpenedHandlerManager : EventHandlerManager<ISocketOpenedEventHandler, SocketEventArgs>
 {    
-    public SocketOpenedHandlerManager(ILogger<SocketOpenedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<ISocketOpenedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public SocketOpenedHandlerManager(ILogger<SocketOpenedHandlerManager> logger, HandlerRegistryOptions<ISocketOpenedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, SocketEventArgs> handler) => client.SocketOpened += handler;
@@ -42,7 +42,7 @@ internal partial class SocketOpenedHandlerManager : EventHandlerManager<ISocketO
 
 internal partial class SocketClosedHandlerManager : EventHandlerManager<ISocketClosedEventHandler, SocketCloseEventArgs>
 {    
-    public SocketClosedHandlerManager(ILogger<SocketClosedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<ISocketClosedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public SocketClosedHandlerManager(ILogger<SocketClosedHandlerManager> logger, HandlerRegistryOptions<ISocketClosedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, SocketCloseEventArgs> handler) => client.SocketClosed += handler;
@@ -56,7 +56,7 @@ internal partial class SocketClosedHandlerManager : EventHandlerManager<ISocketC
 
 internal partial class SessionCreatedHandlerManager : EventHandlerManager<ISessionCreatedEventHandler, SessionReadyEventArgs>
 {    
-    public SessionCreatedHandlerManager(ILogger<SessionCreatedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<ISessionCreatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public SessionCreatedHandlerManager(ILogger<SessionCreatedHandlerManager> logger, HandlerRegistryOptions<ISessionCreatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, SessionReadyEventArgs> handler) => client.SessionCreated += handler;
@@ -70,7 +70,7 @@ internal partial class SessionCreatedHandlerManager : EventHandlerManager<ISessi
 
 internal partial class SessionResumedHandlerManager : EventHandlerManager<ISessionResumedEventHandler, SessionReadyEventArgs>
 {    
-    public SessionResumedHandlerManager(ILogger<SessionResumedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<ISessionResumedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public SessionResumedHandlerManager(ILogger<SessionResumedHandlerManager> logger, HandlerRegistryOptions<ISessionResumedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, SessionReadyEventArgs> handler) => client.SessionResumed += handler;
@@ -84,7 +84,7 @@ internal partial class SessionResumedHandlerManager : EventHandlerManager<ISessi
 
 internal partial class HeartbeatedHandlerManager : EventHandlerManager<IHeartbeatedEventHandler, HeartbeatEventArgs>
 {    
-    public HeartbeatedHandlerManager(ILogger<HeartbeatedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IHeartbeatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public HeartbeatedHandlerManager(ILogger<HeartbeatedHandlerManager> logger, HandlerRegistryOptions<IHeartbeatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, HeartbeatEventArgs> handler) => client.Heartbeated += handler;
@@ -98,7 +98,7 @@ internal partial class HeartbeatedHandlerManager : EventHandlerManager<IHeartbea
 
 internal partial class ZombiedHandlerManager : EventHandlerManager<IZombiedEventHandler, ZombiedEventArgs>
 {    
-    public ZombiedHandlerManager(ILogger<ZombiedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IZombiedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public ZombiedHandlerManager(ILogger<ZombiedHandlerManager> logger, HandlerRegistryOptions<IZombiedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, ZombiedEventArgs> handler) => client.Zombied += handler;
@@ -112,7 +112,7 @@ internal partial class ZombiedHandlerManager : EventHandlerManager<IZombiedEvent
 
 internal partial class ApplicationCommandPermissionsUpdatedHandlerManager : EventHandlerManager<IApplicationCommandPermissionsUpdatedEventHandler, ApplicationCommandPermissionsUpdatedEventArgs>
 {    
-    public ApplicationCommandPermissionsUpdatedHandlerManager(ILogger<ApplicationCommandPermissionsUpdatedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IApplicationCommandPermissionsUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public ApplicationCommandPermissionsUpdatedHandlerManager(ILogger<ApplicationCommandPermissionsUpdatedHandlerManager> logger, HandlerRegistryOptions<IApplicationCommandPermissionsUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, ApplicationCommandPermissionsUpdatedEventArgs> handler) => client.ApplicationCommandPermissionsUpdated += handler;
@@ -126,7 +126,7 @@ internal partial class ApplicationCommandPermissionsUpdatedHandlerManager : Even
 
 internal partial class ChannelCreatedHandlerManager : EventHandlerManager<IChannelCreatedEventHandler, ChannelCreateEventArgs>
 {    
-    public ChannelCreatedHandlerManager(ILogger<ChannelCreatedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IChannelCreatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public ChannelCreatedHandlerManager(ILogger<ChannelCreatedHandlerManager> logger, HandlerRegistryOptions<IChannelCreatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, ChannelCreateEventArgs> handler) => client.ChannelCreated += handler;
@@ -140,7 +140,7 @@ internal partial class ChannelCreatedHandlerManager : EventHandlerManager<IChann
 
 internal partial class ChannelUpdatedHandlerManager : EventHandlerManager<IChannelUpdatedEventHandler, ChannelUpdateEventArgs>
 {    
-    public ChannelUpdatedHandlerManager(ILogger<ChannelUpdatedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IChannelUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public ChannelUpdatedHandlerManager(ILogger<ChannelUpdatedHandlerManager> logger, HandlerRegistryOptions<IChannelUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, ChannelUpdateEventArgs> handler) => client.ChannelUpdated += handler;
@@ -154,7 +154,7 @@ internal partial class ChannelUpdatedHandlerManager : EventHandlerManager<IChann
 
 internal partial class ChannelDeletedHandlerManager : EventHandlerManager<IChannelDeletedEventHandler, ChannelDeleteEventArgs>
 {    
-    public ChannelDeletedHandlerManager(ILogger<ChannelDeletedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IChannelDeletedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public ChannelDeletedHandlerManager(ILogger<ChannelDeletedHandlerManager> logger, HandlerRegistryOptions<IChannelDeletedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, ChannelDeleteEventArgs> handler) => client.ChannelDeleted += handler;
@@ -168,7 +168,7 @@ internal partial class ChannelDeletedHandlerManager : EventHandlerManager<IChann
 
 internal partial class DmChannelDeletedHandlerManager : EventHandlerManager<IDmChannelDeletedEventHandler, DmChannelDeleteEventArgs>
 {    
-    public DmChannelDeletedHandlerManager(ILogger<DmChannelDeletedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IDmChannelDeletedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public DmChannelDeletedHandlerManager(ILogger<DmChannelDeletedHandlerManager> logger, HandlerRegistryOptions<IDmChannelDeletedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, DmChannelDeleteEventArgs> handler) => client.DmChannelDeleted += handler;
@@ -182,7 +182,7 @@ internal partial class DmChannelDeletedHandlerManager : EventHandlerManager<IDmC
 
 internal partial class ChannelPinsUpdatedHandlerManager : EventHandlerManager<IChannelPinsUpdatedEventHandler, ChannelPinsUpdateEventArgs>
 {    
-    public ChannelPinsUpdatedHandlerManager(ILogger<ChannelPinsUpdatedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IChannelPinsUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public ChannelPinsUpdatedHandlerManager(ILogger<ChannelPinsUpdatedHandlerManager> logger, HandlerRegistryOptions<IChannelPinsUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, ChannelPinsUpdateEventArgs> handler) => client.ChannelPinsUpdated += handler;
@@ -196,7 +196,7 @@ internal partial class ChannelPinsUpdatedHandlerManager : EventHandlerManager<IC
 
 internal partial class GuildCreatedHandlerManager : EventHandlerManager<IGuildCreatedEventHandler, GuildCreateEventArgs>
 {    
-    public GuildCreatedHandlerManager(ILogger<GuildCreatedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IGuildCreatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public GuildCreatedHandlerManager(ILogger<GuildCreatedHandlerManager> logger, HandlerRegistryOptions<IGuildCreatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, GuildCreateEventArgs> handler) => client.GuildCreated += handler;
@@ -210,7 +210,7 @@ internal partial class GuildCreatedHandlerManager : EventHandlerManager<IGuildCr
 
 internal partial class GuildAvailableHandlerManager : EventHandlerManager<IGuildAvailableEventHandler, GuildCreateEventArgs>
 {    
-    public GuildAvailableHandlerManager(ILogger<GuildAvailableHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IGuildAvailableEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public GuildAvailableHandlerManager(ILogger<GuildAvailableHandlerManager> logger, HandlerRegistryOptions<IGuildAvailableEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, GuildCreateEventArgs> handler) => client.GuildAvailable += handler;
@@ -224,7 +224,7 @@ internal partial class GuildAvailableHandlerManager : EventHandlerManager<IGuild
 
 internal partial class GuildUpdatedHandlerManager : EventHandlerManager<IGuildUpdatedEventHandler, GuildUpdateEventArgs>
 {    
-    public GuildUpdatedHandlerManager(ILogger<GuildUpdatedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IGuildUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public GuildUpdatedHandlerManager(ILogger<GuildUpdatedHandlerManager> logger, HandlerRegistryOptions<IGuildUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, GuildUpdateEventArgs> handler) => client.GuildUpdated += handler;
@@ -238,7 +238,7 @@ internal partial class GuildUpdatedHandlerManager : EventHandlerManager<IGuildUp
 
 internal partial class GuildDeletedHandlerManager : EventHandlerManager<IGuildDeletedEventHandler, GuildDeleteEventArgs>
 {    
-    public GuildDeletedHandlerManager(ILogger<GuildDeletedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IGuildDeletedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public GuildDeletedHandlerManager(ILogger<GuildDeletedHandlerManager> logger, HandlerRegistryOptions<IGuildDeletedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, GuildDeleteEventArgs> handler) => client.GuildDeleted += handler;
@@ -252,7 +252,7 @@ internal partial class GuildDeletedHandlerManager : EventHandlerManager<IGuildDe
 
 internal partial class GuildUnavailableHandlerManager : EventHandlerManager<IGuildUnavailableEventHandler, GuildDeleteEventArgs>
 {    
-    public GuildUnavailableHandlerManager(ILogger<GuildUnavailableHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IGuildUnavailableEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public GuildUnavailableHandlerManager(ILogger<GuildUnavailableHandlerManager> logger, HandlerRegistryOptions<IGuildUnavailableEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, GuildDeleteEventArgs> handler) => client.GuildUnavailable += handler;
@@ -266,7 +266,7 @@ internal partial class GuildUnavailableHandlerManager : EventHandlerManager<IGui
 
 internal partial class GuildDownloadCompletedHandlerManager : EventHandlerManager<IGuildDownloadCompletedEventHandler, GuildDownloadCompletedEventArgs>
 {    
-    public GuildDownloadCompletedHandlerManager(ILogger<GuildDownloadCompletedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IGuildDownloadCompletedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public GuildDownloadCompletedHandlerManager(ILogger<GuildDownloadCompletedHandlerManager> logger, HandlerRegistryOptions<IGuildDownloadCompletedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, GuildDownloadCompletedEventArgs> handler) => client.GuildDownloadCompleted += handler;
@@ -280,7 +280,7 @@ internal partial class GuildDownloadCompletedHandlerManager : EventHandlerManage
 
 internal partial class GuildEmojisUpdatedHandlerManager : EventHandlerManager<IGuildEmojisUpdatedEventHandler, GuildEmojisUpdateEventArgs>
 {    
-    public GuildEmojisUpdatedHandlerManager(ILogger<GuildEmojisUpdatedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IGuildEmojisUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public GuildEmojisUpdatedHandlerManager(ILogger<GuildEmojisUpdatedHandlerManager> logger, HandlerRegistryOptions<IGuildEmojisUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, GuildEmojisUpdateEventArgs> handler) => client.GuildEmojisUpdated += handler;
@@ -294,7 +294,7 @@ internal partial class GuildEmojisUpdatedHandlerManager : EventHandlerManager<IG
 
 internal partial class GuildStickersUpdatedHandlerManager : EventHandlerManager<IGuildStickersUpdatedEventHandler, GuildStickersUpdateEventArgs>
 {    
-    public GuildStickersUpdatedHandlerManager(ILogger<GuildStickersUpdatedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IGuildStickersUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public GuildStickersUpdatedHandlerManager(ILogger<GuildStickersUpdatedHandlerManager> logger, HandlerRegistryOptions<IGuildStickersUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, GuildStickersUpdateEventArgs> handler) => client.GuildStickersUpdated += handler;
@@ -308,7 +308,7 @@ internal partial class GuildStickersUpdatedHandlerManager : EventHandlerManager<
 
 internal partial class GuildIntegrationsUpdatedHandlerManager : EventHandlerManager<IGuildIntegrationsUpdatedEventHandler, GuildIntegrationsUpdateEventArgs>
 {    
-    public GuildIntegrationsUpdatedHandlerManager(ILogger<GuildIntegrationsUpdatedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IGuildIntegrationsUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public GuildIntegrationsUpdatedHandlerManager(ILogger<GuildIntegrationsUpdatedHandlerManager> logger, HandlerRegistryOptions<IGuildIntegrationsUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, GuildIntegrationsUpdateEventArgs> handler) => client.GuildIntegrationsUpdated += handler;
@@ -322,7 +322,7 @@ internal partial class GuildIntegrationsUpdatedHandlerManager : EventHandlerMana
 
 internal partial class GuildAuditLogCreatedHandlerManager : EventHandlerManager<IGuildAuditLogCreatedEventHandler, GuildAuditLogCreatedEventArgs>
 {    
-    public GuildAuditLogCreatedHandlerManager(ILogger<GuildAuditLogCreatedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IGuildAuditLogCreatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public GuildAuditLogCreatedHandlerManager(ILogger<GuildAuditLogCreatedHandlerManager> logger, HandlerRegistryOptions<IGuildAuditLogCreatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, GuildAuditLogCreatedEventArgs> handler) => client.GuildAuditLogCreated += handler;
@@ -336,7 +336,7 @@ internal partial class GuildAuditLogCreatedHandlerManager : EventHandlerManager<
 
 internal partial class ScheduledGuildEventCreatedHandlerManager : EventHandlerManager<IScheduledGuildEventCreatedEventHandler, ScheduledGuildEventCreateEventArgs>
 {    
-    public ScheduledGuildEventCreatedHandlerManager(ILogger<ScheduledGuildEventCreatedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IScheduledGuildEventCreatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public ScheduledGuildEventCreatedHandlerManager(ILogger<ScheduledGuildEventCreatedHandlerManager> logger, HandlerRegistryOptions<IScheduledGuildEventCreatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, ScheduledGuildEventCreateEventArgs> handler) => client.ScheduledGuildEventCreated += handler;
@@ -350,7 +350,7 @@ internal partial class ScheduledGuildEventCreatedHandlerManager : EventHandlerMa
 
 internal partial class ScheduledGuildEventUpdatedHandlerManager : EventHandlerManager<IScheduledGuildEventUpdatedEventHandler, ScheduledGuildEventUpdateEventArgs>
 {    
-    public ScheduledGuildEventUpdatedHandlerManager(ILogger<ScheduledGuildEventUpdatedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IScheduledGuildEventUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public ScheduledGuildEventUpdatedHandlerManager(ILogger<ScheduledGuildEventUpdatedHandlerManager> logger, HandlerRegistryOptions<IScheduledGuildEventUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, ScheduledGuildEventUpdateEventArgs> handler) => client.ScheduledGuildEventUpdated += handler;
@@ -364,7 +364,7 @@ internal partial class ScheduledGuildEventUpdatedHandlerManager : EventHandlerMa
 
 internal partial class ScheduledGuildEventDeletedHandlerManager : EventHandlerManager<IScheduledGuildEventDeletedEventHandler, ScheduledGuildEventDeleteEventArgs>
 {    
-    public ScheduledGuildEventDeletedHandlerManager(ILogger<ScheduledGuildEventDeletedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IScheduledGuildEventDeletedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public ScheduledGuildEventDeletedHandlerManager(ILogger<ScheduledGuildEventDeletedHandlerManager> logger, HandlerRegistryOptions<IScheduledGuildEventDeletedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, ScheduledGuildEventDeleteEventArgs> handler) => client.ScheduledGuildEventDeleted += handler;
@@ -378,7 +378,7 @@ internal partial class ScheduledGuildEventDeletedHandlerManager : EventHandlerMa
 
 internal partial class ScheduledGuildEventCompletedHandlerManager : EventHandlerManager<IScheduledGuildEventCompletedEventHandler, ScheduledGuildEventCompletedEventArgs>
 {    
-    public ScheduledGuildEventCompletedHandlerManager(ILogger<ScheduledGuildEventCompletedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IScheduledGuildEventCompletedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public ScheduledGuildEventCompletedHandlerManager(ILogger<ScheduledGuildEventCompletedHandlerManager> logger, HandlerRegistryOptions<IScheduledGuildEventCompletedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, ScheduledGuildEventCompletedEventArgs> handler) => client.ScheduledGuildEventCompleted += handler;
@@ -392,7 +392,7 @@ internal partial class ScheduledGuildEventCompletedHandlerManager : EventHandler
 
 internal partial class ScheduledGuildEventUserAddedHandlerManager : EventHandlerManager<IScheduledGuildEventUserAddedEventHandler, ScheduledGuildEventUserAddEventArgs>
 {    
-    public ScheduledGuildEventUserAddedHandlerManager(ILogger<ScheduledGuildEventUserAddedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IScheduledGuildEventUserAddedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public ScheduledGuildEventUserAddedHandlerManager(ILogger<ScheduledGuildEventUserAddedHandlerManager> logger, HandlerRegistryOptions<IScheduledGuildEventUserAddedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, ScheduledGuildEventUserAddEventArgs> handler) => client.ScheduledGuildEventUserAdded += handler;
@@ -406,7 +406,7 @@ internal partial class ScheduledGuildEventUserAddedHandlerManager : EventHandler
 
 internal partial class ScheduledGuildEventUserRemovedHandlerManager : EventHandlerManager<IScheduledGuildEventUserRemovedEventHandler, ScheduledGuildEventUserRemoveEventArgs>
 {    
-    public ScheduledGuildEventUserRemovedHandlerManager(ILogger<ScheduledGuildEventUserRemovedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IScheduledGuildEventUserRemovedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public ScheduledGuildEventUserRemovedHandlerManager(ILogger<ScheduledGuildEventUserRemovedHandlerManager> logger, HandlerRegistryOptions<IScheduledGuildEventUserRemovedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, ScheduledGuildEventUserRemoveEventArgs> handler) => client.ScheduledGuildEventUserRemoved += handler;
@@ -420,7 +420,7 @@ internal partial class ScheduledGuildEventUserRemovedHandlerManager : EventHandl
 
 internal partial class GuildBanAddedHandlerManager : EventHandlerManager<IGuildBanAddedEventHandler, GuildBanAddEventArgs>
 {    
-    public GuildBanAddedHandlerManager(ILogger<GuildBanAddedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IGuildBanAddedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public GuildBanAddedHandlerManager(ILogger<GuildBanAddedHandlerManager> logger, HandlerRegistryOptions<IGuildBanAddedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, GuildBanAddEventArgs> handler) => client.GuildBanAdded += handler;
@@ -434,7 +434,7 @@ internal partial class GuildBanAddedHandlerManager : EventHandlerManager<IGuildB
 
 internal partial class GuildBanRemovedHandlerManager : EventHandlerManager<IGuildBanRemovedEventHandler, GuildBanRemoveEventArgs>
 {    
-    public GuildBanRemovedHandlerManager(ILogger<GuildBanRemovedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IGuildBanRemovedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public GuildBanRemovedHandlerManager(ILogger<GuildBanRemovedHandlerManager> logger, HandlerRegistryOptions<IGuildBanRemovedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, GuildBanRemoveEventArgs> handler) => client.GuildBanRemoved += handler;
@@ -448,7 +448,7 @@ internal partial class GuildBanRemovedHandlerManager : EventHandlerManager<IGuil
 
 internal partial class GuildMemberAddedHandlerManager : EventHandlerManager<IGuildMemberAddedEventHandler, GuildMemberAddEventArgs>
 {    
-    public GuildMemberAddedHandlerManager(ILogger<GuildMemberAddedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IGuildMemberAddedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public GuildMemberAddedHandlerManager(ILogger<GuildMemberAddedHandlerManager> logger, HandlerRegistryOptions<IGuildMemberAddedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, GuildMemberAddEventArgs> handler) => client.GuildMemberAdded += handler;
@@ -462,7 +462,7 @@ internal partial class GuildMemberAddedHandlerManager : EventHandlerManager<IGui
 
 internal partial class GuildMemberRemovedHandlerManager : EventHandlerManager<IGuildMemberRemovedEventHandler, GuildMemberRemoveEventArgs>
 {    
-    public GuildMemberRemovedHandlerManager(ILogger<GuildMemberRemovedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IGuildMemberRemovedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public GuildMemberRemovedHandlerManager(ILogger<GuildMemberRemovedHandlerManager> logger, HandlerRegistryOptions<IGuildMemberRemovedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, GuildMemberRemoveEventArgs> handler) => client.GuildMemberRemoved += handler;
@@ -476,7 +476,7 @@ internal partial class GuildMemberRemovedHandlerManager : EventHandlerManager<IG
 
 internal partial class GuildMemberUpdatedHandlerManager : EventHandlerManager<IGuildMemberUpdatedEventHandler, GuildMemberUpdateEventArgs>
 {    
-    public GuildMemberUpdatedHandlerManager(ILogger<GuildMemberUpdatedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IGuildMemberUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public GuildMemberUpdatedHandlerManager(ILogger<GuildMemberUpdatedHandlerManager> logger, HandlerRegistryOptions<IGuildMemberUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, GuildMemberUpdateEventArgs> handler) => client.GuildMemberUpdated += handler;
@@ -490,7 +490,7 @@ internal partial class GuildMemberUpdatedHandlerManager : EventHandlerManager<IG
 
 internal partial class GuildMembersChunkedHandlerManager : EventHandlerManager<IGuildMembersChunkedEventHandler, GuildMembersChunkEventArgs>
 {    
-    public GuildMembersChunkedHandlerManager(ILogger<GuildMembersChunkedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IGuildMembersChunkedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public GuildMembersChunkedHandlerManager(ILogger<GuildMembersChunkedHandlerManager> logger, HandlerRegistryOptions<IGuildMembersChunkedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, GuildMembersChunkEventArgs> handler) => client.GuildMembersChunked += handler;
@@ -504,7 +504,7 @@ internal partial class GuildMembersChunkedHandlerManager : EventHandlerManager<I
 
 internal partial class GuildRoleCreatedHandlerManager : EventHandlerManager<IGuildRoleCreatedEventHandler, GuildRoleCreateEventArgs>
 {    
-    public GuildRoleCreatedHandlerManager(ILogger<GuildRoleCreatedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IGuildRoleCreatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public GuildRoleCreatedHandlerManager(ILogger<GuildRoleCreatedHandlerManager> logger, HandlerRegistryOptions<IGuildRoleCreatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, GuildRoleCreateEventArgs> handler) => client.GuildRoleCreated += handler;
@@ -518,7 +518,7 @@ internal partial class GuildRoleCreatedHandlerManager : EventHandlerManager<IGui
 
 internal partial class GuildRoleUpdatedHandlerManager : EventHandlerManager<IGuildRoleUpdatedEventHandler, GuildRoleUpdateEventArgs>
 {    
-    public GuildRoleUpdatedHandlerManager(ILogger<GuildRoleUpdatedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IGuildRoleUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public GuildRoleUpdatedHandlerManager(ILogger<GuildRoleUpdatedHandlerManager> logger, HandlerRegistryOptions<IGuildRoleUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, GuildRoleUpdateEventArgs> handler) => client.GuildRoleUpdated += handler;
@@ -532,7 +532,7 @@ internal partial class GuildRoleUpdatedHandlerManager : EventHandlerManager<IGui
 
 internal partial class GuildRoleDeletedHandlerManager : EventHandlerManager<IGuildRoleDeletedEventHandler, GuildRoleDeleteEventArgs>
 {    
-    public GuildRoleDeletedHandlerManager(ILogger<GuildRoleDeletedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IGuildRoleDeletedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public GuildRoleDeletedHandlerManager(ILogger<GuildRoleDeletedHandlerManager> logger, HandlerRegistryOptions<IGuildRoleDeletedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, GuildRoleDeleteEventArgs> handler) => client.GuildRoleDeleted += handler;
@@ -546,7 +546,7 @@ internal partial class GuildRoleDeletedHandlerManager : EventHandlerManager<IGui
 
 internal partial class InviteCreatedHandlerManager : EventHandlerManager<IInviteCreatedEventHandler, InviteCreateEventArgs>
 {    
-    public InviteCreatedHandlerManager(ILogger<InviteCreatedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IInviteCreatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public InviteCreatedHandlerManager(ILogger<InviteCreatedHandlerManager> logger, HandlerRegistryOptions<IInviteCreatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, InviteCreateEventArgs> handler) => client.InviteCreated += handler;
@@ -560,7 +560,7 @@ internal partial class InviteCreatedHandlerManager : EventHandlerManager<IInvite
 
 internal partial class InviteDeletedHandlerManager : EventHandlerManager<IInviteDeletedEventHandler, InviteDeleteEventArgs>
 {    
-    public InviteDeletedHandlerManager(ILogger<InviteDeletedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IInviteDeletedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public InviteDeletedHandlerManager(ILogger<InviteDeletedHandlerManager> logger, HandlerRegistryOptions<IInviteDeletedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, InviteDeleteEventArgs> handler) => client.InviteDeleted += handler;
@@ -574,7 +574,7 @@ internal partial class InviteDeletedHandlerManager : EventHandlerManager<IInvite
 
 internal partial class MessageCreatedHandlerManager : EventHandlerManager<IMessageCreatedEventHandler, MessageCreateEventArgs>
 {    
-    public MessageCreatedHandlerManager(ILogger<MessageCreatedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IMessageCreatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public MessageCreatedHandlerManager(ILogger<MessageCreatedHandlerManager> logger, HandlerRegistryOptions<IMessageCreatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, MessageCreateEventArgs> handler) => client.MessageCreated += handler;
@@ -588,7 +588,7 @@ internal partial class MessageCreatedHandlerManager : EventHandlerManager<IMessa
 
 internal partial class MessageAcknowledgedHandlerManager : EventHandlerManager<IMessageAcknowledgedEventHandler, MessageAcknowledgeEventArgs>
 {    
-    public MessageAcknowledgedHandlerManager(ILogger<MessageAcknowledgedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IMessageAcknowledgedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public MessageAcknowledgedHandlerManager(ILogger<MessageAcknowledgedHandlerManager> logger, HandlerRegistryOptions<IMessageAcknowledgedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, MessageAcknowledgeEventArgs> handler) => client.MessageAcknowledged += handler;
@@ -602,7 +602,7 @@ internal partial class MessageAcknowledgedHandlerManager : EventHandlerManager<I
 
 internal partial class MessageUpdatedHandlerManager : EventHandlerManager<IMessageUpdatedEventHandler, MessageUpdateEventArgs>
 {    
-    public MessageUpdatedHandlerManager(ILogger<MessageUpdatedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IMessageUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public MessageUpdatedHandlerManager(ILogger<MessageUpdatedHandlerManager> logger, HandlerRegistryOptions<IMessageUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, MessageUpdateEventArgs> handler) => client.MessageUpdated += handler;
@@ -616,7 +616,7 @@ internal partial class MessageUpdatedHandlerManager : EventHandlerManager<IMessa
 
 internal partial class MessageDeletedHandlerManager : EventHandlerManager<IMessageDeletedEventHandler, MessageDeleteEventArgs>
 {    
-    public MessageDeletedHandlerManager(ILogger<MessageDeletedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IMessageDeletedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public MessageDeletedHandlerManager(ILogger<MessageDeletedHandlerManager> logger, HandlerRegistryOptions<IMessageDeletedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, MessageDeleteEventArgs> handler) => client.MessageDeleted += handler;
@@ -630,7 +630,7 @@ internal partial class MessageDeletedHandlerManager : EventHandlerManager<IMessa
 
 internal partial class MessagesBulkDeletedHandlerManager : EventHandlerManager<IMessagesBulkDeletedEventHandler, MessageBulkDeleteEventArgs>
 {    
-    public MessagesBulkDeletedHandlerManager(ILogger<MessagesBulkDeletedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IMessagesBulkDeletedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public MessagesBulkDeletedHandlerManager(ILogger<MessagesBulkDeletedHandlerManager> logger, HandlerRegistryOptions<IMessagesBulkDeletedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, MessageBulkDeleteEventArgs> handler) => client.MessagesBulkDeleted += handler;
@@ -644,7 +644,7 @@ internal partial class MessagesBulkDeletedHandlerManager : EventHandlerManager<I
 
 internal partial class MessageReactionAddedHandlerManager : EventHandlerManager<IMessageReactionAddedEventHandler, MessageReactionAddEventArgs>
 {    
-    public MessageReactionAddedHandlerManager(ILogger<MessageReactionAddedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IMessageReactionAddedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public MessageReactionAddedHandlerManager(ILogger<MessageReactionAddedHandlerManager> logger, HandlerRegistryOptions<IMessageReactionAddedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, MessageReactionAddEventArgs> handler) => client.MessageReactionAdded += handler;
@@ -658,7 +658,7 @@ internal partial class MessageReactionAddedHandlerManager : EventHandlerManager<
 
 internal partial class MessageReactionRemovedHandlerManager : EventHandlerManager<IMessageReactionRemovedEventHandler, MessageReactionRemoveEventArgs>
 {    
-    public MessageReactionRemovedHandlerManager(ILogger<MessageReactionRemovedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IMessageReactionRemovedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public MessageReactionRemovedHandlerManager(ILogger<MessageReactionRemovedHandlerManager> logger, HandlerRegistryOptions<IMessageReactionRemovedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, MessageReactionRemoveEventArgs> handler) => client.MessageReactionRemoved += handler;
@@ -672,7 +672,7 @@ internal partial class MessageReactionRemovedHandlerManager : EventHandlerManage
 
 internal partial class MessageReactionsClearedHandlerManager : EventHandlerManager<IMessageReactionsClearedEventHandler, MessageReactionsClearEventArgs>
 {    
-    public MessageReactionsClearedHandlerManager(ILogger<MessageReactionsClearedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IMessageReactionsClearedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public MessageReactionsClearedHandlerManager(ILogger<MessageReactionsClearedHandlerManager> logger, HandlerRegistryOptions<IMessageReactionsClearedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, MessageReactionsClearEventArgs> handler) => client.MessageReactionsCleared += handler;
@@ -686,7 +686,7 @@ internal partial class MessageReactionsClearedHandlerManager : EventHandlerManag
 
 internal partial class MessageReactionRemovedEmojiHandlerManager : EventHandlerManager<IMessageReactionRemovedEmojiEventHandler, MessageReactionRemoveEmojiEventArgs>
 {    
-    public MessageReactionRemovedEmojiHandlerManager(ILogger<MessageReactionRemovedEmojiHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IMessageReactionRemovedEmojiEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public MessageReactionRemovedEmojiHandlerManager(ILogger<MessageReactionRemovedEmojiHandlerManager> logger, HandlerRegistryOptions<IMessageReactionRemovedEmojiEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, MessageReactionRemoveEmojiEventArgs> handler) => client.MessageReactionRemovedEmoji += handler;
@@ -700,7 +700,7 @@ internal partial class MessageReactionRemovedEmojiHandlerManager : EventHandlerM
 
 internal partial class PresenceUpdatedHandlerManager : EventHandlerManager<IPresenceUpdatedEventHandler, PresenceUpdateEventArgs>
 {    
-    public PresenceUpdatedHandlerManager(ILogger<PresenceUpdatedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IPresenceUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public PresenceUpdatedHandlerManager(ILogger<PresenceUpdatedHandlerManager> logger, HandlerRegistryOptions<IPresenceUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, PresenceUpdateEventArgs> handler) => client.PresenceUpdated += handler;
@@ -714,7 +714,7 @@ internal partial class PresenceUpdatedHandlerManager : EventHandlerManager<IPres
 
 internal partial class UserSettingsUpdatedHandlerManager : EventHandlerManager<IUserSettingsUpdatedEventHandler, UserSettingsUpdateEventArgs>
 {    
-    public UserSettingsUpdatedHandlerManager(ILogger<UserSettingsUpdatedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IUserSettingsUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public UserSettingsUpdatedHandlerManager(ILogger<UserSettingsUpdatedHandlerManager> logger, HandlerRegistryOptions<IUserSettingsUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, UserSettingsUpdateEventArgs> handler) => client.UserSettingsUpdated += handler;
@@ -728,7 +728,7 @@ internal partial class UserSettingsUpdatedHandlerManager : EventHandlerManager<I
 
 internal partial class UserUpdatedHandlerManager : EventHandlerManager<IUserUpdatedEventHandler, UserUpdateEventArgs>
 {    
-    public UserUpdatedHandlerManager(ILogger<UserUpdatedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IUserUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public UserUpdatedHandlerManager(ILogger<UserUpdatedHandlerManager> logger, HandlerRegistryOptions<IUserUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, UserUpdateEventArgs> handler) => client.UserUpdated += handler;
@@ -742,7 +742,7 @@ internal partial class UserUpdatedHandlerManager : EventHandlerManager<IUserUpda
 
 internal partial class VoiceStateUpdatedHandlerManager : EventHandlerManager<IVoiceStateUpdatedEventHandler, VoiceStateUpdateEventArgs>
 {    
-    public VoiceStateUpdatedHandlerManager(ILogger<VoiceStateUpdatedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IVoiceStateUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public VoiceStateUpdatedHandlerManager(ILogger<VoiceStateUpdatedHandlerManager> logger, HandlerRegistryOptions<IVoiceStateUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, VoiceStateUpdateEventArgs> handler) => client.VoiceStateUpdated += handler;
@@ -756,7 +756,7 @@ internal partial class VoiceStateUpdatedHandlerManager : EventHandlerManager<IVo
 
 internal partial class VoiceServerUpdatedHandlerManager : EventHandlerManager<IVoiceServerUpdatedEventHandler, VoiceServerUpdateEventArgs>
 {    
-    public VoiceServerUpdatedHandlerManager(ILogger<VoiceServerUpdatedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IVoiceServerUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public VoiceServerUpdatedHandlerManager(ILogger<VoiceServerUpdatedHandlerManager> logger, HandlerRegistryOptions<IVoiceServerUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, VoiceServerUpdateEventArgs> handler) => client.VoiceServerUpdated += handler;
@@ -770,7 +770,7 @@ internal partial class VoiceServerUpdatedHandlerManager : EventHandlerManager<IV
 
 internal partial class ThreadCreatedHandlerManager : EventHandlerManager<IThreadCreatedEventHandler, ThreadCreateEventArgs>
 {    
-    public ThreadCreatedHandlerManager(ILogger<ThreadCreatedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IThreadCreatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public ThreadCreatedHandlerManager(ILogger<ThreadCreatedHandlerManager> logger, HandlerRegistryOptions<IThreadCreatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, ThreadCreateEventArgs> handler) => client.ThreadCreated += handler;
@@ -784,7 +784,7 @@ internal partial class ThreadCreatedHandlerManager : EventHandlerManager<IThread
 
 internal partial class ThreadUpdatedHandlerManager : EventHandlerManager<IThreadUpdatedEventHandler, ThreadUpdateEventArgs>
 {    
-    public ThreadUpdatedHandlerManager(ILogger<ThreadUpdatedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IThreadUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public ThreadUpdatedHandlerManager(ILogger<ThreadUpdatedHandlerManager> logger, HandlerRegistryOptions<IThreadUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, ThreadUpdateEventArgs> handler) => client.ThreadUpdated += handler;
@@ -798,7 +798,7 @@ internal partial class ThreadUpdatedHandlerManager : EventHandlerManager<IThread
 
 internal partial class ThreadDeletedHandlerManager : EventHandlerManager<IThreadDeletedEventHandler, ThreadDeleteEventArgs>
 {    
-    public ThreadDeletedHandlerManager(ILogger<ThreadDeletedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IThreadDeletedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public ThreadDeletedHandlerManager(ILogger<ThreadDeletedHandlerManager> logger, HandlerRegistryOptions<IThreadDeletedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, ThreadDeleteEventArgs> handler) => client.ThreadDeleted += handler;
@@ -812,7 +812,7 @@ internal partial class ThreadDeletedHandlerManager : EventHandlerManager<IThread
 
 internal partial class ThreadListSyncedHandlerManager : EventHandlerManager<IThreadListSyncedEventHandler, ThreadListSyncEventArgs>
 {    
-    public ThreadListSyncedHandlerManager(ILogger<ThreadListSyncedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IThreadListSyncedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public ThreadListSyncedHandlerManager(ILogger<ThreadListSyncedHandlerManager> logger, HandlerRegistryOptions<IThreadListSyncedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, ThreadListSyncEventArgs> handler) => client.ThreadListSynced += handler;
@@ -826,7 +826,7 @@ internal partial class ThreadListSyncedHandlerManager : EventHandlerManager<IThr
 
 internal partial class ThreadMemberUpdatedHandlerManager : EventHandlerManager<IThreadMemberUpdatedEventHandler, ThreadMemberUpdateEventArgs>
 {    
-    public ThreadMemberUpdatedHandlerManager(ILogger<ThreadMemberUpdatedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IThreadMemberUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public ThreadMemberUpdatedHandlerManager(ILogger<ThreadMemberUpdatedHandlerManager> logger, HandlerRegistryOptions<IThreadMemberUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, ThreadMemberUpdateEventArgs> handler) => client.ThreadMemberUpdated += handler;
@@ -840,7 +840,7 @@ internal partial class ThreadMemberUpdatedHandlerManager : EventHandlerManager<I
 
 internal partial class ThreadMembersUpdatedHandlerManager : EventHandlerManager<IThreadMembersUpdatedEventHandler, ThreadMembersUpdateEventArgs>
 {    
-    public ThreadMembersUpdatedHandlerManager(ILogger<ThreadMembersUpdatedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IThreadMembersUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public ThreadMembersUpdatedHandlerManager(ILogger<ThreadMembersUpdatedHandlerManager> logger, HandlerRegistryOptions<IThreadMembersUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, ThreadMembersUpdateEventArgs> handler) => client.ThreadMembersUpdated += handler;
@@ -854,7 +854,7 @@ internal partial class ThreadMembersUpdatedHandlerManager : EventHandlerManager<
 
 internal partial class IntegrationCreatedHandlerManager : EventHandlerManager<IIntegrationCreatedEventHandler, IntegrationCreateEventArgs>
 {    
-    public IntegrationCreatedHandlerManager(ILogger<IntegrationCreatedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IIntegrationCreatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public IntegrationCreatedHandlerManager(ILogger<IntegrationCreatedHandlerManager> logger, HandlerRegistryOptions<IIntegrationCreatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, IntegrationCreateEventArgs> handler) => client.IntegrationCreated += handler;
@@ -868,7 +868,7 @@ internal partial class IntegrationCreatedHandlerManager : EventHandlerManager<II
 
 internal partial class IntegrationUpdatedHandlerManager : EventHandlerManager<IIntegrationUpdatedEventHandler, IntegrationUpdateEventArgs>
 {    
-    public IntegrationUpdatedHandlerManager(ILogger<IntegrationUpdatedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IIntegrationUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public IntegrationUpdatedHandlerManager(ILogger<IntegrationUpdatedHandlerManager> logger, HandlerRegistryOptions<IIntegrationUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, IntegrationUpdateEventArgs> handler) => client.IntegrationUpdated += handler;
@@ -882,7 +882,7 @@ internal partial class IntegrationUpdatedHandlerManager : EventHandlerManager<II
 
 internal partial class IntegrationDeletedHandlerManager : EventHandlerManager<IIntegrationDeletedEventHandler, IntegrationDeleteEventArgs>
 {    
-    public IntegrationDeletedHandlerManager(ILogger<IntegrationDeletedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IIntegrationDeletedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public IntegrationDeletedHandlerManager(ILogger<IntegrationDeletedHandlerManager> logger, HandlerRegistryOptions<IIntegrationDeletedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, IntegrationDeleteEventArgs> handler) => client.IntegrationDeleted += handler;
@@ -896,7 +896,7 @@ internal partial class IntegrationDeletedHandlerManager : EventHandlerManager<II
 
 internal partial class StageInstanceCreatedHandlerManager : EventHandlerManager<IStageInstanceCreatedEventHandler, StageInstanceCreateEventArgs>
 {    
-    public StageInstanceCreatedHandlerManager(ILogger<StageInstanceCreatedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IStageInstanceCreatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public StageInstanceCreatedHandlerManager(ILogger<StageInstanceCreatedHandlerManager> logger, HandlerRegistryOptions<IStageInstanceCreatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, StageInstanceCreateEventArgs> handler) => client.StageInstanceCreated += handler;
@@ -910,7 +910,7 @@ internal partial class StageInstanceCreatedHandlerManager : EventHandlerManager<
 
 internal partial class StageInstanceUpdatedHandlerManager : EventHandlerManager<IStageInstanceUpdatedEventHandler, StageInstanceUpdateEventArgs>
 {    
-    public StageInstanceUpdatedHandlerManager(ILogger<StageInstanceUpdatedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IStageInstanceUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public StageInstanceUpdatedHandlerManager(ILogger<StageInstanceUpdatedHandlerManager> logger, HandlerRegistryOptions<IStageInstanceUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, StageInstanceUpdateEventArgs> handler) => client.StageInstanceUpdated += handler;
@@ -924,7 +924,7 @@ internal partial class StageInstanceUpdatedHandlerManager : EventHandlerManager<
 
 internal partial class StageInstanceDeletedHandlerManager : EventHandlerManager<IStageInstanceDeletedEventHandler, StageInstanceDeleteEventArgs>
 {    
-    public StageInstanceDeletedHandlerManager(ILogger<StageInstanceDeletedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IStageInstanceDeletedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public StageInstanceDeletedHandlerManager(ILogger<StageInstanceDeletedHandlerManager> logger, HandlerRegistryOptions<IStageInstanceDeletedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, StageInstanceDeleteEventArgs> handler) => client.StageInstanceDeleted += handler;
@@ -938,7 +938,7 @@ internal partial class StageInstanceDeletedHandlerManager : EventHandlerManager<
 
 internal partial class InteractionCreatedHandlerManager : EventHandlerManager<IInteractionCreatedEventHandler, InteractionCreateEventArgs>
 {    
-    public InteractionCreatedHandlerManager(ILogger<InteractionCreatedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IInteractionCreatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public InteractionCreatedHandlerManager(ILogger<InteractionCreatedHandlerManager> logger, HandlerRegistryOptions<IInteractionCreatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, InteractionCreateEventArgs> handler) => client.InteractionCreated += handler;
@@ -952,7 +952,7 @@ internal partial class InteractionCreatedHandlerManager : EventHandlerManager<II
 
 internal partial class ComponentInteractionCreatedHandlerManager : EventHandlerManager<IComponentInteractionCreatedEventHandler, ComponentInteractionCreateEventArgs>
 {    
-    public ComponentInteractionCreatedHandlerManager(ILogger<ComponentInteractionCreatedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IComponentInteractionCreatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public ComponentInteractionCreatedHandlerManager(ILogger<ComponentInteractionCreatedHandlerManager> logger, HandlerRegistryOptions<IComponentInteractionCreatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, ComponentInteractionCreateEventArgs> handler) => client.ComponentInteractionCreated += handler;
@@ -966,7 +966,7 @@ internal partial class ComponentInteractionCreatedHandlerManager : EventHandlerM
 
 internal partial class ModalSubmittedHandlerManager : EventHandlerManager<IModalSubmittedEventHandler, ModalSubmitEventArgs>
 {    
-    public ModalSubmittedHandlerManager(ILogger<ModalSubmittedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IModalSubmittedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public ModalSubmittedHandlerManager(ILogger<ModalSubmittedHandlerManager> logger, HandlerRegistryOptions<IModalSubmittedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, ModalSubmitEventArgs> handler) => client.ModalSubmitted += handler;
@@ -980,7 +980,7 @@ internal partial class ModalSubmittedHandlerManager : EventHandlerManager<IModal
 
 internal partial class ContextMenuInteractionCreatedHandlerManager : EventHandlerManager<IContextMenuInteractionCreatedEventHandler, ContextMenuInteractionCreateEventArgs>
 {    
-    public ContextMenuInteractionCreatedHandlerManager(ILogger<ContextMenuInteractionCreatedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IContextMenuInteractionCreatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public ContextMenuInteractionCreatedHandlerManager(ILogger<ContextMenuInteractionCreatedHandlerManager> logger, HandlerRegistryOptions<IContextMenuInteractionCreatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, ContextMenuInteractionCreateEventArgs> handler) => client.ContextMenuInteractionCreated += handler;
@@ -994,7 +994,7 @@ internal partial class ContextMenuInteractionCreatedHandlerManager : EventHandle
 
 internal partial class TypingStartedHandlerManager : EventHandlerManager<ITypingStartedEventHandler, TypingStartEventArgs>
 {    
-    public TypingStartedHandlerManager(ILogger<TypingStartedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<ITypingStartedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public TypingStartedHandlerManager(ILogger<TypingStartedHandlerManager> logger, HandlerRegistryOptions<ITypingStartedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, TypingStartEventArgs> handler) => client.TypingStarted += handler;
@@ -1008,7 +1008,7 @@ internal partial class TypingStartedHandlerManager : EventHandlerManager<ITyping
 
 internal partial class UnknownEventHandlerManager : EventHandlerManager<IUnknownEventEventHandler, UnknownEventArgs>
 {    
-    public UnknownEventHandlerManager(ILogger<UnknownEventHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IUnknownEventEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public UnknownEventHandlerManager(ILogger<UnknownEventHandlerManager> logger, HandlerRegistryOptions<IUnknownEventEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, UnknownEventArgs> handler) => client.UnknownEvent += handler;
@@ -1022,7 +1022,7 @@ internal partial class UnknownEventHandlerManager : EventHandlerManager<IUnknown
 
 internal partial class WebhooksUpdatedHandlerManager : EventHandlerManager<IWebhooksUpdatedEventHandler, WebhooksUpdateEventArgs>
 {    
-    public WebhooksUpdatedHandlerManager(ILogger<WebhooksUpdatedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IWebhooksUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public WebhooksUpdatedHandlerManager(ILogger<WebhooksUpdatedHandlerManager> logger, HandlerRegistryOptions<IWebhooksUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, WebhooksUpdateEventArgs> handler) => client.WebhooksUpdated += handler;
@@ -1036,7 +1036,7 @@ internal partial class WebhooksUpdatedHandlerManager : EventHandlerManager<IWebh
 
 internal partial class ClientErroredHandlerManager : EventHandlerManager<IClientErroredEventHandler, ClientErrorEventArgs>
 {    
-    public ClientErroredHandlerManager(ILogger<ClientErroredHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IClientErroredEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public ClientErroredHandlerManager(ILogger<ClientErroredHandlerManager> logger, HandlerRegistryOptions<IClientErroredEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, ClientErrorEventArgs> handler) => client.ClientErrored += handler;
@@ -1050,7 +1050,7 @@ internal partial class ClientErroredHandlerManager : EventHandlerManager<IClient
 
 internal partial class AutoModerationRuleCreatedHandlerManager : EventHandlerManager<IAutoModerationRuleCreatedEventHandler, AutoModerationRuleCreateEventArgs>
 {    
-    public AutoModerationRuleCreatedHandlerManager(ILogger<AutoModerationRuleCreatedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IAutoModerationRuleCreatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public AutoModerationRuleCreatedHandlerManager(ILogger<AutoModerationRuleCreatedHandlerManager> logger, HandlerRegistryOptions<IAutoModerationRuleCreatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, AutoModerationRuleCreateEventArgs> handler) => client.AutoModerationRuleCreated += handler;
@@ -1064,7 +1064,7 @@ internal partial class AutoModerationRuleCreatedHandlerManager : EventHandlerMan
 
 internal partial class AutoModerationRuleUpdatedHandlerManager : EventHandlerManager<IAutoModerationRuleUpdatedEventHandler, AutoModerationRuleUpdateEventArgs>
 {    
-    public AutoModerationRuleUpdatedHandlerManager(ILogger<AutoModerationRuleUpdatedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IAutoModerationRuleUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public AutoModerationRuleUpdatedHandlerManager(ILogger<AutoModerationRuleUpdatedHandlerManager> logger, HandlerRegistryOptions<IAutoModerationRuleUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, AutoModerationRuleUpdateEventArgs> handler) => client.AutoModerationRuleUpdated += handler;
@@ -1078,7 +1078,7 @@ internal partial class AutoModerationRuleUpdatedHandlerManager : EventHandlerMan
 
 internal partial class AutoModerationRuleDeletedHandlerManager : EventHandlerManager<IAutoModerationRuleDeletedEventHandler, AutoModerationRuleDeleteEventArgs>
 {    
-    public AutoModerationRuleDeletedHandlerManager(ILogger<AutoModerationRuleDeletedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IAutoModerationRuleDeletedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public AutoModerationRuleDeletedHandlerManager(ILogger<AutoModerationRuleDeletedHandlerManager> logger, HandlerRegistryOptions<IAutoModerationRuleDeletedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, AutoModerationRuleDeleteEventArgs> handler) => client.AutoModerationRuleDeleted += handler;
@@ -1092,7 +1092,7 @@ internal partial class AutoModerationRuleDeletedHandlerManager : EventHandlerMan
 
 internal partial class AutoModerationRuleExecutedHandlerManager : EventHandlerManager<IAutoModerationRuleExecutedEventHandler, AutoModerationRuleExecuteEventArgs>
 {    
-    public AutoModerationRuleExecutedHandlerManager(ILogger<AutoModerationRuleExecutedHandlerManager> logger, IOptions<DiscordConfiguration> discordConfig, HandlerRegistryOptions<IAutoModerationRuleExecutedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, discordConfig, registry, provider) { }
+    public AutoModerationRuleExecutedHandlerManager(ILogger<AutoModerationRuleExecutedHandlerManager> logger, HandlerRegistryOptions<IAutoModerationRuleExecutedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider) : base(logger, registry, provider) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     protected sealed override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, AutoModerationRuleExecuteEventArgs> handler) => client.AutoModerationRuleExecuted += handler;

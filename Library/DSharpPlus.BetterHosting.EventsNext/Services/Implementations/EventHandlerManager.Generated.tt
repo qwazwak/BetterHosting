@@ -21,7 +21,6 @@ foreach(EventNaming naming in EventsList)
     List<(string type, string name)> constuctorArgs = new()
     {
         ($"ILogger<{className}>", "logger"),
-        ("IOptions<DiscordConfiguration>", "discordConfig"),
         ($"HandlerRegistryOptions<{naming.InterfaceName}>", "registry"),
         ("[FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider", "provider")
     };
