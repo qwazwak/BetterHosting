@@ -1,4 +1,5 @@
 ﻿
+#if false
 using DSharpPlus.EventArgs;
 using System.Diagnostics;
 using DSharpPlus.BetterHosting.EventsNext.Services;
@@ -1672,3 +1673,4 @@ internal static partial class EventHandlerReflector
         }
     }
 }
+#endif

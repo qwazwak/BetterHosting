@@ -2,6 +2,7 @@
 <#@ output extension=".cs" #>
 <#@ include file="../DiscordEventsBase.tt" #>
 <#@ assembly name="System.Core" #>
+#if false
 using DSharpPlus.EventArgs;
 using System.Diagnostics;
 using DSharpPlus.BetterHosting.EventsNext.Services;
@@ -64,3 +65,4 @@ internal static partial class EventHandlerReflector
         }
     }
 }
+#endif
