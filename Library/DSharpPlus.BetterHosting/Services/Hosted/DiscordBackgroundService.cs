@@ -26,9 +26,16 @@ public abstract class DiscordBackgroundServiceBase : BackgroundService
     /// <inheritdoc/>
     protected override sealed async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        DiscordShardedClient client = await clientProvider.GetClientAsync(stoppingToken);
-        if (stoppingToken.IsCancellationRequested)
+        DiscordShardedClient client;
+        try
+        {
+            client = await clientProvider.GetClientAsync(stoppingToken).AsTask().WaitAsync(stoppingToken);
+        }
+        catch (OperationCanceledException)
+        {
             return;
+        }
+
         await AfterConnected(client, stoppingToken);
     }
 
