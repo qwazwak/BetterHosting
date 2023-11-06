@@ -54,8 +54,6 @@ internal class HandlerRegistryOptions<TInterface>() : HandlerRegistryOptions(typ
     public override IReadOnlyCollection<HandlerRegistration<TInterface>> Registrations => registrations;
     public IEnumerable<Guid> RegisteredKeys => registrations.Select(r => r.Key);
 
-    protected override void AddToRegistrations(HandlerRegistration registration) => throw new NotImplementedException();
-
     public new HandlerRegistration<TInterface> AddHandler() => (HandlerRegistration<TInterface>)base.AddHandler();
 
     protected override HandlerRegistration<TInterface> BuildAndSaveHandler(Guid key)
