@@ -19,7 +19,7 @@
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="$(MSExtensionsVersion)" />
     <PackageVersion Include="Microsoft.Extensions.DependencyModel" Version="$(MSExtensionsVersion)" />
     <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="$(MSExtensionsVersion)" />
-    
+
     <PackageVersion Include="Microsoft.Extensions.Hosting" Version="$(MSExtensionsVersion)" />
     <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="$(MSExtensionsVersion)" />
   </ItemGroup>
