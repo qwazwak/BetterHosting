@@ -27,7 +27,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Directory.Build.props = Directory.Build.props
 		Directory.Build.targets = Directory.Build.targets
 		Directory.Packages.props = Directory.Packages.props
-		license.txt = license.txt
+		license.md = license.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "logo", "logo", "{B7E6CB5A-5259-4AFD-BB24-FE98ACF88E4A}"
@@ -76,6 +76,13 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FreddyBot", "Samples\FreddyBot\FreddyBot.csproj", "{F48D3E17-9B61-41EC-BD32-8226A7A66784}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{9A264591-BEC1-462D-B6AC-BBA86564915C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples Items", "Samples Items", "{E7C05B7A-8C88-4B85-9B20-5345A43190BF}"
+	ProjectSection(SolutionItems) = preProject
+		Samples\Directory.Build.props = Samples\Directory.Build.props
+		Samples\Directory.Build.targets = Samples\Directory.Build.targets
+		Samples\Directory.Packages.props = Samples\Directory.Packages.props
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -283,6 +290,7 @@ Global
 		{85D31915-4072-4751-85B8-5B93FF7555D8} = {A3EEDF3D-EF31-4AD2-9806-3F5E9D90E6FD}
 		{E960F954-6619-47FF-80F9-82175FC4CC34} = {41CF7FA4-20DB-430E-B001-E9E55CDA44F2}
 		{F48D3E17-9B61-41EC-BD32-8226A7A66784} = {9A264591-BEC1-462D-B6AC-BBA86564915C}
+		{E7C05B7A-8C88-4B85-9B20-5345A43190BF} = {9A264591-BEC1-462D-B6AC-BBA86564915C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {918D175B-C124-4E86-85C4-C4B53D366A97}
