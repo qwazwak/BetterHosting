@@ -9,11 +9,11 @@ namespace DSharpPlus.BetterHosting.EventsNext.Services.Implementations;
 
 internal sealed class EventsNextBackgroundHost<TManager> : BackgroundService where TManager : IEventHandlerManager
 {
-    private readonly ILogger logger;
+    private readonly ILogger<EventsNextBackgroundHost<TManager>> logger;
     private readonly TManager manager;
     private readonly IConnectedClientProvider clientProvider;
 
-    public EventsNextBackgroundHost(ILogger logger, TManager manager, IConnectedClientProvider clientProvider)
+    public EventsNextBackgroundHost(ILogger<EventsNextBackgroundHost<TManager>> logger, TManager manager, IConnectedClientProvider clientProvider)
     {
         this.logger = logger;
         this.manager = manager;
@@ -25,25 +25,22 @@ internal sealed class EventsNextBackgroundHost<TManager> : BackgroundService whe
         DiscordShardedClient client;
         try
         {
-            client = await clientProvider.GetClientAsync(stoppingToken);
+            client = await clientProvider.GetClientAsync(stoppingToken).AsTask().WaitAsync(stoppingToken);
         }
         catch (OperationCanceledException)
-        {
-            return;
-        }
-
-        if (stoppingToken.IsCancellationRequested)
         {
             logger.LogInformation("Startup cancellation requested, not starting event manager {type}", typeof(TManager).Name);
             return;
         }
 
-        if (!manager.CanBeTriggered(client))
-        {
-            logger.LogInformation("Events for handlers {HandlerType} were declared to not happen, so exiting quick", typeof(TManager).Name);
-            return;
-        }
+        if (manager.CanBeTriggered(client))
+            await RunAsync(client, stoppingToken);
+        else
+            logger.LogInformation("Events for handlers managed by {HandlerType} were declared to not happen, so exiting quick", typeof(TManager).Name);
+    }
 
+    private async Task RunAsync(DiscordShardedClient client, CancellationToken stoppingToken)
+    {
         try
         {
             manager.Start(client);
