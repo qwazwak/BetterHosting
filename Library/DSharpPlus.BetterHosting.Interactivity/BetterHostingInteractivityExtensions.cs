@@ -1,10 +1,10 @@
 ﻿using System;
 using DSharpPlus.BetterHosting.Services.Interfaces.ExtensionConfigurators;
-using DSharpPlus.BetterHosting.Interactivity.Services.Configuration;
 using DSharpPlus.Interactivity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using DSharpPlus.BetterHosting.Interactivity.Services;
 
 namespace DSharpPlus.BetterHosting.Interactivity;
 
@@ -48,13 +48,6 @@ public static class BetterHostingInteractivityExtensions
     {
         ArgumentNullException.ThrowIfNull(services);
         ArgumentNullException.ThrowIfNull(configSectionPath);
-#if false
-        return services.AddOptions<InteractivityConfiguration>().Configure<IConfiguration, ConfigureInteractivityPaginationEmojiHelper>((o, c, h) => InteractivityConfigurationBinder.Configure(o, c.GetRequiredSection(configSectionPath), h));
-#elif false
-        InteractivityConfigurationConverter.Register();
-        return services.AddOptions<InteractivityConfiguration>().BindConfiguration(configSectionPath);
-#else
         return services.AddOptions<InteractivityConfiguration>().BindConfiguration(configSectionPath, opt => opt.BindNonPublicProperties = true);
-#endif
     }
 }

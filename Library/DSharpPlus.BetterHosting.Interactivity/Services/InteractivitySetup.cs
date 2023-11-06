@@ -6,7 +6,7 @@ using DSharpPlus.Interactivity;
 using DSharpPlus.Interactivity.Extensions;
 using Microsoft.Extensions.Options;
 
-namespace DSharpPlus.BetterHosting.Interactivity.Services.Configuration;
+namespace DSharpPlus.BetterHosting.Interactivity.Services;
 
 internal sealed class InteractivitySetup : ExtensionAdditionTemplate<InteractivityExtension>
 {
@@ -14,5 +14,5 @@ internal sealed class InteractivitySetup : ExtensionAdditionTemplate<Interactivi
 
     public InteractivitySetup(IOptions<InteractivityConfiguration> configuration, IEnumerable<IInteractivityConfigurator> explicitConfigurators, IEnumerable<IDiscordExtensionConfigurator<InteractivityExtension>> configurators) : base(explicitConfigurators, configurators) => this.configuration = configuration.Value;
 
-    protected override async Task<IReadOnlyDictionary<int, InteractivityExtension>> UseExtension(DiscordShardedClient shard) => await shard.UseInteractivityAsync(configuration);
+    protected override Task<IReadOnlyDictionary<int, InteractivityExtension>> UseExtension(DiscordShardedClient shard) => shard.UseInteractivityAsync(configuration);
 }
