@@ -22,8 +22,6 @@ public static partial class BetterHostExtensions
     /// </summary>
     public static IServiceCollection AddBetterHosting(this IServiceCollection services)
     {
-        AddDiscordConfigurationOption(services);
-
         services.AddTransient<IClientConstructor, ClientConstructor>();
         services.AddTransient<IShortClientConstructor, ShortClientConstructor>();
         services.AddScoped<IConnectedClientProvider>(sp => sp.GetRequiredService<IClientManager>());
