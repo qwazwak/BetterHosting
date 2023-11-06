@@ -6,27 +6,34 @@ namespace DSharpPlus.BetterHosting.Tools.Extensions.Internal;
 
 internal static class SingletonServiceCheater
 {
-    public static T GetOrAddSingleton<T>(this IServiceCollection services) where T : class, new() => (T)services.GetOrAddSingleton(typeof(T), () => new());
+    public static T GetOrAddSingleton<T>(this IServiceCollection services) where T : class, new() => services.GetOrAddSingleton<T>(() => new());
 
-    public static T GetOrAddSingleton<T>(this IServiceCollection services, Func<T> factory) where T : class => (T)services.GetOrAddSingleton(typeof(T), () => factory());
-    public static object GetOrAddSingleton(this IServiceCollection services, Type singletonType, Func<object> factory)
+    public static T GetOrAddSingleton<T>(this IServiceCollection services, Func<T> factory) where T : class
     {
-        ServiceDescriptor? existingDescriptor = services.FirstOrDefault(d => d.ServiceType == singletonType && !d.IsKeyedService);
+        ServiceDescriptor? existingDescriptor = services.FirstOrDefault(d => d.ServiceType == typeof(T) && !d.IsKeyedService);
+
         if (existingDescriptor != null)
-            return GetSingleton(existingDescriptor);
+            return (T?)existingDescriptor.ImplementationInstance ?? throw new InvalidOperationException("Existing descriptor could not be used");
 
-        object? instance = factory.Invoke();
+        T instance = factory.Invoke();
         ArgumentNullException.ThrowIfNull(instance);
-        if (instance.GetType().IsAssignableTo(singletonType))
-            throw new InvalidOperationException($"Singleton of {instance.GetType().Name} was not assignable to {singletonType.Name}");
 
-        services.AddSingleton(singletonType, instance);
+        services.AddSingleton(instance);
         return instance;
     }
-
-    private static object GetSingleton(ServiceDescriptor descriptor)
+#if false
+    public static object GetOrAddSingleton(this IServiceCollection services, Type serviceType, Func<object> factory)
     {
-        object? instance = descriptor.IsKeyedService ? descriptor.KeyedImplementationInstance : descriptor.ImplementationInstance;
-        return instance ?? throw new InvalidOperationException("Existing descriptor could not be used");
+        ServiceDescriptor? existingDescriptor = services.FirstOrDefault(d => d.ServiceType == serviceType && !d.IsKeyedService);
+
+        if (existingDescriptor != null)
+            return existingDescriptor.ImplementationInstance ?? throw new InvalidOperationException("Existing descriptor could not be used");
+
+        object instance = factory.Invoke();
+        ArgumentNullException.ThrowIfNull(instance);
+
+        services.AddSingleton(serviceType, instance);
+        return instance;
     }
+#endif
 }
