@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System;
-using DSharpPlus.BetterHosting.EventsNext.Services;
 using System.Linq;
 
 namespace DSharpPlus.BetterHosting.EventsNext.Services.Implementations;
@@ -9,7 +8,6 @@ namespace DSharpPlus.BetterHosting.EventsNext.Services.Implementations;
 internal abstract class HandlerRegistryOptions
 {
     public abstract IReadOnlyCollection<HandlerRegistration> Registrations { get; }
-    protected abstract void AddToRegistrations(HandlerRegistration registration);
     private readonly HashSet<Guid> usedKeys = new();
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Roslynator", "RCS1163:Unused parameter.", Justification = "For the future")]
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "For the future")]
@@ -44,11 +42,9 @@ internal abstract class HandlerRegistryOptions
     public HandlerRegistration AddHandler()
     {
         Guid key = GenerateKey();
-        HandlerRegistration registration = BuildHandler(key);
-        AddToRegistrations(registration);
-        return registration;
+        return BuildAndSaveHandler(key);
     }
-    protected abstract HandlerRegistration BuildHandler(Guid key);
+    protected abstract HandlerRegistration BuildAndSaveHandler(Guid key);
 }
 
 internal class HandlerRegistryOptions<TInterface>() : HandlerRegistryOptions(typeof(TInterface)) where TInterface : IDiscordEventHandler
@@ -62,7 +58,7 @@ internal class HandlerRegistryOptions<TInterface>() : HandlerRegistryOptions(typ
 
     public new HandlerRegistration<TInterface> AddHandler() => (HandlerRegistration<TInterface>)base.AddHandler();
 
-    protected override HandlerRegistration<TInterface> BuildHandler(Guid key)
+    protected override HandlerRegistration<TInterface> BuildAndSaveHandler(Guid key)
     {
         HandlerRegistration<TInterface> reg = new(key);
         registrations.Add(reg);
