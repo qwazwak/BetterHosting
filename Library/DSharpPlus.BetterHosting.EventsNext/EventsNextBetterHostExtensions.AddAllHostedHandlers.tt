@@ -5,6 +5,7 @@
 using DSharpPlus.EventArgs;
 using DSharpPlus.BetterHosting.EventsNext.Services;
 using Microsoft.Extensions.DependencyInjection;
+using DSharpPlus.BetterHosting.EventsNext.Services.Implementations;
 
 <#=AutomaticNamespaceLine#>
 
@@ -12,7 +13,7 @@ public static partial class EventsNextBetterHostExtensions
 {
     private static partial void AddAllHostedHandlers(IServiceCollection services) => services
 <# foreach(EventNaming naming in SkipLast) {#>
-        .AddHostedHandlerCore<<#=naming.InterfaceName#>, <#=naming.ArgumentType#>>()
+        .AddHostedHandlerCore<<#=naming.EventName#>HandlerManager, <#=naming.InterfaceName#>, <#=naming.ArgumentType#>>()
 <#} #>
-        .AddHostedHandlerCore<<#=LastEvent.InterfaceName#>, <#=LastEvent.ArgumentType#>>();
+        .AddHostedHandlerCore<<#=LastEvent.EventName#>HandlerManager, <#=LastEvent.InterfaceName#>, <#=LastEvent.ArgumentType#>>();
 }

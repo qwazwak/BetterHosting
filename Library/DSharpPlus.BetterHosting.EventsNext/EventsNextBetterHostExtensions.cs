@@ -12,8 +12,16 @@ public static partial class EventsNextBetterHostExtensions
 {
     private static partial void AddAllHostedHandlers(IServiceCollection services);
 
-    private static IServiceCollection AddHostedHandlerCore<TEventInterface, TArgument>(this IServiceCollection services) where TEventInterface : IDiscordEventHandler<TArgument> where TArgument : DiscordEventArgs
-        => services.AddHostedService<EventsNextBackgroundHost<EventHandlerManager<TEventInterface, TArgument>>>();
+    private static IServiceCollection AddHostedHandlerCore<TManager, TEventInterface, TArgument>(this IServiceCollection services)
+        where TManager : EventHandlerManager<TEventInterface, TArgument>
+        where TEventInterface : IDiscordEventHandler<TArgument>
+        where TArgument : DiscordEventArgs
+    {
+        services.AddSingleton(new HandlerRegistryOptions<TEventInterface>());
+        services.AddSingleton<TManager>();
+        services.AddHostedService<EventsNextBackgroundHost<TManager>>();
+        return services;
+    }
 
     /// <summary>
     /// Adds the EventsNext extension to the <see cref="IServiceCollection"/> with the default configuration path "EventsNextConfiguration"

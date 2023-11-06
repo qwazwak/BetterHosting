@@ -34,7 +34,7 @@ public sealed class RegistrationBuilder<TEventInterface> where TEventInterface :
     internal RegistrationBuilder<TEventInterface> RegisterHandler(Type handlerType)
     {
         ArgumentNullException.ThrowIfNull(handlerType);
-        if (handlerType.IsAssignableTo(typeof(TEventInterface)))
+        if (!handlerType.IsAssignableTo(typeof(TEventInterface)))
             throw new ArgumentException("Invalid handler type");
         return RegisterHandlerCore(handlerType);
     }
