@@ -15,5 +15,5 @@ internal sealed class SlashCommandsSetup : ExtensionAdditionTemplate<SlashComman
         IEnumerable<ISlashCommandsExtensionConfigurator> explicitConfigurators,
         IEnumerable<IDiscordExtensionConfigurator<SlashCommandsExtension>> configurators) : base(explicitConfigurators, configurators) => this.configuration = configuration.Value;
 
-    protected override async Task<IReadOnlyDictionary<int, SlashCommandsExtension>> UseExtension(DiscordShardedClient shard) => await shard.UseSlashCommandsAsync(configuration);
+    protected override Task<IReadOnlyDictionary<int, SlashCommandsExtension>> UseExtension(DiscordShardedClient shard) => shard.UseSlashCommandsAsync(configuration);
 }
