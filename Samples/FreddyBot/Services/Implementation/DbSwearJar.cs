@@ -51,7 +51,7 @@ public class DbSwearJar : ISwearJar
     public async Task<decimal> GetSingleSwearValue(ulong guildID) => (await GetJar(guildID)).ValueOfSingleSwear;
     public async Task<decimal> GetCurrentValue(ulong guildID) => (await GetJar(guildID)).CurrentJarValue;
 
-    private async Task<SwearJar> GetJar(ulong guildID) => await GetOrCreateJar(guildID);
+    private Task<SwearJar> GetJar(ulong guildID) => GetOrCreateJar(guildID);
 
     private async Task<SwearJar> GetOrCreateJar(ulong guildID)
     {
