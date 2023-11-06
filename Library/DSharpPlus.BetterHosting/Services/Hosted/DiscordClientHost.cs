@@ -61,7 +61,6 @@ internal class DiscordClientHost : BackgroundService
             clientManager.SetConnected(client);
             // And now we wait infinitely so that our bot actually stays connected.
             await Task.Delay(Timeout.Infinite, stoppingToken);
-            await client.StopAsync();
         }
         catch (Exception)
         {
