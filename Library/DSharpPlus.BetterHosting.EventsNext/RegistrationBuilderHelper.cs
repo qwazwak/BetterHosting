@@ -14,10 +14,11 @@ internal static class RegistrationBuilderHelper
         return serviceDescriptors.GetOrAddSingleton<HandlerRegistryOptions<TInterface>>();
     }
 
+    /*
     public static HandlerRegistryOptions GetHandlerRegistration(IServiceCollection serviceDescriptors, Type interfaceType)
     {
         ArgumentNullException.ThrowIfNull(serviceDescriptors);
         Type registryType = typeof(HandlerRegistryOptions<>).MakeGenericType(interfaceType);
         return (HandlerRegistryOptions)serviceDescriptors.GetOrAddSingleton(registryType, () => Activator.CreateInstance(registryType)!);
-    }
+    }*/
 }
