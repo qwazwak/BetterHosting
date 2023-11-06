@@ -39,7 +39,8 @@
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
 
-    <Version>0.0.0-alpha</Version>
+    <AssemblyVersion>0.0.0</AssemblyVersion>
+    <Version>$(AssemblyVersion)-alpha</Version>
     <Version Condition="'$(Nightly)' != ''">$(Version)-nightly-$(Nightly)</Version>
   </PropertyGroup>
 
