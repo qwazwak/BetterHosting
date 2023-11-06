@@ -1,0 +1,16 @@
+<Project>
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Packages.props', '$(MSBuildThisFileDirectory)../'))" />
+
+  <PropertyGroup>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageVersion Include="Cowsay" Version="1.1.10" />
+    <PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.2" />
+    <PackageVersion Include="FuzzySharp" Version="2.0.2" />
+    <PackageVersion Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    
+    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="8.0.0-preview.4.23259.3" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.0-preview.4.23259.3" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0-preview.4.23259.3" />
+  </ItemGroup>
+</Project>

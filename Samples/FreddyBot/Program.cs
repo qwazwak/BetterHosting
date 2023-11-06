@@ -1,5 +1,4 @@
 ﻿using System;
-using FreddyBot.Services.Options;
 using FreddyBot.Services;
 using FreddyBot.Services.Implementation;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,6 +7,10 @@ using Microsoft.EntityFrameworkCore;
 using FreddyBot.Services.Implementation.Database;
 using FreddyBot.Services.Extensions;
 using DSharpPlus.BetterHosting;
+using DSharpPlus;
+using DSharpPlus.BetterHosting.EventsNext;
+using FreddyBot.Handlers;
+using Microsoft.Extensions.Logging;
 
 IHostBuilder builder = Host.CreateDefaultBuilder(args);
 
@@ -18,9 +21,20 @@ builder.ConfigureServices(services =>
     services.AddOptions();
     services.AddHttpClient();
 
-    services.AddBetterHosting();
+    services.AddBetterHosting().AddEventsNext();
 
-    services.AddOptions<DiscordClientOptions>();
+    services.AutoRegisterHandler<AtFreddyHandler>();
+    services.AutoRegisterHandler<CreepyHandler>();
+    services.AutoRegisterHandler<PHPHandler>();
+    services.AutoRegisterHandler<SwearJarHandler>();
+
+    services.AddOptions<DiscordConfiguration>().BindConfiguration(nameof(DiscordConfiguration), o => o.BindNonPublicProperties = true).Configure(o =>
+    {
+        o.Intents =
+        /*DiscordIntents.Guilds |*/ DiscordIntents.GuildMembers /* | DiscordIntents.GuildBans */ | DiscordIntents.GuildEmojisAndStickers | DiscordIntents.GuildIntegrations /* | DiscordIntents.GuildWebhooks | DiscordIntents.GuildInvites |  DiscordIntents.ScheduledGuildEvents */ | DiscordIntents.GuildVoiceStates | DiscordIntents.GuildPresences | DiscordIntents.GuildMessages | DiscordIntents.GuildMessageReactions | DiscordIntents.GuildMessageTyping
+        | DiscordIntents.DirectMessages | DiscordIntents.DirectMessageReactions | DiscordIntents.DirectMessageTyping
+        | DiscordIntents.MessageContents;
+    });
 
     services.AddTransient<SystemSetupRunner>();
 

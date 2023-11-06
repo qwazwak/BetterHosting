@@ -25,12 +25,14 @@ public sealed class PHPHandler : IMessageCreatedEventHandler
 
     public PHPHandler(ISentimentAnalyzer sentimentAnalyzer) : this(sentimentAnalyzer, 0.01) { }
 
-    public ValueTask OnMessageCreated(DiscordClient client, MessageCreateEventArgs args)
+    ValueTask IMessageCreatedEventHandler.OnMessageCreated(DiscordClient client, MessageCreateEventArgs args) => OnMessageCreated(args);
+    public ValueTask OnMessageCreated(MessageCreateEventArgs args)
     {
         if (!args.Message.Content.Contains("php", StringComparison.InvariantCultureIgnoreCase))
             return ValueTask.CompletedTask;
         return new(OnMessageCreatedAsync(args));
     }
+
     private async Task OnMessageCreatedAsync(MessageCreateEventArgs args)
     {
         string messageContent = args.Message.Content;

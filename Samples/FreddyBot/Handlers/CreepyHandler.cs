@@ -25,7 +25,8 @@ public sealed class CreepyHandler : IMessageCreatedEventHandler
         this.rng = rng;
     }
 
-    public ValueTask OnMessageCreated(DiscordClient client, MessageCreateEventArgs args)
+    ValueTask IMessageCreatedEventHandler.OnMessageCreated(DiscordClient client, MessageCreateEventArgs args) => OnMessageCreated(args);
+    public ValueTask OnMessageCreated(MessageCreateEventArgs args)
     {
         double value = rng.NextDouble();
         if (value > FractionalChance)

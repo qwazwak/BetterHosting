@@ -20,7 +20,8 @@ public sealed class SwearJarHandler : IMessageCreatedEventHandler
         this.profanityDetector = profanityDetector;
     }
 
-    public ValueTask OnMessageCreated(DiscordClient client, MessageCreateEventArgs args)
+    ValueTask IMessageCreatedEventHandler.OnMessageCreated(DiscordClient client, MessageCreateEventArgs args) => OnMessageCreated(args);
+    public ValueTask OnMessageCreated(MessageCreateEventArgs args)
     {
         if (args.Message.Author.IsBot)
             return ValueTask.CompletedTask;
