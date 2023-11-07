@@ -33,11 +33,6 @@ public static class BetterLavalinkHostExtensions
     public static OptionsBuilder<LavalinkConfiguration> AddLavalinkConfig(this IServiceCollection services, LavalinkConfiguration config) => services.AddSingleton(Microsoft.Extensions.Options.Options.Create(config)).AddOptions<LavalinkConfiguration>();
 
     /// <summary>
-    /// Registers a <see cref="IOptions{TOptions}"/> which will be laziliy initialized with <see cref="ConfigurationProvider"/>
-    /// </summary>
-    public static OptionsBuilder<LavalinkConfiguration> AddLavalinkConfig(this IServiceCollection services, Func<LavalinkConfiguration> configProvider) => services.AddSingleton<IOptions<LavalinkConfiguration>>(new LazyOptionsWrapper<LavalinkConfiguration>(configProvider)).AddOptions<LavalinkConfiguration>();
-
-    /// <summary>
     /// Registers the dependency injection container to bind <see cref="LavalinkConfiguration"/> against
     /// the <see cref="IConfiguration"/> obtained from the DI service provider.
     /// </summary>
