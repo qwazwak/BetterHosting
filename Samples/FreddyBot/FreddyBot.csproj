@@ -21,7 +21,7 @@
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" >
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -35,14 +35,6 @@
 
   <ItemGroup>
     <FreddyDefaultDataItems Include="$(ProjectDir)\FreddyDefaultData\**\*.*" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <_WebToolingArtifacts Remove="Properties\launchSettings_maybe.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Properties\launchSettings_maybe.json" />
   </ItemGroup>
 
   <ItemGroup>
