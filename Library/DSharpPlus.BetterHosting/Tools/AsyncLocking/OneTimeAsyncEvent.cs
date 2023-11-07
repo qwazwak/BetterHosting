@@ -1,12 +1,266 @@
-﻿#if false
-using System.Diagnostics;
+﻿using Microsoft.Extensions.Logging;
+using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+using System.Threading;
+using System;
 
 namespace DSharpPlus.BetterHosting.Tools.AsyncEventBlock;
 
-[DebuggerDisplay("Signaled: {IsSet}")]
-internal sealed partial class OneTimeAsyncEvent
+/// <summary>
+/// A flavor of <see cref="ManualResetEvent"/> that can be asynchronously awaited on.
+/// </summary>
+internal sealed partial class OneTimeAsyncEvent<T>
 {
-    public partial void SetOpen() => SetCore(LockState.SetOpen, transition: tcs => tcs.TrySetResult());
-    private partial string ToString_PreLocked() => $"state: {state}";
+    private readonly ILogger<OneTimeAsyncEvent<T>>? logger;
+
+    /// <summary>
+    /// The object to lock when accessing fields.
+    /// </summary>
+    private readonly object syncObject = new();
+
+    /// <summary>
+    /// The source of the task to return from <see cref="WaitAsync()"/>.
+    /// </summary>
+    /// <devremarks>
+    /// This should not need the volatile modifier because it is
+    /// always accessed within a lock.
+    /// </devremarks>
+    private readonly TaskCompletionSource<T> taskCompletionSource;
+
+    /// <summary>
+    /// A flag indicating whether the event is signaled.
+    /// When this is set to true, it's possible that
+    /// <see cref="taskCompletionSource"/>.Task.IsCompleted is still false
+    /// if the completion has been scheduled asynchronously.
+    /// Thus, this field should be the definitive answer as to whether
+    /// the event is signaled because it is synchronously updated.
+    /// </summary>
+    /// <devremarks>
+    /// This should not need the volatile modifier because it is
+    /// always accessed within a lock.
+    /// </devremarks>
+    private LockState state;
+
+    private enum LockState
+    {
+        UnsetClosed,
+        SetOpen,
+        Failed,
+        Cancelled
+    }
+
+    private T? value;
+
+    /// <summary>
+    /// Gets a value indicating whether the event is currently in a success signaled state.
+    /// </summary>
+    [MemberNotNullWhen(true, nameof(value))]
+    public bool IsCompletedSuccessfully
+    {
+        get
+        {
+            lock (syncObject)
+                return PreLockedIsCompletedSuccessfully;
+        }
+    }
+    /// <summary>
+    /// Gets a value indicating whether the event is currently in a signaled state, which could be an exception or cancelled.
+    /// </summary>
+    public bool IsCompleted
+    {
+        get
+        {
+            lock (syncObject)
+                return PreLockedIsCompleted;
+        }
+    }
+
+    [MemberNotNullWhen(true, nameof(value))]
+    private bool PreLockedIsCompletedSuccessfully
+    {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        get => state == LockState.SetOpen;
+    }
+
+    private bool PreLockedIsCompleted
+    {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        get => state != LockState.UnsetClosed;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="OneTimeAsyncEvent{T}"/> class.
+    /// </summary>
+    /// <param name="allowInliningAwaiters">
+    /// A value indicating whether to allow <see cref="WaitAsync()"/> callers' continuations to execute
+    /// on the thread that calls <see cref="SetOpen(T)"/> before the call returns.
+    /// <see cref="SetOpen(T)"/> callers should not hold private locks if this value is <see langword="true" /> to avoid deadlocks.
+    /// When <see langword="false" />, the task returned from <see cref="WaitAsync()"/> may not have fully transitioned to
+    /// its completed state by the time <see cref="SetOpen(T)"/> returns to its caller.
+    /// </param>
+    public OneTimeAsyncEvent(bool allowInliningAwaiters = false, ILogger<OneTimeAsyncEvent<T>> logger = null!)
+    {
+        this.logger = logger;
+        taskCompletionSource = new(allowInliningAwaiters ? TaskCreationOptions.RunContinuationsAsynchronously : TaskCreationOptions.None);
+        state = LockState.UnsetClosed;
+    }
+
+    /// <inheritdoc cref="OneTimeAsyncEvent{T}(bool, ILogger{OneTimeAsyncEvent{T}})"/>
+    public OneTimeAsyncEvent(Exception exception, bool allowInliningAwaiters = false, ILogger<OneTimeAsyncEvent<T>> logger = null!) : this(allowInliningAwaiters, logger)
+    {
+        state = LockState.Failed;
+        taskCompletionSource.SetException(exception);
+    }
+
+    /// <inheritdoc cref="OneTimeAsyncEvent{T}(bool, ILogger{OneTimeAsyncEvent{T}})"/>
+    public OneTimeAsyncEvent(CancellationToken cancellationReason, bool allowInliningAwaiters = false, ILogger<OneTimeAsyncEvent<T>> logger = null!) : this(allowInliningAwaiters, logger)
+    {
+        state = LockState.Failed;
+        taskCompletionSource.SetCanceled(cancellationReason);
+    }
+
+    /// <summary>
+    /// Sets the event to open, unblocking all consumers
+    /// </summary>
+    /// <param name="value">The value that all consumers will receive</param>
+    public void SetOpen(T value)
+    {
+        logger?.LogInformation("Attempting to set event to state {newState}", LockState.SetOpen);
+        TaskCompletionSource<T> tcs;
+        LockState prevState;
+
+        lock (syncObject)
+        {
+            if (PreLockedIsCompleted)
+            {
+                tcs = null!;
+                prevState = default;
+            }
+            else
+            {
+                state = LockState.SetOpen;
+                tcs = taskCompletionSource;
+                prevState = state;
+                this.value = value;
+            }
+        }
+
+        if (tcs is null)
+        {
+            InvalidOperationException ex = new($"OneTimeAsyncEvent already set to state {state}, cannot move to state {LockState.SetOpen}");
+            logger?.LogError(ex, "OneTimeAsyncEvent already set to state {state}, cannot move to state {newState}", state, LockState.SetOpen);
+            throw ex;
+        }
+        else
+        {
+            logger?.LogDebug("Successfully set state to {newState} (from {prevState})", LockState.SetOpen, prevState);
+            bool setOpen = tcs.TrySetResult(value);
+            if (!setOpen)
+                logger?.LogWarning("Tried to set barrier to {state}, but failed to", LockState.SetOpen);
+        }
+    }
+
+    public void SetCancelled(CancellationToken reason) => SetCore(LockState.Cancelled, transition: [ExcludeFromCodeCoverage] (tcs) => tcs.TrySetCanceled(reason));
+    public void SetFailed(Exception exception) => SetCore(LockState.Failed, transition: [ExcludeFromCodeCoverage] (tcs) => tcs.TrySetException(exception));
+    private void SetCore(LockState newState, Func<TaskCompletionSource<T>, bool> transition)
+    {
+        logger?.LogInformation("Attempting to set event to state {newState}", newState);
+
+        TaskCompletionSource<T> tcs;
+        LockState prevState;
+        lock (syncObject)
+        {
+            prevState = state;
+            tcs = taskCompletionSource;
+            value = default!;
+            state = newState;
+        }
+
+        if (prevState == newState)
+        {
+            logger?.LogTrace("State was already tet to {newState}", newState);
+            return;
+        }
+
+        logger?.LogDebug("Successfully set state to {newState} (from {prevState})", newState, prevState);
+        bool setOpen = transition(tcs);
+        if (!setOpen)
+            logger?.LogWarning("Tried to set barrier to {state}, but failed to", newState);
+    }
+
+    /// <summary>
+    /// Returns a task that will be completed when this event is set.
+    /// </summary>
+    public ValueTask<T> WaitAsync()
+    {
+        Task<T> task;
+        lock (syncObject)
+        {
+            if (PreLockedIsCompletedSuccessfully)
+                return ValueTask.FromResult(value);
+
+            task = taskCompletionSource.Task;
+        }
+        return new(task);
+    }
+
+    /// <summary>
+    /// Returns a task that will be completed when this event is set.
+    /// </summary>
+    /// <param name="cancellationToken">A cancellation token.</param>
+    /// <returns>A task that completes when the event is set, or cancels with the <paramref name="cancellationToken"/>.</returns>
+    public ValueTask<T> WaitAsync(CancellationToken cancellationToken)
+    {
+        Task<T> task;
+        lock (syncObject)
+        {
+            if (PreLockedIsCompletedSuccessfully)
+                return ValueTask.FromResult(value);
+            task = taskCompletionSource.Task;
+        }
+        return new(task.WaitAsync(cancellationToken));
+    }
+
+    /// <summary>
+    /// Gets an awaiter that completes when this event is signaled.
+    /// </summary>
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    [SuppressMessage("Reliability", "CA2012:Use ValueTasks correctly", Justification = "<Pending>")]
+    public ValueTaskAwaiter<T> GetAwaiter() => WaitAsync().GetAwaiter();
+
+    /// <inheritdoc/>
+    public override string ToString()
+    {
+        lock (syncObject)
+            return ToString_PreLocked();
+    }
+
+    /// <summary>
+    /// Core implementation for <see cref="ToString"/>, only called while the <see cref="syncObject"/> lock is held
+    /// </summary>
+    /// <returns>A string represenation of this object</returns>
+    private string ToString_PreLocked()
+    {
+        string valueByState = state == LockState.SetOpen ? value?.ToString() ?? "null" : "<not available>";
+        return $"state: {state}, value: {valueByState}";
+    }
+
+    /// <summary>
+    /// Without the weight of asyncronous blocking, quickly checks if the event is completed.
+    /// </summary>
+    /// <param name="value"></param>
+    public bool TryGetNow(out T value)
+    {
+        lock (syncObject)
+        {
+            if (PreLockedIsCompletedSuccessfully)
+            {
+                value = this.value!;
+                return true;
+            }
+        }
+        value = default!;
+        return false;
+    }
 }
-#endif
