@@ -16,19 +16,6 @@
   <ItemGroup>
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
-  
-  <ItemGroup>
-    <Compile Update="Tools\AsyncLocking\OneTimeAsyncEvent.Generated.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>OneTimeAsyncEvent.Generated.tt</DependentUpon>
-    </Compile>
-    <None Update="Tools\AsyncLocking\OneTimeAsyncEvent.Generated.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>OneTimeAsyncEvent.Generated.cs</LastGenOutput>
-      <DependentUpon>OneTimeAsyncEvent.Generic.cs</DependentUpon>
-    </None>
-  </ItemGroup>
 
   <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
