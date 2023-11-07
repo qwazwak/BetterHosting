@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DSharpPlus.BetterHosting.Services.Interfaces.ExtensionConfigurators;
 using System;
 using Microsoft.Extensions.Logging;
+using DSharpPlus.BetterHosting.Services.Interfaces;
 
 namespace DSharpPlus.BetterHosting.Services.Implementation;
 
@@ -16,18 +17,7 @@ internal sealed class MasterClientConfigurator : IMasterClientConfigurator
         this.configurators = new(configurators);
     }
 
-    public ValueTask Configure(DiscordShardedClient client)
-    {
-        if (configurators.Count == 0)
-        {
-            logger.LogInformation("No client configurators found, ending fast");
-            return ValueTask.CompletedTask;
-        }
-
-        return new(ConfigureAsync(client));
-    }
-
-    private async Task ConfigureAsync(DiscordShardedClient client)
+    public async Task Configure(DiscordShardedClient client)
     {
         List<Exception> exceptions = new(0);
         foreach (IDiscordClientConfigurator configurator in configurators)
