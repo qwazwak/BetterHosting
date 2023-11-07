@@ -1,5 +1,5 @@
 ﻿using System;
-using DSharpPlus.BetterHosting.Interactivity.Services.Configuration;
+using DSharpPlus.BetterHosting.Interactivity.Services;
 using DSharpPlus.BetterHosting.Services.Interfaces.ExtensionConfigurators;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
