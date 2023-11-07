@@ -5,7 +5,6 @@ using Microsoft.Extensions.Hosting;
 using DSharpPlus.BetterHosting.Services.Interfaces;
 using System.Diagnostics;
 using System;
-using DSharpPlus.BetterHosting.Services.Interfaces.ExtensionConfigurators;
 using DSharpPlus.BetterHosting.Services;
 using DSharpPlus.BetterHosting.Services.Extensions;
 using System.Threading;
