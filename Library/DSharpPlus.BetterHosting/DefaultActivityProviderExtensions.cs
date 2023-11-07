@@ -21,7 +21,7 @@ public static class DefaultActivityProviderExtensions
     /// <seealso cref="IDefaultActivityProvider"/>
     public static IServiceCollection AddDefaultActivityProvider<TImplementation>(this IServiceCollection services) where TImplementation : class, IDefaultActivityProvider => services.AddTransient<IDefaultActivityProvider, TImplementation>();
 
-    public static OptionsBuilder<DiscordActivity> AddDefaultActivityProvider<TImplementation>(this IServiceCollection services, string path) where TImplementation : class, IDefaultActivityProvider => services.AddDefaultActivityProvider<DiscordActivityOptionsAdapter>().AddOptions<DiscordActivity>().BindConfiguration(path, o => o.BindNonPublicProperties = true);
+    public static OptionsBuilder<DiscordActivity> AddDefaultActivityProvider(this IServiceCollection services, string path) => services.AddDefaultActivityProvider<DefaultActivityOptionsAdapter>().AddOptions<DiscordActivity>().BindConfiguration(path, o => o.BindNonPublicProperties = true);
 
     /// <summary>
     /// Adds an implementation of <see cref="IDefaultActivityProvider"/> to the specified <see cref="IServiceCollection"/> which will return the given <paramref name="activity"/>.

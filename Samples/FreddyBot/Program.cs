@@ -18,10 +18,9 @@ builder.ConfigureServices(services =>
 {
     services.AddLogging(o => o.AddConsole());
 
-    services.AddOptions();
-    services.AddHttpClient();
-
     services.AddBetterHosting().AddEventsNext();
+
+    services.AddDefaultActivityProvider("Default" + nameof(DSharpPlus.Entities.DiscordActivity));
 
     services.AutoRegisterHandler<AtFreddyHandler>();
     services.AutoRegisterHandler<CreepyHandler>();
@@ -36,16 +35,15 @@ builder.ConfigureServices(services =>
         | DiscordIntents.MessageContents;
     });
 
-    services.AddTransient<SystemSetupRunner>();
+    services.AddHttpClient();
 
+    services.AddTransient<SystemSetupRunner>();
     services.AddTransient<ISystemSetup, DBFileSetup<SwearJarContext>>();
     services.AddTransient<ISystemSetup, DBFileSetup<BadPasswordContext>>();
 
-    //TODO: services.AddTransient<IDiscordClientConfigurator, ConfigureDiscordClientEvents>();
     services.AddSingleton(Random.Shared); // We're using the shared instance of Random for simplicity.
 
     AddDbContext<SwearJarContext>(services, connectionStringName: null);
-    //    services.AddEventsNextHandlers(typeof(Program).Assembly);
 
     static void AddDbContext<TContext>(IServiceCollection services, string? connectionStringName) where TContext : DbContext
     {
