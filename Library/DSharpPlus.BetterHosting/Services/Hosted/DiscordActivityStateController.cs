@@ -10,9 +10,9 @@ namespace DSharpPlus.BetterHosting.Services.Hosted;
 internal class DiscordActivityStateController : IDiscordBackgroundService
 {
     private readonly ILogger<DiscordActivityStateController> logger;
-    private readonly IDiscordDefaultActivityProvider activityProvider;
+    private readonly IDefaultActivityProvider activityProvider;
 
-    public DiscordActivityStateController(ILogger<DiscordActivityStateController> logger, IDiscordDefaultActivityProvider activityProvider)
+    public DiscordActivityStateController(ILogger<DiscordActivityStateController> logger, IDefaultActivityProvider activityProvider)
     {
         this.logger = logger;
         this.activityProvider = activityProvider;
@@ -23,8 +23,8 @@ internal class DiscordActivityStateController : IDiscordBackgroundService
     {
         try
         {
-            ValueTask<DiscordActivity> status = activityProvider.DefaultActivity(stoppingToken);
-            await client.UpdateStatusAsync(await status, UserStatus.Online);
+            DiscordActivity status = activityProvider.DefaultActivity;
+            await client.UpdateStatusAsync(status, UserStatus.Online);
         }
         catch (Exception ex)
         {

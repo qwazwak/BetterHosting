@@ -1,16 +1,22 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using DSharpPlus.BetterHosting.Services.Interfaces;
+﻿using DSharpPlus.BetterHosting.Services.Interfaces;
 using DSharpPlus.Entities;
 using Microsoft.Extensions.Options;
 
 namespace DSharpPlus.BetterHosting.Services.Implementation;
 
-internal class DiscordActivityOptionsAdapter : IDiscordDefaultActivityProvider
+/// <summary>
+/// Simple implementation of <see cref="IDefaultActivityProvider"/> which exposed the default <see cref="IOptions{TOptions}"/> of <see cref="DiscordActivity"/> as the <see cref="IDefaultActivityProvider.DefaultActivity"/>
+/// </summary>
+public sealed class DiscordActivityOptionsAdapter : IDefaultActivityProvider
 {
-    private readonly DiscordActivity activity;
+    private readonly IOptions<DiscordActivity> activity;
 
-    public DiscordActivityOptionsAdapter(IOptions<DiscordActivity> activity) => this.activity = activity.Value;
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="activity"></param>
+    public DiscordActivityOptionsAdapter(IOptions<DiscordActivity> activity) => this.activity = activity;
 
-    ValueTask<DiscordActivity> IDiscordDefaultActivityProvider.DefaultActivity(CancellationToken cancellationToken) => ValueTask.FromResult(activity);
+    /// <inheritdoc/>
+    public DiscordActivity DefaultActivity => activity.Value;
 }
