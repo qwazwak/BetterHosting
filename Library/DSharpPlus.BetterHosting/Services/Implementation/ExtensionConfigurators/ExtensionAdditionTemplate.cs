@@ -34,12 +34,13 @@ public abstract class ExtensionAdditionTemplate<TExtension> : IDiscordClientConf
         IReadOnlyDictionary<int, TExtension> configs = await UseExtension(client);
 
         foreach (KeyValuePair<int, TExtension> kvp in configs)
-        {
-            int shardID = kvp.Key;
-            TExtension extension = kvp.Value;
-            foreach (IDiscordExtensionConfigurator<TExtension> configurator in configurators)
-                await Configure(configurator, shardID, extension);
-        }
+            await Configure(kvp.Key, kvp.Value);
+    }
+
+    private async Task Configure(int shardID, TExtension extension)
+    {
+        foreach (IDiscordExtensionConfigurator<TExtension> configurator in configurators)
+            await Configure(configurator, shardID, extension);
     }
 
     /// <summary>
