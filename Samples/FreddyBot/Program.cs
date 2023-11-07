@@ -16,7 +16,7 @@ IHostBuilder builder = Host.CreateDefaultBuilder(args);
 
 builder.ConfigureServices(services =>
 {
-    services.AddLogging();
+    services.AddLogging(o => o.AddConsole());
 
     services.AddOptions();
     services.AddHttpClient();
