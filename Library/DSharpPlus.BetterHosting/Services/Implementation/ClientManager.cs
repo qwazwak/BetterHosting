@@ -31,6 +31,6 @@ internal sealed class ClientManager : IClientManager
         ThrowIfDoubleConstructed();
         manualEvent.SetOpen(client);
     }
-    public void SetFailed(Exception exception) => throw new NotImplementedException();
-    public void SetCancelled(CancellationToken reason = default) => throw new NotImplementedException();
+    public void SetFailed(Exception exception) => manualEvent.SetFailed(exception);
+    public void SetCancelled(CancellationToken reason = default) => manualEvent.SetCancelled(reason);
 }
