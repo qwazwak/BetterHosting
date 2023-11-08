@@ -28,20 +28,17 @@ internal class DiscordClientHost : BackgroundService
         try
         {
             client = await clientConstructor.ConstructClient();
-            if (stoppingToken.IsCancellationRequested)
-                return;
         }
         catch (Exception ex)
         {
-            logger.LogError(ex, "Unable to startup client due to unexpected exception {type}: {message}", ex.GetType(), ex.Message);
+            logger.LogError(ex, $"There was a problem building/configuring the {nameof(DiscordShardedClient)}. Unable to startup client due to unexpected exception {{type}}: {{message}}", ex.GetType(), ex.Message);
             clientManager.SetFailed(ex);
             Debug.Fail("No exceptions should occur while connecting");
-#if DEBUG
             throw;
-#else
-            return;
-#endif
         }
+
+        if (stoppingToken.IsCancellationRequested)
+            return;
 
         try
         {

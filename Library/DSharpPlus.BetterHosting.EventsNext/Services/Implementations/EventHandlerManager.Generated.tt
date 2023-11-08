@@ -4,10 +4,8 @@
 <#@ assembly name="System.Core" #>
 using DSharpPlus.EventArgs;
 using DSharpPlus.AsyncEvents;
-using System;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using DSharpPlus.BetterHosting.Services;
@@ -21,8 +19,8 @@ foreach(EventNaming naming in EventsList)
     List<(string type, string name)> constuctorArgs = new()
     {
         ($"ILogger<{className}>", "logger"),
-        ($"HandlerRegistryOptions<{naming.InterfaceName}>", "registry"),
-        ("[FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider", "provider")
+        ($"HandlerRegistry<{naming.InterfaceName}>", "registry"),
+        ("[FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider", "provider")
     };
 
 #>

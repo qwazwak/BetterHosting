@@ -1,5 +1,4 @@
-﻿using System;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using DSharpPlus;
@@ -7,9 +6,9 @@ using DSharpPlus.BetterHosting.EventsNext.Services;
 using DSharpPlus.BetterHosting.EventsNext.Services.Implementations;
 using DSharpPlus.BetterHosting.Services.Interfaces;
 using Microsoft.Extensions.Logging;
-using Moq;
 
 namespace UnitTests.DSharpPlus.BetterHosting.EventsNext;
+
 public class EventsNextBackgroundHostTests
 {
     private static EventsNextBackgroundHost<IEventHandlerManager> BuildSUT(out Mock<IEventHandlerManager> mockManager, out Mock<IConnectedClientProvider> providerMock) => BuildSUT<IEventHandlerManager>(out mockManager, out providerMock);

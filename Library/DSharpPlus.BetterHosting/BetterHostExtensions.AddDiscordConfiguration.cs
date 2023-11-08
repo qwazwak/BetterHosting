@@ -1,8 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Configuration;
 using System;
+using DSharpPlus.BetterHosting.Tools.Extensions.Internal;
+using DSharpPlus.BetterHosting.Services.Implementation;
 
 namespace DSharpPlus.BetterHosting;
 
@@ -19,5 +20,5 @@ public static partial class BetterHostExtensions
     /// </exception>
     /// <seealso cref="OptionsBuilderConfigurationExtensions.Bind{TOptions}(OptionsBuilder{TOptions}, IConfiguration, Action{BinderOptions})"/>
     public static OptionsBuilder<DiscordConfiguration> AddDiscordConfigurationOption(this IServiceCollection services, string configSectionPath = nameof(DiscordConfiguration))
-        => services.AddOptions<DiscordConfiguration>().BindConfiguration(configSectionPath, o => o.BindNonPublicProperties = true).Configure<ILoggerFactory>((o, f) => o.LoggerFactory = f);
+        => services.AddTransient<IConfigureOptions<DiscordConfiguration>, BindConfigurationLoggerFactory>().AddOptions<DiscordConfiguration>().BindConfiguration(configSectionPath, bindNonPublicProperties: true);
 }

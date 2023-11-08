@@ -6,7 +6,7 @@ using DSharpPlus.BetterHosting.Lavalink.Services.Implementations;
 using DSharpPlus.BetterHosting.Lavalink.Services.Hosted;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Configuration;
-using DSharpPlus.BetterHosting.Services.Implementation;
+using DSharpPlus.BetterHosting.Tools.Extensions.Internal;
 
 namespace DSharpPlus.BetterHosting.Lavalink;
 
@@ -42,5 +42,5 @@ public static class BetterLavalinkHostExtensions
     /// <paramref name="services"/> or <paramref name="configSectionPath" /> is <see langword="null"/>.
     /// </exception>
     /// <seealso cref="OptionsBuilderConfigurationExtensions.Bind{TOptions}(OptionsBuilder{TOptions}, IConfiguration, Action{BinderOptions})"/>
-    public static OptionsBuilder<LavalinkConfiguration> AddLavalinkConfig(this IServiceCollection services, string configSectionPath ) => services.AddOptions<LavalinkConfiguration>().BindConfiguration(configSectionPath, o => o.BindNonPublicProperties = true);
+    public static OptionsBuilder<LavalinkConfiguration> AddLavalinkConfig(this IServiceCollection services, string configSectionPath ) => services.AddOptions<LavalinkConfiguration>().BindConfiguration(configSectionPath, bindNonPublicProperties: true);
 }

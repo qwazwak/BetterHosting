@@ -17,7 +17,7 @@ public static partial class EventsNextBetterHostExtensions
         where TEventInterface : IDiscordEventHandler<TArgument>
         where TArgument : DiscordEventArgs
     {
-        services.AddSingleton(new HandlerRegistryOptions<TEventInterface>());
+        services.AddSingleton(new HandlerRegistry<TEventInterface>());
         services.AddSingleton<TManager>();
         services.AddHostedService<EventsNextBackgroundHost<TManager>>();
         return services;

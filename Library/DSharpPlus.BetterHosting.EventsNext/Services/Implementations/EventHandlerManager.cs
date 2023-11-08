@@ -10,16 +10,16 @@ using Microsoft.Extensions.Logging;
 
 namespace DSharpPlus.BetterHosting.EventsNext.Services.Implementations;
 
-internal abstract class EventHandlerManager<THandler, TArgument> : IEventHandlerManager
-    where THandler : IDiscordEventHandler<TArgument>
+internal abstract class EventHandlerManager<TInterface, TArgument> : IEventHandlerManager
+    where TInterface : IDiscordEventHandler<TArgument>
     where TArgument : DiscordEventArgs
 {
-    private readonly ILogger<EventHandlerManager<THandler, TArgument>> logger;
-    protected readonly HandlerRegistryOptions<THandler> registry;
-    private readonly IServiceProvider provider;
+    private readonly ILogger<EventHandlerManager<TInterface, TArgument>> logger;
+    protected readonly HandlerRegistry<TInterface> registry;
+    private readonly IKeyedServiceProvider provider;
     private DiscordShardedClient client = null!;
 
-    protected EventHandlerManager(ILogger<EventHandlerManager<THandler, TArgument>> logger, HandlerRegistryOptions<THandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider)
+    protected EventHandlerManager(ILogger<EventHandlerManager<TInterface, TArgument>> logger, HandlerRegistry<TInterface> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider)
     {
         this.logger = logger;
         this.registry = registry;
@@ -86,7 +86,7 @@ internal abstract class EventHandlerManager<THandler, TArgument> : IEventHandler
     private async Task OnEventLoggingWrapper(DiscordClient sender, TArgument args)
     {
         Stopwatch sw = new();
-        logger.LogDebug("Meta-handler invocation started for interface {handlerName}", typeof(THandler).Name);
+        logger.LogDebug("Meta-handler invocation started for interface {handlerName}", typeof(TInterface).Name);
         sw.Start();
         await OnEventCore(sender, args);
         sw.Stop();
@@ -94,31 +94,22 @@ internal abstract class EventHandlerManager<THandler, TArgument> : IEventHandler
         logger.LogDebug("Finished calling of {count} handlers in {elapsed}", count, sw.Elapsed);
     }
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private Task OnEventCore(DiscordClient sender, TArgument args)
-    {
-        return Parallel.ForEachAsync(registry.Registrations, async (handlerRegistration, cancellationToken) =>
-        {
-            using IServiceScope scope = this.provider.CreateScope();
-            IServiceProvider provider = scope.ServiceProvider;
-            {
-                THandler handler = provider.GetRequiredKeyedService<THandler>(handlerRegistration.Key);
-                if (cancellationToken.IsCancellationRequested)
-                {
-                    logger.LogDebug("Cancellation requested, skipping invocation of event handler");
-                    return;
-                }
+    private Task OnEventCore(DiscordClient sender, TArgument args) => Parallel.ForEachAsync(registry.Registrations, (reg, ct) => ct.IsCancellationRequested ? ValueTask.FromCanceled(ct) : OnEventSingle(sender, reg, args));
 
-                try
-                {
-                    await Invoke(handler, sender, args);
-                }
-                catch (Exception ex)
-                {
-                    logger.LogError(ex, "A problem occured while handling event with {EventName} with handler: {HandlerName}", typeof(THandler).Name, handler.GetType().Name);
-                    throw;
-                }
-            }
-        });
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private async ValueTask OnEventSingle(DiscordClient sender, HandlerRegistration handlerRegistration, TArgument args)
+    {
+        try
+        {
+            await using AsyncServiceScope scope = this.provider.CreateAsyncScope();
+            TInterface handler = scope.ServiceProvider.GetRequiredKeyedService<TInterface>(handlerRegistration.Key);
+            await Invoke(handler, sender, args);
+        }
+        catch (Exception ex)
+        {
+            logger.LogWarning(ex, "A problem occured while handling event with {EventName} with handler ID {HandlerName}", typeof(TInterface).Name, handlerRegistration.Key);
+            throw;
+        }
     }
 #if AutoCalling
     protected virtual void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, TArgument> handler)
@@ -129,9 +120,8 @@ internal abstract class EventHandlerManager<THandler, TArgument> : IEventHandler
     protected virtual ValueTask Invoke(THandler handler, DiscordClient sender, TArgument args)
         => EventHandlerReflector.AutoCallEventHandler<THandler, TArgument>(handler, sender, args);
 #else
-
     protected abstract void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, TArgument> handler);
     protected abstract void UnbindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, TArgument> handler);
-    protected abstract ValueTask Invoke(THandler handler, DiscordClient sender, TArgument args);
+    protected abstract ValueTask Invoke(TInterface handler, DiscordClient sender, TArgument args);
 #endif
 }

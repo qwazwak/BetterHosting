@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Security.Cryptography;
-using FreddyBot.Services;
-using Microsoft.VisualBasic;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace FreddyBot.Services.Implementation;
 

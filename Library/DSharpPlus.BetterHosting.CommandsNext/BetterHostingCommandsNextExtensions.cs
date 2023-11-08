@@ -1,9 +1,9 @@
 ﻿using System;
 using DSharpPlus.BetterHosting.CommandsNext.Services;
 using DSharpPlus.BetterHosting.CommandsNext.Services.Configuration;
-using DSharpPlus.BetterHosting.Services.Implementation;
 using DSharpPlus.BetterHosting.Services.Implementation.ExtensionConfigurators;
 using DSharpPlus.BetterHosting.Services.Interfaces.ExtensionConfigurators;
+using DSharpPlus.BetterHosting.Tools.Extensions.Internal;
 using DSharpPlus.CommandsNext;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -43,6 +43,6 @@ public static partial class BetterHostingCommandsNextExtensions
     public static OptionsBuilder<CommandsNextConfiguration> AddCommandsNextConfiguration(this IServiceCollection services, string configSectionPath)
     {
         ArgumentNullException.ThrowIfNull(services);
-        return services.AddOptions<CommandsNextConfiguration>().BindConfiguration(configSectionPath, o => o.BindNonPublicProperties = true);
+        return services.AddOptions<CommandsNextConfiguration>().BindConfiguration(configSectionPath, bindNonPublicProperties: true);
     }
 }

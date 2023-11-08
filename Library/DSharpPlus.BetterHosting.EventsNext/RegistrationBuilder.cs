@@ -15,7 +15,7 @@ public sealed class RegistrationBuilder<TEventInterface> where TEventInterface :
     static RegistrationBuilder() => HandlerVerification.VerifyExactInterface<TEventInterface>();
 
     private readonly IServiceCollection services;
-    private readonly HandlerRegistryOptions<TEventInterface> registry;
+    private readonly HandlerRegistry<TEventInterface> registry;
 
     internal RegistrationBuilder(IServiceCollection services)
     {
@@ -41,7 +41,7 @@ public sealed class RegistrationBuilder<TEventInterface> where TEventInterface :
 
     private RegistrationBuilder<TEventInterface> RegisterHandlerCore(Type handlerType)
     {
-        HandlerRegistration<TEventInterface> registration = registry.AddHandler();
+        HandlerRegistration registration = registry.AddHandler();
         Guid key = registration.Key;
         services.AddKeyedScoped(typeof(TEventInterface), key, handlerType);
         return this;

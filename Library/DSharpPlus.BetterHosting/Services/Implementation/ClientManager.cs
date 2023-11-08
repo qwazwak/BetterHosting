@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using DSharpPlus.BetterHosting.Services.Interfaces;
 using Microsoft.Extensions.Logging;
 using DSharpPlus.BetterHosting.Tools.AsyncEventBlock;
-using System.Diagnostics.CodeAnalysis;
 
 namespace DSharpPlus.BetterHosting.Services.Implementation;
 

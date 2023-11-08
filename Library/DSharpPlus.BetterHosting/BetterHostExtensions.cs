@@ -3,11 +3,8 @@ using DSharpPlus.BetterHosting.Services.Implementation;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using DSharpPlus.BetterHosting.Services.Interfaces;
-using System.Diagnostics;
 using System;
 using DSharpPlus.BetterHosting.Services;
-using DSharpPlus.BetterHosting.Services.Extensions;
-using System.Threading;
 
 namespace DSharpPlus.BetterHosting;
 
@@ -23,19 +20,16 @@ public static partial class BetterHostExtensions
     {
         services.AddTransient<IClientConstructor, ClientConstructor>();
         services.AddTransient<IShortClientConstructor, ShortClientConstructor>();
-        services.AddScoped<IConnectedClientProvider>(sp => sp.GetRequiredService<IClientManager>());
         services.AddSingleton<IClientManager, ClientManager>();
-        services.AddTransient<DiscordShardedClient>(sp => sp.GetRequiredService<IConnectedClientProvider>().GetClient(CancellationToken.None));
+        services.AddSingleton<IConnectedClientProvider>(sp => sp.GetRequiredService<IClientManager>());
+        //services.AddTransient<DiscordShardedClient>(sp => sp.GetRequiredService<IConnectedClientProvider>().GetClient(CancellationToken.None));
         services.AddTransient<IMasterClientConfigurator, MasterClientConfigurator>();
 
         services.AddHostedService<DiscordClientHost>();
 
         #region Internal helpers
-        services.AddKeyedSingleton(NamedServices.RootServiceProvider, (IServiceProvider sp, object? key) =>
-        {
-            Debug.Assert(NamedServices.RootServiceProvider.Equals(key));
-            return sp.GetService<IHost>()?.Services ?? sp;
-        });
+        services.AddKeyedSingleton(NamedServices.RootServiceProvider, (IServiceProvider sp, object? _) => sp.GetService<IHost>()?.Services ?? sp);
+        services.AddKeyedSingleton(NamedServices.RootServiceProvider, (IServiceProvider sp, object? _) => (IKeyedServiceProvider)sp.GetRequiredKeyedService<IServiceProvider>(NamedServices.RootServiceProvider));
 
         #endregion Internal helpers
         return services;

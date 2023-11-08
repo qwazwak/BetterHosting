@@ -24,7 +24,9 @@ internal class DiscordActivityStateController : IDiscordBackgroundService
         try
         {
             DiscordActivity status = activityProvider.DefaultActivity;
+            logger.LogDebug("Attempting to set initial activity to {activity}", status);
             await client.UpdateStatusAsync(status, UserStatus.Online);
+            logger.LogInformation("Initial activity set successfully");
         }
         catch (Exception ex)
         {

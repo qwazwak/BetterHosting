@@ -1,4 +1,5 @@
-﻿using DSharpPlus.VoiceNext;
+﻿using DSharpPlus.BetterHosting.Tools.Extensions.Internal;
+using DSharpPlus.VoiceNext;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -23,7 +24,7 @@ public static class BetterHostingVoiceNextConfigurationExtensions
     /// </summary>
     /// <param name="configSectionPath">The name of the configuration section to bind from.</param>
     /// <returns>An <see cref="OptionsBuilder{TOptions}"/> which can be used to further configure the <see cref="VoiceNextConfiguration"/></returns>
-    public static OptionsBuilder<VoiceNextConfiguration> AddVoiceNextConfig(this IServiceCollection services, string configSectionPath) => services.AddOptions<VoiceNextConfiguration>().BindConfiguration(configSectionPath, o => o.BindNonPublicProperties = true);
+    public static OptionsBuilder<VoiceNextConfiguration> AddVoiceNextConfig(this IServiceCollection services, string configSectionPath) => services.AddOptions<VoiceNextConfiguration>().BindConfiguration(configSectionPath, bindNonPublicProperties: true);
 }
 #if false
 internal static class BetterHostingVoiceNextConfigurationHelper

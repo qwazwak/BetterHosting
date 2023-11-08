@@ -2,18 +2,24 @@
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework.Constraints;
 
-namespace UnitTestHelpers;
+namespace UnitTestHelpers.Constraints;
 
-/// <summary>
-/// InstanceOfTypeConstraint is used to test that an object
-/// is of the same type provided or derived from it.
-/// </summary>
-public class EquivelentServiceDescriptorConstraint : Constraint
+public abstract class ServiceDescriptorConstraint : Constraint
 {
     /// <summary>
-    /// The expected Type used by the constraint
+    /// Gets the <see cref="ServiceLifetime"/> of the service.
     /// </summary>
-    protected ServiceDescriptor ExpectedDescriptor;
+    public ServiceLifetime Lifetime { get; }
+
+    /// <summary>
+    /// Get the key of the service, if applicable.
+    /// </summary>
+    public object? ServiceKey { get; }
+
+    /// <summary>
+    /// Gets the <see cref="Type"/> of the service.
+    /// </summary>
+    public Type ServiceType { get; }
 
     /// <summary>
     /// The type of the actual argument to which the constraint was applied
@@ -24,11 +30,11 @@ public class EquivelentServiceDescriptorConstraint : Constraint
     /// Construct a TypeConstraint for a given Type
     /// </summary>
     /// <param name="serviceDescriptor">The expected <see cref="ServiceDescriptor"/></param>
-    public EquivelentServiceDescriptorConstraint(ServiceDescriptor serviceDescriptor)
-        : base(serviceDescriptor)
+    protected ServiceDescriptorConstraint(ServiceLifetime lifetime, object? serviceKey, Type serviceType) : base(lifetime, serviceKey, serviceType)
     {
-        ArgumentNullException.ThrowIfNull(serviceDescriptor);
-        ExpectedDescriptor = serviceDescriptor;
+        Lifetime = lifetime;
+        ServiceKey = serviceKey;
+        ServiceType = serviceType;
         //Description = descriptionPrefix + MsgUtils.FormatValue(ExpectedDescriptor);
     }
     /*
@@ -44,16 +50,11 @@ public class EquivelentServiceDescriptorConstraint : Constraint
     /// <returns>A ConstraintResult</returns>
     public override sealed ConstraintResult ApplyTo<TActual>(TActual actual)
     {
-        if (ExpectedDescriptor is null)
-            return new ConstraintResult(this, actual, actual is null);
-
         if (actual is not ServiceDescriptor actualDescriptor)
-        {
             throw new ArgumentException($"{nameof(TActual)} was of type {typeof(TActual).Name}, but {nameof(ServiceDescriptor)} was required");
-        }
 
         ActualDescriptor = actualDescriptor;
-        return new ConstraintResult(this, actualDescriptor, this.Matches(actualDescriptor));
+        return new ConstraintResult(this, actualDescriptor, Matches(actualDescriptor));
     }
 
     /// <summary>
@@ -69,17 +70,5 @@ public class EquivelentServiceDescriptorConstraint : Constraint
     /// </summary>
     /// <param name="actual">The actual argument</param>
     /// <returns>True if the constraint succeeds, otherwise false.</returns>
-    protected /*virtual*/ bool Matches(ServiceDescriptor actual)
-    {
-        ServiceDescriptor expected = ExpectedDescriptor;
-        if (expected.Lifetime != actual.Lifetime || expected.ServiceType != actual.ServiceType || expected.ServiceKey != actual.ServiceKey)
-            return false;
-
-        if(expected.ServiceType is not null)
-        {
-            return actual.ServiceType == expected.ServiceType;
-        }
-
-        throw new NotImplementedException("Idk what to do now");
-    }
+    protected virtual bool Matches(ServiceDescriptor actual) => Lifetime == actual.Lifetime && ServiceType == actual.ServiceType && ServiceKey == actual.ServiceKey;
 }

@@ -8,17 +8,9 @@ namespace DSharpPlus.BetterHosting.EventsNext;
 
 internal static class RegistrationBuilderHelper
 {
-    public static HandlerRegistryOptions<TInterface> GetHandlerRegistration<TInterface>(IServiceCollection serviceDescriptors) where TInterface : IDiscordEventHandler
+    public static HandlerRegistry<TInterface> GetHandlerRegistration<TInterface>(IServiceCollection serviceDescriptors) where TInterface : IDiscordEventHandler
     {
         ArgumentNullException.ThrowIfNull(serviceDescriptors);
-        return serviceDescriptors.GetOrAddSingleton<HandlerRegistryOptions<TInterface>>();
+        return serviceDescriptors.GetOrAddSingleton<HandlerRegistry<TInterface>>();
     }
-
-    /*
-    public static HandlerRegistryOptions GetHandlerRegistration(IServiceCollection serviceDescriptors, Type interfaceType)
-    {
-        ArgumentNullException.ThrowIfNull(serviceDescriptors);
-        Type registryType = typeof(HandlerRegistryOptions<>).MakeGenericType(interfaceType);
-        return (HandlerRegistryOptions)serviceDescriptors.GetOrAddSingleton(registryType, () => Activator.CreateInstance(registryType)!);
-    }*/
 }

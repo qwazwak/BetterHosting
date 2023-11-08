@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using FreddyBot.Data.Tables.Interfaces;
 using FreddyBot.Data.Tables.KeyBases;
 using Microsoft.EntityFrameworkCore;

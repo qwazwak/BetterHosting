@@ -2,34 +2,17 @@
 
 namespace DSharpPlus.BetterHosting.EventsNext.Services.Implementations;
 
-internal abstract class HandlerRegistration
+internal readonly struct HandlerRegistration : IEquatable<HandlerRegistration>
 {
     public readonly Guid Key;
-    public readonly Type InterfaceType;
 
-    protected HandlerRegistration(Guid key, Type interfaceType)
+    public HandlerRegistration(Guid key)
     {
         Key = key;
-        InterfaceType = interfaceType;
     }
 
-    public static HandlerRegistration CreateByType(Guid key, Type interfaceType)
-    {
-        Type targetType = typeof(HandlerRegistration<>).MakeGenericType(interfaceType);
-        return (HandlerRegistration)Activator.CreateInstance(targetType, [key, interfaceType])!;
-    }
+    public override bool Equals(object? obj) => obj is HandlerRegistration other && Equals(other);
+    public bool Equals(HandlerRegistration other) => Key.Equals(other.Key);
 
-    public sealed override bool Equals(object? obj) => obj is HandlerRegistration other && Equals(other);
-    public virtual bool Equals(HandlerRegistration? other)
-    {
-        if (other is null) return false;
-        return Key.Equals(other.Key) && InterfaceType.Equals(other.InterfaceType);
-    }
-
-    public override int GetHashCode() => HashCode.Combine(Key);
-}
-
-internal sealed class HandlerRegistration<TInterface> : HandlerRegistration// where TInterface : IDiscordEventHandler
-{
-    public HandlerRegistration(Guid key) : base(key, typeof(TInterface)) { }
+    public override int GetHashCode() => Key.GetHashCode();
 }

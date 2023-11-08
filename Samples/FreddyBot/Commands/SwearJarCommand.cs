@@ -1,12 +1,7 @@
-﻿using DSharpPlus.CommandsNext;
-using System.Threading.Tasks;
-using DSharpPlus.CommandsNext.Attributes;
+﻿using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using FreddyBot.Services;
 using DSharpPlus.SlashCommands;
-using System.Reflection.Emit;
-using DSharpPlus.Entities;
-using DSharpPlus;
 
 namespace FreddyBot.Commands;
 

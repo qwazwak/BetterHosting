@@ -20,14 +20,14 @@ builder.ConfigureServices(services =>
 
     services.AddBetterHosting().AddEventsNext();
 
-    services.AddDefaultActivityProvider("Default" + nameof(DSharpPlus.Entities.DiscordActivity));
+    services.AddDefaultActivityByOptions("Default" + nameof(DSharpPlus.Entities.DiscordActivity));
 
     services.AutoRegisterHandler<AtFreddyHandler>();
     services.AutoRegisterHandler<CreepyHandler>();
     services.AutoRegisterHandler<PHPHandler>();
     services.AutoRegisterHandler<SwearJarHandler>();
 
-    services.AddOptions<DiscordConfiguration>().BindConfiguration(nameof(DiscordConfiguration), o => o.BindNonPublicProperties = true).Configure(o =>
+    services.AddDiscordConfigurationOption(nameof(DiscordConfiguration)).Configure(o =>
     {
         o.Intents =
         /*DiscordIntents.Guilds |*/ DiscordIntents.GuildMembers /* | DiscordIntents.GuildBans */ | DiscordIntents.GuildEmojisAndStickers | DiscordIntents.GuildIntegrations /* | DiscordIntents.GuildWebhooks | DiscordIntents.GuildInvites |  DiscordIntents.ScheduledGuildEvents */ | DiscordIntents.GuildVoiceStates | DiscordIntents.GuildPresences | DiscordIntents.GuildMessages | DiscordIntents.GuildMessageReactions | DiscordIntents.GuildMessageTyping

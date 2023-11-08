@@ -6,7 +6,7 @@ namespace DSharpPlus.BetterHosting.Tools.Extensions.Internal;
 
 internal static class SingletonServiceCheater
 {
-    public static T GetOrAddSingleton<T>(this IServiceCollection services) where T : class, new() => services.GetOrAddSingleton<T>([ExcludeFromCodeCoverage] () => new());
+    public static T GetOrAddSingleton<T>(this IServiceCollection services) where T : class, new() => services.GetOrAddSingleton<T>([ExcludeFromCodeCoverage(Justification = CoveCoverageExclusionReasons.LambdaWrapper)] () => new());
     public static T GetOrAddSingleton<T>(this IServiceCollection services, Func<T> factory) where T : class => (T)services.GetOrAddSingleton(typeof(T), () => factory());
 
     private static bool TryFindDescriptor(IServiceCollection services, Type servicetype, [NotNullWhen(true), MaybeNullWhen(false)] out ServiceDescriptor existingDescriptor)

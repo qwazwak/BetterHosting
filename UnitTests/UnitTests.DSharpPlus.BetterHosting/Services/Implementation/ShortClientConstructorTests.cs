@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
+using DSharpPlus;
+using DSharpPlus.BetterHosting.Services.Implementation;
 using DSharpPlus.BetterHosting.Services.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
-using Moq;
 
-namespace DSharpPlus.BetterHosting.Services.Implementation;
+namespace UnitTests.DSharpPlus.BetterHosting.Services.Implementation;
 
 public class ShortClientConstructorTests
 {

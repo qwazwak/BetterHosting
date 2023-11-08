@@ -5,7 +5,6 @@ using DSharpPlus.Lavalink;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.Options;
-using System.Text.RegularExpressions;
 
 namespace DSharpPlus.BetterHosting.Lavalink.Services.Hosted;
 

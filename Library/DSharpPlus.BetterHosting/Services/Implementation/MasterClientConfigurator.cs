@@ -4,22 +4,24 @@ using DSharpPlus.BetterHosting.Services.Interfaces.ExtensionConfigurators;
 using System;
 using Microsoft.Extensions.Logging;
 using DSharpPlus.BetterHosting.Services.Interfaces;
+using System.Linq;
 
 namespace DSharpPlus.BetterHosting.Services.Implementation;
 
 internal sealed class MasterClientConfigurator : IMasterClientConfigurator
 {
     private readonly ILogger<MasterClientConfigurator> logger;
-    private readonly List<IDiscordClientConfigurator> configurators;
+    private readonly IEnumerable<IDiscordClientConfigurator> configurators;
+
     public MasterClientConfigurator(ILogger<MasterClientConfigurator> logger, IEnumerable<IDiscordClientConfigurator> configurators)
     {
         this.logger = logger;
-        this.configurators = new(configurators);
+        this.configurators = configurators;
     }
 
     public async Task Configure(DiscordShardedClient client)
     {
-        List<Exception> exceptions = new(0);
+        List<Exception>? exceptions = null;
         foreach (IDiscordClientConfigurator configurator in configurators)
         {
             try
@@ -29,11 +31,11 @@ internal sealed class MasterClientConfigurator : IMasterClientConfigurator
             catch (Exception ex)
             {
                 logger.LogError(ex, "configurator of type {typeName} failed to run: {message}", configurator.GetType().Name, ex.Message);
-                exceptions.Add(ex);
-                throw;
+                (exceptions ??= new()).Add(ex);
             }
         }
-        if (exceptions.Count > 0)
+
+        if (exceptions != null)
             throw new AggregateException("One or more exceptions occured while setting up DiscordShardedClient", exceptions);
     }
 }

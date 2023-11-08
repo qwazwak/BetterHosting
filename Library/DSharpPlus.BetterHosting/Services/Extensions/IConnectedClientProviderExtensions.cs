@@ -24,8 +24,7 @@ public static class IConnectedClientProviderExtensions
             return vt.GetAwaiter().GetResult();
 
         Task<DiscordShardedClient> task = vt.AsTask();
-        task.RunSynchronously();
-        task.Wait(cancellationToken);
-        return task.GetAwaiter().GetResult();
+        Task<DiscordShardedClient> waitingTask = task.WaitAsync(cancellationToken);
+        return waitingTask.GetAwaiter().GetResult();
     }
 }
