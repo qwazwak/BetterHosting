@@ -34,7 +34,7 @@ public abstract class ExtensionAdditionTemplate<TExtension> : IDiscordClientConf
     {
         IReadOnlyDictionary<int, TExtension> configs = await UseExtension(client);
 
-        await Parallel.ForEachAsync(configs, [ExcludeFromCodeCoverage(Justification = CoveCoverageExclusionReasons.LambdaWrapper)] (kvp, ct) => ct.IsCancellationRequested ? ValueTask.FromCanceled(ct) : new(Configure(kvp.Key, kvp.Value));
+        await Parallel.ForEachAsync(configs, [ExcludeFromCodeCoverage(Justification = CoveCoverageExclusionReasons.LambdaWrapper)] (kvp, ct) => ct.IsCancellationRequested ? ValueTask.FromCanceled(ct) : new(Configure(kvp.Key, kvp.Value)));
     }
 
     private async Task Configure(int shardID, TExtension extension)
