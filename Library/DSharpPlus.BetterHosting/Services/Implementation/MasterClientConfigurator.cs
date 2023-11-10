@@ -4,7 +4,6 @@ using DSharpPlus.BetterHosting.Services.Interfaces.ExtensionConfigurators;
 using System;
 using Microsoft.Extensions.Logging;
 using DSharpPlus.BetterHosting.Services.Interfaces;
-using System.Linq;
 
 namespace DSharpPlus.BetterHosting.Services.Implementation;
 
