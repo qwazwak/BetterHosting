@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using DSharpPlus.BetterHosting.Services.Interfaces.ExtensionConfigurators;
@@ -34,13 +33,15 @@ public abstract class ExtensionAdditionTemplate<TExtension> : IDiscordClientConf
     {
         IReadOnlyDictionary<int, TExtension> configs = await UseExtension(client);
 
-        await Parallel.ForEachAsync(configs, [ExcludeFromCodeCoverage(Justification = CoveCoverageExclusionReasons.LambdaWrapper)] (kvp, ct) => ct.IsCancellationRequested ? ValueTask.FromCanceled(ct) : new(Configure(kvp.Key, kvp.Value)));
+        Parallel.ForEach(configs, Configure);
     }
 
-    private async Task Configure(int shardID, TExtension extension)
+    private void Configure(KeyValuePair<int, TExtension> kvp)
     {
+        int shardID = kvp.Key;
+        TExtension extension = kvp.Value;
         foreach (IDiscordExtensionConfigurator<TExtension> configurator in configurators)
-            await Configure(configurator, shardID, extension);
+            Configure(configurator, shardID, extension);
     }
 
     /// <summary>
@@ -59,6 +60,5 @@ public abstract class ExtensionAdditionTemplate<TExtension> : IDiscordClientConf
     /// <param name="shardID"></param>
     /// <param name="extension"></param>
     /// <returns>A <see cref="ValueTask"/> representing configuration completion</returns>
-    protected virtual ValueTask Configure(IDiscordExtensionConfigurator<TExtension> configurator, int shardID, TExtension extension)
-        => configurator.Configure(shardID, extension);
+    protected virtual void Configure(IDiscordExtensionConfigurator<TExtension> configurator, int shardID, TExtension extension) => configurator.Configure(shardID, extension);
 }

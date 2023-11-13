@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using DSharpPlus.CommandsNext;
 
 namespace DSharpPlus.BetterHosting.CommandsNext.Services.Configuration;
@@ -13,7 +12,7 @@ internal class TypeHandlerAdder : ICommandsNextConfigurator
     public TypeHandlerAdder(Type handlerType) => handlerTypes = handlerType;
     public TypeHandlerAdder(ICollection<Type> handlerTypes) => this.handlerTypes = handlerTypes;
 
-    public ValueTask Configure(int shardID, CommandsNextExtension extension)
+    public void Configure(int shardID, CommandsNextExtension extension)
     {
         if (handlerTypes is Type singleType)
         {
@@ -25,6 +24,5 @@ internal class TypeHandlerAdder : ICommandsNextConfigurator
             foreach (Type handlerType in (ICollection<Type>)handlerTypes)
                 extension.RegisterCommands(handlerType);
         }
-        return ValueTask.CompletedTask;
     }
 }

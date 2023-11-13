@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
-using System.Threading.Tasks;
 using DSharpPlus.SlashCommands;
 
 namespace DSharpPlus.BetterHosting.SlashCommands.Services;
@@ -12,9 +11,5 @@ internal class SlashCommandsAutoRegisterConfigurator : ISlashCommandsExtensionCo
     public SlashCommandsAutoRegisterConfigurator(Assembly assembly) => this.assembly = assembly;
 
     [ExcludeFromCodeCoverage(Justification = CoveCoverageExclusionReasons.DSharpSealed)]
-    public ValueTask Configure(int shardID, SlashCommandsExtension slashCommands)
-    {
-        slashCommands.RegisterCommands(assembly);
-        return ValueTask.CompletedTask;
-    }
+    public void Configure(int shardID, SlashCommandsExtension slashCommands) => slashCommands.RegisterCommands(assembly);
 }
