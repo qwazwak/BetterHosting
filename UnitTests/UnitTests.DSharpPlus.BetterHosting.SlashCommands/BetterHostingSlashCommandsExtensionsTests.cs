@@ -7,6 +7,7 @@ using DSharpPlus.BetterHosting.SlashCommands.Services.Implementation;
 using DSharpPlus.SlashCommands;
 using Microsoft.Extensions.Options;
 using DSharpPlus.BetterHosting.SlashCommands;
+using DSharpPlus.BetterHosting.SlashCommands.Services;
 
 namespace UnitTests.DSharpPlus.BetterHosting.SlashCommands;
 
@@ -36,6 +37,7 @@ public class BetterHostingSlashCommandsExtensionsTests
             .Verifiable(Times.Once);
         mockServices.Setup(s => s.Add(ItMore.ServiceDescriptorFrom.SimpleInterface.AddTransient<IDiscordClientConfigurator, SlashCommandsSetup>()))
             .Verifiable(Times.Once);
+        mockServices.Setup(s => s.Add(ItMore.ServiceDescriptorFrom.SimpleInterface.AddTransient<IDiscordExtensionConfigurator<SlashCommandsExtension>, DiscordExtensionConfiguratorAdapter<ISlashCommandsExtensionConfigurator, SlashCommandsExtension>>())).Verifiable(Times.Once);
 
         BetterHostingSlashCommandsExtensions.AddSlashCommands(mockServices.Object);
 

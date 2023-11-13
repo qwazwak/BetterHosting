@@ -4,6 +4,8 @@ using System.Diagnostics.CodeAnalysis;
 using System;
 using DSharpPlus.BetterHosting.VoiceNext;
 using DSharpPlus.BetterHosting.VoiceNext.Services.Configuration;
+using DSharpPlus.VoiceNext;
+using DSharpPlus.BetterHosting.VoiceNext.Services;
 
 namespace UnitTests.DSharpPlus.BetterHosting.VoiceNext;
 
@@ -30,6 +32,7 @@ public class BetterHostingVoiceNextExtensionsTests
         Mock<IServiceCollection> mockServices = new(MockBehavior.Strict);
 
         mockServices.Setup(s => s.Add(ItMore.ServiceDescriptorFrom.SimpleInterface.AddTransient<IDiscordClientConfigurator, VoiceNextSetup>())).Verifiable(Times.Once);
+        mockServices.Setup(s => s.Add(ItMore.ServiceDescriptorFrom.SimpleInterface.AddTransient<IDiscordExtensionConfigurator<VoiceNextExtension>, DiscordExtensionConfiguratorAdapter<IVoiceNextConfigurator, VoiceNextExtension>>())).Verifiable(Times.Once);
 
         BetterHostingVoiceNextExtensions.AddVoiceNext(mockServices.Object);
 

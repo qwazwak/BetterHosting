@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using DSharpPlus;
@@ -44,7 +45,7 @@ public class ClientConstructorTests
 
         Assert.Multiple(() =>
         {
-            Assert.That(clientCapture, IsMore.HasSingle.SameAs(result));
+            Assert.That(clientCapture, Has.One.SameAs(result));
             Assert.That(result.GetConfiguration(), Is.SameAs(config));
         });
         repository.Verify();

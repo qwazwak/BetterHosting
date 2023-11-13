@@ -43,9 +43,9 @@ public class SlashCommandsRegistrationExtensionsTests<TCommand> where TCommand :
     public void ReturnsSame_RegisterAssembly()
     {
         IServiceCollection mockServices = Mock.Of<IServiceCollection>(MockBehavior.Loose);
-        Assembly mockAssembly = Mock.Of<Assembly>(MockBehavior.Strict);
+        Assembly assembly = typeof(string).Assembly;
 
-        IServiceCollection result = SlashCommandsRegistrationExtensions.RegisterSlashCommands(mockServices, mockAssembly);
+        IServiceCollection result = SlashCommandsRegistrationExtensions.RegisterSlashCommands(mockServices, assembly);
 
         Assert.That(result, Is.SameAs(mockServices));
     }
@@ -55,10 +55,9 @@ public class SlashCommandsRegistrationExtensionsTests<TCommand> where TCommand :
     {
         Mock<IServiceCollection> mockServices = new(MockBehavior.Loose);
         mockServices.Setup(s => s.Add(ItMore.ServiceDescriptorFrom.Factory.AddTransient<ISlashCommandsExtensionConfigurator, SlashCommandsAutoRegisterConfigurator>()));
-        Assembly mockAssembly = Mock.Of<Assembly>(MockBehavior.Strict);
+        Assembly assembly = typeof(string).Assembly;
 
-        IServiceCollection result = SlashCommandsRegistrationExtensions.RegisterSlashCommands(mockServices.Object, mockAssembly);
-        Assert.That(result, Is.SameAs(mockServices));
+        IServiceCollection result = SlashCommandsRegistrationExtensions.RegisterSlashCommands(mockServices.Object, assembly);
         mockServices.Verify();
     }
 
@@ -67,10 +66,8 @@ public class SlashCommandsRegistrationExtensionsTests<TCommand> where TCommand :
     {
         Mock<IServiceCollection> mockServices = new(MockBehavior.Loose);
         mockServices.Setup(s => s.Add(ItMore.ServiceDescriptorFrom.Factory.AddTransient<ISlashCommandsExtensionConfigurator, SlashCommandRegisterConfigurator<TCommand>>()));
-        Assembly mockAssembly = Mock.Of<Assembly>(MockBehavior.Strict);
 
         IServiceCollection result = SlashCommandsRegistrationExtensions.RegisterSlashCommand<TCommand>(mockServices.Object);
-        Assert.That(result, Is.SameAs(mockServices));
         mockServices.Verify();
     }
 }
