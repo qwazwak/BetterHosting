@@ -1,13 +1,11 @@
 ﻿using System;
 using DSharpPlus.BetterHosting.CommandsNext.Services;
-using DSharpPlus.BetterHosting.CommandsNext.Services.Configuration;
 using DSharpPlus.BetterHosting.Services.Implementation.ExtensionConfigurators;
 using DSharpPlus.BetterHosting.Services.Interfaces.ExtensionConfigurators;
 using DSharpPlus.BetterHosting.Tools.Extensions.Internal;
 using DSharpPlus.CommandsNext;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 
 namespace DSharpPlus.BetterHosting.SlashCommands;
@@ -25,7 +23,6 @@ public static class CommandsNextBetterHostingExtensions
         ArgumentNullException.ThrowIfNull(services);
         services.AddTransient<IConfigureOptions<CommandsNextConfiguration>, CommandsNextOptionConfigure>();
         services.AddExtensionConfiguratorAdapter<ICommandsNextConfigurator, CommandsNextExtension>();
-        services.TryAddTransient<ICommandsNextConfigurator, HandlerAdder>();
 
         services.AddTransient<IDiscordClientConfigurator, CommandsNextSetup>();
         return services;
