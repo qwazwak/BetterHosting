@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using DSharpPlus.BetterHosting.Services.Hosted;
-using System;
+using Microsoft.Extensions.Hosting;
 
 namespace DSharpPlus.BetterHosting;
 
@@ -17,9 +17,8 @@ public static class HostedDiscordServiceExtensions
     /// <returns>The same <see cref="IServiceCollection"/> for chaining</returns>
     public static IServiceCollection AddHostedDiscordService<TService>(this IServiceCollection services) where TService : class, IDiscordBackgroundService
     {
-        ArgumentNullException.ThrowIfNull(services);
         services.AddTransient<TService>();
-        services.AddHostedService<DiscordBackgroundServiceHost<TService>>();
+        services.AddSingleton<IHostedService, DiscordBackgroundServiceHost<TService>>();
         return services;
     }
 }

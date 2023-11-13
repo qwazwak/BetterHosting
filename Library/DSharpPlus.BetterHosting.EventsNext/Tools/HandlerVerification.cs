@@ -28,7 +28,7 @@ internal static class HandlerVerification
             ThrowNoHandlerInterfaces(nameof(THandler), typeof(THandler), message);
     }
 
-    internal static void VerifyExactInterface(Type interfaceType)
+    public static void VerifyExactInterface(Type interfaceType)
     {
         ArgumentNullException.ThrowIfNull(interfaceType);
         if (!EventInterfaceValidation.IsExactInterface(interfaceType))
