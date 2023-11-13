@@ -7,7 +7,7 @@
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
   </PropertyGroup>
-  
+
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)UnitTestingSuperGlobalUsings.cs" Link="UnitTestingSuperGlobalUsings.cs" />
   </ItemGroup>

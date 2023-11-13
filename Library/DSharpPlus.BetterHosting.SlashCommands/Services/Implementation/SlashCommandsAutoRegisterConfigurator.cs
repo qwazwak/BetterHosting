@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 using System.Threading.Tasks;
 using DSharpPlus.SlashCommands;
 
@@ -9,6 +10,8 @@ internal class SlashCommandsAutoRegisterConfigurator : ISlashCommandsExtensionCo
     private readonly Assembly assembly;
 
     public SlashCommandsAutoRegisterConfigurator(Assembly assembly) => this.assembly = assembly;
+
+    [ExcludeFromCodeCoverage(Justification = CoveCoverageExclusionReasons.DSharpSealed)]
     public ValueTask Configure(int shardID, SlashCommandsExtension slashCommands)
     {
         slashCommands.RegisterCommands(assembly);

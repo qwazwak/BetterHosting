@@ -15,7 +15,7 @@ namespace DSharpPlus.BetterHosting.SlashCommands;
 /// <summary>
 /// Extension methods to add and configure <see cref="DSharpPlus.CommandsNext"/>
 /// </summary>
-public static partial class BetterHostingCommandsNextExtensions
+public static class CommandsNextBetterHostingExtensions
 {
     /// <summary>
     /// Entry point to add and configure <see cref="DSharpPlus.CommandsNext"/>
