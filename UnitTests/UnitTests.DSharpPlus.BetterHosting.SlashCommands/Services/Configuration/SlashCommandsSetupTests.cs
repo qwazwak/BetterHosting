@@ -2,7 +2,6 @@
 using System.Runtime.CompilerServices;
 using DSharpPlus.BetterHosting.Services.Interfaces.ExtensionConfigurators;
 using DSharpPlus.BetterHosting.SlashCommands.Services.Configuration;
-using DSharpPlus.BetterHosting.SlashCommands.Services;
 using DSharpPlus.SlashCommands;
 using Microsoft.Extensions.Options;
 
@@ -18,7 +17,7 @@ public class SlashCommandsSetupTests
         Mock<IOptions<SlashCommandsConfiguration>> mockOptions = new(MockBehavior.Strict);
         mockOptions.Setup(o => o.Value).Returns(config).Verifiable(Times.Once);
 
-        SlashCommandsSetup setup = new(mockOptions.Object, Enumerable.Empty<ISlashCommandsExtensionConfigurator>(), Enumerable.Empty<IDiscordExtensionConfigurator<SlashCommandsExtension>>());
+        SlashCommandsSetup setup = new(mockOptions.Object, Enumerable.Empty<IDiscordExtensionConfigurator<SlashCommandsExtension>>());
 
         Assert.That(setup.GetConfiguration(), Is.SameAs(config));
         mockOptions.Verify();

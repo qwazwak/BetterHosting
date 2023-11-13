@@ -27,7 +27,7 @@ public class InteractivitySetupTests
         Mock<IOptions<InteractivityConfiguration>> mockOptions = repository.Create<IOptions<InteractivityConfiguration>>();
         mockOptions.Setup(o => o.Value).Returns(config).Verifiable(Times.Once());
 
-        InteractivitySetup setup = new(mockOptions.Object, Enumerable.Empty<IInteractivityConfigurator>(), Enumerable.Empty<IDiscordExtensionConfigurator<InteractivityExtension>>());
+        InteractivitySetup setup = new(mockOptions.Object, Enumerable.Empty<IDiscordExtensionConfigurator<InteractivityExtension>>());
 
         setup.UseExtension(shard);
     }
