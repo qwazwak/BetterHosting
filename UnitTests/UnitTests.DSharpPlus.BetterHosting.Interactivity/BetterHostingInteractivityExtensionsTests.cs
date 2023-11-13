@@ -30,7 +30,7 @@ public class BetterHostingInteractivityExtensionsTests
 
         ServiceDescriptor setupDescriptor = new(typeof(IDiscordClientConfigurator), typeof(InteractivitySetup), ServiceLifetime.Transient);
 
-        mockServices.Setup(s => s.Add(ItMore.ServiceDescriptorFrom.AddTransient<IDiscordClientConfigurator, InteractivitySetup>())).Verifiable(Times.Once);
+        mockServices.Setup(s => s.Add(ItMore.ServiceDescriptorFrom.SimpleInterface.AddTransient<IDiscordClientConfigurator, InteractivitySetup>())).Verifiable(Times.Once);
 
         BetterHostingInteractivityExtensions.AddInteractivity(mockServices.Object);
 
