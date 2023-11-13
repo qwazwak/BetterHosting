@@ -1,5 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using DSharpPlus.BetterHosting.Services.Interfaces.ExtensionConfigurators;
+using System;
+using DSharpPlus.BetterHosting.Services.Implementation.ExtensionConfigurators;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DSharpPlus.BetterHosting;
 
@@ -21,6 +24,15 @@ public static partial class BetterHostExtensions
     /// <param name="services"></param>
     /// <returns>The same <paramref name="services"/> for chaining</returns>
     public static IServiceCollection AddExtensionConfigurator<TConfigurator, TExtension>(this IServiceCollection services) where TConfigurator : class, IDiscordExtensionConfigurator<TExtension> where TExtension : BaseExtension => services.AddTransient<IDiscordExtensionConfigurator<TExtension>, TConfigurator>();
+
+    /// <summary>
+    /// Registers a service to configure the <typeparamref name="TExtension"/> with the <paramref name="configurationDelegate"/>
+    /// </summary>
+    /// <typeparam name="TExtension"></typeparam>
+    /// <param name="services"></param>
+    /// <param name="configurationDelegate"></param>
+    /// <returns>The same <paramref name="services"/> for chaining</returns>
+    public static IServiceCollection ConfigureExtension<TExtension>(this IServiceCollection services, Action<TExtension> configurationDelegate) where TExtension : BaseExtension => services.AddTransient<IDiscordExtensionConfigurator<TExtension>>([ExcludeFromCodeCoverage(Justification = CoveCoverageExclusionReasons.LambdaWrapper)] (_) => new ExtensionConfigureDelegate<TExtension>(configurationDelegate));
 
     /// <summary>
     /// Registers A <see cref="DiscordExtensionConfiguratorAdapter{TSpecific, TExtension}"/> as a <see cref="IDiscordExtensionConfigurator{TExtension}"/> which provide all registered instances of <typeparamref name="TSpecific"/> as a <see cref=" IDiscordExtensionConfigurator{TExtension}"/>
