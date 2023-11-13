@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using DSharpPlus.BetterHosting.Services.Interfaces.ExtensionConfigurators;
 
@@ -12,13 +11,6 @@ namespace DSharpPlus.BetterHosting.Services.Implementation.ExtensionConfigurator
 public abstract class ExtensionAdditionTemplate<TExtension> : IDiscordClientConfigurator where TExtension : BaseExtension
 {
     private readonly List<IDiscordExtensionConfigurator<TExtension>> configurators;
-
-    /// <summary>
-    /// Helper constructor for when a library has an explicit configurator (derived from <see cref="IDiscordExtensionConfigurator{TExtension}"/>) and allows any <see cref="IDiscordExtensionConfigurator{TExtension}"/>
-    /// </summary>
-    /// <param name="explicitConfigurators"></param>
-    /// <param name="configurators"></param>
-    protected ExtensionAdditionTemplate(IEnumerable<IDiscordExtensionConfigurator<TExtension>> explicitConfigurators, IEnumerable<IDiscordExtensionConfigurator<TExtension>> configurators) : this(explicitConfigurators.Concat(configurators)) { }
 
     /// <summary>
     /// Constructs the base template

@@ -12,9 +12,7 @@ internal sealed class SlashCommandsSetup : ExtensionAdditionTemplate<SlashComman
 {
     private readonly SlashCommandsConfiguration configuration;
 
-    public SlashCommandsSetup(IOptions<SlashCommandsConfiguration> configuration,
-        IEnumerable<ISlashCommandsExtensionConfigurator> explicitConfigurators,
-        IEnumerable<IDiscordExtensionConfigurator<SlashCommandsExtension>> configurators) : base(explicitConfigurators, configurators) => this.configuration = configuration.Value;
+    public SlashCommandsSetup(IOptions<SlashCommandsConfiguration> configuration, IEnumerable<IDiscordExtensionConfigurator<SlashCommandsExtension>> configurators) : base(configurators) => this.configuration = configuration.Value;
 
     [ExcludeFromCodeCoverage(Justification = CoveCoverageExclusionReasons.DSharpSealed)]
     protected override Task<IReadOnlyDictionary<int, SlashCommandsExtension>> UseExtension(DiscordShardedClient shard) => shard.UseSlashCommandsAsync(configuration);

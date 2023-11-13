@@ -16,5 +16,5 @@ public static class BetterHostingInteractivityExtensions
     /// </summary>
     /// <param name="services"></param>
     /// <returns>The same <see cref="IServiceCollection"/> for chaining</returns>
-    public static IServiceCollection AddInteractivity(this IServiceCollection services) => services.AddTransient<IDiscordClientConfigurator, InteractivitySetup>();
+    public static IServiceCollection AddInteractivity(this IServiceCollection services) => services.AddTransient<IDiscordClientConfigurator, InteractivitySetup>().AddExtensionConfiguratorAdapter<IInteractivityConfigurator, InteractivityExtension>();
 }

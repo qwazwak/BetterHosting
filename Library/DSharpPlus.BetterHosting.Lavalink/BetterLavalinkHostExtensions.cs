@@ -7,6 +7,7 @@ using DSharpPlus.BetterHosting.Lavalink.Services.Hosted;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Configuration;
 using DSharpPlus.BetterHosting.Tools.Extensions.Internal;
+using DSharpPlus.BetterHosting.Lavalink.Services;
 
 namespace DSharpPlus.BetterHosting.Lavalink;
 
@@ -24,7 +25,8 @@ public static class BetterLavalinkHostExtensions
     {
         return services
             .AddHostedDiscordService<LavalinkBackgroundService>()
-            .AddTransient<IDiscordClientConfigurator, LavalinkSetup>();
+            .AddTransient<IDiscordClientConfigurator, LavalinkSetup>()
+            .AddExtensionConfiguratorAdapter<ILavalinkConfigurator, LavalinkExtension>();
     }
 
     /// <summary>

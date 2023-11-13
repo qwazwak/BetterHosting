@@ -21,4 +21,13 @@ public static partial class BetterHostExtensions
     /// <param name="services"></param>
     /// <returns>The same <paramref name="services"/> for chaining</returns>
     public static IServiceCollection AddExtensionConfigurator<TConfigurator, TExtension>(this IServiceCollection services) where TConfigurator : class, IDiscordExtensionConfigurator<TExtension> where TExtension : BaseExtension => services.AddTransient<IDiscordExtensionConfigurator<TExtension>, TConfigurator>();
+
+    /// <summary>
+    /// Registers A <see cref="DiscordExtensionConfiguratorAdapter{TSpecific, TExtension}"/> as a <see cref="IDiscordExtensionConfigurator{TExtension}"/> which provide all registered instances of <typeparamref name="TSpecific"/> as a <see cref=" IDiscordExtensionConfigurator{TExtension}"/>
+    /// </summary>
+    /// <typeparam name="TSpecific">The derived <see cref="IDiscordExtensionConfigurator{TExtension}"/> </typeparam>
+    /// <typeparam name="TExtension"></typeparam>
+    /// <param name="services"></param>
+    /// <returns>The same <paramref name="services"/> for chaining</returns>
+    public static IServiceCollection AddExtensionConfiguratorAdapter<TSpecific, TExtension>(this IServiceCollection services) where TSpecific : class, IDiscordExtensionConfigurator<TExtension> where TExtension : BaseExtension => services.AddExtensionConfigurator<DiscordExtensionConfiguratorAdapter<TSpecific, TExtension>, TExtension>();
 }

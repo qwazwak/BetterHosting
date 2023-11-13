@@ -12,7 +12,7 @@ internal sealed class InteractivitySetup : ExtensionAdditionTemplate<Interactivi
 {
     private readonly InteractivityConfiguration configuration;
 
-    public InteractivitySetup(IOptions<InteractivityConfiguration> configuration, IEnumerable<IInteractivityConfigurator> explicitConfigurators, IEnumerable<IDiscordExtensionConfigurator<InteractivityExtension>> configurators) : base(explicitConfigurators, configurators) => this.configuration = configuration.Value;
+    public InteractivitySetup(IOptions<InteractivityConfiguration> configuration, IEnumerable<IDiscordExtensionConfigurator<InteractivityExtension>> configurators) : base(configurators) => this.configuration = configuration.Value;
 
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage(Justification = CoveCoverageExclusionReasons.DSharpSealed)]
     protected override Task<IReadOnlyDictionary<int, InteractivityExtension>> UseExtension(DiscordShardedClient shard) => shard.UseInteractivityAsync(configuration);

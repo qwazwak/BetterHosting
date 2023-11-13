@@ -8,7 +8,7 @@ namespace DSharpPlus.BetterHosting.Lavalink.Services.Implementations;
 
 internal sealed class LavalinkSetup : ExtensionAdditionTemplate<LavalinkExtension>
 {
-    public LavalinkSetup(IEnumerable<ILavalinkConfigurator> explicitConfigurators, IEnumerable<IDiscordExtensionConfigurator<LavalinkExtension>> configurators) : base(explicitConfigurators, configurators) { }
+    public LavalinkSetup(IEnumerable<IDiscordExtensionConfigurator<LavalinkExtension>> configurators) : base(configurators) { }
 
     protected override Task<IReadOnlyDictionary<int, LavalinkExtension>> UseExtension(DiscordShardedClient shard) => shard.UseLavalinkAsync();
 }

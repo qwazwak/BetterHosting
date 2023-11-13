@@ -14,7 +14,7 @@ public sealed class VoiceNextSetup : ExtensionAdditionTemplate<VoiceNextExtensio
     private readonly VoiceNextConfiguration configuration;
 
     /// <inheritdoc/>
-    public VoiceNextSetup(IOptions<VoiceNextConfiguration> configuration, IEnumerable<IVoiceNextConfigurator> explicitConfigurators, IEnumerable<IDiscordExtensionConfigurator<VoiceNextExtension>> configurators) : base(explicitConfigurators, configurators) => this.configuration = configuration.Value;
+    public VoiceNextSetup(IOptions<VoiceNextConfiguration> configuration, IEnumerable<IDiscordExtensionConfigurator<VoiceNextExtension>> configurators) : base(configurators) => this.configuration = configuration.Value;
 
     /// <inheritdoc/>
     [ExcludeFromCodeCoverage(Justification = CoveCoverageExclusionReasons.DSharpSealed)]

@@ -1,4 +1,5 @@
 ﻿using DSharpPlus.BetterHosting.Services.Interfaces.ExtensionConfigurators;
+using DSharpPlus.BetterHosting.SlashCommands.Services;
 using DSharpPlus.BetterHosting.SlashCommands.Services.Configuration;
 using DSharpPlus.BetterHosting.SlashCommands.Services.Implementation;
 using DSharpPlus.SlashCommands;
@@ -17,5 +18,8 @@ public static class BetterHostingSlashCommandsExtensions
     /// </summary>
     /// <param name="services"></param>
     /// <returns>The same <see cref="IServiceCollection"/> for chaining</returns>
-    public static IServiceCollection AddSlashCommands(this IServiceCollection services) => services.AddTransient<IDiscordClientConfigurator, SlashCommandsSetup>().AddTransient<IConfigureOptions<SlashCommandsConfiguration>, SlashCommandsOptionsConfiguration>();
+    public static IServiceCollection AddSlashCommands(this IServiceCollection services)
+        => services.AddTransient<IDiscordClientConfigurator, SlashCommandsSetup>()
+        .AddTransient<IConfigureOptions<SlashCommandsConfiguration>, SlashCommandsOptionsConfiguration>()
+        .AddExtensionConfiguratorAdapter<ISlashCommandsExtensionConfigurator, SlashCommandsExtension>();
 }
