@@ -19,6 +19,10 @@
   <ItemGroup>
     <ProjectReference Include="..\UnitTestHelpers\UnitTestHelpers.csproj" Condition="'$(UseHelperProject)' == 'True'"/>
   </ItemGroup>
+  
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage" />
+  </ItemGroup>
 
   <Target Name="Print Validation" AfterTargets="Build">
     <Warning Text="TestingTargetProject was blank, to disable use 'False'" Condition="'$(TestingTargetProject)' == ''"/>
