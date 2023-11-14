@@ -9,9 +9,16 @@ internal static class CommandsNextReflector
 {
     public static class Utilities
     {
-        public static bool IsModuleCandidateType(Type type) => IsModuleCandidateType(type.GetTypeInfo());
-        [UnsafeAccessor(UnsafeAccessorKind.Method, Name = "IsModuleCandidateType")]
-        public extern static bool IsModuleCandidateType(TypeInfo type);
+        private static readonly Func<TypeInfo, bool> IsModuleCandidateTypeHandler;
+        static Utilities()
+        {
+            Type utilType = typeof(DSharpPlus.CommandsNext.CommandsNextUtilities);
+            MethodInfo method = utilType.GetMethod("IsModuleCandidateType", BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic, new Type[] { typeof(TypeInfo) })!;
+            IsModuleCandidateTypeHandler = method.CreateDelegate<Func<TypeInfo, bool>>();
+        }
+
+        public static bool IsModuleCandidateType(Type type) => IsModuleCandidateTypeHandler.Invoke(type.GetTypeInfo());
+        public static bool IsModuleCandidateType(TypeInfo type) => IsModuleCandidateTypeHandler.Invoke(type);
 
         public static void ThrowIfNotCanidate(Type type) => ThrowIfNotCanidate(type.GetTypeInfo());
         public static void ThrowIfNotCanidate(TypeInfo type)
@@ -19,6 +26,7 @@ internal static class CommandsNextReflector
             if (!IsModuleCandidateType(type))
                 ThrowNotCanidate(type);
         }
+
         [DoesNotReturn]
         [MethodImpl(MethodImplOptions.NoInlining)]
         private static void ThrowNotCanidate(TypeInfo type) => throw new ArgumentException("Command type was not a valid CommandsNext command", nameof(type));
