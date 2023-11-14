@@ -10,8 +10,7 @@ internal sealed class LavalinkBackgroundService : IDiscordBackgroundService
 {
     private readonly LavalinkConfiguration options;
 
-    public LavalinkBackgroundService(IOptions<LavalinkConfiguration> options) : this(options.Value) { }
-    public LavalinkBackgroundService(LavalinkConfiguration options) => this.options = options;
+    public LavalinkBackgroundService(IOptions<LavalinkConfiguration> options) => this.options = options.Value;
 
     public async Task AfterConnected(DiscordShardedClient client, CancellationToken stoppingToken)
     {

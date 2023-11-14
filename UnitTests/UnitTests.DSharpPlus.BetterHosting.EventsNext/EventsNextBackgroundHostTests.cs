@@ -17,7 +17,8 @@ public class EventsNextBackgroundHostTests
     {
         mockManager = new(MockBehavior.Strict);
         providerMock = new(MockBehavior.Strict);
-        return new(Mock.Of<ILogger<EventsNextBackgroundHost<TManager>>>(MockBehavior.Loose), mockManager.Object, providerMock.Object);
+        ILogger<EventsNextBackgroundHost<TManager>> logger = Mock.Of<ILogger<EventsNextBackgroundHost<TManager>>>(MockBehavior.Loose);
+        return new(logger, mockManager.Object, providerMock.Object);
     }
 
     [Test]

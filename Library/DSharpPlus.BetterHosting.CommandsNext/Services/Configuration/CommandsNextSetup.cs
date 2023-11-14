@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using DSharpPlus.BetterHosting.Services.Interfaces.ExtensionConfigurators;
 using DSharpPlus.CommandsNext;
@@ -15,9 +16,6 @@ public sealed class CommandsNextSetup : ExtensionAdditionTemplate<CommandsNextEx
     public CommandsNextSetup(IOptions<CommandsNextConfiguration> config, IEnumerable<IDiscordExtensionConfigurator<CommandsNextExtension>> configurators) : base(configurators) => this.config = config.Value;
 
     /// <inheritdoc />
-    protected override Task<IReadOnlyDictionary<int, CommandsNextExtension>> UseExtension(DiscordShardedClient client)
-    {
-        CommandsNextConfiguration config = this.config;
-        return client.UseCommandsNextAsync(config);
-    }
+    [ExcludeFromCodeCoverage(Justification = CoveCoverageExclusionReasons.DSharpSealed)]
+    protected override Task<IReadOnlyDictionary<int, CommandsNextExtension>> UseExtension(DiscordShardedClient client) => client.UseCommandsNextAsync(config);
 }

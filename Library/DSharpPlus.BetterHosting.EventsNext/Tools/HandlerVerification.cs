@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using DSharpPlus.BetterHosting.EventsNext.Services;
@@ -15,6 +14,18 @@ internal static class HandlerVerification
             ThrowInvalidExactInterface(typeof(TInterface));
     }
 
+    public static void VerifyExactInterface(Type interfaceType)
+    {
+        ArgumentNullException.ThrowIfNull(interfaceType);
+        if (!EventInterfaceValidation.IsExactInterface(interfaceType))
+            ThrowInvalidExactInterface(interfaceType);
+    }
+
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    [DoesNotReturn]
+    private static void ThrowInvalidExactInterface(Type interfaceType) => throw new InvalidHandlerInterfaceException(interfaceType);
+
+#if Canidates
     public static void VerifyValidHandlerCanidate(Type handler, [CallerArgumentExpression(nameof(handler))] string argumentName = default!)
     {
         Debug.Assert(handler != null);
@@ -28,18 +39,8 @@ internal static class HandlerVerification
             ThrowNoHandlerInterfaces(nameof(THandler), typeof(THandler), message);
     }
 
-    public static void VerifyExactInterface(Type interfaceType)
-    {
-        ArgumentNullException.ThrowIfNull(interfaceType);
-        if (!EventInterfaceValidation.IsExactInterface(interfaceType))
-            ThrowInvalidExactInterface(interfaceType);
-    }
-
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    [DoesNotReturn]
-    private static void ThrowInvalidExactInterface(Type interfaceType) => throw new InvalidHandlerInterfaceException(interfaceType);
-
     [MethodImpl(MethodImplOptions.NoInlining)]
     [DoesNotReturn]
     private static void ThrowNoHandlerInterfaces(string paramName, Type interfaceType, string message) => throw new NoEventHandlerCanidateException(message, paramName, interfaceType);
+#endif
 }

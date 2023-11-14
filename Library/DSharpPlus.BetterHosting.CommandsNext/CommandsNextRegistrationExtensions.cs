@@ -14,52 +14,31 @@ namespace DSharpPlus.BetterHosting.SlashCommands;
 /// </summary>
 public static class CommandsNextRegistrationExtensions
 {
-    /// <inheritdoc cref="CommandsNextExtension.RegisterCommands(Assembly)"/>
-    public static IServiceCollection RegisterCommands(this IServiceCollection services, Assembly assembly)
-    {
-        ArgumentNullException.ThrowIfNull(assembly);
-        return services.AddTransient<ICommandsNextConfigurator, AssemblyHandlerAdder>(_ => new(assembly));
-    }
-
     /// <inheritdoc cref="CommandsNextExtension.RegisterCommands{T}()"/>
-    public static IServiceCollection RegisterCommand<T>(this IServiceCollection services) where T : BaseCommandModule => services.RegisterCommand(typeof(T));
+    public static IServiceCollection RegisterCommand<T>(this IServiceCollection services) where T : BaseCommandModule
+        => services.AddTransient<T>().AddTransient<ICommandsNextConfigurator, TypeHandlerAdder<T>>();
 
     /// <inheritdoc cref="CommandsNextExtension.RegisterCommands(Type)"/>
     public static IServiceCollection RegisterCommand(this IServiceCollection services, Type t)
     {
         ArgumentNullException.ThrowIfNull(t);
-        return services.AddTransient<ICommandsNextConfigurator, TypeHandlerAdder>(_ => new(t));
+        return services.AddTransient(t).AddTransient(typeof(ICommandsNextConfigurator), typeof(TypeHandlerAdder<>).MakeGenericType(t));
     }
 
-    /// <inheritdoc cref="CommandsNextExtension.RegisterCommands(Type)"/>
-    public static IServiceCollection RegisterCommands(this IServiceCollection services, params Type[] types)
+    /// <inheritdoc cref="CommandsNextExtension.RegisterCommands(Assembly)"/>
+    public static IServiceCollection RegisterCommands(this IServiceCollection services, Assembly assembly)
     {
-        ArgumentNullException.ThrowIfNull(types);
-        if (types.Length != 0)
-            services.RegisterCommands((IEnumerable<Type>)types);
-        return services;
+        ArgumentNullException.ThrowIfNull(assembly);
+        IEnumerable<Type> types = HandlerExtractor.GetCanidates(assembly);
+        return services.RegisterCommands(types);
     }
 
     /// <inheritdoc cref="CommandsNextExtension.RegisterCommands(Type)"/>
     public static IServiceCollection RegisterCommands(this IServiceCollection services, IEnumerable<Type> types)
     {
         ArgumentNullException.ThrowIfNull(types);
-        List<Type> typesList = new();
-
-        foreach (Type t in types)
-        {
-            ArgumentNullException.ThrowIfNull(t);
-            CommandsNextReflector.Utilities.ThrowIfNotCanidate(t);
-            typesList.Add(t);
-
-            services.AddTransient(t);
-        }
-
-        if (typesList.Count == 1)
-            services.AddTransient<ICommandsNextConfigurator, TypeHandlerAdder>(_ => new(typesList[0]));
-        else if (typesList.Count != 0)
-            services.AddTransient<ICommandsNextConfigurator, TypeHandlerAdder>(_ => new(typesList));
-
+        foreach (Type type in types)
+            services.RegisterCommand(type);
         return services;
     }
 }

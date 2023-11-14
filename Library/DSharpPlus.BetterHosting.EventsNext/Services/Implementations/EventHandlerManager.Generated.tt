@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using DSharpPlus.BetterHosting.Services;
+using System.Diagnostics.CodeAnalysis;
 
 <#=AutomaticNamespaceLine#>
 
@@ -25,6 +26,7 @@ foreach(EventNaming naming in EventsList)
 
 #>
 
+[ExcludeFromCodeCoverage]
 internal partial class <#=className#> : EventHandlerManager<<#=naming.InterfaceName#>, <#=naming.ArgumentType#>>
 {    
     public <#=className#>(<#=string.Join(", ", constuctorArgs.Select(p => $"{p.type} {p.name}"))#>) : base(<#=string.Join(", ", constuctorArgs.Select(p => p.name))#>) { }

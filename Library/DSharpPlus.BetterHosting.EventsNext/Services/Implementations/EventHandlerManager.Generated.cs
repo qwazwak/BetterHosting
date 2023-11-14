@@ -6,10 +6,12 @@ using Microsoft.Extensions.Logging;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using DSharpPlus.BetterHosting.Services;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DSharpPlus.BetterHosting.EventsNext.Services.Implementations;
 
 
+[ExcludeFromCodeCoverage]
 internal partial class SocketErroredHandlerManager : EventHandlerManager<ISocketErroredEventHandler, SocketErrorEventArgs>
 {    
     public SocketErroredHandlerManager(ILogger<SocketErroredHandlerManager> logger, HandlerRegistry<ISocketErroredEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -24,6 +26,7 @@ internal partial class SocketErroredHandlerManager : EventHandlerManager<ISocket
     protected sealed override ValueTask Invoke(ISocketErroredEventHandler handler, DiscordClient sender, SocketErrorEventArgs args) => handler.OnSocketErrored(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class SocketOpenedHandlerManager : EventHandlerManager<ISocketOpenedEventHandler, SocketEventArgs>
 {    
     public SocketOpenedHandlerManager(ILogger<SocketOpenedHandlerManager> logger, HandlerRegistry<ISocketOpenedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -38,6 +41,7 @@ internal partial class SocketOpenedHandlerManager : EventHandlerManager<ISocketO
     protected sealed override ValueTask Invoke(ISocketOpenedEventHandler handler, DiscordClient sender, SocketEventArgs args) => handler.OnSocketOpened(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class SocketClosedHandlerManager : EventHandlerManager<ISocketClosedEventHandler, SocketCloseEventArgs>
 {    
     public SocketClosedHandlerManager(ILogger<SocketClosedHandlerManager> logger, HandlerRegistry<ISocketClosedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -52,6 +56,7 @@ internal partial class SocketClosedHandlerManager : EventHandlerManager<ISocketC
     protected sealed override ValueTask Invoke(ISocketClosedEventHandler handler, DiscordClient sender, SocketCloseEventArgs args) => handler.OnSocketClosed(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class SessionCreatedHandlerManager : EventHandlerManager<ISessionCreatedEventHandler, SessionReadyEventArgs>
 {    
     public SessionCreatedHandlerManager(ILogger<SessionCreatedHandlerManager> logger, HandlerRegistry<ISessionCreatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -66,6 +71,7 @@ internal partial class SessionCreatedHandlerManager : EventHandlerManager<ISessi
     protected sealed override ValueTask Invoke(ISessionCreatedEventHandler handler, DiscordClient sender, SessionReadyEventArgs args) => handler.OnSessionCreated(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class SessionResumedHandlerManager : EventHandlerManager<ISessionResumedEventHandler, SessionReadyEventArgs>
 {    
     public SessionResumedHandlerManager(ILogger<SessionResumedHandlerManager> logger, HandlerRegistry<ISessionResumedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -80,6 +86,7 @@ internal partial class SessionResumedHandlerManager : EventHandlerManager<ISessi
     protected sealed override ValueTask Invoke(ISessionResumedEventHandler handler, DiscordClient sender, SessionReadyEventArgs args) => handler.OnSessionResumed(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class HeartbeatedHandlerManager : EventHandlerManager<IHeartbeatedEventHandler, HeartbeatEventArgs>
 {    
     public HeartbeatedHandlerManager(ILogger<HeartbeatedHandlerManager> logger, HandlerRegistry<IHeartbeatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -94,6 +101,7 @@ internal partial class HeartbeatedHandlerManager : EventHandlerManager<IHeartbea
     protected sealed override ValueTask Invoke(IHeartbeatedEventHandler handler, DiscordClient sender, HeartbeatEventArgs args) => handler.OnHeartbeated(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class ZombiedHandlerManager : EventHandlerManager<IZombiedEventHandler, ZombiedEventArgs>
 {    
     public ZombiedHandlerManager(ILogger<ZombiedHandlerManager> logger, HandlerRegistry<IZombiedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -108,6 +116,7 @@ internal partial class ZombiedHandlerManager : EventHandlerManager<IZombiedEvent
     protected sealed override ValueTask Invoke(IZombiedEventHandler handler, DiscordClient sender, ZombiedEventArgs args) => handler.OnZombied(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class ApplicationCommandPermissionsUpdatedHandlerManager : EventHandlerManager<IApplicationCommandPermissionsUpdatedEventHandler, ApplicationCommandPermissionsUpdatedEventArgs>
 {    
     public ApplicationCommandPermissionsUpdatedHandlerManager(ILogger<ApplicationCommandPermissionsUpdatedHandlerManager> logger, HandlerRegistry<IApplicationCommandPermissionsUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -122,6 +131,7 @@ internal partial class ApplicationCommandPermissionsUpdatedHandlerManager : Even
     protected sealed override ValueTask Invoke(IApplicationCommandPermissionsUpdatedEventHandler handler, DiscordClient sender, ApplicationCommandPermissionsUpdatedEventArgs args) => handler.OnApplicationCommandPermissionsUpdated(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class ChannelCreatedHandlerManager : EventHandlerManager<IChannelCreatedEventHandler, ChannelCreateEventArgs>
 {    
     public ChannelCreatedHandlerManager(ILogger<ChannelCreatedHandlerManager> logger, HandlerRegistry<IChannelCreatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -136,6 +146,7 @@ internal partial class ChannelCreatedHandlerManager : EventHandlerManager<IChann
     protected sealed override ValueTask Invoke(IChannelCreatedEventHandler handler, DiscordClient sender, ChannelCreateEventArgs args) => handler.OnChannelCreated(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class ChannelUpdatedHandlerManager : EventHandlerManager<IChannelUpdatedEventHandler, ChannelUpdateEventArgs>
 {    
     public ChannelUpdatedHandlerManager(ILogger<ChannelUpdatedHandlerManager> logger, HandlerRegistry<IChannelUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -150,6 +161,7 @@ internal partial class ChannelUpdatedHandlerManager : EventHandlerManager<IChann
     protected sealed override ValueTask Invoke(IChannelUpdatedEventHandler handler, DiscordClient sender, ChannelUpdateEventArgs args) => handler.OnChannelUpdated(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class ChannelDeletedHandlerManager : EventHandlerManager<IChannelDeletedEventHandler, ChannelDeleteEventArgs>
 {    
     public ChannelDeletedHandlerManager(ILogger<ChannelDeletedHandlerManager> logger, HandlerRegistry<IChannelDeletedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -164,6 +176,7 @@ internal partial class ChannelDeletedHandlerManager : EventHandlerManager<IChann
     protected sealed override ValueTask Invoke(IChannelDeletedEventHandler handler, DiscordClient sender, ChannelDeleteEventArgs args) => handler.OnChannelDeleted(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class DmChannelDeletedHandlerManager : EventHandlerManager<IDmChannelDeletedEventHandler, DmChannelDeleteEventArgs>
 {    
     public DmChannelDeletedHandlerManager(ILogger<DmChannelDeletedHandlerManager> logger, HandlerRegistry<IDmChannelDeletedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -178,6 +191,7 @@ internal partial class DmChannelDeletedHandlerManager : EventHandlerManager<IDmC
     protected sealed override ValueTask Invoke(IDmChannelDeletedEventHandler handler, DiscordClient sender, DmChannelDeleteEventArgs args) => handler.OnDmChannelDeleted(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class ChannelPinsUpdatedHandlerManager : EventHandlerManager<IChannelPinsUpdatedEventHandler, ChannelPinsUpdateEventArgs>
 {    
     public ChannelPinsUpdatedHandlerManager(ILogger<ChannelPinsUpdatedHandlerManager> logger, HandlerRegistry<IChannelPinsUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -192,6 +206,7 @@ internal partial class ChannelPinsUpdatedHandlerManager : EventHandlerManager<IC
     protected sealed override ValueTask Invoke(IChannelPinsUpdatedEventHandler handler, DiscordClient sender, ChannelPinsUpdateEventArgs args) => handler.OnChannelPinsUpdated(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class GuildCreatedHandlerManager : EventHandlerManager<IGuildCreatedEventHandler, GuildCreateEventArgs>
 {    
     public GuildCreatedHandlerManager(ILogger<GuildCreatedHandlerManager> logger, HandlerRegistry<IGuildCreatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -206,6 +221,7 @@ internal partial class GuildCreatedHandlerManager : EventHandlerManager<IGuildCr
     protected sealed override ValueTask Invoke(IGuildCreatedEventHandler handler, DiscordClient sender, GuildCreateEventArgs args) => handler.OnGuildCreated(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class GuildAvailableHandlerManager : EventHandlerManager<IGuildAvailableEventHandler, GuildCreateEventArgs>
 {    
     public GuildAvailableHandlerManager(ILogger<GuildAvailableHandlerManager> logger, HandlerRegistry<IGuildAvailableEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -220,6 +236,7 @@ internal partial class GuildAvailableHandlerManager : EventHandlerManager<IGuild
     protected sealed override ValueTask Invoke(IGuildAvailableEventHandler handler, DiscordClient sender, GuildCreateEventArgs args) => handler.OnGuildAvailable(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class GuildUpdatedHandlerManager : EventHandlerManager<IGuildUpdatedEventHandler, GuildUpdateEventArgs>
 {    
     public GuildUpdatedHandlerManager(ILogger<GuildUpdatedHandlerManager> logger, HandlerRegistry<IGuildUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -234,6 +251,7 @@ internal partial class GuildUpdatedHandlerManager : EventHandlerManager<IGuildUp
     protected sealed override ValueTask Invoke(IGuildUpdatedEventHandler handler, DiscordClient sender, GuildUpdateEventArgs args) => handler.OnGuildUpdated(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class GuildDeletedHandlerManager : EventHandlerManager<IGuildDeletedEventHandler, GuildDeleteEventArgs>
 {    
     public GuildDeletedHandlerManager(ILogger<GuildDeletedHandlerManager> logger, HandlerRegistry<IGuildDeletedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -248,6 +266,7 @@ internal partial class GuildDeletedHandlerManager : EventHandlerManager<IGuildDe
     protected sealed override ValueTask Invoke(IGuildDeletedEventHandler handler, DiscordClient sender, GuildDeleteEventArgs args) => handler.OnGuildDeleted(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class GuildUnavailableHandlerManager : EventHandlerManager<IGuildUnavailableEventHandler, GuildDeleteEventArgs>
 {    
     public GuildUnavailableHandlerManager(ILogger<GuildUnavailableHandlerManager> logger, HandlerRegistry<IGuildUnavailableEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -262,6 +281,7 @@ internal partial class GuildUnavailableHandlerManager : EventHandlerManager<IGui
     protected sealed override ValueTask Invoke(IGuildUnavailableEventHandler handler, DiscordClient sender, GuildDeleteEventArgs args) => handler.OnGuildUnavailable(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class GuildDownloadCompletedHandlerManager : EventHandlerManager<IGuildDownloadCompletedEventHandler, GuildDownloadCompletedEventArgs>
 {    
     public GuildDownloadCompletedHandlerManager(ILogger<GuildDownloadCompletedHandlerManager> logger, HandlerRegistry<IGuildDownloadCompletedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -276,6 +296,7 @@ internal partial class GuildDownloadCompletedHandlerManager : EventHandlerManage
     protected sealed override ValueTask Invoke(IGuildDownloadCompletedEventHandler handler, DiscordClient sender, GuildDownloadCompletedEventArgs args) => handler.OnGuildDownloadCompleted(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class GuildEmojisUpdatedHandlerManager : EventHandlerManager<IGuildEmojisUpdatedEventHandler, GuildEmojisUpdateEventArgs>
 {    
     public GuildEmojisUpdatedHandlerManager(ILogger<GuildEmojisUpdatedHandlerManager> logger, HandlerRegistry<IGuildEmojisUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -290,6 +311,7 @@ internal partial class GuildEmojisUpdatedHandlerManager : EventHandlerManager<IG
     protected sealed override ValueTask Invoke(IGuildEmojisUpdatedEventHandler handler, DiscordClient sender, GuildEmojisUpdateEventArgs args) => handler.OnGuildEmojisUpdated(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class GuildStickersUpdatedHandlerManager : EventHandlerManager<IGuildStickersUpdatedEventHandler, GuildStickersUpdateEventArgs>
 {    
     public GuildStickersUpdatedHandlerManager(ILogger<GuildStickersUpdatedHandlerManager> logger, HandlerRegistry<IGuildStickersUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -304,6 +326,7 @@ internal partial class GuildStickersUpdatedHandlerManager : EventHandlerManager<
     protected sealed override ValueTask Invoke(IGuildStickersUpdatedEventHandler handler, DiscordClient sender, GuildStickersUpdateEventArgs args) => handler.OnGuildStickersUpdated(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class GuildIntegrationsUpdatedHandlerManager : EventHandlerManager<IGuildIntegrationsUpdatedEventHandler, GuildIntegrationsUpdateEventArgs>
 {    
     public GuildIntegrationsUpdatedHandlerManager(ILogger<GuildIntegrationsUpdatedHandlerManager> logger, HandlerRegistry<IGuildIntegrationsUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -318,6 +341,7 @@ internal partial class GuildIntegrationsUpdatedHandlerManager : EventHandlerMana
     protected sealed override ValueTask Invoke(IGuildIntegrationsUpdatedEventHandler handler, DiscordClient sender, GuildIntegrationsUpdateEventArgs args) => handler.OnGuildIntegrationsUpdated(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class GuildAuditLogCreatedHandlerManager : EventHandlerManager<IGuildAuditLogCreatedEventHandler, GuildAuditLogCreatedEventArgs>
 {    
     public GuildAuditLogCreatedHandlerManager(ILogger<GuildAuditLogCreatedHandlerManager> logger, HandlerRegistry<IGuildAuditLogCreatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -332,6 +356,7 @@ internal partial class GuildAuditLogCreatedHandlerManager : EventHandlerManager<
     protected sealed override ValueTask Invoke(IGuildAuditLogCreatedEventHandler handler, DiscordClient sender, GuildAuditLogCreatedEventArgs args) => handler.OnGuildAuditLogCreated(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class ScheduledGuildEventCreatedHandlerManager : EventHandlerManager<IScheduledGuildEventCreatedEventHandler, ScheduledGuildEventCreateEventArgs>
 {    
     public ScheduledGuildEventCreatedHandlerManager(ILogger<ScheduledGuildEventCreatedHandlerManager> logger, HandlerRegistry<IScheduledGuildEventCreatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -346,6 +371,7 @@ internal partial class ScheduledGuildEventCreatedHandlerManager : EventHandlerMa
     protected sealed override ValueTask Invoke(IScheduledGuildEventCreatedEventHandler handler, DiscordClient sender, ScheduledGuildEventCreateEventArgs args) => handler.OnScheduledGuildEventCreated(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class ScheduledGuildEventUpdatedHandlerManager : EventHandlerManager<IScheduledGuildEventUpdatedEventHandler, ScheduledGuildEventUpdateEventArgs>
 {    
     public ScheduledGuildEventUpdatedHandlerManager(ILogger<ScheduledGuildEventUpdatedHandlerManager> logger, HandlerRegistry<IScheduledGuildEventUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -360,6 +386,7 @@ internal partial class ScheduledGuildEventUpdatedHandlerManager : EventHandlerMa
     protected sealed override ValueTask Invoke(IScheduledGuildEventUpdatedEventHandler handler, DiscordClient sender, ScheduledGuildEventUpdateEventArgs args) => handler.OnScheduledGuildEventUpdated(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class ScheduledGuildEventDeletedHandlerManager : EventHandlerManager<IScheduledGuildEventDeletedEventHandler, ScheduledGuildEventDeleteEventArgs>
 {    
     public ScheduledGuildEventDeletedHandlerManager(ILogger<ScheduledGuildEventDeletedHandlerManager> logger, HandlerRegistry<IScheduledGuildEventDeletedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -374,6 +401,7 @@ internal partial class ScheduledGuildEventDeletedHandlerManager : EventHandlerMa
     protected sealed override ValueTask Invoke(IScheduledGuildEventDeletedEventHandler handler, DiscordClient sender, ScheduledGuildEventDeleteEventArgs args) => handler.OnScheduledGuildEventDeleted(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class ScheduledGuildEventCompletedHandlerManager : EventHandlerManager<IScheduledGuildEventCompletedEventHandler, ScheduledGuildEventCompletedEventArgs>
 {    
     public ScheduledGuildEventCompletedHandlerManager(ILogger<ScheduledGuildEventCompletedHandlerManager> logger, HandlerRegistry<IScheduledGuildEventCompletedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -388,6 +416,7 @@ internal partial class ScheduledGuildEventCompletedHandlerManager : EventHandler
     protected sealed override ValueTask Invoke(IScheduledGuildEventCompletedEventHandler handler, DiscordClient sender, ScheduledGuildEventCompletedEventArgs args) => handler.OnScheduledGuildEventCompleted(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class ScheduledGuildEventUserAddedHandlerManager : EventHandlerManager<IScheduledGuildEventUserAddedEventHandler, ScheduledGuildEventUserAddEventArgs>
 {    
     public ScheduledGuildEventUserAddedHandlerManager(ILogger<ScheduledGuildEventUserAddedHandlerManager> logger, HandlerRegistry<IScheduledGuildEventUserAddedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -402,6 +431,7 @@ internal partial class ScheduledGuildEventUserAddedHandlerManager : EventHandler
     protected sealed override ValueTask Invoke(IScheduledGuildEventUserAddedEventHandler handler, DiscordClient sender, ScheduledGuildEventUserAddEventArgs args) => handler.OnScheduledGuildEventUserAdded(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class ScheduledGuildEventUserRemovedHandlerManager : EventHandlerManager<IScheduledGuildEventUserRemovedEventHandler, ScheduledGuildEventUserRemoveEventArgs>
 {    
     public ScheduledGuildEventUserRemovedHandlerManager(ILogger<ScheduledGuildEventUserRemovedHandlerManager> logger, HandlerRegistry<IScheduledGuildEventUserRemovedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -416,6 +446,7 @@ internal partial class ScheduledGuildEventUserRemovedHandlerManager : EventHandl
     protected sealed override ValueTask Invoke(IScheduledGuildEventUserRemovedEventHandler handler, DiscordClient sender, ScheduledGuildEventUserRemoveEventArgs args) => handler.OnScheduledGuildEventUserRemoved(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class GuildBanAddedHandlerManager : EventHandlerManager<IGuildBanAddedEventHandler, GuildBanAddEventArgs>
 {    
     public GuildBanAddedHandlerManager(ILogger<GuildBanAddedHandlerManager> logger, HandlerRegistry<IGuildBanAddedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -430,6 +461,7 @@ internal partial class GuildBanAddedHandlerManager : EventHandlerManager<IGuildB
     protected sealed override ValueTask Invoke(IGuildBanAddedEventHandler handler, DiscordClient sender, GuildBanAddEventArgs args) => handler.OnGuildBanAdded(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class GuildBanRemovedHandlerManager : EventHandlerManager<IGuildBanRemovedEventHandler, GuildBanRemoveEventArgs>
 {    
     public GuildBanRemovedHandlerManager(ILogger<GuildBanRemovedHandlerManager> logger, HandlerRegistry<IGuildBanRemovedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -444,6 +476,7 @@ internal partial class GuildBanRemovedHandlerManager : EventHandlerManager<IGuil
     protected sealed override ValueTask Invoke(IGuildBanRemovedEventHandler handler, DiscordClient sender, GuildBanRemoveEventArgs args) => handler.OnGuildBanRemoved(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class GuildMemberAddedHandlerManager : EventHandlerManager<IGuildMemberAddedEventHandler, GuildMemberAddEventArgs>
 {    
     public GuildMemberAddedHandlerManager(ILogger<GuildMemberAddedHandlerManager> logger, HandlerRegistry<IGuildMemberAddedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -458,6 +491,7 @@ internal partial class GuildMemberAddedHandlerManager : EventHandlerManager<IGui
     protected sealed override ValueTask Invoke(IGuildMemberAddedEventHandler handler, DiscordClient sender, GuildMemberAddEventArgs args) => handler.OnGuildMemberAdded(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class GuildMemberRemovedHandlerManager : EventHandlerManager<IGuildMemberRemovedEventHandler, GuildMemberRemoveEventArgs>
 {    
     public GuildMemberRemovedHandlerManager(ILogger<GuildMemberRemovedHandlerManager> logger, HandlerRegistry<IGuildMemberRemovedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -472,6 +506,7 @@ internal partial class GuildMemberRemovedHandlerManager : EventHandlerManager<IG
     protected sealed override ValueTask Invoke(IGuildMemberRemovedEventHandler handler, DiscordClient sender, GuildMemberRemoveEventArgs args) => handler.OnGuildMemberRemoved(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class GuildMemberUpdatedHandlerManager : EventHandlerManager<IGuildMemberUpdatedEventHandler, GuildMemberUpdateEventArgs>
 {    
     public GuildMemberUpdatedHandlerManager(ILogger<GuildMemberUpdatedHandlerManager> logger, HandlerRegistry<IGuildMemberUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -486,6 +521,7 @@ internal partial class GuildMemberUpdatedHandlerManager : EventHandlerManager<IG
     protected sealed override ValueTask Invoke(IGuildMemberUpdatedEventHandler handler, DiscordClient sender, GuildMemberUpdateEventArgs args) => handler.OnGuildMemberUpdated(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class GuildMembersChunkedHandlerManager : EventHandlerManager<IGuildMembersChunkedEventHandler, GuildMembersChunkEventArgs>
 {    
     public GuildMembersChunkedHandlerManager(ILogger<GuildMembersChunkedHandlerManager> logger, HandlerRegistry<IGuildMembersChunkedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -500,6 +536,7 @@ internal partial class GuildMembersChunkedHandlerManager : EventHandlerManager<I
     protected sealed override ValueTask Invoke(IGuildMembersChunkedEventHandler handler, DiscordClient sender, GuildMembersChunkEventArgs args) => handler.OnGuildMembersChunked(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class GuildRoleCreatedHandlerManager : EventHandlerManager<IGuildRoleCreatedEventHandler, GuildRoleCreateEventArgs>
 {    
     public GuildRoleCreatedHandlerManager(ILogger<GuildRoleCreatedHandlerManager> logger, HandlerRegistry<IGuildRoleCreatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -514,6 +551,7 @@ internal partial class GuildRoleCreatedHandlerManager : EventHandlerManager<IGui
     protected sealed override ValueTask Invoke(IGuildRoleCreatedEventHandler handler, DiscordClient sender, GuildRoleCreateEventArgs args) => handler.OnGuildRoleCreated(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class GuildRoleUpdatedHandlerManager : EventHandlerManager<IGuildRoleUpdatedEventHandler, GuildRoleUpdateEventArgs>
 {    
     public GuildRoleUpdatedHandlerManager(ILogger<GuildRoleUpdatedHandlerManager> logger, HandlerRegistry<IGuildRoleUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -528,6 +566,7 @@ internal partial class GuildRoleUpdatedHandlerManager : EventHandlerManager<IGui
     protected sealed override ValueTask Invoke(IGuildRoleUpdatedEventHandler handler, DiscordClient sender, GuildRoleUpdateEventArgs args) => handler.OnGuildRoleUpdated(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class GuildRoleDeletedHandlerManager : EventHandlerManager<IGuildRoleDeletedEventHandler, GuildRoleDeleteEventArgs>
 {    
     public GuildRoleDeletedHandlerManager(ILogger<GuildRoleDeletedHandlerManager> logger, HandlerRegistry<IGuildRoleDeletedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -542,6 +581,7 @@ internal partial class GuildRoleDeletedHandlerManager : EventHandlerManager<IGui
     protected sealed override ValueTask Invoke(IGuildRoleDeletedEventHandler handler, DiscordClient sender, GuildRoleDeleteEventArgs args) => handler.OnGuildRoleDeleted(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class InviteCreatedHandlerManager : EventHandlerManager<IInviteCreatedEventHandler, InviteCreateEventArgs>
 {    
     public InviteCreatedHandlerManager(ILogger<InviteCreatedHandlerManager> logger, HandlerRegistry<IInviteCreatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -556,6 +596,7 @@ internal partial class InviteCreatedHandlerManager : EventHandlerManager<IInvite
     protected sealed override ValueTask Invoke(IInviteCreatedEventHandler handler, DiscordClient sender, InviteCreateEventArgs args) => handler.OnInviteCreated(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class InviteDeletedHandlerManager : EventHandlerManager<IInviteDeletedEventHandler, InviteDeleteEventArgs>
 {    
     public InviteDeletedHandlerManager(ILogger<InviteDeletedHandlerManager> logger, HandlerRegistry<IInviteDeletedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -570,6 +611,7 @@ internal partial class InviteDeletedHandlerManager : EventHandlerManager<IInvite
     protected sealed override ValueTask Invoke(IInviteDeletedEventHandler handler, DiscordClient sender, InviteDeleteEventArgs args) => handler.OnInviteDeleted(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class MessageCreatedHandlerManager : EventHandlerManager<IMessageCreatedEventHandler, MessageCreateEventArgs>
 {    
     public MessageCreatedHandlerManager(ILogger<MessageCreatedHandlerManager> logger, HandlerRegistry<IMessageCreatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -584,6 +626,7 @@ internal partial class MessageCreatedHandlerManager : EventHandlerManager<IMessa
     protected sealed override ValueTask Invoke(IMessageCreatedEventHandler handler, DiscordClient sender, MessageCreateEventArgs args) => handler.OnMessageCreated(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class MessageAcknowledgedHandlerManager : EventHandlerManager<IMessageAcknowledgedEventHandler, MessageAcknowledgeEventArgs>
 {    
     public MessageAcknowledgedHandlerManager(ILogger<MessageAcknowledgedHandlerManager> logger, HandlerRegistry<IMessageAcknowledgedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -598,6 +641,7 @@ internal partial class MessageAcknowledgedHandlerManager : EventHandlerManager<I
     protected sealed override ValueTask Invoke(IMessageAcknowledgedEventHandler handler, DiscordClient sender, MessageAcknowledgeEventArgs args) => handler.OnMessageAcknowledged(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class MessageUpdatedHandlerManager : EventHandlerManager<IMessageUpdatedEventHandler, MessageUpdateEventArgs>
 {    
     public MessageUpdatedHandlerManager(ILogger<MessageUpdatedHandlerManager> logger, HandlerRegistry<IMessageUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -612,6 +656,7 @@ internal partial class MessageUpdatedHandlerManager : EventHandlerManager<IMessa
     protected sealed override ValueTask Invoke(IMessageUpdatedEventHandler handler, DiscordClient sender, MessageUpdateEventArgs args) => handler.OnMessageUpdated(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class MessageDeletedHandlerManager : EventHandlerManager<IMessageDeletedEventHandler, MessageDeleteEventArgs>
 {    
     public MessageDeletedHandlerManager(ILogger<MessageDeletedHandlerManager> logger, HandlerRegistry<IMessageDeletedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -626,6 +671,7 @@ internal partial class MessageDeletedHandlerManager : EventHandlerManager<IMessa
     protected sealed override ValueTask Invoke(IMessageDeletedEventHandler handler, DiscordClient sender, MessageDeleteEventArgs args) => handler.OnMessageDeleted(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class MessagesBulkDeletedHandlerManager : EventHandlerManager<IMessagesBulkDeletedEventHandler, MessageBulkDeleteEventArgs>
 {    
     public MessagesBulkDeletedHandlerManager(ILogger<MessagesBulkDeletedHandlerManager> logger, HandlerRegistry<IMessagesBulkDeletedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -640,6 +686,7 @@ internal partial class MessagesBulkDeletedHandlerManager : EventHandlerManager<I
     protected sealed override ValueTask Invoke(IMessagesBulkDeletedEventHandler handler, DiscordClient sender, MessageBulkDeleteEventArgs args) => handler.OnMessagesBulkDeleted(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class MessageReactionAddedHandlerManager : EventHandlerManager<IMessageReactionAddedEventHandler, MessageReactionAddEventArgs>
 {    
     public MessageReactionAddedHandlerManager(ILogger<MessageReactionAddedHandlerManager> logger, HandlerRegistry<IMessageReactionAddedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -654,6 +701,7 @@ internal partial class MessageReactionAddedHandlerManager : EventHandlerManager<
     protected sealed override ValueTask Invoke(IMessageReactionAddedEventHandler handler, DiscordClient sender, MessageReactionAddEventArgs args) => handler.OnMessageReactionAdded(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class MessageReactionRemovedHandlerManager : EventHandlerManager<IMessageReactionRemovedEventHandler, MessageReactionRemoveEventArgs>
 {    
     public MessageReactionRemovedHandlerManager(ILogger<MessageReactionRemovedHandlerManager> logger, HandlerRegistry<IMessageReactionRemovedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -668,6 +716,7 @@ internal partial class MessageReactionRemovedHandlerManager : EventHandlerManage
     protected sealed override ValueTask Invoke(IMessageReactionRemovedEventHandler handler, DiscordClient sender, MessageReactionRemoveEventArgs args) => handler.OnMessageReactionRemoved(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class MessageReactionsClearedHandlerManager : EventHandlerManager<IMessageReactionsClearedEventHandler, MessageReactionsClearEventArgs>
 {    
     public MessageReactionsClearedHandlerManager(ILogger<MessageReactionsClearedHandlerManager> logger, HandlerRegistry<IMessageReactionsClearedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -682,6 +731,7 @@ internal partial class MessageReactionsClearedHandlerManager : EventHandlerManag
     protected sealed override ValueTask Invoke(IMessageReactionsClearedEventHandler handler, DiscordClient sender, MessageReactionsClearEventArgs args) => handler.OnMessageReactionsCleared(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class MessageReactionRemovedEmojiHandlerManager : EventHandlerManager<IMessageReactionRemovedEmojiEventHandler, MessageReactionRemoveEmojiEventArgs>
 {    
     public MessageReactionRemovedEmojiHandlerManager(ILogger<MessageReactionRemovedEmojiHandlerManager> logger, HandlerRegistry<IMessageReactionRemovedEmojiEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -696,6 +746,7 @@ internal partial class MessageReactionRemovedEmojiHandlerManager : EventHandlerM
     protected sealed override ValueTask Invoke(IMessageReactionRemovedEmojiEventHandler handler, DiscordClient sender, MessageReactionRemoveEmojiEventArgs args) => handler.OnMessageReactionRemovedEmoji(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class PresenceUpdatedHandlerManager : EventHandlerManager<IPresenceUpdatedEventHandler, PresenceUpdateEventArgs>
 {    
     public PresenceUpdatedHandlerManager(ILogger<PresenceUpdatedHandlerManager> logger, HandlerRegistry<IPresenceUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -710,6 +761,7 @@ internal partial class PresenceUpdatedHandlerManager : EventHandlerManager<IPres
     protected sealed override ValueTask Invoke(IPresenceUpdatedEventHandler handler, DiscordClient sender, PresenceUpdateEventArgs args) => handler.OnPresenceUpdated(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class UserSettingsUpdatedHandlerManager : EventHandlerManager<IUserSettingsUpdatedEventHandler, UserSettingsUpdateEventArgs>
 {    
     public UserSettingsUpdatedHandlerManager(ILogger<UserSettingsUpdatedHandlerManager> logger, HandlerRegistry<IUserSettingsUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -724,6 +776,7 @@ internal partial class UserSettingsUpdatedHandlerManager : EventHandlerManager<I
     protected sealed override ValueTask Invoke(IUserSettingsUpdatedEventHandler handler, DiscordClient sender, UserSettingsUpdateEventArgs args) => handler.OnUserSettingsUpdated(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class UserUpdatedHandlerManager : EventHandlerManager<IUserUpdatedEventHandler, UserUpdateEventArgs>
 {    
     public UserUpdatedHandlerManager(ILogger<UserUpdatedHandlerManager> logger, HandlerRegistry<IUserUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -738,6 +791,7 @@ internal partial class UserUpdatedHandlerManager : EventHandlerManager<IUserUpda
     protected sealed override ValueTask Invoke(IUserUpdatedEventHandler handler, DiscordClient sender, UserUpdateEventArgs args) => handler.OnUserUpdated(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class VoiceStateUpdatedHandlerManager : EventHandlerManager<IVoiceStateUpdatedEventHandler, VoiceStateUpdateEventArgs>
 {    
     public VoiceStateUpdatedHandlerManager(ILogger<VoiceStateUpdatedHandlerManager> logger, HandlerRegistry<IVoiceStateUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -752,6 +806,7 @@ internal partial class VoiceStateUpdatedHandlerManager : EventHandlerManager<IVo
     protected sealed override ValueTask Invoke(IVoiceStateUpdatedEventHandler handler, DiscordClient sender, VoiceStateUpdateEventArgs args) => handler.OnVoiceStateUpdated(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class VoiceServerUpdatedHandlerManager : EventHandlerManager<IVoiceServerUpdatedEventHandler, VoiceServerUpdateEventArgs>
 {    
     public VoiceServerUpdatedHandlerManager(ILogger<VoiceServerUpdatedHandlerManager> logger, HandlerRegistry<IVoiceServerUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -766,6 +821,7 @@ internal partial class VoiceServerUpdatedHandlerManager : EventHandlerManager<IV
     protected sealed override ValueTask Invoke(IVoiceServerUpdatedEventHandler handler, DiscordClient sender, VoiceServerUpdateEventArgs args) => handler.OnVoiceServerUpdated(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class ThreadCreatedHandlerManager : EventHandlerManager<IThreadCreatedEventHandler, ThreadCreateEventArgs>
 {    
     public ThreadCreatedHandlerManager(ILogger<ThreadCreatedHandlerManager> logger, HandlerRegistry<IThreadCreatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -780,6 +836,7 @@ internal partial class ThreadCreatedHandlerManager : EventHandlerManager<IThread
     protected sealed override ValueTask Invoke(IThreadCreatedEventHandler handler, DiscordClient sender, ThreadCreateEventArgs args) => handler.OnThreadCreated(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class ThreadUpdatedHandlerManager : EventHandlerManager<IThreadUpdatedEventHandler, ThreadUpdateEventArgs>
 {    
     public ThreadUpdatedHandlerManager(ILogger<ThreadUpdatedHandlerManager> logger, HandlerRegistry<IThreadUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -794,6 +851,7 @@ internal partial class ThreadUpdatedHandlerManager : EventHandlerManager<IThread
     protected sealed override ValueTask Invoke(IThreadUpdatedEventHandler handler, DiscordClient sender, ThreadUpdateEventArgs args) => handler.OnThreadUpdated(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class ThreadDeletedHandlerManager : EventHandlerManager<IThreadDeletedEventHandler, ThreadDeleteEventArgs>
 {    
     public ThreadDeletedHandlerManager(ILogger<ThreadDeletedHandlerManager> logger, HandlerRegistry<IThreadDeletedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -808,6 +866,7 @@ internal partial class ThreadDeletedHandlerManager : EventHandlerManager<IThread
     protected sealed override ValueTask Invoke(IThreadDeletedEventHandler handler, DiscordClient sender, ThreadDeleteEventArgs args) => handler.OnThreadDeleted(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class ThreadListSyncedHandlerManager : EventHandlerManager<IThreadListSyncedEventHandler, ThreadListSyncEventArgs>
 {    
     public ThreadListSyncedHandlerManager(ILogger<ThreadListSyncedHandlerManager> logger, HandlerRegistry<IThreadListSyncedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -822,6 +881,7 @@ internal partial class ThreadListSyncedHandlerManager : EventHandlerManager<IThr
     protected sealed override ValueTask Invoke(IThreadListSyncedEventHandler handler, DiscordClient sender, ThreadListSyncEventArgs args) => handler.OnThreadListSynced(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class ThreadMemberUpdatedHandlerManager : EventHandlerManager<IThreadMemberUpdatedEventHandler, ThreadMemberUpdateEventArgs>
 {    
     public ThreadMemberUpdatedHandlerManager(ILogger<ThreadMemberUpdatedHandlerManager> logger, HandlerRegistry<IThreadMemberUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -836,6 +896,7 @@ internal partial class ThreadMemberUpdatedHandlerManager : EventHandlerManager<I
     protected sealed override ValueTask Invoke(IThreadMemberUpdatedEventHandler handler, DiscordClient sender, ThreadMemberUpdateEventArgs args) => handler.OnThreadMemberUpdated(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class ThreadMembersUpdatedHandlerManager : EventHandlerManager<IThreadMembersUpdatedEventHandler, ThreadMembersUpdateEventArgs>
 {    
     public ThreadMembersUpdatedHandlerManager(ILogger<ThreadMembersUpdatedHandlerManager> logger, HandlerRegistry<IThreadMembersUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -850,6 +911,7 @@ internal partial class ThreadMembersUpdatedHandlerManager : EventHandlerManager<
     protected sealed override ValueTask Invoke(IThreadMembersUpdatedEventHandler handler, DiscordClient sender, ThreadMembersUpdateEventArgs args) => handler.OnThreadMembersUpdated(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class IntegrationCreatedHandlerManager : EventHandlerManager<IIntegrationCreatedEventHandler, IntegrationCreateEventArgs>
 {    
     public IntegrationCreatedHandlerManager(ILogger<IntegrationCreatedHandlerManager> logger, HandlerRegistry<IIntegrationCreatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -864,6 +926,7 @@ internal partial class IntegrationCreatedHandlerManager : EventHandlerManager<II
     protected sealed override ValueTask Invoke(IIntegrationCreatedEventHandler handler, DiscordClient sender, IntegrationCreateEventArgs args) => handler.OnIntegrationCreated(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class IntegrationUpdatedHandlerManager : EventHandlerManager<IIntegrationUpdatedEventHandler, IntegrationUpdateEventArgs>
 {    
     public IntegrationUpdatedHandlerManager(ILogger<IntegrationUpdatedHandlerManager> logger, HandlerRegistry<IIntegrationUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -878,6 +941,7 @@ internal partial class IntegrationUpdatedHandlerManager : EventHandlerManager<II
     protected sealed override ValueTask Invoke(IIntegrationUpdatedEventHandler handler, DiscordClient sender, IntegrationUpdateEventArgs args) => handler.OnIntegrationUpdated(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class IntegrationDeletedHandlerManager : EventHandlerManager<IIntegrationDeletedEventHandler, IntegrationDeleteEventArgs>
 {    
     public IntegrationDeletedHandlerManager(ILogger<IntegrationDeletedHandlerManager> logger, HandlerRegistry<IIntegrationDeletedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -892,6 +956,7 @@ internal partial class IntegrationDeletedHandlerManager : EventHandlerManager<II
     protected sealed override ValueTask Invoke(IIntegrationDeletedEventHandler handler, DiscordClient sender, IntegrationDeleteEventArgs args) => handler.OnIntegrationDeleted(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class StageInstanceCreatedHandlerManager : EventHandlerManager<IStageInstanceCreatedEventHandler, StageInstanceCreateEventArgs>
 {    
     public StageInstanceCreatedHandlerManager(ILogger<StageInstanceCreatedHandlerManager> logger, HandlerRegistry<IStageInstanceCreatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -906,6 +971,7 @@ internal partial class StageInstanceCreatedHandlerManager : EventHandlerManager<
     protected sealed override ValueTask Invoke(IStageInstanceCreatedEventHandler handler, DiscordClient sender, StageInstanceCreateEventArgs args) => handler.OnStageInstanceCreated(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class StageInstanceUpdatedHandlerManager : EventHandlerManager<IStageInstanceUpdatedEventHandler, StageInstanceUpdateEventArgs>
 {    
     public StageInstanceUpdatedHandlerManager(ILogger<StageInstanceUpdatedHandlerManager> logger, HandlerRegistry<IStageInstanceUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -920,6 +986,7 @@ internal partial class StageInstanceUpdatedHandlerManager : EventHandlerManager<
     protected sealed override ValueTask Invoke(IStageInstanceUpdatedEventHandler handler, DiscordClient sender, StageInstanceUpdateEventArgs args) => handler.OnStageInstanceUpdated(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class StageInstanceDeletedHandlerManager : EventHandlerManager<IStageInstanceDeletedEventHandler, StageInstanceDeleteEventArgs>
 {    
     public StageInstanceDeletedHandlerManager(ILogger<StageInstanceDeletedHandlerManager> logger, HandlerRegistry<IStageInstanceDeletedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -934,6 +1001,7 @@ internal partial class StageInstanceDeletedHandlerManager : EventHandlerManager<
     protected sealed override ValueTask Invoke(IStageInstanceDeletedEventHandler handler, DiscordClient sender, StageInstanceDeleteEventArgs args) => handler.OnStageInstanceDeleted(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class InteractionCreatedHandlerManager : EventHandlerManager<IInteractionCreatedEventHandler, InteractionCreateEventArgs>
 {    
     public InteractionCreatedHandlerManager(ILogger<InteractionCreatedHandlerManager> logger, HandlerRegistry<IInteractionCreatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -948,6 +1016,7 @@ internal partial class InteractionCreatedHandlerManager : EventHandlerManager<II
     protected sealed override ValueTask Invoke(IInteractionCreatedEventHandler handler, DiscordClient sender, InteractionCreateEventArgs args) => handler.OnInteractionCreated(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class ComponentInteractionCreatedHandlerManager : EventHandlerManager<IComponentInteractionCreatedEventHandler, ComponentInteractionCreateEventArgs>
 {    
     public ComponentInteractionCreatedHandlerManager(ILogger<ComponentInteractionCreatedHandlerManager> logger, HandlerRegistry<IComponentInteractionCreatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -962,6 +1031,7 @@ internal partial class ComponentInteractionCreatedHandlerManager : EventHandlerM
     protected sealed override ValueTask Invoke(IComponentInteractionCreatedEventHandler handler, DiscordClient sender, ComponentInteractionCreateEventArgs args) => handler.OnComponentInteractionCreated(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class ModalSubmittedHandlerManager : EventHandlerManager<IModalSubmittedEventHandler, ModalSubmitEventArgs>
 {    
     public ModalSubmittedHandlerManager(ILogger<ModalSubmittedHandlerManager> logger, HandlerRegistry<IModalSubmittedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -976,6 +1046,7 @@ internal partial class ModalSubmittedHandlerManager : EventHandlerManager<IModal
     protected sealed override ValueTask Invoke(IModalSubmittedEventHandler handler, DiscordClient sender, ModalSubmitEventArgs args) => handler.OnModalSubmitted(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class ContextMenuInteractionCreatedHandlerManager : EventHandlerManager<IContextMenuInteractionCreatedEventHandler, ContextMenuInteractionCreateEventArgs>
 {    
     public ContextMenuInteractionCreatedHandlerManager(ILogger<ContextMenuInteractionCreatedHandlerManager> logger, HandlerRegistry<IContextMenuInteractionCreatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -990,6 +1061,7 @@ internal partial class ContextMenuInteractionCreatedHandlerManager : EventHandle
     protected sealed override ValueTask Invoke(IContextMenuInteractionCreatedEventHandler handler, DiscordClient sender, ContextMenuInteractionCreateEventArgs args) => handler.OnContextMenuInteractionCreated(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class TypingStartedHandlerManager : EventHandlerManager<ITypingStartedEventHandler, TypingStartEventArgs>
 {    
     public TypingStartedHandlerManager(ILogger<TypingStartedHandlerManager> logger, HandlerRegistry<ITypingStartedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -1004,6 +1076,7 @@ internal partial class TypingStartedHandlerManager : EventHandlerManager<ITyping
     protected sealed override ValueTask Invoke(ITypingStartedEventHandler handler, DiscordClient sender, TypingStartEventArgs args) => handler.OnTypingStarted(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class UnknownEventHandlerManager : EventHandlerManager<IUnknownEventEventHandler, UnknownEventArgs>
 {    
     public UnknownEventHandlerManager(ILogger<UnknownEventHandlerManager> logger, HandlerRegistry<IUnknownEventEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -1018,6 +1091,7 @@ internal partial class UnknownEventHandlerManager : EventHandlerManager<IUnknown
     protected sealed override ValueTask Invoke(IUnknownEventEventHandler handler, DiscordClient sender, UnknownEventArgs args) => handler.OnUnknownEvent(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class WebhooksUpdatedHandlerManager : EventHandlerManager<IWebhooksUpdatedEventHandler, WebhooksUpdateEventArgs>
 {    
     public WebhooksUpdatedHandlerManager(ILogger<WebhooksUpdatedHandlerManager> logger, HandlerRegistry<IWebhooksUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -1032,6 +1106,7 @@ internal partial class WebhooksUpdatedHandlerManager : EventHandlerManager<IWebh
     protected sealed override ValueTask Invoke(IWebhooksUpdatedEventHandler handler, DiscordClient sender, WebhooksUpdateEventArgs args) => handler.OnWebhooksUpdated(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class ClientErroredHandlerManager : EventHandlerManager<IClientErroredEventHandler, ClientErrorEventArgs>
 {    
     public ClientErroredHandlerManager(ILogger<ClientErroredHandlerManager> logger, HandlerRegistry<IClientErroredEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -1046,6 +1121,7 @@ internal partial class ClientErroredHandlerManager : EventHandlerManager<IClient
     protected sealed override ValueTask Invoke(IClientErroredEventHandler handler, DiscordClient sender, ClientErrorEventArgs args) => handler.OnClientErrored(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class AutoModerationRuleCreatedHandlerManager : EventHandlerManager<IAutoModerationRuleCreatedEventHandler, AutoModerationRuleCreateEventArgs>
 {    
     public AutoModerationRuleCreatedHandlerManager(ILogger<AutoModerationRuleCreatedHandlerManager> logger, HandlerRegistry<IAutoModerationRuleCreatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -1060,6 +1136,7 @@ internal partial class AutoModerationRuleCreatedHandlerManager : EventHandlerMan
     protected sealed override ValueTask Invoke(IAutoModerationRuleCreatedEventHandler handler, DiscordClient sender, AutoModerationRuleCreateEventArgs args) => handler.OnAutoModerationRuleCreated(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class AutoModerationRuleUpdatedHandlerManager : EventHandlerManager<IAutoModerationRuleUpdatedEventHandler, AutoModerationRuleUpdateEventArgs>
 {    
     public AutoModerationRuleUpdatedHandlerManager(ILogger<AutoModerationRuleUpdatedHandlerManager> logger, HandlerRegistry<IAutoModerationRuleUpdatedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -1074,6 +1151,7 @@ internal partial class AutoModerationRuleUpdatedHandlerManager : EventHandlerMan
     protected sealed override ValueTask Invoke(IAutoModerationRuleUpdatedEventHandler handler, DiscordClient sender, AutoModerationRuleUpdateEventArgs args) => handler.OnAutoModerationRuleUpdated(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class AutoModerationRuleDeletedHandlerManager : EventHandlerManager<IAutoModerationRuleDeletedEventHandler, AutoModerationRuleDeleteEventArgs>
 {    
     public AutoModerationRuleDeletedHandlerManager(ILogger<AutoModerationRuleDeletedHandlerManager> logger, HandlerRegistry<IAutoModerationRuleDeletedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }
@@ -1088,6 +1166,7 @@ internal partial class AutoModerationRuleDeletedHandlerManager : EventHandlerMan
     protected sealed override ValueTask Invoke(IAutoModerationRuleDeletedEventHandler handler, DiscordClient sender, AutoModerationRuleDeleteEventArgs args) => handler.OnAutoModerationRuleDeleted(sender, args);
 }
 
+[ExcludeFromCodeCoverage]
 internal partial class AutoModerationRuleExecutedHandlerManager : EventHandlerManager<IAutoModerationRuleExecutedEventHandler, AutoModerationRuleExecuteEventArgs>
 {    
     public AutoModerationRuleExecutedHandlerManager(ILogger<AutoModerationRuleExecutedHandlerManager> logger, HandlerRegistry<IAutoModerationRuleExecutedEventHandler> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider) : base(logger, registry, provider) { }

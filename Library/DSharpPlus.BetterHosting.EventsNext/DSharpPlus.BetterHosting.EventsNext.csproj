@@ -59,20 +59,6 @@
   </ItemGroup>
   
   <ItemGroup>
-    <None Update="Tools\HandlerValidation.Generated.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>HandlerValidation.Generated.cs</LastGenOutput>
-      <!--<DependentUpon>DiscordEventsBase.tt</DependentUpon>-->
-    </None>
-
-    <Compile Update="Tools\HandlerValidation.Generated.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>HandlerValidation.Generated.tt</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  
-  <ItemGroup>
     <None Update="Tools\EventInterfaceValidation.Generated.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>EventInterfaceValidation.Generated.cs</LastGenOutput>
@@ -83,20 +69,6 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>EventInterfaceValidation.Generated.tt</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  
-  <ItemGroup>
-    <None Update="Tools\EventHandlerReflector.Generated.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>EventHandlerReflector.Generated.cs</LastGenOutput>
-      <!--<DependentUpon>DiscordEventsBase.tt</DependentUpon>-->
-    </None>
-
-    <Compile Update="Tools\EventHandlerReflector.Generated.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>EventHandlerReflector.Generated.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   

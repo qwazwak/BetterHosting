@@ -31,18 +31,6 @@ internal abstract class EventHandlerManager<TInterface, TArgument> : IEventHandl
     public void Start(DiscordShardedClient client)
     {
         this.client = client;
-        Debug.Assert(client == null);
-        Setup();
-    }
-
-    public void Stop()
-    {
-        TearDown();
-        SetBindingState(false);
-    }
-
-    private void Setup()
-    {
         Stopwatch sw = new();
         logger.LogTrace("Setting up event handler");
         sw.Start();
@@ -51,7 +39,7 @@ internal abstract class EventHandlerManager<TInterface, TArgument> : IEventHandl
         logger.LogInformation("Finished event handler setup in {time}", sw.Elapsed);
     }
 
-    private void TearDown()
+    public void Stop()
     {
         Stopwatch sw = new();
         logger.LogTrace("Tearing down event handler");
@@ -111,17 +99,8 @@ internal abstract class EventHandlerManager<TInterface, TArgument> : IEventHandl
             throw;
         }
     }
-#if AutoCalling
-    protected virtual void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, TArgument> handler)
-        => EventHandlerReflector.BindEvent<THandler, TArgument>(client, HandlerMethod);
-    protected virtual void UnbindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, TArgument> handler)
-        => EventHandlerReflector.UnbindEvent<THandler, TArgument>(client, HandlerMethod);
 
-    protected virtual ValueTask Invoke(THandler handler, DiscordClient sender, TArgument args)
-        => EventHandlerReflector.AutoCallEventHandler<THandler, TArgument>(handler, sender, args);
-#else
     protected abstract void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, TArgument> handler);
     protected abstract void UnbindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, TArgument> handler);
     protected abstract ValueTask Invoke(TInterface handler, DiscordClient sender, TArgument args);
-#endif
 }
