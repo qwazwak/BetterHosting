@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using DSharpPlus.BetterHosting.CommandsNext.Services;
-using DSharpPlus.BetterHosting.Services.Implementation.ExtensionConfigurators;
-using DSharpPlus.BetterHosting.Services.Interfaces.ExtensionConfigurators;
+using DSharpPlus.BetterHosting.Services.Interfaces;
 using DSharpPlus.CommandsNext;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

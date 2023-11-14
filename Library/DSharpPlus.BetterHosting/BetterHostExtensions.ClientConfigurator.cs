@@ -1,8 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
-using DSharpPlus.BetterHosting.Services.Implementation.ExtensionConfigurators;
 using DSharpPlus.BetterHosting.Services.Implementation;
-using DSharpPlus.BetterHosting.Services.Interfaces.ExtensionConfigurators;
+using DSharpPlus.BetterHosting.Services.Interfaces;
 
 namespace DSharpPlus.BetterHosting;
 

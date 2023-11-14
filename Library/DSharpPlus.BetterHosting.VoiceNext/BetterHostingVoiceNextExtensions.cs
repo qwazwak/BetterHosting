@@ -1,4 +1,4 @@
-﻿using DSharpPlus.BetterHosting.Services.Interfaces.ExtensionConfigurators;
+﻿using DSharpPlus.BetterHosting.Services.Interfaces;
 using DSharpPlus.BetterHosting.VoiceNext.Services;
 using DSharpPlus.BetterHosting.VoiceNext.Services.Configuration;
 using DSharpPlus.VoiceNext;

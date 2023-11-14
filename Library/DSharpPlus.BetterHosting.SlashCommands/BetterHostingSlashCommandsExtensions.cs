@@ -1,4 +1,4 @@
-﻿using DSharpPlus.BetterHosting.Services.Interfaces.ExtensionConfigurators;
+﻿using DSharpPlus.BetterHosting.Services.Interfaces;
 using DSharpPlus.BetterHosting.SlashCommands.Services;
 using DSharpPlus.BetterHosting.SlashCommands.Services.Configuration;
 using DSharpPlus.BetterHosting.SlashCommands.Services.Implementation;

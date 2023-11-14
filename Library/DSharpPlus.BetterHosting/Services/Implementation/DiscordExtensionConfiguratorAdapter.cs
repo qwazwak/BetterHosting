@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using DSharpPlus.BetterHosting.Services.Interfaces.ExtensionConfigurators;
+using DSharpPlus.BetterHosting.Services.Interfaces;
 
 namespace DSharpPlus.BetterHosting.Services.Implementation;
 

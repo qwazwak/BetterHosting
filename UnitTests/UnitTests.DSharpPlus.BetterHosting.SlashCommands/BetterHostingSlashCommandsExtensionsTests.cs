@@ -8,7 +8,7 @@ using Microsoft.Extensions.Options;
 using DSharpPlus.BetterHosting.SlashCommands;
 using DSharpPlus.BetterHosting.SlashCommands.Services;
 using DSharpPlus.BetterHosting.Services.Implementation;
-using DSharpPlus.BetterHosting.Services.Interfaces.ExtensionConfigurators;
+using DSharpPlus.BetterHosting.Services.Interfaces;
 
 namespace UnitTests.DSharpPlus.BetterHosting.SlashCommands;
 

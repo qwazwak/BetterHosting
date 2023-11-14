@@ -1,4 +1,4 @@
-﻿using DSharpPlus.BetterHosting.Services.Interfaces.ExtensionConfigurators;
+﻿using DSharpPlus.BetterHosting.Services.Interfaces;
 using DSharpPlus.CommandsNext;
 
 namespace DSharpPlus.BetterHosting.CommandsNext.Services;

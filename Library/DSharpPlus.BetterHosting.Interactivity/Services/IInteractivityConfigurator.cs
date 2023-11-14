@@ -1,4 +1,4 @@
-﻿using DSharpPlus.BetterHosting.Services.Interfaces.ExtensionConfigurators;
+﻿using DSharpPlus.BetterHosting.Services.Interfaces;
 using DSharpPlus.Interactivity;
 
 namespace DSharpPlus.BetterHosting.Interactivity.Services;

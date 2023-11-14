@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using DSharpPlus;
 using DSharpPlus.BetterHosting.Interactivity.Services;
-using DSharpPlus.BetterHosting.Services.Interfaces.ExtensionConfigurators;
+using DSharpPlus.BetterHosting.Services.Interfaces;
 using DSharpPlus.Interactivity;
 using Microsoft.Extensions.Options;
 

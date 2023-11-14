@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using DSharpPlus.CommandsNext;
 
-namespace DSharpPlus.BetterHosting.CommandsNext.Services.Configuration;
+namespace DSharpPlus.BetterHosting.CommandsNext.Services;
 
 internal class TypeHandlerAdder<T> : ICommandsNextConfigurator where T : BaseCommandModule
 {

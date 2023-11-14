@@ -1,7 +1,7 @@
 ﻿using System;
-using DSharpPlus.BetterHosting.Services.Interfaces.ExtensionConfigurators;
+using DSharpPlus.BetterHosting.Services.Interfaces;
 
-namespace DSharpPlus.BetterHosting.Services.Implementation.ExtensionConfigurators;
+namespace DSharpPlus.BetterHosting.Services.Implementation;
 
 /// <summary>
 /// A wrapper class to facilitate ease of extension methods configuring an a DSharpPlus extension

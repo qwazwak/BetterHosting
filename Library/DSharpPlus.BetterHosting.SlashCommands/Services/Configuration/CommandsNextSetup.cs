@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
-using DSharpPlus.BetterHosting.Services.Implementation.ExtensionConfigurators;
-using DSharpPlus.BetterHosting.Services.Interfaces.ExtensionConfigurators;
+using DSharpPlus.BetterHosting.Services.Implementation;
+using DSharpPlus.BetterHosting.Services.Interfaces;
 using DSharpPlus.SlashCommands;
 using Microsoft.Extensions.Options;
 

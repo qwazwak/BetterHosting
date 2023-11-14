@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Reflection;
 using DSharpPlus.BetterHosting.CommandsNext.Internal;
 using DSharpPlus.BetterHosting.CommandsNext.Services;
-using DSharpPlus.BetterHosting.CommandsNext.Services.Configuration;
 using DSharpPlus.CommandsNext;
 using Microsoft.Extensions.DependencyInjection;
 

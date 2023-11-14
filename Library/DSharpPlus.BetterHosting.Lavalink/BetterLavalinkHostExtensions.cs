@@ -7,7 +7,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Configuration;
 using DSharpPlus.BetterHosting.Lavalink.Services;
 using System.Diagnostics.CodeAnalysis;
-using DSharpPlus.BetterHosting.Services.Interfaces.ExtensionConfigurators;
+using DSharpPlus.BetterHosting.Services.Interfaces;
 
 namespace DSharpPlus.BetterHosting.Lavalink;
 

@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using DSharpPlus.BetterHosting.Interactivity.Services;
 using DSharpPlus.BetterHosting.Services.Implementation;
-using DSharpPlus.BetterHosting.Services.Interfaces.ExtensionConfigurators;
+using DSharpPlus.BetterHosting.Services.Interfaces;
 using DSharpPlus.Interactivity;
 using Microsoft.Extensions.DependencyInjection;
 

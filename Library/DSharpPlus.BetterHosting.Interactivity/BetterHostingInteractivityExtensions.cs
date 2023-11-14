@@ -1,5 +1,5 @@
 ﻿using DSharpPlus.BetterHosting.Interactivity.Services;
-using DSharpPlus.BetterHosting.Services.Interfaces.ExtensionConfigurators;
+using DSharpPlus.BetterHosting.Services.Interfaces;
 using DSharpPlus.Interactivity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;

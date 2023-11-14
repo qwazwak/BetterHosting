@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace DSharpPlus.BetterHosting.Services.Interfaces.ExtensionConfigurators;
+namespace DSharpPlus.BetterHosting.Services.Interfaces;
 
 /// <summary>
 /// Interface to allow configuration of the <see cref="DiscordShardedClient"/> before connection is made

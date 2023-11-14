@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using DSharpPlus.BetterHosting.CommandsNext.Services;
-using DSharpPlus.BetterHosting.CommandsNext.Services.Configuration;
 using DSharpPlus.BetterHosting.SlashCommands;
 using DSharpPlus.CommandsNext;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,6 +26,7 @@ public class CommandsNextRegistrationExtensionsTests<TCommand> where TCommand : 
 
         mockServices.Verify();
     }
+
     [Test]
     public void RegisterCommandByType()
     {

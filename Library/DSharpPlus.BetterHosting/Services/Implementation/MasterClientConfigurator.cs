@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System;
 using Microsoft.Extensions.Logging;
 using DSharpPlus.BetterHosting.Services.Interfaces;
-using DSharpPlus.BetterHosting.Services.Interfaces.ExtensionConfigurators;
 
 namespace DSharpPlus.BetterHosting.Services.Implementation;
 
