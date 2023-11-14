@@ -6,6 +6,7 @@
     
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
+    <RunSettingsFilePath>$(MSBuildThisFileDirectory).runsettings</RunSettingsFilePath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -35,6 +36,7 @@
     <Enabled>True</Enabled>
     <IncludeTestAssembly>False</IncludeTestAssembly>
     <Exclude>
+      [UnitTests.*]*
       [ThirdParty.*]*
       [FourthParty]*
     </Exclude>
