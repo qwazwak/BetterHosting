@@ -1,6 +1,5 @@
 ﻿<#@ template debug="true" hostspecific="true" language="C#" #>
 <#@ output extension=".cs" #>
-<#@ assembly name="System.Core" #>
 <#@ include file="../DiscordEventsBase.tt" #>
 using System;
 using DSharpPlus.BetterHosting.EventsNext.Services;

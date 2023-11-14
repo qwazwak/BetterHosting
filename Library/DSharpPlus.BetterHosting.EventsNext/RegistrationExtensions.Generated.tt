@@ -1,7 +1,6 @@
 ﻿<#@ template debug="true" hostspecific="true" language="C#" #>
 <#@ output extension=".cs" #>
 <#@ include file="DiscordEventsBase.tt" #>
-<#@ assembly name="System.Core" #>
 using System.Diagnostics.CodeAnalysis;
 using DSharpPlus.BetterHosting.EventsNext.Services;
 using Microsoft.Extensions.DependencyInjection;
