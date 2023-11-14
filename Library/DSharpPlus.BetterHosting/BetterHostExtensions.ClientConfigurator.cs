@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 using DSharpPlus.BetterHosting.Services.Implementation.ExtensionConfigurators;
-using System.Diagnostics.CodeAnalysis;
 using DSharpPlus.BetterHosting.Services.Implementation;
 using DSharpPlus.BetterHosting.Services.Interfaces.ExtensionConfigurators;
 
@@ -33,7 +32,11 @@ public static partial class BetterHostExtensions
     /// <param name="services"></param>
     /// <param name="configurationDelegate"></param>
     /// <returns>The same <paramref name="services"/> for chaining</returns>
-    public static IServiceCollection ConfigureExtension<TExtension>(this IServiceCollection services, Action<TExtension> configurationDelegate) where TExtension : BaseExtension => services.AddTransient<IDiscordExtensionConfigurator<TExtension>>([ExcludeFromCodeCoverage(Justification = CoveCoverageExclusionReasons.LambdaWrapper)] (_) => new ExtensionConfigureDelegate<TExtension>(configurationDelegate));
+    public static IServiceCollection ConfigureExtension<TExtension>(this IServiceCollection services, Action<int, TExtension> configurationDelegate) where TExtension : BaseExtension
+    {
+        ArgumentNullException.ThrowIfNull(configurationDelegate);
+        return services.AddSingleton<IDiscordExtensionConfigurator<TExtension>>(new ExtensionConfigureDelegate<TExtension>(configurationDelegate));
+    }
 
     /// <summary>
     /// Registers A <see cref="DiscordExtensionConfiguratorAdapter{TSpecific, TExtension}"/> as a <see cref="IDiscordExtensionConfigurator{TExtension}"/> which provide all registered instances of <typeparamref name="TSpecific"/> as a <see cref=" IDiscordExtensionConfigurator{TExtension}"/>
