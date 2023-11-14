@@ -22,7 +22,6 @@ public static partial class BetterHostExtensions
         services.AddTransient<IShortClientConstructor, ShortClientConstructor>();
         services.AddSingleton<IClientManager, ClientManager>();
         services.AddSingleton<IConnectedClientProvider>(sp => sp.GetRequiredService<IClientManager>());
-        //services.AddTransient<DiscordShardedClient>(sp => sp.GetRequiredService<IConnectedClientProvider>().GetClient(CancellationToken.None));
         services.AddTransient<IMasterClientConfigurator, MasterClientConfigurator>();
 
         services.AddHostedService<DiscordClientHost>();

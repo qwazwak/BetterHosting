@@ -29,18 +29,14 @@ public sealed class RegistrationBuilder<TEventInterface> where TEventInterface :
     /// </summary>
     /// <typeparam name="TImplementation"></typeparam>
     /// <returns>The same <see cref="RegistrationBuilder{TInterface}"/> for chaining</returns>
-    public RegistrationBuilder<TEventInterface> RegisterHandler<TImplementation>() where TImplementation : class, TEventInterface => RegisterHandlerCore(typeof(TImplementation));
+    public RegistrationBuilder<TEventInterface> RegisterHandler<TImplementation>() where TImplementation : class, TEventInterface => RegisterHandler(typeof(TImplementation));
 
     internal RegistrationBuilder<TEventInterface> RegisterHandler(Type handlerType)
     {
         ArgumentNullException.ThrowIfNull(handlerType);
         if (!handlerType.IsAssignableTo(typeof(TEventInterface)))
             throw new ArgumentException("Invalid handler type");
-        return RegisterHandlerCore(handlerType);
-    }
 
-    private RegistrationBuilder<TEventInterface> RegisterHandlerCore(Type handlerType)
-    {
         HandlerRegistration registration = registry.AddHandler();
         Guid key = registration.Key;
         services.AddKeyedScoped(typeof(TEventInterface), key, handlerType);

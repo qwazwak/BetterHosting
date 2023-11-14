@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Threading;
 using System.Threading.Tasks;
 using DSharpPlus.BetterHosting.Services.Hosted;
 using DSharpPlus.Lavalink;
@@ -8,17 +9,19 @@ namespace DSharpPlus.BetterHosting.Lavalink.Services.Hosted;
 
 internal sealed class LavalinkBackgroundService : IDiscordBackgroundService
 {
-    private readonly LavalinkConfiguration options;
+    private readonly IOptions<LavalinkConfiguration> options;
 
-    public LavalinkBackgroundService(IOptions<LavalinkConfiguration> options) => this.options = options.Value;
+    public LavalinkBackgroundService(IOptions<LavalinkConfiguration> options) => this.options = options;
 
+    [ExcludeFromCodeCoverage(Justification = CoveCoverageExclusionReasons.DSharpSealed)]
     public async Task AfterConnected(DiscordShardedClient client, CancellationToken stoppingToken)
     {
         await client.InitializeShardsAsync().WaitAsync(stoppingToken);
-        await Parallel.ForEachAsync(client.ShardClients.Values, stoppingToken, async (c, st) =>
+        LavalinkConfiguration options = this.options.Value;
+        await Parallel.ForEachAsync(client.ShardClients.Values, stoppingToken, [ExcludeFromCodeCoverage(Justification = CoveCoverageExclusionReasons.LambdaWrapper)] async (c, st) =>
         {
-            LavalinkExtension Extension = c.GetExtension<LavalinkExtension>();
-            await Extension.ConnectAsync(options).WaitAsync(st);
+            LavalinkExtension extension = c.GetExtension<LavalinkExtension>();
+            await extension.ConnectAsync(options).WaitAsync(st);
         });
     }
 }

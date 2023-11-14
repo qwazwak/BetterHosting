@@ -2,6 +2,7 @@
 <#@ output extension=".cs" #>
 <#@ include file="DiscordEventsBase.tt" #>
 <#@ assembly name="System.Core" #>
+using System.Diagnostics.CodeAnalysis;
 using DSharpPlus.BetterHosting.EventsNext.Services;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -24,6 +25,7 @@ public static partial class RegistrationExtensions
     /// </summary>
     /// <remarks>Handlers must fufill the <see cref="<#=naming.InterfaceName#>"/> interface</remarks>
     /// <inheritdoc cref="RegistrationExtensions.AddEventHandlers{T}"/>
+    [ExcludeFromCodeCoverage(Justification = "Generated named wrapper for generic method")]
     public static RegistrationBuilder<<#=naming.InterfaceName#>> Add<#=naming.EventName#>Handlers(this IServiceCollection services) => services.AddEventHandlers<<#=naming.InterfaceName#>>();
 <#} #>
 }

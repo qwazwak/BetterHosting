@@ -2,6 +2,7 @@
 using DSharpPlus.BetterHosting.EventsNext.Services;
 using DSharpPlus.EventArgs;
 using DSharpPlus.BetterHosting.EventsNext.Services.Implementations;
+using Microsoft.Extensions.Hosting;
 
 namespace DSharpPlus.BetterHosting.EventsNext;
 
@@ -19,7 +20,7 @@ public static partial class EventsNextBetterHostExtensions
     {
         services.AddSingleton(new HandlerRegistry<TEventInterface>());
         services.AddSingleton<TManager>();
-        services.AddHostedService<EventsNextBackgroundHost<TManager>>();
+        services.AddSingleton<IHostedService, EventsNextBackgroundHost<TManager>>();
         return services;
     }
 

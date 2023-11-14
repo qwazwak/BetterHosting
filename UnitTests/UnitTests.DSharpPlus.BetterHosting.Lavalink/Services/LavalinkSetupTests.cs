@@ -9,6 +9,7 @@ using DSharpPlus.Lavalink;
 
 namespace UnitTests.DSharpPlus.BetterHosting.Lavalink.Services;
 
+[TestFixture(TestOf = typeof(LavalinkSetup))]
 public class LavalinkSetupTests
 {
     private MockRepository repository;

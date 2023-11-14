@@ -32,7 +32,11 @@ public static class BetterLavalinkHostExtensions
     /// <summary>
     /// Registers a <see cref="IOptions{TOptions}"/> which will use the provided <paramref name="config"/>
     /// </summary>
-    public static OptionsBuilder<LavalinkConfiguration> AddLavalinkConfig(this IServiceCollection services, LavalinkConfiguration config) => services.AddSingleton(Microsoft.Extensions.Options.Options.Create(config)).AddOptions<LavalinkConfiguration>();
+    public static OptionsBuilder<LavalinkConfiguration> AddLavalinkConfig(this IServiceCollection services, LavalinkConfiguration config)
+    {
+        ArgumentNullException.ThrowIfNull(config);
+        return services.AddSingleton(Microsoft.Extensions.Options.Options.Create(config)).AddOptions<LavalinkConfiguration>();
+    }
 
     /// <summary>
     /// Registers the dependency injection container to bind <see cref="LavalinkConfiguration"/> against
@@ -44,5 +48,6 @@ public static class BetterLavalinkHostExtensions
     /// <paramref name="services"/> or <paramref name="configSectionPath" /> is <see langword="null"/>.
     /// </exception>
     /// <seealso cref="OptionsBuilderConfigurationExtensions.Bind{TOptions}(OptionsBuilder{TOptions}, IConfiguration, Action{BinderOptions})"/>
-    public static OptionsBuilder<LavalinkConfiguration> AddLavalinkConfig(this IServiceCollection services, string configSectionPath ) => services.AddOptions<LavalinkConfiguration>().BindConfiguration(configSectionPath,  [ExcludeFromCodeCoverage(Justification = CoveCoverageExclusionReasons.LambdaWrapper)] (o) => o.BindNonPublicProperties = true);
+    [ExcludeFromCodeCoverage(Justification = CoveCoverageExclusionReasons.SimpleWrapperExtension)]
+    public static OptionsBuilder<LavalinkConfiguration> AddLavalinkConfig(this IServiceCollection services, string configSectionPath) => services.AddOptions<LavalinkConfiguration>().BindConfiguration(configSectionPath, [ExcludeFromCodeCoverage(Justification = CoveCoverageExclusionReasons.LambdaWrapper)] (o) => o.BindNonPublicProperties = true);
 }
