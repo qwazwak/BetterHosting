@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using DSharpPlus.BetterHosting.Interactivity.Services;
+using DSharpPlus.BetterHosting.Services.Implementation;
 using DSharpPlus.BetterHosting.Services.Interfaces.ExtensionConfigurators;
 using DSharpPlus.Interactivity;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,8 +29,6 @@ public class BetterHostingInteractivityExtensionsTests
     public void AddsSetup()
     {
         Mock<IServiceCollection> mockServices = new(MockBehavior.Strict);
-
-        ServiceDescriptor setupDescriptor = new(typeof(IDiscordClientConfigurator), typeof(InteractivitySetup), ServiceLifetime.Transient);
 
         mockServices.Setup(s => s.Add(ItMore.ServiceDescriptorFrom.SimpleInterface.AddTransient<IDiscordClientConfigurator, InteractivitySetup>())).Verifiable(Times.Once);
         mockServices.Setup(s => s.Add(ItMore.ServiceDescriptorFrom.SimpleInterface.AddTransient<IDiscordExtensionConfigurator<InteractivityExtension>, DiscordExtensionConfiguratorAdapter<IInteractivityConfigurator, InteractivityExtension>>())).Verifiable(Times.Once);

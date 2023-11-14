@@ -20,7 +20,7 @@
     <None Update="EventsNextBetterHostExtensions.AddAllHostedHandlers.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>EventsNextBetterHostExtensions.AddAllHostedHandlers.cs</LastGenOutput>
-      <!--<DependentUpon>$(EventsNextTemplatingDir)..\DiscordEventsTemplateBase.tt</DependentUpon>-->
+      <!--<DependentUpon>DiscordEventsBase.tt</DependentUpon>-->
     </None>
 
     <Compile Update="EventsNextBetterHostExtensions.AddAllHostedHandlers.cs">
@@ -34,7 +34,7 @@
     <None Update="RegistrationExtensions.Generated.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>RegistrationExtensions.Generated.cs</LastGenOutput>
-      <!--<DependentUpon>$(EventsNextTemplatingDir)..\DiscordEventsTemplateBase.tt</DependentUpon>-->
+      <!--<DependentUpon>DiscordEventsBase.tt</DependentUpon>-->
     </None>
 
     <Compile Update="RegistrationExtensions.Generated.cs">
@@ -48,7 +48,7 @@
     <None Update="Services\Implementations\EventHandlerManager.Generated.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>EventHandlerManager.Generated.cs</LastGenOutput>
-      <!--<DependentUpon>$(EventsNextTemplatingDir)..\DiscordEventsTemplateBase.tt</DependentUpon>-->
+      <!--<DependentUpon>DiscordEventsBase.tt</DependentUpon>-->
     </None>
 
     <Compile Update="Services\Implementations\EventHandlerManager.Generated.cs">
@@ -62,7 +62,7 @@
     <None Update="Tools\HandlerValidation.Generated.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>HandlerValidation.Generated.cs</LastGenOutput>
-      <!--<DependentUpon>$(EventsNextTemplatingDir)..\DiscordEventsTemplateBase.tt</DependentUpon>-->
+      <!--<DependentUpon>DiscordEventsBase.tt</DependentUpon>-->
     </None>
 
     <Compile Update="Tools\HandlerValidation.Generated.cs">
@@ -76,7 +76,7 @@
     <None Update="Tools\EventInterfaceValidation.Generated.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>EventInterfaceValidation.Generated.cs</LastGenOutput>
-      <!--<DependentUpon>$(EventsNextTemplatingDir)..\DiscordEventsTemplateBase.tt</DependentUpon>-->
+      <!--<DependentUpon>DiscordEventsBase.tt</DependentUpon>-->
     </None>
 
     <Compile Update="Tools\EventInterfaceValidation.Generated.cs">
@@ -90,7 +90,7 @@
     <None Update="Tools\EventHandlerReflector.Generated.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>EventHandlerReflector.Generated.cs</LastGenOutput>
-      <!--<DependentUpon>$(EventsNextTemplatingDir)..\DiscordEventsTemplateBase.tt</DependentUpon>-->
+      <!--<DependentUpon>DiscordEventsBase.tt</DependentUpon>-->
     </None>
 
     <Compile Update="Tools\EventHandlerReflector.Generated.cs">
@@ -105,7 +105,7 @@
     <None Update="Services\IDiscordEventHandlers.Generated.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>IDiscordEventHandlers.Generated.cs</LastGenOutput>
-      <!--<DependentUpon>$(EventsNextTemplatingDir)..\DiscordEventsTemplateBase.tt</DependentUpon>-->
+      <!--<DependentUpon>DiscordEventsBase.tt</DependentUpon>-->
     </None>
 
     <Compile Update="Services\IDiscordEventHandlers.Generated.cs">
