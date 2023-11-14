@@ -11,6 +11,6 @@ internal static class RegistrationBuilderHelper
     public static HandlerRegistry<TInterface> GetHandlerRegistration<TInterface>(IServiceCollection serviceDescriptors) where TInterface : IDiscordEventHandler
     {
         ArgumentNullException.ThrowIfNull(serviceDescriptors);
-        return serviceDescriptors.GetSingleton<HandlerRegistry<TInterface>>();
+        return serviceDescriptors.GetOrAddSingleton<HandlerRegistry<TInterface>>(() => new());
     }
 }
