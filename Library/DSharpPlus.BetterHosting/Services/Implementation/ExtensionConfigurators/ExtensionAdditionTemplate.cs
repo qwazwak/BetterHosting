@@ -25,10 +25,10 @@ public abstract class ExtensionAdditionTemplate<TExtension> : IDiscordClientConf
     {
         IReadOnlyDictionary<int, TExtension> configs = await UseExtension(client);
 
-        Parallel.ForEach(configs, Configure);
+        Parallel.ForEach(configs, ConfigureOne);
     }
 
-    private void Configure(KeyValuePair<int, TExtension> kvp)
+    private void ConfigureOne(KeyValuePair<int, TExtension> kvp)
     {
         int shardID = kvp.Key;
         TExtension extension = kvp.Value;
