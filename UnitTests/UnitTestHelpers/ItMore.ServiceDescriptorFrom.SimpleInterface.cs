@@ -9,6 +9,11 @@ public static partial class ItMore
     {
         public static class SimpleInterface
         {
+            public static ServiceDescriptor AddTransient<TImplementation>() => Add<TImplementation>(ServiceLifetime.Transient);
+            public static ServiceDescriptor AddScoped<TImplementation>() => Add<TImplementation>(ServiceLifetime.Scoped);
+            public static ServiceDescriptor AddSingleton<TImplementation>() => Add<TImplementation>(ServiceLifetime.Singleton);
+            public static ServiceDescriptor Add<TImplementation>(ServiceLifetime lifetime) => Add(typeof(TImplementation), typeof(TImplementation), lifetime);
+
             public static ServiceDescriptor AddTransient<TInterface, TImplementation>() => Add<TInterface, TImplementation>(ServiceLifetime.Transient);
             public static ServiceDescriptor AddScoped<TInterface, TImplementation>() => Add<TInterface, TImplementation>(ServiceLifetime.Scoped);
             public static ServiceDescriptor AddSingleton<TInterface, TImplementation>() => Add<TInterface, TImplementation>(ServiceLifetime.Singleton);

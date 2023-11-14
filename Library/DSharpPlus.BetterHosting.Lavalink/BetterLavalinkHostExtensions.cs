@@ -23,10 +23,10 @@ public static class BetterLavalinkHostExtensions
     /// <returns>The same <see cref="IServiceCollection"/> for chaining</returns>
     public static IServiceCollection AddLavalink(this IServiceCollection services)
     {
-        return services
-            .AddHostedDiscordService<LavalinkBackgroundService>()
-            .AddTransient<IDiscordClientConfigurator, LavalinkSetup>()
-            .AddExtensionConfiguratorAdapter<ILavalinkConfigurator, LavalinkExtension>();
+        services.AddHostedDiscordService<LavalinkBackgroundService>();
+        services.AddTransient<IDiscordClientConfigurator, LavalinkSetup>();
+        services.AddExtensionConfiguratorAdapter<ILavalinkConfigurator, LavalinkExtension>();
+        return services;
     }
 
     /// <summary>

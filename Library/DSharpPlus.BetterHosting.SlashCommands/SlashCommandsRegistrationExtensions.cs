@@ -27,6 +27,7 @@ public static class SlashCommandsRegistrationExtensions
     /// <param name="services"></param>
     /// <returns>The same <see cref="IServiceCollection"/> for chaining</returns>
     [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
+    [ExcludeFromCodeCoverage(Justification = "Wrapper for other method providing the current assembly")]
     public static IServiceCollection RegisterSlashCommands(this IServiceCollection services)
     {
         Assembly callingAssembly = Assembly.GetCallingAssembly();

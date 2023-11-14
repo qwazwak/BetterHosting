@@ -8,6 +8,7 @@ internal class SlashCommandsAutoRegisterConfigurator : ISlashCommandsExtensionCo
 {
     private readonly Assembly assembly;
 
+    [ExcludeFromCodeCoverage(Justification = "Nothing to test")]
     public SlashCommandsAutoRegisterConfigurator(Assembly assembly) => this.assembly = assembly;
 
     [ExcludeFromCodeCoverage(Justification = CoveCoverageExclusionReasons.DSharpSealed)]
