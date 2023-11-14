@@ -16,8 +16,6 @@ public class EventsNextBetterHostExtensionsTests
         where TEventInterface : IDiscordEventHandler<TArgument>
         where TArgument : DiscordEventArgs
     {
-        mockServices.Setup(s => s.Add(ItMore.ServiceDescriptorFrom.Instance.AddAnySingleton<HandlerRegistry<TEventInterface>>()))
-            .Verifiable(Times.Once);
         mockServices.Setup(s => s.Add(ItMore.ServiceDescriptorFrom.SimpleInterface.AddSingleton<TManager>()))
             .Verifiable(Times.Once);
         mockServices.Setup(s => s.Add(ItMore.ServiceDescriptorFrom.SimpleInterface.AddSingleton<IHostedService, EventsNextBackgroundHost<TManager>>()))

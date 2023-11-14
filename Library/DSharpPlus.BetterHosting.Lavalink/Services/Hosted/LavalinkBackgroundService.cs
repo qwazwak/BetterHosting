@@ -18,10 +18,10 @@ internal sealed class LavalinkBackgroundService : IDiscordBackgroundService
     {
         await client.InitializeShardsAsync().WaitAsync(stoppingToken);
         LavalinkConfiguration options = this.options.Value;
-        await Parallel.ForEachAsync(client.ShardClients.Values, stoppingToken, [ExcludeFromCodeCoverage(Justification = CoveCoverageExclusionReasons.LambdaWrapper)] async (c, st) =>
+        await Parallel.ForEachAsync(client.ShardClients.Values, stoppingToken, [ExcludeFromCodeCoverage(Justification = CoveCoverageExclusionReasons.LambdaWrapper)] (c, st) =>
         {
             LavalinkExtension extension = c.GetExtension<LavalinkExtension>();
-            await extension.ConnectAsync(options).WaitAsync(st);
+            return new(extension.ConnectAsync(options).WaitAsync(st));
         });
     }
 }

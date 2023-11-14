@@ -27,8 +27,7 @@ internal static class SingletonServiceCheater
 
     private static bool TryGet<T>(this IServiceCollection services, [NotNullWhen(true), MaybeNullWhen(false)] out T instance, [NotNullWhen(false), MaybeNullWhen(true)] out Exception exception) where T : class
     {
-        ServiceDescriptor? descriptor = services.FirstOrDefault(Matches);
-        static bool Matches(ServiceDescriptor descriptor) => descriptor.ServiceType == typeof(T) && !descriptor.IsKeyedService && descriptor.ImplementationInstance != null;
+        ServiceDescriptor? descriptor = services.FirstOrDefault(d => d.ServiceType == typeof(T) && !d.IsKeyedService && d.ImplementationInstance != null);
 
         if (descriptor == null)
         {

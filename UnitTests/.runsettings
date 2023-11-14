@@ -32,7 +32,6 @@
 
     <!-- Parameters used by tests at run time -->
     <TestRunParameters>
-        <Parameter name="RunSettingsMagicCode" value="UYgwdbi6(OI*^ETF(BOI^osygdys" />
     </TestRunParameters>
 
     <!-- Configurations for data collectors -->
