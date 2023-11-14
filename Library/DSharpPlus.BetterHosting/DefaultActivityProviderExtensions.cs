@@ -5,7 +5,6 @@ using System;
 using DSharpPlus.Entities;
 using Microsoft.Extensions.Options;
 using System.Diagnostics.CodeAnalysis;
-using DSharpPlus.BetterHosting.Tools.Extensions.Internal;
 
 namespace DSharpPlus.BetterHosting;
 
@@ -30,7 +29,7 @@ public static class DefaultActivityProviderExtensions
     /// <param name="configSectionPath">The path to bind options from.</param>
     /// <returns>A <see cref="OptionsBuilder{DiscordActivity}"/> builder to further configure the options with</returns>
     /// <seealso cref="IDefaultActivityProvider"/>
-    public static OptionsBuilder<DiscordActivity> AddDefaultActivityByOptions(this IServiceCollection services, string configSectionPath) => services.AddDefaultActivityProvider<DefaultActivityOptionsAdapter>().AddOptions<DiscordActivity>().BindConfiguration(configSectionPath, bindNonPublicProperties: true);
+    public static OptionsBuilder<DiscordActivity> AddDefaultActivityByOptions(this IServiceCollection services, string configSectionPath) => services.AddDefaultActivityProvider<DefaultActivityOptionsAdapter>().AddOptions<DiscordActivity>().BindConfiguration(configSectionPath,  [ExcludeFromCodeCoverage(Justification = CoveCoverageExclusionReasons.LambdaWrapper)] (o) => o.BindNonPublicProperties = true);
 
     /// <summary>
     /// Adds an implementation of <see cref="IDefaultActivityProvider"/> to the specified <see cref="IServiceCollection"/> which will return the given <paramref name="activity"/>.

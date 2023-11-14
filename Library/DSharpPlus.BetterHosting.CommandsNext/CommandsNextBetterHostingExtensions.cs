@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using DSharpPlus.BetterHosting.CommandsNext.Services;
 using DSharpPlus.BetterHosting.Services.Implementation.ExtensionConfigurators;
 using DSharpPlus.BetterHosting.Services.Interfaces.ExtensionConfigurators;
-using DSharpPlus.BetterHosting.Tools.Extensions.Internal;
 using DSharpPlus.CommandsNext;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -41,6 +41,6 @@ public static class CommandsNextBetterHostingExtensions
     public static OptionsBuilder<CommandsNextConfiguration> AddCommandsNextConfiguration(this IServiceCollection services, string configSectionPath)
     {
         ArgumentNullException.ThrowIfNull(services);
-        return services.AddOptions<CommandsNextConfiguration>().BindConfiguration(configSectionPath, bindNonPublicProperties: true);
+        return services.AddOptions<CommandsNextConfiguration>().BindConfiguration(configSectionPath,  [ExcludeFromCodeCoverage(Justification = CoveCoverageExclusionReasons.LambdaWrapper)] (o) => o.BindNonPublicProperties = true);
     }
 }

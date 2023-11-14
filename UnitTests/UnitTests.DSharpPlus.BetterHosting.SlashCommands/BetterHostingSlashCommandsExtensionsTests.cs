@@ -1,5 +1,4 @@
-﻿using DSharpPlus.BetterHosting.Services.Interfaces.ExtensionConfigurators;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics.CodeAnalysis;
 using System;
 using DSharpPlus.BetterHosting.SlashCommands.Services.Configuration;
@@ -8,6 +7,8 @@ using DSharpPlus.SlashCommands;
 using Microsoft.Extensions.Options;
 using DSharpPlus.BetterHosting.SlashCommands;
 using DSharpPlus.BetterHosting.SlashCommands.Services;
+using DSharpPlus.BetterHosting.Services.Implementation;
+using DSharpPlus.BetterHosting.Services.Interfaces.ExtensionConfigurators;
 
 namespace UnitTests.DSharpPlus.BetterHosting.SlashCommands;
 

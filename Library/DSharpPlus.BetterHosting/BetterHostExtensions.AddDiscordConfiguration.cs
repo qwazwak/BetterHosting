@@ -2,8 +2,8 @@
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Configuration;
 using System;
-using DSharpPlus.BetterHosting.Tools.Extensions.Internal;
 using DSharpPlus.BetterHosting.Services.Implementation;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DSharpPlus.BetterHosting;
 
@@ -20,5 +20,5 @@ public static partial class BetterHostExtensions
     /// </exception>
     /// <seealso cref="OptionsBuilderConfigurationExtensions.Bind{TOptions}(OptionsBuilder{TOptions}, IConfiguration, Action{BinderOptions})"/>
     public static OptionsBuilder<DiscordConfiguration> AddDiscordConfigurationOption(this IServiceCollection services, string configSectionPath = nameof(DiscordConfiguration))
-        => services.AddTransient<IConfigureOptions<DiscordConfiguration>, BindConfigurationLoggerFactory>().AddOptions<DiscordConfiguration>().BindConfiguration(configSectionPath, bindNonPublicProperties: true);
+        => services.AddTransient<IConfigureOptions<DiscordConfiguration>, BindConfigurationLoggerFactory>().AddOptions<DiscordConfiguration>().BindConfiguration(configSectionPath,  [ExcludeFromCodeCoverage(Justification = CoveCoverageExclusionReasons.LambdaWrapper)] (o) => o.BindNonPublicProperties = true);
 }

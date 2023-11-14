@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using DSharpPlus.BetterHosting.Tools.Extensions.Internal;
 using DSharpPlus.Interactivity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -33,5 +32,5 @@ public static class BetterHostingInteractivityConfigurationExtensions
     /// <param name="services">The collection to add the configuration to</param>
     /// <param name="configSectionPath">The name of the configuration section to bind from.</param>
     /// <returns>The <see cref="OptionsBuilder{TOptions}"/> so that configure calls can be chained in it.</returns>s
-    public static OptionsBuilder<InteractivityConfiguration> AddInteractivityConfig(this IServiceCollection services, string configSectionPath) => services.AddOptions<InteractivityConfiguration>().BindConfiguration(configSectionPath, bindNonPublicProperties: true);
+    public static OptionsBuilder<InteractivityConfiguration> AddInteractivityConfig(this IServiceCollection services, string configSectionPath) => services.AddOptions<InteractivityConfiguration>().BindConfiguration(configSectionPath,  [ExcludeFromCodeCoverage(Justification = CoveCoverageExclusionReasons.LambdaWrapper)] (o) => o.BindNonPublicProperties = true);
 }

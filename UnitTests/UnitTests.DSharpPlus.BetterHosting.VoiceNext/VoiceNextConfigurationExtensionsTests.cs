@@ -3,6 +3,7 @@ using System;
 using DSharpPlus.VoiceNext;
 using Microsoft.Extensions.DependencyInjection;
 using DSharpPlus.BetterHosting.VoiceNext;
+using Microsoft.Extensions.Options;
 
 namespace UnitTests.DSharpPlus.BetterHosting.VoiceNext;
 
@@ -33,5 +34,20 @@ public class VoiceNextConfigurationExtensionsTests
         mockServices.Object.AddVoiceNextConfig(config);
 
         mockServices.Verify();
+    }
+
+    [Test]
+    public void AddInstanceByOption()
+    {
+        const string path = "wdfepouhgpiojudrfphuigfr.gfddfgdfg.dgfgdf";
+        IServiceCollection mockServices = Mock.Of<IServiceCollection>();
+
+        OptionsBuilder<VoiceNextConfiguration> result = VoiceNextConfigurationExtensions.AddVoiceNextConfig(mockServices, path);
+        Assert.Multiple(() =>
+        {
+            Assert.That(mockServices, Is.SameAs(result.Services));
+            Assert.That(result, Is.Not.Null);
+        });
+        Assert.That(result, Is.AssignableTo<OptionsBuilder<VoiceNextConfiguration>>());
     }
 }

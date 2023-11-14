@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using DSharpPlus.BetterHosting.Services.Interfaces.ExtensionConfigurators;
 
-namespace DSharpPlus.BetterHosting.Services.Interfaces.ExtensionConfigurators;
+namespace DSharpPlus.BetterHosting.Services.Implementation;
 
 /// <summary>
 /// Interface to adapter derived versions of <see cref="IDiscordExtensionConfigurator{TExtension}"/> to the base interface

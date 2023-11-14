@@ -1,5 +1,5 @@
 <Project>
-	<Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))"/>
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))"/>
   <PropertyGroup>
     <EventsNextTemplatingDir>$(MSBuildThisFileDirectory)EventsNextTemplating\</EventsNextTemplatingDir>
   </PropertyGroup>
@@ -56,7 +56,7 @@
     <!-- We want to remove JSImportGenerator by default, becuase it takes a good deal of compilation time -->
     <RemoveAnalyzer Include="Microsoft.Interop.JavaScript.JSImportGenerator" />
   </ItemGroup>
- 
+
   <ItemGroup>
     <ProjectReference Include="$(MSBuildThisFileDirectory)DSharpPlus.BetterHosting\DSharpPlus.BetterHosting.csproj"  Condition="'$(ReferenceBetterHostBase)' == 'True'" />
   </ItemGroup>

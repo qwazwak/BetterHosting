@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
-    <PackageReference Include="DSharpPlus.CommandsNext"/>
+    <PackageReference Include="DSharpPlus.CommandsNext" />
   </ItemGroup>
   <PropertyGroup>
     <LibraryCoreName>DSharpPlus.BetterHosting.CommandsNext</LibraryCoreName>

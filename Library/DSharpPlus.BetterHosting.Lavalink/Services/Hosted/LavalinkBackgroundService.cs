@@ -15,11 +15,11 @@ internal sealed class LavalinkBackgroundService : IDiscordBackgroundService
 
     public async Task AfterConnected(DiscordShardedClient client, CancellationToken stoppingToken)
     {
-        await client.InitializeShardsAsync();
-        await Parallel.ForEachAsync(client.ShardClients.Values, async (c, _) =>
+        await client.InitializeShardsAsync().WaitAsync(stoppingToken);
+        await Parallel.ForEachAsync(client.ShardClients.Values, stoppingToken, async (c, st) =>
         {
             LavalinkExtension Extension = c.GetExtension<LavalinkExtension>();
-            await Extension.ConnectAsync(options);
+            await Extension.ConnectAsync(options).WaitAsync(st);
         });
     }
 }

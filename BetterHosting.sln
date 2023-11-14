@@ -21,15 +21,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Library Items", "Library It
 		Library\Directory.Packages.props = Library\Directory.Packages.props
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EventsNextTemplating", "EventsNextTemplating", "{5C79DC61-5C76-4413-B59E-9AAD5FC51C95}"
-	ProjectSection(SolutionItems) = preProject
-		Library\EventsNextTemplating\DiscordClientEventsCache.json = Library\EventsNextTemplating\DiscordClientEventsCache.json
-		Library\EventsNextTemplating\DiscordEventsTemplateBase_template.tt = Library\EventsNextTemplating\DiscordEventsTemplateBase_template.tt
-		Library\EventsNextTemplating\EventNaming.cs = Library\EventsNextTemplating\EventNaming.cs
-		Library\EventsNextTemplating\EventsNextTemplating.Build.props = Library\EventsNextTemplating\EventsNextTemplating.Build.props
-		Library\EventsNextTemplating\EventsNextTemplating.Build.targets = Library\EventsNextTemplating\EventsNextTemplating.Build.targets
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "logo", "logo", "{B7E6CB5A-5259-4AFD-BB24-FE98ACF88E4A}"
 	ProjectSection(SolutionItems) = preProject
 		Library\logo\logo.png = Library\logo\logo.png
@@ -309,7 +300,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{9FB4E309-1679-41BD-A200-3305F2454AC8} = {A3EEDF3D-EF31-4AD2-9806-3F5E9D90E6FD}
-		{5C79DC61-5C76-4413-B59E-9AAD5FC51C95} = {9FB4E309-1679-41BD-A200-3305F2454AC8}
 		{B7E6CB5A-5259-4AFD-BB24-FE98ACF88E4A} = {9FB4E309-1679-41BD-A200-3305F2454AC8}
 		{158E949A-2DB3-4E2D-B1CC-AD16B0B1A94C} = {A3EEDF3D-EF31-4AD2-9806-3F5E9D90E6FD}
 		{134C7D98-B35F-415F-804E-BB00954B9BFD} = {A3EEDF3D-EF31-4AD2-9806-3F5E9D90E6FD}

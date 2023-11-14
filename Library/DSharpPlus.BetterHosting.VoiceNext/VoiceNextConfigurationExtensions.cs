@@ -1,5 +1,5 @@
 ﻿using System;
-using DSharpPlus.BetterHosting.Tools.Extensions.Internal;
+using System.Diagnostics.CodeAnalysis;
 using DSharpPlus.VoiceNext;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,6 +32,6 @@ public static class VoiceNextConfigurationExtensions
     public static OptionsBuilder<VoiceNextConfiguration> AddVoiceNextConfig(this IServiceCollection services, string configSectionPath)
     {
         OptionsBuilder<VoiceNextConfiguration> options = services.AddOptions<VoiceNextConfiguration>();
-        return options.BindConfiguration(configSectionPath, bindNonPublicProperties: true);
+        return options.BindConfiguration(configSectionPath,  [ExcludeFromCodeCoverage(Justification = CoveCoverageExclusionReasons.LambdaWrapper)] (o) => o.BindNonPublicProperties = true);
     }
 }

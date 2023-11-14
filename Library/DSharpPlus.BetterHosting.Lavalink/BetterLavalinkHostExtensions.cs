@@ -1,13 +1,13 @@
 ﻿using System;
-using DSharpPlus.BetterHosting.Services.Interfaces.ExtensionConfigurators;
 using DSharpPlus.Lavalink;
 using Microsoft.Extensions.DependencyInjection;
 using DSharpPlus.BetterHosting.Lavalink.Services.Implementations;
 using DSharpPlus.BetterHosting.Lavalink.Services.Hosted;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Configuration;
-using DSharpPlus.BetterHosting.Tools.Extensions.Internal;
 using DSharpPlus.BetterHosting.Lavalink.Services;
+using System.Diagnostics.CodeAnalysis;
+using DSharpPlus.BetterHosting.Services.Interfaces.ExtensionConfigurators;
 
 namespace DSharpPlus.BetterHosting.Lavalink;
 
@@ -44,5 +44,5 @@ public static class BetterLavalinkHostExtensions
     /// <paramref name="services"/> or <paramref name="configSectionPath" /> is <see langword="null"/>.
     /// </exception>
     /// <seealso cref="OptionsBuilderConfigurationExtensions.Bind{TOptions}(OptionsBuilder{TOptions}, IConfiguration, Action{BinderOptions})"/>
-    public static OptionsBuilder<LavalinkConfiguration> AddLavalinkConfig(this IServiceCollection services, string configSectionPath ) => services.AddOptions<LavalinkConfiguration>().BindConfiguration(configSectionPath, bindNonPublicProperties: true);
+    public static OptionsBuilder<LavalinkConfiguration> AddLavalinkConfig(this IServiceCollection services, string configSectionPath ) => services.AddOptions<LavalinkConfiguration>().BindConfiguration(configSectionPath,  [ExcludeFromCodeCoverage(Justification = CoveCoverageExclusionReasons.LambdaWrapper)] (o) => o.BindNonPublicProperties = true);
 }
