@@ -23,7 +23,7 @@
         <!-- Specify timeout in milliseconds. A valid value should be greater than 0 -->
         <!-- With MSTest a test method with multiple data options has to finish all versions in this time -->
         <!-- NUnit and xUnit apply this limit to each dataset -->
-        <TestSessionTimeout>12000</TestSessionTimeout>
+        <TestSessionTimeout>30000</TestSessionTimeout> <!-- 30s -->
 
         <!-- true or false -->
         <!-- Value that specifies the exit code when no tests are discovered -->

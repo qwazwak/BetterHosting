@@ -44,4 +44,16 @@ public class BetterLavalinkHostExtensionsTests
 
         mockServices.Verify();
     }
+
+    [Test]
+    public void AddOptions()
+    {
+        Mock<IServiceCollection> mockServices = new(MockBehavior.Loose);
+        LavalinkConfiguration config = new();
+
+        mockServices.Setup(s => s.Add(ItMore.ServiceDescriptorFrom.Options.AddSingletonOption(config))).Verifiable(Times.Once);
+
+        BetterLavalinkHostExtensions.AddLavalinkConfig(mockServices.Object, config);
+        mockServices.Verify();
+    }
 }
