@@ -14,14 +14,14 @@ namespace DSharpPlus.BetterHosting.SlashCommands;
 public static class CommandsNextRegistrationExtensions
 {
     /// <inheritdoc cref="CommandsNextExtension.RegisterCommands{T}()"/>
-    public static IServiceCollection RegisterCommand<T>(this IServiceCollection services) where T : BaseCommandModule
-        => services.AddTransient<T>().AddTransient<ICommandsNextConfigurator, TypeHandlerAdder<T>>();
+    public static IServiceCollection RegisterCommand<TCommand>(this IServiceCollection services) where TCommand : BaseCommandModule
+        => services.AddTransient<TCommand>().AddTransient<ICommandsNextConfigurator, TypeHandlerAdder<TCommand>>();
 
     /// <inheritdoc cref="CommandsNextExtension.RegisterCommands(Type)"/>
-    public static IServiceCollection RegisterCommand(this IServiceCollection services, Type t)
+    public static IServiceCollection RegisterCommand(this IServiceCollection services, Type commandType)
     {
-        ArgumentNullException.ThrowIfNull(t);
-        return services.AddTransient(t).AddTransient(typeof(ICommandsNextConfigurator), typeof(TypeHandlerAdder<>).MakeGenericType(t));
+        ArgumentNullException.ThrowIfNull(commandType);
+        return services.AddTransient(commandType).AddTransient(typeof(ICommandsNextConfigurator), typeof(TypeHandlerAdder<>).MakeGenericType(commandType));
     }
 
     /// <inheritdoc cref="CommandsNextExtension.RegisterCommands(Assembly)"/>
@@ -33,10 +33,10 @@ public static class CommandsNextRegistrationExtensions
     }
 
     /// <inheritdoc cref="CommandsNextExtension.RegisterCommands(Type)"/>
-    public static IServiceCollection RegisterCommands(this IServiceCollection services, IEnumerable<Type> types)
+    public static IServiceCollection RegisterCommands(this IServiceCollection services, IEnumerable<Type> commandTypes)
     {
-        ArgumentNullException.ThrowIfNull(types);
-        foreach (Type type in types)
+        ArgumentNullException.ThrowIfNull(commandTypes);
+        foreach (Type type in commandTypes)
             services.RegisterCommand(type);
         return services;
     }

@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using System.Runtime.CompilerServices;
-using DSharpPlus.BetterHosting.Services.Interfaces;
+using DSharpPlus.BetterHosting.Services.Interfaces.Extensions;
 using DSharpPlus.BetterHosting.SlashCommands.Services.Configuration;
 using DSharpPlus.SlashCommands;
 using Microsoft.Extensions.Options;

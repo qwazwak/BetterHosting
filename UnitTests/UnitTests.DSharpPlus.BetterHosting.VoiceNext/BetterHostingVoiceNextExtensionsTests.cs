@@ -5,8 +5,9 @@ using DSharpPlus.BetterHosting.VoiceNext;
 using DSharpPlus.BetterHosting.VoiceNext.Services.Configuration;
 using DSharpPlus.VoiceNext;
 using DSharpPlus.BetterHosting.VoiceNext.Services;
-using DSharpPlus.BetterHosting.Services.Implementation;
 using DSharpPlus.BetterHosting.Services.Interfaces;
+using DSharpPlus.BetterHosting.Services.Implementation.Extensions;
+using DSharpPlus.BetterHosting.Services.Interfaces.Extensions;
 
 namespace UnitTests.DSharpPlus.BetterHosting.VoiceNext;
 

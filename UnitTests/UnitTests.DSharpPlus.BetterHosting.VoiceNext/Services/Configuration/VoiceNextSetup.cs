@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using System.Runtime.CompilerServices;
-using DSharpPlus.BetterHosting.Services.Interfaces;
+using DSharpPlus.BetterHosting.Services.Interfaces.Extensions;
 using DSharpPlus.BetterHosting.VoiceNext.Services.Configuration;
 using DSharpPlus.VoiceNext;
 using Microsoft.Extensions.Options;

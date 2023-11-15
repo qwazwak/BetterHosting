@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using DSharpPlus;
-using DSharpPlus.BetterHosting.Services.Implementation;
-using DSharpPlus.BetterHosting.Services.Interfaces;
+using DSharpPlus.BetterHosting.Services.Implementation.Internal;
+using DSharpPlus.BetterHosting.Services.Interfaces.Internal;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace UnitTests.DSharpPlus.BetterHosting.Services.Implementation;

@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using DSharpPlus;
 using DSharpPlus.BetterHosting.Lavalink.Services.Implementations;
-using DSharpPlus.BetterHosting.Services.Interfaces;
+using DSharpPlus.BetterHosting.Services.Interfaces.Extensions;
 using DSharpPlus.Lavalink;
 
 namespace UnitTests.DSharpPlus.BetterHosting.Lavalink.Services;

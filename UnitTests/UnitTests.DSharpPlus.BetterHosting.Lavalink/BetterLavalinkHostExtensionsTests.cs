@@ -8,8 +8,9 @@ using DSharpPlus.BetterHosting.Lavalink.Services;
 using DSharpPlus.BetterHosting.Lavalink.Services.Hosted;
 using Microsoft.Extensions.Hosting;
 using DSharpPlus.BetterHosting.Services.Hosted;
-using DSharpPlus.BetterHosting.Services.Implementation;
 using DSharpPlus.BetterHosting.Services.Interfaces;
+using DSharpPlus.BetterHosting.Services.Implementation.Extensions;
+using DSharpPlus.BetterHosting.Services.Interfaces.Extensions;
 
 namespace UnitTests.DSharpPlus.BetterHosting.Lavalink;
 

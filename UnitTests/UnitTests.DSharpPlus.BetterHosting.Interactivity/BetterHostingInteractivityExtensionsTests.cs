@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using DSharpPlus.BetterHosting.Interactivity.Services;
-using DSharpPlus.BetterHosting.Services.Implementation;
+using DSharpPlus.BetterHosting.Services.Implementation.Extensions;
 using DSharpPlus.BetterHosting.Services.Interfaces;
+using DSharpPlus.BetterHosting.Services.Interfaces.Extensions;
 using DSharpPlus.Interactivity;
 using Microsoft.Extensions.DependencyInjection;
 

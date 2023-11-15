@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using DSharpPlus.BetterHosting.Services.Interfaces;
 using Microsoft.Extensions.Logging;
 using DSharpPlus.BetterHosting.Tools.AsyncEventBlock;
+using DSharpPlus.BetterHosting.Services.Interfaces.Internal;
 
-namespace DSharpPlus.BetterHosting.Services.Implementation;
+namespace DSharpPlus.BetterHosting.Services.Implementation.Internal;
 
 internal sealed class ClientManager : IClientManager
 {

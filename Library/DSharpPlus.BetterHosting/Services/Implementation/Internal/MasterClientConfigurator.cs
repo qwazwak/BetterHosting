@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System;
 using Microsoft.Extensions.Logging;
 using DSharpPlus.BetterHosting.Services.Interfaces;
+using DSharpPlus.BetterHosting.Services.Interfaces.Internal;
 
-namespace DSharpPlus.BetterHosting.Services.Implementation;
+namespace DSharpPlus.BetterHosting.Services.Implementation.Internal;
 
 internal sealed class MasterClientConfigurator : IMasterClientConfigurator
 {

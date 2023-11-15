@@ -2,8 +2,8 @@
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using DSharpPlus;
-using DSharpPlus.BetterHosting.Services.Implementation;
-using DSharpPlus.BetterHosting.Services.Interfaces;
+using DSharpPlus.BetterHosting.Services.Implementation.Internal;
+using DSharpPlus.BetterHosting.Services.Interfaces.Internal;
 using Microsoft.Extensions.Options;
 
 namespace UnitTests.DSharpPlus.BetterHosting.Services.Implementation;

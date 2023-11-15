@@ -1,4 +1,4 @@
-﻿using DSharpPlus.BetterHosting.Services.Interfaces;
+﻿using DSharpPlus.BetterHosting.Services.Interfaces.Extensions;
 using DSharpPlus.Lavalink;
 
 namespace DSharpPlus.BetterHosting.Lavalink.Services;

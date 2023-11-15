@@ -1,4 +1,4 @@
-﻿namespace DSharpPlus.BetterHosting.Services.Interfaces;
+﻿namespace DSharpPlus.BetterHosting.Services.Interfaces.Extensions;
 
 /// <summary>
 /// Interface to signal and allow for configuration of <typeparamref name="TExtension"/>

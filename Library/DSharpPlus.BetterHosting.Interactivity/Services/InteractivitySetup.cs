@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using DSharpPlus.BetterHosting.Services.Implementation;
-using DSharpPlus.BetterHosting.Services.Interfaces;
+using DSharpPlus.BetterHosting.Services.Implementation.Extensions;
+using DSharpPlus.BetterHosting.Services.Interfaces.Extensions;
 using DSharpPlus.Interactivity;
 using DSharpPlus.Interactivity.Extensions;
 using Microsoft.Extensions.Options;

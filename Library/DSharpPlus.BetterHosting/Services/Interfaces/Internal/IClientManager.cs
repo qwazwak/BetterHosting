@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 
-namespace DSharpPlus.BetterHosting.Services.Interfaces;
+namespace DSharpPlus.BetterHosting.Services.Interfaces.Internal;
 
 internal interface IClientManager : IConnectedClientProvider
 {

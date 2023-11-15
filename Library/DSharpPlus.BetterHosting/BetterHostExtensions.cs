@@ -1,10 +1,11 @@
 ﻿using DSharpPlus.BetterHosting.Services.Hosted;
-using DSharpPlus.BetterHosting.Services.Implementation;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using DSharpPlus.BetterHosting.Services.Interfaces;
 using System;
 using DSharpPlus.BetterHosting.Services;
+using DSharpPlus.BetterHosting.Services.Interfaces.Internal;
+using DSharpPlus.BetterHosting.Services.Implementation.Internal;
 
 namespace DSharpPlus.BetterHosting;
 

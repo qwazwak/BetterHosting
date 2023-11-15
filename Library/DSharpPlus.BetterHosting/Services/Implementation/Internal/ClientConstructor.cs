@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
-using DSharpPlus.BetterHosting.Services.Interfaces;
+using DSharpPlus.BetterHosting.Services.Interfaces.Internal;
 using Microsoft.Extensions.Options;
 
-namespace DSharpPlus.BetterHosting.Services.Implementation;
+namespace DSharpPlus.BetterHosting.Services.Implementation.Internal;
 
 internal sealed class ClientConstructor : IClientConstructor
 {

@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using DSharpPlus.BetterHosting.Services.Interfaces;
+using DSharpPlus.BetterHosting.Services.Interfaces.Extensions;
 
-namespace DSharpPlus.BetterHosting.Services.Implementation;
+namespace DSharpPlus.BetterHosting.Services.Implementation.Extensions;
 
 /// <summary>
 /// Template base class to ease adding of <typeparamref name="TExtension"/> to <see cref="DiscordShardedClient"/>
