@@ -15,12 +15,16 @@ public static class CommandsNextRegistrationExtensions
 {
     /// <inheritdoc cref="CommandsNextExtension.RegisterCommands{T}()"/>
     public static IServiceCollection RegisterCommand<TCommand>(this IServiceCollection services) where TCommand : BaseCommandModule
-        => services.AddTransient<TCommand>().AddTransient<ICommandsNextConfigurator, TypeHandlerAdder<TCommand>>();
+    {
+        HandlerExtractor.ThrowIfNotCanidate(typeof(TCommand));
+        return services.AddTransient<TCommand>().AddTransient<ICommandsNextConfigurator, TypeHandlerAdder<TCommand>>();
+    }
 
     /// <inheritdoc cref="CommandsNextExtension.RegisterCommands(Type)"/>
     public static IServiceCollection RegisterCommand(this IServiceCollection services, Type commandType)
     {
         ArgumentNullException.ThrowIfNull(commandType);
+        HandlerExtractor.ThrowIfNotCanidate(commandType);
         return services.AddTransient(commandType).AddTransient(typeof(ICommandsNextConfigurator), typeof(TypeHandlerAdder<>).MakeGenericType(commandType));
     }
 
