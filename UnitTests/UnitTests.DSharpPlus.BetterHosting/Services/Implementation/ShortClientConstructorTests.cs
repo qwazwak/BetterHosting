@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace UnitTests.DSharpPlus.BetterHosting.Services.Implementation;
 
+[TestFixture(TestOf = typeof(ShortClientConstructor))]
 public class ShortClientConstructorTests
 {
     MockRepository repository;

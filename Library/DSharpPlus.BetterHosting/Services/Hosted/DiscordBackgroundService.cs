@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using DSharpPlus.BetterHosting.Services.Interfaces;
@@ -50,5 +51,6 @@ public abstract class DiscordBackgroundServiceBase : BackgroundService
     /// </summary>
     /// <param name="cancellationToken"></param>
     /// <returns>A task which will complete once the <paramref name="cancellationToken"/> is signaled</returns>
+    [ExcludeFromCodeCoverage(Justification = CoveCoverageExclusionReasons.SimpleWrapper)]
     protected static Task WaitForTimeout(CancellationToken cancellationToken) => Task.Delay(Timeout.Infinite, cancellationToken);
 }

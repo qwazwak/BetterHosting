@@ -4,7 +4,7 @@ using DSharpPlus.BetterHosting.EventsNext.Tools;
 
 namespace UnitTests.DSharpPlus.BetterHosting.EventsNext.Tools;
 
-[TestFixtureSource(typeof(HandlerTypesTestData), nameof(HandlerTypesTestData.DerivedHandlerInterfaces))]
+[TestFixtureSource(typeof(HandlerTypesTestData), nameof(HandlerTypesTestData.SpecificHandlerInterfaces))]
 public class EventInterfaceValidationTests
 {
     private static readonly MethodInfo openGenericIsExact = typeof(EventInterfaceValidation).GetMethod(nameof(EventInterfaceValidation.IsExactInterface), BindingFlags.Static | BindingFlags.Public, Type.EmptyTypes)!;

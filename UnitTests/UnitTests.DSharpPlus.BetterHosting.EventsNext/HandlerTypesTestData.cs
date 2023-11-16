@@ -91,7 +91,7 @@ public static class HandlerTypesTestData
     };
 
     public static readonly Type[] GenericEventHandlerTypes = EventArgTypes.Select(a => typeof(IDiscordEventHandler<>).MakeGenericType(a)).ToArray();
-    public static readonly Type[] DerivedHandlerInterfaces = new[]
+    public static Type[] SpecificHandlerInterfaces => new[]
     {
         typeof(ISocketErroredEventHandler),
         typeof(ISocketOpenedEventHandler),

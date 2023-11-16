@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 
 namespace DSharpPlus.BetterHosting.EventsNext.Tools;
 
@@ -27,7 +26,17 @@ internal static class SingletonServiceCheater
 
     private static bool TryGet<T>(this IServiceCollection services, [NotNullWhen(true), MaybeNullWhen(false)] out T instance, [NotNullWhen(false), MaybeNullWhen(true)] out Exception exception) where T : class
     {
-        ServiceDescriptor? descriptor = services.FirstOrDefault(d => d.ServiceType == typeof(T) && !d.IsKeyedService && d.ImplementationInstance != null);
+        int count = services.Count;
+        ServiceDescriptor? descriptor = null;
+        for (int i = 0; i < count; i++)
+        {
+            ServiceDescriptor? d = services[i];
+            if (d.ServiceType == typeof(T) && !d.IsKeyedService && d.ImplementationInstance != null)
+            {
+                descriptor = d;
+                break;
+            }
+        }
 
         if (descriptor == null)
         {
