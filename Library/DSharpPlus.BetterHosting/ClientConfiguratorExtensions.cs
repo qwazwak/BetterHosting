@@ -6,6 +6,9 @@ using DSharpPlus.BetterHosting.Services.Interfaces.Extensions;
 
 namespace DSharpPlus.BetterHosting;
 
+/// <summary>
+/// Extensions to add various functions through <see cref="IDiscordClientConfigurator"/>
+/// </summary>
 public static class ClientConfiguratorExtensions
 {
     /// <summary>
