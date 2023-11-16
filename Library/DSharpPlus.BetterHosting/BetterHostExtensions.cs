@@ -6,14 +6,23 @@ using System;
 using DSharpPlus.BetterHosting.Services;
 using DSharpPlus.BetterHosting.Services.Interfaces.Internal;
 using DSharpPlus.BetterHosting.Services.Implementation.Internal;
+using DSharpPlus.BetterHosting.Services.Implementation;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DSharpPlus.BetterHosting;
 
 /// <summary>
 /// The entrypoint of adding BetterHosting to an IHostBuilder/IServiceCollection
 /// </summary>
-public static partial class BetterHostExtensions
+public static class BetterHostExtensions
 {
+    // Internal for unit testing
+    internal static IServiceProvider ServiceProviderFactory(IServiceProvider sp, object? _) => sp.GetService<IHost>()?.Services ?? sp;
+    // Internal for unit testing
+    internal static IKeyedServiceProvider KeyedServiceProviderFactory(IServiceProvider sp, object? _) => (IKeyedServiceProvider)sp.GetRequiredKeyedService<IServiceProvider>(NamedServices.RootServiceProvider);
+
     /// <summary>
     /// The entrypoint of adding BetterHosting to an IServiceCollection
     /// </summary>
@@ -22,16 +31,28 @@ public static partial class BetterHostExtensions
         services.AddTransient<IClientConstructor, ClientConstructor>();
         services.AddTransient<IShortClientConstructor, ShortClientConstructor>();
         services.AddSingleton<IClientManager, ClientManager>();
-        services.AddSingleton<IConnectedClientProvider>(sp => sp.GetRequiredService<IClientManager>());
+        services.AddSingleton<IConnectedClientProvider>(ServiceProviderServiceExtensions.GetRequiredService<IClientManager>);
         services.AddTransient<IMasterClientConfigurator, MasterClientConfigurator>();
 
-        services.AddHostedService<DiscordClientHost>();
+        services.AddSingleton<IHostedService, DiscordClientHost>();
 
         #region Internal helpers
-        services.AddKeyedSingleton(NamedServices.RootServiceProvider, (IServiceProvider sp, object? _) => sp.GetService<IHost>()?.Services ?? sp);
-        services.AddKeyedSingleton(NamedServices.RootServiceProvider, (IServiceProvider sp, object? _) => (IKeyedServiceProvider)sp.GetRequiredKeyedService<IServiceProvider>(NamedServices.RootServiceProvider));
+        services.AddKeyedSingleton(NamedServices.RootServiceProvider, ServiceProviderFactory);
+        services.AddKeyedSingleton(NamedServices.RootServiceProvider, KeyedServiceProviderFactory);
 
         #endregion Internal helpers
         return services;
     }
+    /// <summary>
+    /// Registers the dependency injection container to bind <see cref="DiscordConfiguration"/> against
+    /// the <see cref="IConfiguration"/> obtained from the DI service provider.
+    /// </summary>
+    /// <param name="configSectionPath">The name of the configuration section to bind from.</param>
+    /// <returns>The <see cref="OptionsBuilder{TOptions}"/> so that additional calls can be chained.</returns>
+    /// <exception cref="ArgumentNullException">
+    /// <paramref name="services"/> or <paramref name="configSectionPath" /> is <see langword="null"/>.
+    /// </exception>
+    /// <seealso cref="OptionsBuilderConfigurationExtensions.Bind{TOptions}(OptionsBuilder{TOptions}, IConfiguration, Action{BinderOptions})"/>
+    public static OptionsBuilder<DiscordConfiguration> AddDiscordConfigurationOption(this IServiceCollection services, string configSectionPath = nameof(DiscordConfiguration))
+        => services.AddTransient<IConfigureOptions<DiscordConfiguration>, BindConfigurationLoggerFactory>().AddOptions<DiscordConfiguration>().BindConfiguration(configSectionPath, [ExcludeFromCodeCoverage(Justification = CoveCoverageExclusionReasons.LambdaWrapper)] (o) => o.BindNonPublicProperties = true);
 }

@@ -6,15 +6,15 @@ using DSharpPlus.BetterHosting.Services.Interfaces.Extensions;
 
 namespace DSharpPlus.BetterHosting;
 
-public static partial class BetterHostExtensions
+public static class ClientConfiguratorExtensions
 {
     /// <summary>
-    /// Registers <typeparamref name="TService"/> as a <see cref="IDiscordClientConfigurator"/> which will be run before the client connects
+    /// Registers <typeparamref name="TConfigurator"/> as a <see cref="IDiscordClientConfigurator"/> which will be run before the client connects
     /// </summary>
-    /// <typeparam name="TService"></typeparam>
+    /// <typeparam name="TConfigurator"></typeparam>
     /// <param name="services"></param>
     /// <returns>The same <paramref name="services"/> for chaining</returns>
-    public static IServiceCollection AddConfigurator<TService>(this IServiceCollection services) where TService : class, IDiscordClientConfigurator => services.AddTransient<IDiscordClientConfigurator, TService>();
+    public static IServiceCollection AddConfigurator<TConfigurator>(this IServiceCollection services) where TConfigurator : class, IDiscordClientConfigurator => services.AddTransient<IDiscordClientConfigurator, TConfigurator>();
 
     /// <summary>
     /// Registers <typeparamref name="TConfigurator"/> as a <see cref=" IDiscordExtensionConfigurator{TExtension}"/> which will be run to configure the <typeparamref name="TExtension"/> before discord connects
