@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
-namespace DSharpPlus.BetterHosting.SlashCommands;
+namespace DSharpPlus.BetterHosting.CommandsNext;
 
 /// <summary>
 /// Extension methods to add and configure <see cref="DSharpPlus.CommandsNext"/>
@@ -40,6 +40,6 @@ public static class CommandsNextBetterHostingExtensions
     public static OptionsBuilder<CommandsNextConfiguration> AddCommandsNextConfiguration(this IServiceCollection services, string configSectionPath)
     {
         ArgumentNullException.ThrowIfNull(services);
-        return services.AddOptions<CommandsNextConfiguration>().BindConfiguration(configSectionPath,  [ExcludeFromCodeCoverage(Justification = CoveCoverageExclusionReasons.LambdaWrapper)] (o) => o.BindNonPublicProperties = true);
+        return services.AddOptions<CommandsNextConfiguration>().BindConfiguration(configSectionPath, [ExcludeFromCodeCoverage(Justification = CoveCoverageExclusionReasons.LambdaWrapper)] (o) => o.BindNonPublicProperties = true);
     }
 }
