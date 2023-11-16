@@ -46,11 +46,12 @@ public class CommandsNextRegistrationExtensionsTests
 
     private static ArgumentException RegisterInvalidCommandByType(Func<IServiceCollection, IServiceCollection> invocation)
     {
+        const string paramName = "type";
         IServiceCollection mockServices = Mock.Of<IServiceCollection>(MockBehavior.Strict);
 
         ArgumentException ex = Assert.Throws<ArgumentException>(() => invocation.Invoke(mockServices));
 
-        Assert.That(ex.Message, Is.EqualTo("Command type was not a valid CommandsNext command"));
+        Assert.That(ex.Message, Is.EqualTo($"Command type was not a valid CommandsNext command (Parameter '{paramName}')"));
         return ex;
     }
 
