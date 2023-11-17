@@ -6,33 +6,39 @@ using DSharpPlus.BetterHosting.EventsNext.Services;
 using DSharpPlus.BetterHosting.EventsNext.Services.Implementations;
 using DSharpPlus.BetterHosting.Services.Interfaces;
 using Microsoft.Extensions.Logging;
+using Moq.AutoMock;
 
 namespace UnitTests.DSharpPlus.BetterHosting.EventsNext;
 
+[TestFixture(TestOf = typeof(EventsNextBackgroundHost<>))]
 public class EventsNextBackgroundHostTests
 {
-    private static EventsNextBackgroundHost<IEventHandlerManager> BuildSUT(out Mock<IEventHandlerManager> mockManager, out Mock<IConnectedClientProvider> providerMock) => BuildSUT<IEventHandlerManager>(out mockManager, out providerMock);
+    AutoMocker mocker = default!;
+    Mock<IEventHandlerManager> manager = default!;
+    Mock<IConnectedClientProvider> provider = default!;
+    EventsNextBackgroundHost<IEventHandlerManager> host = default!;
 
-    private static EventsNextBackgroundHost<TManager> BuildSUT<TManager>(out Mock<TManager> mockManager, out Mock<IConnectedClientProvider> providerMock) where TManager : class, IEventHandlerManager
+    [SetUp]
+    public void SetUp()
     {
-        mockManager = new(MockBehavior.Strict);
-        providerMock = new(MockBehavior.Strict);
-        ILogger<EventsNextBackgroundHost<TManager>> logger = Mock.Of<ILogger<EventsNextBackgroundHost<TManager>>>(MockBehavior.Loose);
-        return new(logger, mockManager.Object, providerMock.Object);
+        mocker = new(MockBehavior.Strict);
+        mocker.Use(new Mock<ILogger<EventsNextBackgroundHost<IEventHandlerManager>>>(MockBehavior.Loose));
+        manager = mocker.GetMock<IEventHandlerManager>();
+        provider = mocker.GetMock<IConnectedClientProvider>();
+        host = mocker.CreateInstance<EventsNextBackgroundHost<IEventHandlerManager>>();
     }
+
+    [TearDown]
+    public void TearDown() => mocker.Verify();
 
     [Test]
     public void NoHandlersExitFast()
     {
-        EventsNextBackgroundHost<IEventHandlerManager> sut = BuildSUT(out Mock<IEventHandlerManager> mockManager, out Mock<IConnectedClientProvider> providerMock);
         DiscordShardedClient client = new(new());
-        providerMock.Setup(p => p.GetClientAsync(It.IsAny<CancellationToken>())).ReturnsAsync(client).Verifiable(Times.Once);
+        provider.Setup(p => p.GetClientAsync(It.IsAny<CancellationToken>())).ReturnsAsync(client).Verifiable(Times.Once);
 
-        mockManager.Setup(m => m.CanBeTriggered(client)).Returns(false);
-        sut.ExecuteAsync(CancellationToken.None);
-
-        providerMock.Verify();
-        mockManager.Verify();
+        manager.Setup(m => m.CanBeTriggered(client)).Returns(false);
+        host.ExecuteAsync(CancellationToken.None);
     }
 }
 
