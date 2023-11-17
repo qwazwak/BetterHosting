@@ -12,7 +12,7 @@ internal static class SingletonServiceCheater
             throw ex;
         return instance;
     }
-    public static bool TryGet<T>(this IServiceCollection services, [NotNullWhen(true), MaybeNullWhen(false)] out T instance) where T : class => TryGet(services, out instance, out Exception? _);
+    public static bool TryGet<T>(this IServiceCollection services, [NotNullWhen(true), MaybeNullWhen(false)] out T? instance) where T : class => TryGet(services, out instance, out Exception? _);
 
     public static T GetOrAddSingleton<T>(this IServiceCollection services, Func<T> factory) where T : class
     {
@@ -24,7 +24,7 @@ internal static class SingletonServiceCheater
         return newInstance;
     }
 
-    private static bool TryGet<T>(this IServiceCollection services, [NotNullWhen(true), MaybeNullWhen(false)] out T instance, [NotNullWhen(false), MaybeNullWhen(true)] out Exception exception) where T : class
+    private static bool TryGet<T>(this IServiceCollection services, [NotNullWhen(true), MaybeNullWhen(false)] out T? instance, [NotNullWhen(false), MaybeNullWhen(true)] out Exception exception) where T : class
     {
         int count = services.Count;
         ServiceDescriptor? descriptor = null;
