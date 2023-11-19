@@ -1,11 +1,11 @@
 ﻿using DSharpPlus.BetterHosting.Services.Hosted;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using DSharpPlus.BetterHosting.Services.Interfaces;
 using System;
 using DSharpPlus.BetterHosting.Services;
 using DSharpPlus.BetterHosting.Services.Interfaces.Internal;
 using DSharpPlus.BetterHosting.Services.Implementation.Internal;
+using DSharpPlus.BetterHosting.Services.Interfaces;
 
 namespace DSharpPlus.BetterHosting;
 
@@ -14,19 +14,19 @@ namespace DSharpPlus.BetterHosting;
 public class BetterHostExtensionsTests
 {
     [Test]
-    public void AddEventsNext()
+    public void AddBetterHosting()
     {
         Mock<IServiceCollection> mockServices = new(MockBehavior.Strict);
 
         mockServices.Setup(s => s.Add(ItMore.ServiceDescriptorFrom.SimpleInterface.AddTransient<IClientConstructor, ClientConstructor>()))
             .Verifiable(Times.Once);
+        mockServices.Setup(s => s.Add(ItMore.ServiceDescriptorFrom.SimpleInterface.AddTransient<IMasterClientConfigurator, MasterClientConfigurator>()))
+            .Verifiable(Times.Once);
         mockServices.Setup(s => s.Add(ItMore.ServiceDescriptorFrom.SimpleInterface.AddTransient<IShortClientConstructor, ShortClientConstructor>()))
             .Verifiable(Times.Once);
         mockServices.Setup(s => s.Add(ItMore.ServiceDescriptorFrom.SimpleInterface.AddSingleton<IClientManager, ClientManager>()))
             .Verifiable(Times.Once);
-        mockServices.Setup(s => s.Add(It.Is<ServiceDescriptor>(d => d.ServiceType == typeof(IConnectedClientProvider) && d.ImplementationFactory != ServiceProviderServiceExtensions.GetRequiredService<IClientManager>)))
-            .Verifiable(Times.Once);
-        mockServices.Setup(s => s.Add(ItMore.ServiceDescriptorFrom.SimpleInterface.AddTransient<IMasterClientConfigurator, MasterClientConfigurator>()))
+        mockServices.Setup(s => s.Add(ItMore.ServiceDescriptorFrom.SimpleInterface.AddTransient<IConnectedClientProvider, ClientProvider>()))
             .Verifiable(Times.Once);
         mockServices.Setup(s => s.Add(ItMore.ServiceDescriptorFrom.SimpleInterface.AddSingleton<IHostedService, DiscordClientHost>()))
             .Verifiable(Times.Once);

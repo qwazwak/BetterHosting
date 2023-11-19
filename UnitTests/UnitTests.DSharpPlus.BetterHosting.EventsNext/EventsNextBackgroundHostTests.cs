@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using DSharpPlus;
 using DSharpPlus.BetterHosting.EventsNext.Services;
@@ -32,18 +31,23 @@ public class EventsNextBackgroundHostTests
     public void TearDown() => mocker.Verify();
 
     [Test]
-    public void NoHandlersExitFast()
+    public async Task NoHandlersExitFast()
     {
         DiscordShardedClient client = new(new());
         provider.Setup(p => p.GetClientAsync(It.IsAny<CancellationToken>())).ReturnsAsync(client).Verifiable(Times.Once);
 
         manager.Setup(m => m.CanBeTriggered(client)).Returns(false);
-        host.ExecuteAsync(CancellationToken.None);
+        Task result = host.StartAsync(CancellationToken.None);
+        Assert.That(result, Is.SameAs(Task.CompletedTask));
+        await result;
     }
-}
 
-file static class Reflection
-{
-    [UnsafeAccessor(UnsafeAccessorKind.Method, Name = "ExecuteAsync")]
-    public static extern Task ExecuteAsync(this EventsNextBackgroundHost<IEventHandlerManager> @this, CancellationToken stoppingToken);
+    [Test]
+    public async Task CallStop()
+    {
+        manager.Setup(m => m.Stop()).Verifiable(Times.Once);
+        Task result = host.StopAsync(CancellationToken.None);
+        Assert.That(result, Is.SameAs(Task.CompletedTask));
+        await result;
+    }
 }
