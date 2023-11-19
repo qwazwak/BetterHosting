@@ -4,6 +4,7 @@ using System;
 using Microsoft.Extensions.Logging;
 using DSharpPlus.BetterHosting.Services.Interfaces;
 using DSharpPlus.BetterHosting.Services.Interfaces.Internal;
+using System.Threading;
 
 namespace DSharpPlus.BetterHosting.Services.Implementation.Internal;
 
@@ -18,14 +19,17 @@ internal sealed class MasterClientConfigurator : IMasterClientConfigurator
         this.configurators = configurators;
     }
 
-    public async Task Configure(DiscordShardedClient client)
+    public async Task Configure(DiscordShardedClient client, CancellationToken cancellationToken)
     {
         List<Exception>? exceptions = null;
         foreach (IDiscordClientConfigurator configurator in configurators)
         {
+            if (cancellationToken.IsCancellationRequested)
+                return;
+
             try
             {
-                await configurator.Configure(client);
+                await configurator.Configure(client, cancellationToken);
             }
             catch (Exception ex)
             {

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using DSharpPlus.BetterHosting.Services.Interfaces;
 using DSharpPlus.BetterHosting.Services.Interfaces.Extensions;
@@ -19,14 +20,20 @@ public abstract class ExtensionAdditionTemplate<TExtension> : IDiscordClientConf
     /// <param name="configurators">All registered configurators</param>
     protected ExtensionAdditionTemplate(IEnumerable<IDiscordExtensionConfigurator<TExtension>> configurators) => this.configurators = new(configurators);
 
-    ValueTask IDiscordClientConfigurator.Configure(DiscordShardedClient client) => new(Configure(client));
+    ValueTask IDiscordClientConfigurator.Configure(DiscordShardedClient client, CancellationToken cancellationToken)
+    {
+        if (cancellationToken.IsCancellationRequested)
+            return ValueTask.FromCanceled(cancellationToken);
 
-    /// <inheritdoc cref="IDiscordClientConfigurator.Configure(DiscordShardedClient)"/>
-    public async Task Configure(DiscordShardedClient client)
+        return new(Configure(client, cancellationToken));
+    }
+
+    /// <inheritdoc cref="IDiscordClientConfigurator.Configure(DiscordShardedClient, CancellationToken)"/>
+    public async Task Configure(DiscordShardedClient client, CancellationToken cancellationToken)
     {
         IReadOnlyDictionary<int, TExtension> configs = await UseExtension(client);
 
-        Parallel.ForEach(configs, ConfigureOne);
+        Parallel.ForEach(configs, new ParallelOptions() { CancellationToken = cancellationToken }, ConfigureOne);
     }
 
     private void ConfigureOne(KeyValuePair<int, TExtension> kvp)

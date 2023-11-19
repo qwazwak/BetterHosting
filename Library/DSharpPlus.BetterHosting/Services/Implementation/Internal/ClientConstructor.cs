@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using DSharpPlus.BetterHosting.Services.Interfaces.Internal;
 using Microsoft.Extensions.Options;
 
@@ -15,11 +16,11 @@ internal sealed class ClientConstructor : IClientConstructor
         this.masterConfigurator = masterConfigurator;
     }
 
-    public async Task<DiscordShardedClient> ConstructClient()
+    public async Task<DiscordShardedClient> ConstructClient(CancellationToken cancellationToken)
     {
         DiscordConfiguration config = this.config.Value;
         DiscordShardedClient client = new(config);
-        await masterConfigurator.Configure(client);
+        await masterConfigurator.Configure(client, cancellationToken);
         return client;
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 
 namespace DSharpPlus.BetterHosting.Services.Interfaces;
 
@@ -11,6 +12,7 @@ public interface IDiscordClientConfigurator
     /// Called once before connection to setup various things
     /// </summary>
     /// <param name="client"></param>
-    /// <returns>A valuetask representing configuration completion</returns>
-    ValueTask Configure(DiscordShardedClient client);
+    /// <returns>A <see cref="ValueTask"/> representing configuration completion</returns>
+    /// <param name="cancellationToken"></param>
+    ValueTask Configure(DiscordShardedClient client, CancellationToken cancellationToken);
 }
