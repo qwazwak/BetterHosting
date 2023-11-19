@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 
 namespace DSharpPlus.BetterHosting.EventsNext.Services.Implementations;
 
-internal sealed class EventsNextBackgroundHost<TManager> : BackgroundService where TManager : IEventHandlerManager
+internal sealed class EventsNextBackgroundHost<TManager> : IHostedService where TManager : IEventHandlerManager
 {
     private readonly ILogger<EventsNextBackgroundHost<TManager>> logger;
     private readonly TManager manager;
@@ -20,12 +20,12 @@ internal sealed class EventsNextBackgroundHost<TManager> : BackgroundService whe
         this.clientProvider = clientProvider;
     }
 
-    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+    public async Task StartAsync(CancellationToken cancellationToken)
     {
         DiscordShardedClient client;
         try
         {
-            client = await clientProvider.GetClientAsync(stoppingToken).AsTask().WaitAsync(stoppingToken);
+            client = await clientProvider.GetClientAsync(cancellationToken).AsTask().WaitAsync(cancellationToken);
         }
         catch (OperationCanceledException)
         {
@@ -34,21 +34,14 @@ internal sealed class EventsNextBackgroundHost<TManager> : BackgroundService whe
         }
 
         if (manager.CanBeTriggered(client))
-            await RunAsync(client, stoppingToken);
+            manager.Start(client);
         else
             logger.LogInformation("Events for handlers managed by {HandlerType} were declared to not happen, so exiting quick", typeof(TManager).Name);
     }
 
-    private async Task RunAsync(DiscordShardedClient client, CancellationToken stoppingToken)
+    public Task StopAsync(CancellationToken cancellationToken)
     {
-        try
-        {
-            manager.Start(client);
-            await Task.Delay(Timeout.Infinite, stoppingToken);
-        }
-        finally
-        {
-            manager.Stop();
-        }
+        manager.Stop();
+        return Task.CompletedTask;
     }
 }
