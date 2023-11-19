@@ -1,0 +1,21 @@
+﻿<#@ template debug="true" hostspecific="true" language="C#" #>
+<#@ output extension=".cs" #>
+<#@ include file="..\DiscordEventsBase.tt" #>
+using System;
+using System.Collections.Generic;
+using System.Collections.Immutable;
+using DSharpPlus.BetterHosting.EventsNext.Services;
+using DSharpPlus.BetterHosting.EventsNext.Services.Implementations;
+using DSharpPlus.EventArgs;
+
+<#=AutomaticNamespaceLine#>
+
+internal static partial class EventReflection
+{
+    private static partial ImmutableDictionary<Type, DetailsRecord> GetDeails() => ImmutableDictionary.CreateRange(
+    [
+<#foreach(EventNaming naming in EventsList) {#>
+        KeyValuePair.Create(typeof(<#=naming.InterfaceName#>), DetailsRecord.Create<<#=naming.WithHandlerSuffix + "Manager"#>, <#=naming.InterfaceName#>, <#=naming.ArgumentType#>>()),
+<#}#>
+    ]);
+}

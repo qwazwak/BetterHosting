@@ -7,7 +7,6 @@ namespace UnitTests.DSharpPlus.BetterHosting.EventsNext;
 [System.Diagnostics.CodeAnalysis.SuppressMessage("Roslynator", "RCS1196:Call extension method as instance method.", Justification = "Make SUT clear")]
 public class EventsNextBetterHostExtensionsTests
 {
-
     [Test]
     public void AddEventsNextIsNOP()
     {

@@ -1,36 +1,18 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using DSharpPlus.BetterHosting.EventsNext.Services;
-using DSharpPlus.EventArgs;
-using DSharpPlus.BetterHosting.EventsNext.Services.Implementations;
-using Microsoft.Extensions.Hosting;
 
 namespace DSharpPlus.BetterHosting.EventsNext;
 
 /// <summary>
 /// The entry point to add <see cref="EventsNext"/>
 /// </summary>
-public static partial class EventsNextBetterHostExtensions
+public static class EventsNextBetterHostExtensions
 {
-    private static partial void AddAllHostedHandlers(IServiceCollection services);
-
-    private static IServiceCollection AddHostedHandlerCore<TManager, TEventInterface, TArgument>(this IServiceCollection services)
-        where TManager : EventHandlerManager<TEventInterface, TArgument>
-        where TEventInterface : IDiscordEventHandler<TArgument>
-        where TArgument : DiscordEventArgs
-    {
-        services.AddSingleton<TManager>();
-        services.AddSingleton<IHostedService, EventsNextBackgroundHost<TManager>>();
-        return services;
-    }
-
     /// <summary>
     /// Adds the EventsNext extension to the <see cref="IServiceCollection"/> with the default configuration path "EventsNextConfiguration"
     /// </summary>
+    /// <remarks>
+    /// Although currently a NOP, it is reccomended to call this as it may do more in the future</remarks>
     /// <param name="services"></param>
     /// <returns>The same <see cref="IServiceCollection"/> for chaining</returns>
-    public static IServiceCollection AddEventsNext(this IServiceCollection services)
-    {
-        AddAllHostedHandlers(services);
-        return services;
-    }
+    public static IServiceCollection AddEventsNext(this IServiceCollection services) => services;
 }

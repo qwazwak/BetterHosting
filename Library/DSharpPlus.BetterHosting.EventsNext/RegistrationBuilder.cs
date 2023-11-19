@@ -12,7 +12,7 @@ namespace DSharpPlus.BetterHosting.EventsNext;
 /// <typeparam name="TEventInterface">The type of handler to be registered as being requested.</typeparam>
 public sealed class RegistrationBuilder<TEventInterface> where TEventInterface : class, IDiscordEventHandler
 {
-    static RegistrationBuilder() => HandlerVerification.VerifyExactInterface<TEventInterface>();
+    static RegistrationBuilder() => EventReflection.Verification.VerifyExactInterface<TEventInterface>();
 
     private readonly IServiceCollection services;
     private HandlerRegistry<TEventInterface>? registry;

@@ -17,16 +17,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="EventsNextBetterHostExtensions.AddAllHostedHandlers.tt">
+    <None Update="Tools\EventReflection.Generated.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>EventsNextBetterHostExtensions.AddAllHostedHandlers.cs</LastGenOutput>
+      <LastGenOutput>EventReflection.Generated.cs</LastGenOutput>
       <!--<DependentUpon>DiscordEventsBase.tt</DependentUpon>-->
     </None>
 
-    <Compile Update="EventsNextBetterHostExtensions.AddAllHostedHandlers.cs">
+    <Compile Update="Tools\EventReflection.Generated.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>EventsNextBetterHostExtensions.AddAllHostedHandlers.tt</DependentUpon>
+      <DependentUpon>EventReflection.Generated.tt</DependentUpon>
     </Compile>
   </ItemGroup>
 
@@ -55,20 +55,6 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>EventHandlerManager.Generated.tt</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  
-  <ItemGroup>
-    <None Update="Tools\EventInterfaceValidation.Generated.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>EventInterfaceValidation.Generated.cs</LastGenOutput>
-      <!--<DependentUpon>DiscordEventsBase.tt</DependentUpon>-->
-    </None>
-
-    <Compile Update="Tools\EventInterfaceValidation.Generated.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>EventInterfaceValidation.Generated.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   

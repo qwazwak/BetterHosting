@@ -8,25 +8,25 @@ namespace UnitTests.DSharpPlus.BetterHosting.EventsNext.Tools;
 [TestFixtureSource(typeof(InvalidHandlerTypesTestData), nameof(InvalidHandlerTypesTestData.InvalidGenericEventHandlerTypes))]
 [TestFixtureSource(typeof(HandlerTypesTestData), nameof(HandlerTypesTestData.EventHandlerBaseInterface))]
 [TestFixtureSource(typeof(HandlerTypesTestData), nameof(HandlerTypesTestData.GenericEventHandlerTypes))]
-public class EventInterfaceValidationTests_Unsupported<TInterface> where TInterface : IDiscordEventHandler
+public class EventReflectionValidationTests_Unsupported<TInterface> where TInterface : IDiscordEventHandler
 {
     [Test]
     public void IsExactInterface_ByType()
     {
-        bool isExact = EventInterfaceValidation.IsExactInterface(typeof(TInterface));
+        bool isExact = EventReflection.Validation.IsExactInterface(typeof(TInterface));
         Assert.That(isExact, Is.False);
     }
 
     [Test]
-    public void VerifyExactInterface_ByType() => Assert.Throws<InvalidHandlerInterfaceException>([ExcludeFromCodeCoverage(Justification = "Method call for unit test")] () => HandlerVerification.VerifyExactInterface(typeof(TInterface)));
+    public void VerifyExactInterface_ByType() => Assert.Throws<InvalidHandlerInterfaceException>([ExcludeFromCodeCoverage(Justification = "Method call for unit test")] () => EventReflection.Verification.VerifyExactInterface(typeof(TInterface)));
 
     [Test]
     public void IsExactInterface_ByGeneric()
     {
-        bool isExact = EventInterfaceValidation.IsExactInterface<TInterface>();
+        bool isExact = EventReflection.Validation.IsExactInterface<TInterface>();
         Assert.That(isExact, Is.False);
     }
 
     [Test]
-    public void VerifyExactInterface_ByGeneric() => Assert.Throws<InvalidHandlerInterfaceException>(HandlerVerification.VerifyExactInterface<TInterface>);
+    public void VerifyExactInterface_ByGeneric() => Assert.Throws<InvalidHandlerInterfaceException>(EventReflection.Verification.VerifyExactInterface<TInterface>);
 }

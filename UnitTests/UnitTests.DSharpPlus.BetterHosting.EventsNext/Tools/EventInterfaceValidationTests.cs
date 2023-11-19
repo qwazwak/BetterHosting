@@ -5,16 +5,16 @@ using DSharpPlus.BetterHosting.EventsNext.Tools;
 namespace UnitTests.DSharpPlus.BetterHosting.EventsNext.Tools;
 
 [TestFixtureSource(typeof(HandlerTypesTestData), nameof(HandlerTypesTestData.SpecificHandlerInterfaces))]
-public class EventInterfaceValidationTests
+public class EventReflectionValidationTests
 {
-    private static readonly MethodInfo openGenericIsExact = typeof(EventInterfaceValidation).GetMethod(nameof(EventInterfaceValidation.IsExactInterface), BindingFlags.Static | BindingFlags.Public, Type.EmptyTypes)!;
-    private static readonly MethodInfo openGenericAssignableAny = typeof(EventInterfaceValidation).GetMethod(nameof(EventInterfaceValidation.IsAssignableToAny), BindingFlags.Static | BindingFlags.Public, Type.EmptyTypes)!;
+    private static readonly MethodInfo openGenericIsExact = typeof(EventReflection.Validation).GetMethod(nameof(EventReflection.Validation.IsExactInterface), BindingFlags.Static | BindingFlags.Public, Type.EmptyTypes)!;
+    private static readonly MethodInfo openGenericAssignableAny = typeof(EventReflection.Validation).GetMethod(nameof(EventReflection.Validation.IsAssignableToAny), BindingFlags.Static | BindingFlags.Public, Type.EmptyTypes)!;
 
     private readonly Type interfaceType;
     private readonly Func<bool> IsExactInterfaceGenericDelegate;
     private readonly Func<bool> IsAssignableToAnyGenericDelegate;
 
-    public EventInterfaceValidationTests(Type interfaceType)
+    public EventReflectionValidationTests(Type interfaceType)
     {
         this.interfaceType = interfaceType;
         IsExactInterfaceGenericDelegate = openGenericIsExact.MakeGenericMethod(interfaceType).CreateDelegate<Func<bool>>();
@@ -31,7 +31,7 @@ public class EventInterfaceValidationTests
     [Test]
     public void IsExactInterface_ByType()
     {
-        bool isExact = EventInterfaceValidation.IsExactInterface(interfaceType);
+        bool isExact = EventReflection.Validation.IsExactInterface(interfaceType);
         Assert.That(isExact, Is.True);
     }
 
@@ -45,7 +45,7 @@ public class EventInterfaceValidationTests
     [Test]
     public void IsAssignableToAny_ByType()
     {
-        bool isExact = EventInterfaceValidation.IsAssignableToAny(interfaceType);
+        bool isExact = EventReflection.Validation.IsAssignableToAny(interfaceType);
         Assert.That(isExact, Is.True);
     }
 
@@ -53,5 +53,5 @@ public class EventInterfaceValidationTests
     public void VerifyExactInterface_Generic() => Assert.DoesNotThrow(() => IsExactInterfaceGenericDelegate.Invoke());
 
     [Test]
-    public void VerifyExactInterface_ByType() => Assert.DoesNotThrow(() => HandlerVerification.VerifyExactInterface(interfaceType));
+    public void VerifyExactInterface_ByType() => Assert.DoesNotThrow(() => EventReflection.Verification.VerifyExactInterface(interfaceType));
 }
