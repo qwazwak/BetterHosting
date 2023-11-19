@@ -4,7 +4,6 @@ using FreddyBot.Services.Implementation;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
-using FreddyBot.Services.Implementation.Database;
 using FreddyBot.Services.Extensions;
 using DSharpPlus.BetterHosting;
 using DSharpPlus;
@@ -12,6 +11,7 @@ using DSharpPlus.BetterHosting.EventsNext;
 using FreddyBot.Handlers;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Hosting.Internal;
+using FreddyBot.Options;
 
 await Host.CreateDefaultBuilder(args)
     .ConfigureServices(ConfigureServices)
@@ -42,12 +42,12 @@ static void ConfigureServices(IServiceCollection services)
         | DiscordIntents.MessageContents;
     });
 
-    services.AddTransient<IHostLifetime, DBFileSetup<SwearJarContext>>();
-    services.AddTransient<IHostLifetime, DBFileSetup<BadPasswordContext>>();
+    services.AddTransient<IConnectionStringsProvider, ConnectionStringsProvider>();
+    services.AddTransient<IHostLifetime, DBFileSetup<FreddyDbContext>>();
 
     services.AddSingleton(Random.Shared); // We're using the shared instance of Random for simplicity.
 
-    AddDbContext<SwearJarContext>(services, connectionStringName: null);
+    AddDbContext<FreddyDbContext>(services, connectionStringName: "FreddyDB");
 
     services.AddTransient<ISwearJar, DbSwearJar>();
 
@@ -55,6 +55,8 @@ static void ConfigureServices(IServiceCollection services)
 
     services.AddScoped<ISentimentAnalyzer, ApiNinja>();
     services.AddScoped<IPasswordGenerator, ApiNinja>();
+
+    services.AddOptions<SwearList>().BindConfiguration("Swears");
 }
 
 static void AddDbContext<TContext>(IServiceCollection services, string? connectionStringName) where TContext : DbContext
