@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using FreddyBot.Data.Tables;
-using FreddyBot.Services.Implementation.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -9,10 +8,10 @@ namespace FreddyBot.Services.Implementation;
 public class DbSwearJar : ISwearJar
 {
     private readonly ILogger<DbSwearJar> logger;
-    private readonly SwearJarContext db;
+    private readonly FreddyDbContext db;
     private DbSet<SwearJar> SwearJars => db.SwearJars;
 
-    public DbSwearJar(ILogger<DbSwearJar> logger, SwearJarContext db)
+    public DbSwearJar(ILogger<DbSwearJar> logger, FreddyDbContext db)
     {
         this.logger = logger;
         this.db = db;

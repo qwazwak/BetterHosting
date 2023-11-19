@@ -31,18 +31,16 @@
     <None Update="appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <FreddyDefaultDataItems Include="$(ProjectDir)\FreddyDefaultData\**\*.*" />
+    <None Update="appsettings.*.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Freddy.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Library\DSharpPlus.BetterHosting.EventsNext\DSharpPlus.BetterHosting.EventsNext.csproj" />
     <ProjectReference Include="..\..\Library\DSharpPlus.BetterHosting\DSharpPlus.BetterHosting.csproj" />
   </ItemGroup>
-
-  <Target Name="CopyCustomContent" AfterTargets="AfterBuild">
-    <Copy SourceFiles="@(FreddyDefaultDataItems)" DestinationFolder="$(OutputPath)\%(RecursiveDir)" SkipUnchangedFiles="true" OverwriteReadOnlyFiles="true" Retries="3" RetryDelayMilliseconds="300" />
-  </Target>
 </Project>
