@@ -6,6 +6,7 @@ namespace DSharpPlus.BetterHosting.Services.Interfaces;
 /// <summary>
 /// Provides <see cref="DiscordShardedClient"/>, only after they have connected
 /// </summary>
+//TODO: rename to IClientProvider
 public interface IConnectedClientProvider
 {
     /// <summary>
