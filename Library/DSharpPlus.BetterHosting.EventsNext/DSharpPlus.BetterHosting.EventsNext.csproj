@@ -58,7 +58,6 @@
     </Compile>
   </ItemGroup>
   
-  
   <ItemGroup>
     <None Update="Services\IDiscordEventHandlers.Generated.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
