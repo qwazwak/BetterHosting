@@ -5,39 +5,40 @@ using DSharpPlus.BetterHosting.Services.Hosted;
 using DSharpPlus.BetterHosting.Services.Interfaces;
 using DSharpPlus.Entities;
 using Microsoft.Extensions.Logging;
+using Moq.AutoMock;
 
 namespace UnitTests.DSharpPlus.BetterHosting.Services.Hosted;
 
 [TestFixture(TestOf = typeof(DiscordActivityStateController))]
 public class DiscordActivityStateControllerTests
 {
-    [Test]
-    public void ConstructorDoesNothing()
-    {
-        Mock<IDefaultActivityProvider> mockProvider = new(MockBehavior.Strict);
-        Mock<ILogger<DiscordActivityStateController>> mockLogger = new(MockBehavior.Loose);
+    AutoMocker mocker = default!;
+    Mock<IDefaultActivityProvider> provider = default!;
+    DiscordActivityStateController controller = default!;
 
-        DiscordActivityStateController sut = new(mockLogger.Object, mockProvider.Object);
-        Assert.That(sut, Is.Not.Null);
-        mockLogger.Verify();
-        mockProvider.Verify();
+    [SetUp]
+    public void SetUp()
+    {
+        mocker = new(MockBehavior.Strict);
+        mocker.Use(new Mock<ILogger<DiscordActivityStateController>>(MockBehavior.Loose));
+        provider = mocker.GetMock<IDefaultActivityProvider>();
+        controller = mocker.CreateInstance<DiscordActivityStateController>();
     }
+
+    [TearDown]
+    public void TearDown() => mocker.Verify();
+
+    [Test]
+    public void ConstructorDoesNothing() { }
 
     [Test]
     public async Task TestConstruction()
     {
-        DiscordShardedClient client = new(new());
         DiscordActivity activity = new();
-        Mock<IDefaultActivityProvider> mockProvider = new(MockBehavior.Strict);
-        mockProvider.Setup(p => p.DefaultActivity).Returns(activity).Verifiable(Times.Once);
-        Mock<ILogger<DiscordActivityStateController>> mockLogger = new(MockBehavior.Loose);
+        provider.Setup(p => p.DefaultActivity).Returns(activity).Verifiable(Times.Once);
 
-        DiscordActivityStateController sut = new(mockLogger.Object, mockProvider.Object);
-
+        DiscordShardedClient client = new(new());
         //Due to DSharpPlus's sealed classes w/o interfaces, there is nothing more we can test.
-        await sut.AfterConnected(client, CancellationToken.None);
-
-        mockLogger.Verify();
-        mockProvider.Verify();
+        await controller.AfterConnected(client, CancellationToken.None);
     }
 }
