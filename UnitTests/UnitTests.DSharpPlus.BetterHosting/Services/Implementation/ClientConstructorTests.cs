@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Threading.Tasks;
 using DSharpPlus;
 using DSharpPlus.BetterHosting.Services.Implementation.Internal;
@@ -38,9 +39,9 @@ public class ClientConstructorTests
         DiscordConfiguration config = new();
 
         mockOptions.Setup(o => o.Value).Returns(config).Verifiable(Times.Once);
-        mockMaster.Setup(m => m.Configure(Capture.In(clientCapture))).Returns(Task.CompletedTask).Verifiable(Times.Once);
+        mockMaster.Setup(m => m.Configure(Capture.In(clientCapture), CancellationToken.None)).Returns(Task.CompletedTask).Verifiable(Times.Once);
 
-        DiscordShardedClient result = await sut.ConstructClient();
+        DiscordShardedClient result = await sut.ConstructClient(CancellationToken.None);
 
         Assert.Multiple(() =>
         {

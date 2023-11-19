@@ -1,19 +1,20 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using DSharpPlus;
 using DSharpPlus.BetterHosting.Services.Implementation.Internal;
 using DSharpPlus.BetterHosting.Services.Interfaces.Internal;
 using Microsoft.Extensions.DependencyInjection;
+using Moq.AutoMock;
 
 namespace UnitTests.DSharpPlus.BetterHosting.Services.Implementation;
 
 [TestFixture(TestOf = typeof(ShortClientConstructor))]
 public class ShortClientConstructorTests
 {
-    MockRepository repository;
+    AutoMocker autoMocker;
     ShortClientConstructor shortConstructor;
 
-    Mock<IClientConstructor> mockConstructor;
     Mock<IServiceProvider> mockProvider;
     Mock<IServiceScope> mockScope;
     Mock<IServiceScopeFactory> mockFactory;
@@ -21,50 +22,51 @@ public class ShortClientConstructorTests
     [SetUp]
     public void SetUp()
     {
-        repository = new(MockBehavior.Strict);
+        autoMocker = new(MockBehavior.Strict);
 
-        mockConstructor = repository.Create<IClientConstructor>();
+        mockProvider = autoMocker.GetMock<IServiceProvider>();
+        mockScope = autoMocker.GetMock<IServiceScope>();
+        mockFactory = autoMocker.GetMock<IServiceScopeFactory>();
 
-        mockProvider = repository.Create<IServiceProvider>();
+        mockScope.Setup(s => s.Dispose())
+            .Verifiable(Times.Once);
 
-        mockScope = repository.Create<IServiceScope>();
-        mockScope.Setup(s => s.Dispose()).Verifiable(Times.Once);
-        mockScope.Setup(s => s.ServiceProvider).Returns(mockProvider.Object).Verifiable(Times.Once);
+        mockScope.Setup(s => s.ServiceProvider)
+            .Returns(mockProvider.Object)
+            .Verifiable(Times.Once);
 
-        mockFactory = repository.Create<IServiceScopeFactory>();
-        mockFactory.Setup(f => f.CreateScope()).Returns(mockScope.Object).Verifiable(Times.Once);
-        shortConstructor = new(mockFactory.Object);
+        mockFactory.Setup(f => f.CreateScope())
+            .Returns(mockScope.Object)
+            .Verifiable(Times.Once);
+
+        shortConstructor = autoMocker.CreateInstance<ShortClientConstructor>();
     }
 
-    private void ReturnsMock(out DiscordShardedClient expectedClient)
-    {
-        expectedClient = new(new());
-        mockConstructor.Setup(s => s.ConstructClient()).ReturnsAsync(expectedClient).Verifiable(Times.Once);
-
-        mockProvider.Setup(s => s.GetService(typeof(IClientConstructor))).Returns(mockConstructor.Object).Verifiable(Times.Once);
-    }
-
-    private void NoMock() => mockProvider.Setup(s => s.GetService(typeof(IClientConstructor))).Returns(() => null).Verifiable(Times.Once);
+    [TearDown]
+    public void TearDown() => autoMocker.Verify();
 
     [Test]
     public async Task TestConstructClient()
     {
-        ReturnsMock(out DiscordShardedClient? expectedClient);
+        DiscordShardedClient expectedClient = new(new());
 
-        DiscordShardedClient returnedClient = await shortConstructor.ConstructClient();
+        Mock<IClientConstructor> mockConstructor = autoMocker.GetMock<IClientConstructor>();
+        mockConstructor.Setup(s => s.ConstructClient(CancellationToken.None)).ReturnsAsync(expectedClient).Verifiable(Times.Once);
+
+        mockProvider.Setup(s => s.GetService(typeof(IClientConstructor))).Returns(mockConstructor.Object).Verifiable(Times.Once);
+
+        DiscordShardedClient returnedClient = await shortConstructor.ConstructClient(CancellationToken.None);
 
         Assert.That(returnedClient, Is.SameAs(expectedClient));
-        repository.Verify();
     }
 
     [Test]
     public void TestNoConstructOr()
     {
-        NoMock();
+        mockProvider.Setup(s => s.GetService(typeof(IClientConstructor))).Returns(() => null).Verifiable(Times.Once);
 
-        AsyncTestDelegate constructClient = shortConstructor.ConstructClient;
+        Task constructClient() => shortConstructor.ConstructClient(CancellationToken.None);
 
         Assert.That(constructClient, Throws.TypeOf<InvalidOperationException>());
-        repository.Verify();
     }
 }
