@@ -20,10 +20,9 @@ public sealed class SwearJarHandler : IMessageCreatedEventHandler
         this.profanityDetector = profanityDetector;
     }
 
-    ValueTask IMessageCreatedEventHandler.OnMessageCreated(DiscordClient client, MessageCreateEventArgs args) => OnMessageCreated(args);
-    public ValueTask OnMessageCreated(MessageCreateEventArgs args)
+    public ValueTask OnMessageCreated(DiscordClient client, MessageCreateEventArgs args)
     {
-        if (args.Message.Author.IsBot)
+        if (args.Message.Author.IsBot || client.CurrentUser.Equals(args.Author))
             return ValueTask.CompletedTask;
         return new(OnMessageCreatedNoBots(args));
     }
@@ -33,7 +32,7 @@ public sealed class SwearJarHandler : IMessageCreatedEventHandler
         string message = args.Message.Content;
         if (await profanityDetector.ContainsProfanity(message))
         {
-            logger.LogInformation("User \"{author}\" said a bad word! The swear jar will be updated.", args.Author.Username);
+            logger.LogInformation("User \"{author}\" said a bad word in message {message}! The swear jar will be updated.", args.Author.Username, message);
             await swearJar.IncrementJar(args.Channel.Guild.Id);
         }
     }

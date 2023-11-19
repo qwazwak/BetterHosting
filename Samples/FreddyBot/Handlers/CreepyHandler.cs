@@ -25,9 +25,14 @@ public sealed class CreepyHandler : IMessageCreatedEventHandler
         this.rng = rng;
     }
 
-    ValueTask IMessageCreatedEventHandler.OnMessageCreated(DiscordClient client, MessageCreateEventArgs args) => OnMessageCreated(args);
-    public ValueTask OnMessageCreated(MessageCreateEventArgs args)
+    public ValueTask OnMessageCreated(DiscordClient client, MessageCreateEventArgs args)
     {
+        if (client.CurrentUser.Equals(args.Author))
+        {
+            logger.LogTrace("Ignoring message {message} because it was posted by me", args.Message);
+            return ValueTask.CompletedTask;
+        }
+
         double value = rng.NextDouble();
         if (value > FractionalChance)
             return ValueTask.CompletedTask;
