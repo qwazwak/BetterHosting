@@ -29,10 +29,11 @@ public static class BetterHostExtensions
     public static IServiceCollection AddBetterHosting(this IServiceCollection services)
     {
         services.AddTransient<IClientConstructor, ClientConstructor>();
-        services.AddTransient<IShortClientConstructor, ShortClientConstructor>();
-        services.AddSingleton<IClientManager, ClientManager>();
-        services.AddSingleton<IConnectedClientProvider>(ServiceProviderServiceExtensions.GetRequiredService<IClientManager>);
         services.AddTransient<IMasterClientConfigurator, MasterClientConfigurator>();
+        services.AddTransient<IShortClientConstructor, ShortClientConstructor>();
+
+        services.AddSingleton<IClientManager, ClientManager>();
+        services.AddTransient<IConnectedClientProvider, ClientProvider>();
 
         services.AddSingleton<IHostedService, DiscordClientHost>();
 
