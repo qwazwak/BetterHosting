@@ -15,13 +15,13 @@ public sealed class RegistrationBuilder<TEventInterface> where TEventInterface :
     static RegistrationBuilder() => HandlerVerification.VerifyExactInterface<TEventInterface>();
 
     private readonly IServiceCollection services;
-    private readonly HandlerRegistry<TEventInterface> registry;
+    private HandlerRegistry<TEventInterface>? registry;
+    private HandlerRegistry<TEventInterface> Registry => registry ??= RegistrationBuilderHelper.GetHandlerRegistration<TEventInterface>(services);
 
     internal RegistrationBuilder(IServiceCollection services)
     {
         ArgumentNullException.ThrowIfNull(services);
         this.services = services;
-        registry = RegistrationBuilderHelper.GetHandlerRegistration<TEventInterface>(services);
     }
 
     /// <summary>
@@ -37,7 +37,7 @@ public sealed class RegistrationBuilder<TEventInterface> where TEventInterface :
         if (!handlerType.IsAssignableTo(typeof(TEventInterface)))
             throw new ArgumentException("Invalid handler type");
 
-        HandlerRegistration registration = registry.AddHandler();
+        HandlerRegistration registration = Registry.AddHandler();
         Guid key = registration.Key;
         services.AddKeyedScoped(typeof(TEventInterface), key, handlerType);
         return this;
