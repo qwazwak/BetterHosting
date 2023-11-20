@@ -31,6 +31,7 @@ static void ConfigureServices(IServiceCollection services)
     services.AddDefaultActivityByOptions("DefaultDiscordActivity");
 
     services.AddMessageCreatedHandlers()
+        .RegisterHandler<SusHandler>()
         .RegisterHandler<AtFreddyHandler>();
 
     services.AutoRegisterHandler<CreepyHandler>();
@@ -48,6 +49,7 @@ static void ConfigureServices(IServiceCollection services)
     services.AddTransient<IConnectionStringsProvider, ConnectionStringsProvider>();
 
     services.AddSingleton(Random.Shared); // We're using the shared instance of Random for simplicity.
+    services.AddTransient<SusHelper>();
 
     services.AddScoped<IProfanityDetector, SimpleSwearDetector>();
      services.AddScoped<ISentimentAnalyzer, ApiNinja>();
