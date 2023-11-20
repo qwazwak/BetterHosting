@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using System.Diagnostics.CodeAnalysis;
 
 namespace FreddyBot.Services.Implementation;
+
 public class BadPasswordGenerator : IPasswordGenerator
 {
     private readonly ILogger<BadPasswordGenerator> logger;

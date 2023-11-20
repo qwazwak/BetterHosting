@@ -26,13 +26,13 @@ static void ConfigureServices(IServiceCollection services)
         .AddLogging(o => o.AddConsole())
         .AddHttpClient();
 
-    services.AddBetterHosting().AddEventsNext().AddSlashCommands();
-
-    services.RegisterSlashCommands();
+    services.AddBetterHosting().AddEventsNext().AddSlashCommands().RegisterSlashCommands();
 
     services.AddDefaultActivityByOptions("DefaultDiscordActivity");
 
-    services.AutoRegisterHandler<AtFreddyHandler>();
+    services.AddMessageCreatedHandlers()
+        .RegisterHandler<AtFreddyHandler>();
+
     services.AutoRegisterHandler<CreepyHandler>();
     services.AutoRegisterHandler<PHPHandler>();
     services.AutoRegisterHandler<SwearJarHandler>();
@@ -46,27 +46,17 @@ static void ConfigureServices(IServiceCollection services)
     });
 
     services.AddTransient<IConnectionStringsProvider, ConnectionStringsProvider>();
-    services.AddTransient<IHostLifetime, DBFileSetup<FreddyDbContext>>();
 
     services.AddSingleton(Random.Shared); // We're using the shared instance of Random for simplicity.
 
-    AddDbContext<FreddyDbContext>(services, connectionStringName: "FreddyDB");
+    services.AddScoped<IProfanityDetector, SimpleSwearDetector>();
+     services.AddScoped<ISentimentAnalyzer, ApiNinja>();
+    services.AddScoped<IPasswordGenerator, ApiNinja>();
 
     services.AddTransient<ISwearJar, DbSwearJar>();
 
-    services.AddScoped<IProfanityDetector, SimpleSwearDetector>();
-
-    services.AddScoped<ISentimentAnalyzer, ApiNinja>();
-    services.AddScoped<IPasswordGenerator, ApiNinja>();
+    services.AddTransient<IHostLifetime, DBFileSetup>();
+    services.AddDbContext<FreddyDbContext>((IServiceProvider provider, DbContextOptionsBuilder optBuilder) => optBuilder.UseSqlite(provider.GetRequiredService<IConnectionStringsProvider>().GetRequired("FreddyDB")));
 
     services.AddOptions<SwearList>().BindConfiguration("Swears");
-}
-
-static void AddDbContext<TContext>(IServiceCollection services, string? connectionStringName) where TContext : DbContext
-{
-    services.AddDbContext<TContext>((IServiceProvider provider, DbContextOptionsBuilder optBuilder) =>
-    {
-        IConnectionStringsProvider connStringProvider = provider.GetRequiredService<IConnectionStringsProvider>();
-        optBuilder.UseSqlite(connStringProvider.GetRequired(connectionStringName));
-    });
 }

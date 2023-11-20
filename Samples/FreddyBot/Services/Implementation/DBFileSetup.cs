@@ -1,17 +1,16 @@
 ﻿using System.Threading.Tasks;
 using System.Threading;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Hosting;
 
 namespace FreddyBot.Services.Implementation;
 
-public class DBFileSetup<TContext> : IHostLifetime where TContext : DbContext
+public class DBFileSetup : IHostLifetime
 {
-    private readonly ILogger<DBFileSetup<TContext>> logger;
-    private readonly TContext context;
+    private readonly ILogger<DBFileSetup> logger;
+    private readonly FreddyDbContext context;
 
-    public DBFileSetup(ILogger<DBFileSetup<TContext>> logger, TContext context)
+    public DBFileSetup(ILogger<DBFileSetup> logger, FreddyDbContext context)
     {
         this.logger = logger;
         this.context = context;
@@ -19,10 +18,10 @@ public class DBFileSetup<TContext> : IHostLifetime where TContext : DbContext
 
     public async Task WaitForStartAsync(CancellationToken cancellationToken)
     {
-        if(await context.Database.EnsureCreatedAsync(cancellationToken))
-            logger.LogInformation("Created DB file for {ContextName}", typeof(TContext).Name);
+        if(await context.Database.EnsureCreatedAsync(CancellationToken.None))
+            logger.LogInformation("Created DB file");
         else
-            logger.LogDebug("DB file for {ContextName} already existed", typeof(TContext).Name);
+            logger.LogDebug("DB file already existed");
     }
 
     public Task StopAsync(CancellationToken cancellationToken) => Task.CompletedTask;
