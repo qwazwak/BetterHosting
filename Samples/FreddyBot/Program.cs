@@ -32,6 +32,7 @@ static void ConfigureServices(IServiceCollection services)
 
     services.AddMessageCreatedHandlers()
         .RegisterHandler<SusHandler>()
+        .RegisterHandler<SusImageHandler>()
         .RegisterHandler<AtFreddyHandler>();
 
     services.AutoRegisterHandler<CreepyHandler>();
@@ -50,6 +51,7 @@ static void ConfigureServices(IServiceCollection services)
 
     services.AddSingleton(Random.Shared); // We're using the shared instance of Random for simplicity.
     services.AddTransient<SusHelper>();
+    services.AddSingleton<SusPredictor>();
 
     services.AddScoped<IProfanityDetector, SimpleSwearDetector>();
      services.AddScoped<ISentimentAnalyzer, ApiNinja>();
