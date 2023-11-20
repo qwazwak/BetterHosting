@@ -12,6 +12,7 @@ using FreddyBot.Handlers;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Hosting.Internal;
 using FreddyBot.Options;
+using DSharpPlus.BetterHosting.SlashCommands;
 
 await Host.CreateDefaultBuilder(args)
     .ConfigureServices(ConfigureServices)
@@ -25,7 +26,9 @@ static void ConfigureServices(IServiceCollection services)
         .AddLogging(o => o.AddConsole())
         .AddHttpClient();
 
-    services.AddBetterHosting().AddEventsNext();
+    services.AddBetterHosting().AddEventsNext().AddSlashCommands();
+
+    services.RegisterSlashCommands();
 
     services.AddDefaultActivityByOptions("DefaultDiscordActivity");
 

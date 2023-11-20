@@ -41,6 +41,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Library\DSharpPlus.BetterHosting.EventsNext\DSharpPlus.BetterHosting.EventsNext.csproj" />
+    <ProjectReference Include="..\..\Library\DSharpPlus.BetterHosting.SlashCommands\DSharpPlus.BetterHosting.SlashCommands.csproj" />
     <ProjectReference Include="..\..\Library\DSharpPlus.BetterHosting\DSharpPlus.BetterHosting.csproj" />
   </ItemGroup>
 </Project>
