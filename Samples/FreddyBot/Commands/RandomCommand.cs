@@ -1,5 +1,4 @@
-﻿using DSharpPlus.CommandsNext;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System;
 using DSharpPlus.SlashCommands;
 
@@ -12,13 +11,13 @@ public sealed class RandomSlashCommand : ApplicationCommandModule
     public RandomSlashCommand(Random random) => this.random = random;
 
     [SlashCommand("random", "Returns a random number within the specified range. Defaults between 0 and 10.")]
-    public async Task RandomAsync(CommandContext context, int min = 0, int max = 10, bool maxIsInclusive = true)
+    public async Task RandomAsync(InteractionContext context, [Option(nameof(min), "minimum value")] long min = 0, [Option(nameof(max), "maximum value")] long max = 10, [Option(nameof(maxIsInclusive), "true if max is a valid value")] bool maxIsInclusive = true)
     {
         // Ensure that the minimum value is less than or equal to the maximum value.
         if (min > max)
         {
             // Inform the user that they messed up.
-            await context.RespondAsync("The minimum value must be less than or equal to the maximum value.");
+            await context.CreateResponseAsync("The minimum value must be less than or equal to the maximum value.");
             return;
         }
 
@@ -26,6 +25,6 @@ public sealed class RandomSlashCommand : ApplicationCommandModule
             max++;
 
         // Respond with the random number.
-        await context.RespondAsync($"Your random number is {random.Next(min, max)}.");
+        await context.CreateResponseAsync($"Your random number is {random.NextInt64(min, max)}.");
     }
 }
