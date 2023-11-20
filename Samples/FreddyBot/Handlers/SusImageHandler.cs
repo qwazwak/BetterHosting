@@ -48,9 +48,13 @@ public sealed partial class SusImageHandler : IMessageCreatedEventHandler
         {
             float[] res = await predictor.Predict(attachment, cancellationToken);
             if (res.Length == 0)
+            {
+                logger.LogDebug("attachment {name} was had no elements labeled sus.", attachment.FileName);
                 return false;
+            }
+
             logger.LogDebug("attachment {name} was {amount}% sus.", attachment.FileName, res.Max());
-            return res.Any(f => f >= 0.8f);
+            return res.Any(f => f >= 0.4f);
         }
     }
 }

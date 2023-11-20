@@ -18,7 +18,7 @@ public class DBFileSetup : IHostLifetime
 
     public async Task WaitForStartAsync(CancellationToken cancellationToken)
     {
-        if(await context.Database.EnsureCreatedAsync(CancellationToken.None))
+        if (await context.Database.EnsureCreatedAsync(CancellationToken.None))
             logger.LogInformation("Created DB file");
         else
             logger.LogDebug("DB file already existed");
