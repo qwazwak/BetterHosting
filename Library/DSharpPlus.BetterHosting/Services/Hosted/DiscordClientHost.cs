@@ -26,7 +26,11 @@ internal class DiscordClientHost : BackgroundLifecycleService
 
     protected override async Task Start(CancellationToken stoppingToken)
     {
-        Debug.Assert(client == null);
+        if(client == null)
+        {
+            logger.LogWarning("Service restarted without shutdown, how??");
+            return;
+        }
 
         logger.LogInformation("Starting discord setup...");
 
