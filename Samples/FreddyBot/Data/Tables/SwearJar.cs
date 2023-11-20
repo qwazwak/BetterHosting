@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 using FreddyBot.Data.Tables.Interfaces;
 using FreddyBot.Data.Tables.KeyBases;
 using Microsoft.EntityFrameworkCore;
@@ -24,7 +25,8 @@ public class SwearJar : GuildKeyed, IDBTable
     public decimal ValueOfSingleSwear { get; set; } = 0.25m;
 
     [Column(ColumnNames.SwearCount)]
-    public int SwearCount { get; set; } = 1;
+    [DefaultValue(0)]
+    public int SwearCount { get; set; } = 0;
 
     [NotMapped]
     public decimal CurrentJarValue => ValueOfSingleSwear * SwearCount;
