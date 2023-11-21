@@ -9,7 +9,7 @@ namespace DSharpPlus.BetterHosting.EventsNext.Services;
 /// </summary>
 public interface ISocketErroredEventHandler : IDiscordEventHandler<SocketErrorEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.SocketErrored"/>
+    /// <inheritdoc cref="DiscordClient.SocketErrored"/>
     public ValueTask OnSocketErrored(DiscordClient client, SocketErrorEventArgs args);
 }
 
@@ -18,7 +18,7 @@ public interface ISocketErroredEventHandler : IDiscordEventHandler<SocketErrorEv
 /// </summary>
 public interface ISocketOpenedEventHandler : IDiscordEventHandler<SocketEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.SocketOpened"/>
+    /// <inheritdoc cref="DiscordClient.SocketOpened"/>
     public ValueTask OnSocketOpened(DiscordClient client, SocketEventArgs args);
 }
 
@@ -27,7 +27,7 @@ public interface ISocketOpenedEventHandler : IDiscordEventHandler<SocketEventArg
 /// </summary>
 public interface ISocketClosedEventHandler : IDiscordEventHandler<SocketCloseEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.SocketClosed"/>
+    /// <inheritdoc cref="DiscordClient.SocketClosed"/>
     public ValueTask OnSocketClosed(DiscordClient client, SocketCloseEventArgs args);
 }
 
@@ -36,7 +36,7 @@ public interface ISocketClosedEventHandler : IDiscordEventHandler<SocketCloseEve
 /// </summary>
 public interface ISessionCreatedEventHandler : IDiscordEventHandler<SessionReadyEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.SessionCreated"/>
+    /// <inheritdoc cref="DiscordClient.SessionCreated"/>
     public ValueTask OnSessionCreated(DiscordClient client, SessionReadyEventArgs args);
 }
 
@@ -45,7 +45,7 @@ public interface ISessionCreatedEventHandler : IDiscordEventHandler<SessionReady
 /// </summary>
 public interface ISessionResumedEventHandler : IDiscordEventHandler<SessionReadyEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.SessionResumed"/>
+    /// <inheritdoc cref="DiscordClient.SessionResumed"/>
     public ValueTask OnSessionResumed(DiscordClient client, SessionReadyEventArgs args);
 }
 
@@ -54,7 +54,7 @@ public interface ISessionResumedEventHandler : IDiscordEventHandler<SessionReady
 /// </summary>
 public interface IHeartbeatedEventHandler : IDiscordEventHandler<HeartbeatEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.Heartbeated"/>
+    /// <inheritdoc cref="DiscordClient.Heartbeated"/>
     public ValueTask OnHeartbeated(DiscordClient client, HeartbeatEventArgs args);
 }
 
@@ -63,7 +63,7 @@ public interface IHeartbeatedEventHandler : IDiscordEventHandler<HeartbeatEventA
 /// </summary>
 public interface IZombiedEventHandler : IDiscordEventHandler<ZombiedEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.Zombied"/>
+    /// <inheritdoc cref="DiscordClient.Zombied"/>
     public ValueTask OnZombied(DiscordClient client, ZombiedEventArgs args);
 }
 
@@ -72,7 +72,7 @@ public interface IZombiedEventHandler : IDiscordEventHandler<ZombiedEventArgs>
 /// </summary>
 public interface IApplicationCommandPermissionsUpdatedEventHandler : IDiscordEventHandler<ApplicationCommandPermissionsUpdatedEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.ApplicationCommandPermissionsUpdated"/>
+    /// <inheritdoc cref="DiscordClient.ApplicationCommandPermissionsUpdated"/>
     public ValueTask OnApplicationCommandPermissionsUpdated(DiscordClient client, ApplicationCommandPermissionsUpdatedEventArgs args);
 }
 
@@ -81,7 +81,7 @@ public interface IApplicationCommandPermissionsUpdatedEventHandler : IDiscordEve
 /// </summary>
 public interface IChannelCreatedEventHandler : IDiscordEventHandler<ChannelCreateEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.ChannelCreated"/>
+    /// <inheritdoc cref="DiscordClient.ChannelCreated"/>
     public ValueTask OnChannelCreated(DiscordClient client, ChannelCreateEventArgs args);
 }
 
@@ -90,7 +90,7 @@ public interface IChannelCreatedEventHandler : IDiscordEventHandler<ChannelCreat
 /// </summary>
 public interface IChannelUpdatedEventHandler : IDiscordEventHandler<ChannelUpdateEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.ChannelUpdated"/>
+    /// <inheritdoc cref="DiscordClient.ChannelUpdated"/>
     public ValueTask OnChannelUpdated(DiscordClient client, ChannelUpdateEventArgs args);
 }
 
@@ -99,7 +99,7 @@ public interface IChannelUpdatedEventHandler : IDiscordEventHandler<ChannelUpdat
 /// </summary>
 public interface IChannelDeletedEventHandler : IDiscordEventHandler<ChannelDeleteEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.ChannelDeleted"/>
+    /// <inheritdoc cref="DiscordClient.ChannelDeleted"/>
     public ValueTask OnChannelDeleted(DiscordClient client, ChannelDeleteEventArgs args);
 }
 
@@ -108,7 +108,7 @@ public interface IChannelDeletedEventHandler : IDiscordEventHandler<ChannelDelet
 /// </summary>
 public interface IDmChannelDeletedEventHandler : IDiscordEventHandler<DmChannelDeleteEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.DmChannelDeleted"/>
+    /// <inheritdoc cref="DiscordClient.DmChannelDeleted"/>
     public ValueTask OnDmChannelDeleted(DiscordClient client, DmChannelDeleteEventArgs args);
 }
 
@@ -117,7 +117,7 @@ public interface IDmChannelDeletedEventHandler : IDiscordEventHandler<DmChannelD
 /// </summary>
 public interface IChannelPinsUpdatedEventHandler : IDiscordEventHandler<ChannelPinsUpdateEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.ChannelPinsUpdated"/>
+    /// <inheritdoc cref="DiscordClient.ChannelPinsUpdated"/>
     public ValueTask OnChannelPinsUpdated(DiscordClient client, ChannelPinsUpdateEventArgs args);
 }
 
@@ -126,7 +126,7 @@ public interface IChannelPinsUpdatedEventHandler : IDiscordEventHandler<ChannelP
 /// </summary>
 public interface IGuildCreatedEventHandler : IDiscordEventHandler<GuildCreateEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.GuildCreated"/>
+    /// <inheritdoc cref="DiscordClient.GuildCreated"/>
     public ValueTask OnGuildCreated(DiscordClient client, GuildCreateEventArgs args);
 }
 
@@ -135,7 +135,7 @@ public interface IGuildCreatedEventHandler : IDiscordEventHandler<GuildCreateEve
 /// </summary>
 public interface IGuildAvailableEventHandler : IDiscordEventHandler<GuildCreateEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.GuildAvailable"/>
+    /// <inheritdoc cref="DiscordClient.GuildAvailable"/>
     public ValueTask OnGuildAvailable(DiscordClient client, GuildCreateEventArgs args);
 }
 
@@ -144,7 +144,7 @@ public interface IGuildAvailableEventHandler : IDiscordEventHandler<GuildCreateE
 /// </summary>
 public interface IGuildUpdatedEventHandler : IDiscordEventHandler<GuildUpdateEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.GuildUpdated"/>
+    /// <inheritdoc cref="DiscordClient.GuildUpdated"/>
     public ValueTask OnGuildUpdated(DiscordClient client, GuildUpdateEventArgs args);
 }
 
@@ -153,7 +153,7 @@ public interface IGuildUpdatedEventHandler : IDiscordEventHandler<GuildUpdateEve
 /// </summary>
 public interface IGuildDeletedEventHandler : IDiscordEventHandler<GuildDeleteEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.GuildDeleted"/>
+    /// <inheritdoc cref="DiscordClient.GuildDeleted"/>
     public ValueTask OnGuildDeleted(DiscordClient client, GuildDeleteEventArgs args);
 }
 
@@ -162,7 +162,7 @@ public interface IGuildDeletedEventHandler : IDiscordEventHandler<GuildDeleteEve
 /// </summary>
 public interface IGuildUnavailableEventHandler : IDiscordEventHandler<GuildDeleteEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.GuildUnavailable"/>
+    /// <inheritdoc cref="DiscordClient.GuildUnavailable"/>
     public ValueTask OnGuildUnavailable(DiscordClient client, GuildDeleteEventArgs args);
 }
 
@@ -171,7 +171,7 @@ public interface IGuildUnavailableEventHandler : IDiscordEventHandler<GuildDelet
 /// </summary>
 public interface IGuildDownloadCompletedEventHandler : IDiscordEventHandler<GuildDownloadCompletedEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.GuildDownloadCompleted"/>
+    /// <inheritdoc cref="DiscordClient.GuildDownloadCompleted"/>
     public ValueTask OnGuildDownloadCompleted(DiscordClient client, GuildDownloadCompletedEventArgs args);
 }
 
@@ -180,7 +180,7 @@ public interface IGuildDownloadCompletedEventHandler : IDiscordEventHandler<Guil
 /// </summary>
 public interface IGuildEmojisUpdatedEventHandler : IDiscordEventHandler<GuildEmojisUpdateEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.GuildEmojisUpdated"/>
+    /// <inheritdoc cref="DiscordClient.GuildEmojisUpdated"/>
     public ValueTask OnGuildEmojisUpdated(DiscordClient client, GuildEmojisUpdateEventArgs args);
 }
 
@@ -189,7 +189,7 @@ public interface IGuildEmojisUpdatedEventHandler : IDiscordEventHandler<GuildEmo
 /// </summary>
 public interface IGuildStickersUpdatedEventHandler : IDiscordEventHandler<GuildStickersUpdateEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.GuildStickersUpdated"/>
+    /// <inheritdoc cref="DiscordClient.GuildStickersUpdated"/>
     public ValueTask OnGuildStickersUpdated(DiscordClient client, GuildStickersUpdateEventArgs args);
 }
 
@@ -198,7 +198,7 @@ public interface IGuildStickersUpdatedEventHandler : IDiscordEventHandler<GuildS
 /// </summary>
 public interface IGuildIntegrationsUpdatedEventHandler : IDiscordEventHandler<GuildIntegrationsUpdateEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.GuildIntegrationsUpdated"/>
+    /// <inheritdoc cref="DiscordClient.GuildIntegrationsUpdated"/>
     public ValueTask OnGuildIntegrationsUpdated(DiscordClient client, GuildIntegrationsUpdateEventArgs args);
 }
 
@@ -207,7 +207,7 @@ public interface IGuildIntegrationsUpdatedEventHandler : IDiscordEventHandler<Gu
 /// </summary>
 public interface IGuildAuditLogCreatedEventHandler : IDiscordEventHandler<GuildAuditLogCreatedEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.GuildAuditLogCreated"/>
+    /// <inheritdoc cref="DiscordClient.GuildAuditLogCreated"/>
     public ValueTask OnGuildAuditLogCreated(DiscordClient client, GuildAuditLogCreatedEventArgs args);
 }
 
@@ -216,7 +216,7 @@ public interface IGuildAuditLogCreatedEventHandler : IDiscordEventHandler<GuildA
 /// </summary>
 public interface IScheduledGuildEventCreatedEventHandler : IDiscordEventHandler<ScheduledGuildEventCreateEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.ScheduledGuildEventCreated"/>
+    /// <inheritdoc cref="DiscordClient.ScheduledGuildEventCreated"/>
     public ValueTask OnScheduledGuildEventCreated(DiscordClient client, ScheduledGuildEventCreateEventArgs args);
 }
 
@@ -225,7 +225,7 @@ public interface IScheduledGuildEventCreatedEventHandler : IDiscordEventHandler<
 /// </summary>
 public interface IScheduledGuildEventUpdatedEventHandler : IDiscordEventHandler<ScheduledGuildEventUpdateEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.ScheduledGuildEventUpdated"/>
+    /// <inheritdoc cref="DiscordClient.ScheduledGuildEventUpdated"/>
     public ValueTask OnScheduledGuildEventUpdated(DiscordClient client, ScheduledGuildEventUpdateEventArgs args);
 }
 
@@ -234,7 +234,7 @@ public interface IScheduledGuildEventUpdatedEventHandler : IDiscordEventHandler<
 /// </summary>
 public interface IScheduledGuildEventDeletedEventHandler : IDiscordEventHandler<ScheduledGuildEventDeleteEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.ScheduledGuildEventDeleted"/>
+    /// <inheritdoc cref="DiscordClient.ScheduledGuildEventDeleted"/>
     public ValueTask OnScheduledGuildEventDeleted(DiscordClient client, ScheduledGuildEventDeleteEventArgs args);
 }
 
@@ -243,7 +243,7 @@ public interface IScheduledGuildEventDeletedEventHandler : IDiscordEventHandler<
 /// </summary>
 public interface IScheduledGuildEventCompletedEventHandler : IDiscordEventHandler<ScheduledGuildEventCompletedEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.ScheduledGuildEventCompleted"/>
+    /// <inheritdoc cref="DiscordClient.ScheduledGuildEventCompleted"/>
     public ValueTask OnScheduledGuildEventCompleted(DiscordClient client, ScheduledGuildEventCompletedEventArgs args);
 }
 
@@ -252,7 +252,7 @@ public interface IScheduledGuildEventCompletedEventHandler : IDiscordEventHandle
 /// </summary>
 public interface IScheduledGuildEventUserAddedEventHandler : IDiscordEventHandler<ScheduledGuildEventUserAddEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.ScheduledGuildEventUserAdded"/>
+    /// <inheritdoc cref="DiscordClient.ScheduledGuildEventUserAdded"/>
     public ValueTask OnScheduledGuildEventUserAdded(DiscordClient client, ScheduledGuildEventUserAddEventArgs args);
 }
 
@@ -261,7 +261,7 @@ public interface IScheduledGuildEventUserAddedEventHandler : IDiscordEventHandle
 /// </summary>
 public interface IScheduledGuildEventUserRemovedEventHandler : IDiscordEventHandler<ScheduledGuildEventUserRemoveEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.ScheduledGuildEventUserRemoved"/>
+    /// <inheritdoc cref="DiscordClient.ScheduledGuildEventUserRemoved"/>
     public ValueTask OnScheduledGuildEventUserRemoved(DiscordClient client, ScheduledGuildEventUserRemoveEventArgs args);
 }
 
@@ -270,7 +270,7 @@ public interface IScheduledGuildEventUserRemovedEventHandler : IDiscordEventHand
 /// </summary>
 public interface IGuildBanAddedEventHandler : IDiscordEventHandler<GuildBanAddEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.GuildBanAdded"/>
+    /// <inheritdoc cref="DiscordClient.GuildBanAdded"/>
     public ValueTask OnGuildBanAdded(DiscordClient client, GuildBanAddEventArgs args);
 }
 
@@ -279,7 +279,7 @@ public interface IGuildBanAddedEventHandler : IDiscordEventHandler<GuildBanAddEv
 /// </summary>
 public interface IGuildBanRemovedEventHandler : IDiscordEventHandler<GuildBanRemoveEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.GuildBanRemoved"/>
+    /// <inheritdoc cref="DiscordClient.GuildBanRemoved"/>
     public ValueTask OnGuildBanRemoved(DiscordClient client, GuildBanRemoveEventArgs args);
 }
 
@@ -288,7 +288,7 @@ public interface IGuildBanRemovedEventHandler : IDiscordEventHandler<GuildBanRem
 /// </summary>
 public interface IGuildMemberAddedEventHandler : IDiscordEventHandler<GuildMemberAddEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.GuildMemberAdded"/>
+    /// <inheritdoc cref="DiscordClient.GuildMemberAdded"/>
     public ValueTask OnGuildMemberAdded(DiscordClient client, GuildMemberAddEventArgs args);
 }
 
@@ -297,7 +297,7 @@ public interface IGuildMemberAddedEventHandler : IDiscordEventHandler<GuildMembe
 /// </summary>
 public interface IGuildMemberRemovedEventHandler : IDiscordEventHandler<GuildMemberRemoveEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.GuildMemberRemoved"/>
+    /// <inheritdoc cref="DiscordClient.GuildMemberRemoved"/>
     public ValueTask OnGuildMemberRemoved(DiscordClient client, GuildMemberRemoveEventArgs args);
 }
 
@@ -306,7 +306,7 @@ public interface IGuildMemberRemovedEventHandler : IDiscordEventHandler<GuildMem
 /// </summary>
 public interface IGuildMemberUpdatedEventHandler : IDiscordEventHandler<GuildMemberUpdateEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.GuildMemberUpdated"/>
+    /// <inheritdoc cref="DiscordClient.GuildMemberUpdated"/>
     public ValueTask OnGuildMemberUpdated(DiscordClient client, GuildMemberUpdateEventArgs args);
 }
 
@@ -315,7 +315,7 @@ public interface IGuildMemberUpdatedEventHandler : IDiscordEventHandler<GuildMem
 /// </summary>
 public interface IGuildMembersChunkedEventHandler : IDiscordEventHandler<GuildMembersChunkEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.GuildMembersChunked"/>
+    /// <inheritdoc cref="DiscordClient.GuildMembersChunked"/>
     public ValueTask OnGuildMembersChunked(DiscordClient client, GuildMembersChunkEventArgs args);
 }
 
@@ -324,7 +324,7 @@ public interface IGuildMembersChunkedEventHandler : IDiscordEventHandler<GuildMe
 /// </summary>
 public interface IGuildRoleCreatedEventHandler : IDiscordEventHandler<GuildRoleCreateEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.GuildRoleCreated"/>
+    /// <inheritdoc cref="DiscordClient.GuildRoleCreated"/>
     public ValueTask OnGuildRoleCreated(DiscordClient client, GuildRoleCreateEventArgs args);
 }
 
@@ -333,7 +333,7 @@ public interface IGuildRoleCreatedEventHandler : IDiscordEventHandler<GuildRoleC
 /// </summary>
 public interface IGuildRoleUpdatedEventHandler : IDiscordEventHandler<GuildRoleUpdateEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.GuildRoleUpdated"/>
+    /// <inheritdoc cref="DiscordClient.GuildRoleUpdated"/>
     public ValueTask OnGuildRoleUpdated(DiscordClient client, GuildRoleUpdateEventArgs args);
 }
 
@@ -342,7 +342,7 @@ public interface IGuildRoleUpdatedEventHandler : IDiscordEventHandler<GuildRoleU
 /// </summary>
 public interface IGuildRoleDeletedEventHandler : IDiscordEventHandler<GuildRoleDeleteEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.GuildRoleDeleted"/>
+    /// <inheritdoc cref="DiscordClient.GuildRoleDeleted"/>
     public ValueTask OnGuildRoleDeleted(DiscordClient client, GuildRoleDeleteEventArgs args);
 }
 
@@ -351,7 +351,7 @@ public interface IGuildRoleDeletedEventHandler : IDiscordEventHandler<GuildRoleD
 /// </summary>
 public interface IInviteCreatedEventHandler : IDiscordEventHandler<InviteCreateEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.InviteCreated"/>
+    /// <inheritdoc cref="DiscordClient.InviteCreated"/>
     public ValueTask OnInviteCreated(DiscordClient client, InviteCreateEventArgs args);
 }
 
@@ -360,7 +360,7 @@ public interface IInviteCreatedEventHandler : IDiscordEventHandler<InviteCreateE
 /// </summary>
 public interface IInviteDeletedEventHandler : IDiscordEventHandler<InviteDeleteEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.InviteDeleted"/>
+    /// <inheritdoc cref="DiscordClient.InviteDeleted"/>
     public ValueTask OnInviteDeleted(DiscordClient client, InviteDeleteEventArgs args);
 }
 
@@ -369,7 +369,7 @@ public interface IInviteDeletedEventHandler : IDiscordEventHandler<InviteDeleteE
 /// </summary>
 public interface IMessageCreatedEventHandler : IDiscordEventHandler<MessageCreateEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.MessageCreated"/>
+    /// <inheritdoc cref="DiscordClient.MessageCreated"/>
     public ValueTask OnMessageCreated(DiscordClient client, MessageCreateEventArgs args);
 }
 
@@ -378,7 +378,7 @@ public interface IMessageCreatedEventHandler : IDiscordEventHandler<MessageCreat
 /// </summary>
 public interface IMessageAcknowledgedEventHandler : IDiscordEventHandler<MessageAcknowledgeEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.MessageAcknowledged"/>
+    /// <inheritdoc cref="DiscordClient.MessageAcknowledged"/>
     public ValueTask OnMessageAcknowledged(DiscordClient client, MessageAcknowledgeEventArgs args);
 }
 
@@ -387,7 +387,7 @@ public interface IMessageAcknowledgedEventHandler : IDiscordEventHandler<Message
 /// </summary>
 public interface IMessageUpdatedEventHandler : IDiscordEventHandler<MessageUpdateEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.MessageUpdated"/>
+    /// <inheritdoc cref="DiscordClient.MessageUpdated"/>
     public ValueTask OnMessageUpdated(DiscordClient client, MessageUpdateEventArgs args);
 }
 
@@ -396,7 +396,7 @@ public interface IMessageUpdatedEventHandler : IDiscordEventHandler<MessageUpdat
 /// </summary>
 public interface IMessageDeletedEventHandler : IDiscordEventHandler<MessageDeleteEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.MessageDeleted"/>
+    /// <inheritdoc cref="DiscordClient.MessageDeleted"/>
     public ValueTask OnMessageDeleted(DiscordClient client, MessageDeleteEventArgs args);
 }
 
@@ -405,7 +405,7 @@ public interface IMessageDeletedEventHandler : IDiscordEventHandler<MessageDelet
 /// </summary>
 public interface IMessagesBulkDeletedEventHandler : IDiscordEventHandler<MessageBulkDeleteEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.MessagesBulkDeleted"/>
+    /// <inheritdoc cref="DiscordClient.MessagesBulkDeleted"/>
     public ValueTask OnMessagesBulkDeleted(DiscordClient client, MessageBulkDeleteEventArgs args);
 }
 
@@ -414,7 +414,7 @@ public interface IMessagesBulkDeletedEventHandler : IDiscordEventHandler<Message
 /// </summary>
 public interface IMessageReactionAddedEventHandler : IDiscordEventHandler<MessageReactionAddEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.MessageReactionAdded"/>
+    /// <inheritdoc cref="DiscordClient.MessageReactionAdded"/>
     public ValueTask OnMessageReactionAdded(DiscordClient client, MessageReactionAddEventArgs args);
 }
 
@@ -423,7 +423,7 @@ public interface IMessageReactionAddedEventHandler : IDiscordEventHandler<Messag
 /// </summary>
 public interface IMessageReactionRemovedEventHandler : IDiscordEventHandler<MessageReactionRemoveEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.MessageReactionRemoved"/>
+    /// <inheritdoc cref="DiscordClient.MessageReactionRemoved"/>
     public ValueTask OnMessageReactionRemoved(DiscordClient client, MessageReactionRemoveEventArgs args);
 }
 
@@ -432,7 +432,7 @@ public interface IMessageReactionRemovedEventHandler : IDiscordEventHandler<Mess
 /// </summary>
 public interface IMessageReactionsClearedEventHandler : IDiscordEventHandler<MessageReactionsClearEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.MessageReactionsCleared"/>
+    /// <inheritdoc cref="DiscordClient.MessageReactionsCleared"/>
     public ValueTask OnMessageReactionsCleared(DiscordClient client, MessageReactionsClearEventArgs args);
 }
 
@@ -441,7 +441,7 @@ public interface IMessageReactionsClearedEventHandler : IDiscordEventHandler<Mes
 /// </summary>
 public interface IMessageReactionRemovedEmojiEventHandler : IDiscordEventHandler<MessageReactionRemoveEmojiEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.MessageReactionRemovedEmoji"/>
+    /// <inheritdoc cref="DiscordClient.MessageReactionRemovedEmoji"/>
     public ValueTask OnMessageReactionRemovedEmoji(DiscordClient client, MessageReactionRemoveEmojiEventArgs args);
 }
 
@@ -450,7 +450,7 @@ public interface IMessageReactionRemovedEmojiEventHandler : IDiscordEventHandler
 /// </summary>
 public interface IPresenceUpdatedEventHandler : IDiscordEventHandler<PresenceUpdateEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.PresenceUpdated"/>
+    /// <inheritdoc cref="DiscordClient.PresenceUpdated"/>
     public ValueTask OnPresenceUpdated(DiscordClient client, PresenceUpdateEventArgs args);
 }
 
@@ -459,7 +459,7 @@ public interface IPresenceUpdatedEventHandler : IDiscordEventHandler<PresenceUpd
 /// </summary>
 public interface IUserSettingsUpdatedEventHandler : IDiscordEventHandler<UserSettingsUpdateEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.UserSettingsUpdated"/>
+    /// <inheritdoc cref="DiscordClient.UserSettingsUpdated"/>
     public ValueTask OnUserSettingsUpdated(DiscordClient client, UserSettingsUpdateEventArgs args);
 }
 
@@ -468,7 +468,7 @@ public interface IUserSettingsUpdatedEventHandler : IDiscordEventHandler<UserSet
 /// </summary>
 public interface IUserUpdatedEventHandler : IDiscordEventHandler<UserUpdateEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.UserUpdated"/>
+    /// <inheritdoc cref="DiscordClient.UserUpdated"/>
     public ValueTask OnUserUpdated(DiscordClient client, UserUpdateEventArgs args);
 }
 
@@ -477,7 +477,7 @@ public interface IUserUpdatedEventHandler : IDiscordEventHandler<UserUpdateEvent
 /// </summary>
 public interface IVoiceStateUpdatedEventHandler : IDiscordEventHandler<VoiceStateUpdateEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.VoiceStateUpdated"/>
+    /// <inheritdoc cref="DiscordClient.VoiceStateUpdated"/>
     public ValueTask OnVoiceStateUpdated(DiscordClient client, VoiceStateUpdateEventArgs args);
 }
 
@@ -486,7 +486,7 @@ public interface IVoiceStateUpdatedEventHandler : IDiscordEventHandler<VoiceStat
 /// </summary>
 public interface IVoiceServerUpdatedEventHandler : IDiscordEventHandler<VoiceServerUpdateEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.VoiceServerUpdated"/>
+    /// <inheritdoc cref="DiscordClient.VoiceServerUpdated"/>
     public ValueTask OnVoiceServerUpdated(DiscordClient client, VoiceServerUpdateEventArgs args);
 }
 
@@ -495,7 +495,7 @@ public interface IVoiceServerUpdatedEventHandler : IDiscordEventHandler<VoiceSer
 /// </summary>
 public interface IThreadCreatedEventHandler : IDiscordEventHandler<ThreadCreateEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.ThreadCreated"/>
+    /// <inheritdoc cref="DiscordClient.ThreadCreated"/>
     public ValueTask OnThreadCreated(DiscordClient client, ThreadCreateEventArgs args);
 }
 
@@ -504,7 +504,7 @@ public interface IThreadCreatedEventHandler : IDiscordEventHandler<ThreadCreateE
 /// </summary>
 public interface IThreadUpdatedEventHandler : IDiscordEventHandler<ThreadUpdateEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.ThreadUpdated"/>
+    /// <inheritdoc cref="DiscordClient.ThreadUpdated"/>
     public ValueTask OnThreadUpdated(DiscordClient client, ThreadUpdateEventArgs args);
 }
 
@@ -513,7 +513,7 @@ public interface IThreadUpdatedEventHandler : IDiscordEventHandler<ThreadUpdateE
 /// </summary>
 public interface IThreadDeletedEventHandler : IDiscordEventHandler<ThreadDeleteEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.ThreadDeleted"/>
+    /// <inheritdoc cref="DiscordClient.ThreadDeleted"/>
     public ValueTask OnThreadDeleted(DiscordClient client, ThreadDeleteEventArgs args);
 }
 
@@ -522,7 +522,7 @@ public interface IThreadDeletedEventHandler : IDiscordEventHandler<ThreadDeleteE
 /// </summary>
 public interface IThreadListSyncedEventHandler : IDiscordEventHandler<ThreadListSyncEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.ThreadListSynced"/>
+    /// <inheritdoc cref="DiscordClient.ThreadListSynced"/>
     public ValueTask OnThreadListSynced(DiscordClient client, ThreadListSyncEventArgs args);
 }
 
@@ -531,7 +531,7 @@ public interface IThreadListSyncedEventHandler : IDiscordEventHandler<ThreadList
 /// </summary>
 public interface IThreadMemberUpdatedEventHandler : IDiscordEventHandler<ThreadMemberUpdateEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.ThreadMemberUpdated"/>
+    /// <inheritdoc cref="DiscordClient.ThreadMemberUpdated"/>
     public ValueTask OnThreadMemberUpdated(DiscordClient client, ThreadMemberUpdateEventArgs args);
 }
 
@@ -540,7 +540,7 @@ public interface IThreadMemberUpdatedEventHandler : IDiscordEventHandler<ThreadM
 /// </summary>
 public interface IThreadMembersUpdatedEventHandler : IDiscordEventHandler<ThreadMembersUpdateEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.ThreadMembersUpdated"/>
+    /// <inheritdoc cref="DiscordClient.ThreadMembersUpdated"/>
     public ValueTask OnThreadMembersUpdated(DiscordClient client, ThreadMembersUpdateEventArgs args);
 }
 
@@ -549,7 +549,7 @@ public interface IThreadMembersUpdatedEventHandler : IDiscordEventHandler<Thread
 /// </summary>
 public interface IIntegrationCreatedEventHandler : IDiscordEventHandler<IntegrationCreateEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.IntegrationCreated"/>
+    /// <inheritdoc cref="DiscordClient.IntegrationCreated"/>
     public ValueTask OnIntegrationCreated(DiscordClient client, IntegrationCreateEventArgs args);
 }
 
@@ -558,7 +558,7 @@ public interface IIntegrationCreatedEventHandler : IDiscordEventHandler<Integrat
 /// </summary>
 public interface IIntegrationUpdatedEventHandler : IDiscordEventHandler<IntegrationUpdateEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.IntegrationUpdated"/>
+    /// <inheritdoc cref="DiscordClient.IntegrationUpdated"/>
     public ValueTask OnIntegrationUpdated(DiscordClient client, IntegrationUpdateEventArgs args);
 }
 
@@ -567,7 +567,7 @@ public interface IIntegrationUpdatedEventHandler : IDiscordEventHandler<Integrat
 /// </summary>
 public interface IIntegrationDeletedEventHandler : IDiscordEventHandler<IntegrationDeleteEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.IntegrationDeleted"/>
+    /// <inheritdoc cref="DiscordClient.IntegrationDeleted"/>
     public ValueTask OnIntegrationDeleted(DiscordClient client, IntegrationDeleteEventArgs args);
 }
 
@@ -576,7 +576,7 @@ public interface IIntegrationDeletedEventHandler : IDiscordEventHandler<Integrat
 /// </summary>
 public interface IStageInstanceCreatedEventHandler : IDiscordEventHandler<StageInstanceCreateEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.StageInstanceCreated"/>
+    /// <inheritdoc cref="DiscordClient.StageInstanceCreated"/>
     public ValueTask OnStageInstanceCreated(DiscordClient client, StageInstanceCreateEventArgs args);
 }
 
@@ -585,7 +585,7 @@ public interface IStageInstanceCreatedEventHandler : IDiscordEventHandler<StageI
 /// </summary>
 public interface IStageInstanceUpdatedEventHandler : IDiscordEventHandler<StageInstanceUpdateEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.StageInstanceUpdated"/>
+    /// <inheritdoc cref="DiscordClient.StageInstanceUpdated"/>
     public ValueTask OnStageInstanceUpdated(DiscordClient client, StageInstanceUpdateEventArgs args);
 }
 
@@ -594,7 +594,7 @@ public interface IStageInstanceUpdatedEventHandler : IDiscordEventHandler<StageI
 /// </summary>
 public interface IStageInstanceDeletedEventHandler : IDiscordEventHandler<StageInstanceDeleteEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.StageInstanceDeleted"/>
+    /// <inheritdoc cref="DiscordClient.StageInstanceDeleted"/>
     public ValueTask OnStageInstanceDeleted(DiscordClient client, StageInstanceDeleteEventArgs args);
 }
 
@@ -603,7 +603,7 @@ public interface IStageInstanceDeletedEventHandler : IDiscordEventHandler<StageI
 /// </summary>
 public interface IInteractionCreatedEventHandler : IDiscordEventHandler<InteractionCreateEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.InteractionCreated"/>
+    /// <inheritdoc cref="DiscordClient.InteractionCreated"/>
     public ValueTask OnInteractionCreated(DiscordClient client, InteractionCreateEventArgs args);
 }
 
@@ -612,7 +612,7 @@ public interface IInteractionCreatedEventHandler : IDiscordEventHandler<Interact
 /// </summary>
 public interface IComponentInteractionCreatedEventHandler : IDiscordEventHandler<ComponentInteractionCreateEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.ComponentInteractionCreated"/>
+    /// <inheritdoc cref="DiscordClient.ComponentInteractionCreated"/>
     public ValueTask OnComponentInteractionCreated(DiscordClient client, ComponentInteractionCreateEventArgs args);
 }
 
@@ -621,7 +621,7 @@ public interface IComponentInteractionCreatedEventHandler : IDiscordEventHandler
 /// </summary>
 public interface IModalSubmittedEventHandler : IDiscordEventHandler<ModalSubmitEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.ModalSubmitted"/>
+    /// <inheritdoc cref="DiscordClient.ModalSubmitted"/>
     public ValueTask OnModalSubmitted(DiscordClient client, ModalSubmitEventArgs args);
 }
 
@@ -630,7 +630,7 @@ public interface IModalSubmittedEventHandler : IDiscordEventHandler<ModalSubmitE
 /// </summary>
 public interface IContextMenuInteractionCreatedEventHandler : IDiscordEventHandler<ContextMenuInteractionCreateEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.ContextMenuInteractionCreated"/>
+    /// <inheritdoc cref="DiscordClient.ContextMenuInteractionCreated"/>
     public ValueTask OnContextMenuInteractionCreated(DiscordClient client, ContextMenuInteractionCreateEventArgs args);
 }
 
@@ -639,7 +639,7 @@ public interface IContextMenuInteractionCreatedEventHandler : IDiscordEventHandl
 /// </summary>
 public interface ITypingStartedEventHandler : IDiscordEventHandler<TypingStartEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.TypingStarted"/>
+    /// <inheritdoc cref="DiscordClient.TypingStarted"/>
     public ValueTask OnTypingStarted(DiscordClient client, TypingStartEventArgs args);
 }
 
@@ -648,7 +648,7 @@ public interface ITypingStartedEventHandler : IDiscordEventHandler<TypingStartEv
 /// </summary>
 public interface IUnknownEventEventHandler : IDiscordEventHandler<UnknownEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.UnknownEvent"/>
+    /// <inheritdoc cref="DiscordClient.UnknownEvent"/>
     public ValueTask OnUnknownEvent(DiscordClient client, UnknownEventArgs args);
 }
 
@@ -657,7 +657,7 @@ public interface IUnknownEventEventHandler : IDiscordEventHandler<UnknownEventAr
 /// </summary>
 public interface IWebhooksUpdatedEventHandler : IDiscordEventHandler<WebhooksUpdateEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.WebhooksUpdated"/>
+    /// <inheritdoc cref="DiscordClient.WebhooksUpdated"/>
     public ValueTask OnWebhooksUpdated(DiscordClient client, WebhooksUpdateEventArgs args);
 }
 
@@ -666,7 +666,7 @@ public interface IWebhooksUpdatedEventHandler : IDiscordEventHandler<WebhooksUpd
 /// </summary>
 public interface IClientErroredEventHandler : IDiscordEventHandler<ClientErrorEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.ClientErrored"/>
+    /// <inheritdoc cref="DiscordClient.ClientErrored"/>
     public ValueTask OnClientErrored(DiscordClient client, ClientErrorEventArgs args);
 }
 
@@ -675,7 +675,7 @@ public interface IClientErroredEventHandler : IDiscordEventHandler<ClientErrorEv
 /// </summary>
 public interface IAutoModerationRuleCreatedEventHandler : IDiscordEventHandler<AutoModerationRuleCreateEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.AutoModerationRuleCreated"/>
+    /// <inheritdoc cref="DiscordClient.AutoModerationRuleCreated"/>
     public ValueTask OnAutoModerationRuleCreated(DiscordClient client, AutoModerationRuleCreateEventArgs args);
 }
 
@@ -684,7 +684,7 @@ public interface IAutoModerationRuleCreatedEventHandler : IDiscordEventHandler<A
 /// </summary>
 public interface IAutoModerationRuleUpdatedEventHandler : IDiscordEventHandler<AutoModerationRuleUpdateEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.AutoModerationRuleUpdated"/>
+    /// <inheritdoc cref="DiscordClient.AutoModerationRuleUpdated"/>
     public ValueTask OnAutoModerationRuleUpdated(DiscordClient client, AutoModerationRuleUpdateEventArgs args);
 }
 
@@ -693,7 +693,7 @@ public interface IAutoModerationRuleUpdatedEventHandler : IDiscordEventHandler<A
 /// </summary>
 public interface IAutoModerationRuleDeletedEventHandler : IDiscordEventHandler<AutoModerationRuleDeleteEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.AutoModerationRuleDeleted"/>
+    /// <inheritdoc cref="DiscordClient.AutoModerationRuleDeleted"/>
     public ValueTask OnAutoModerationRuleDeleted(DiscordClient client, AutoModerationRuleDeleteEventArgs args);
 }
 
@@ -702,6 +702,6 @@ public interface IAutoModerationRuleDeletedEventHandler : IDiscordEventHandler<A
 /// </summary>
 public interface IAutoModerationRuleExecutedEventHandler : IDiscordEventHandler<AutoModerationRuleExecuteEventArgs>
 {
-    /// <inheritdoc cref="DiscordShardedClient.AutoModerationRuleExecuted"/>
+    /// <inheritdoc cref="DiscordClient.AutoModerationRuleExecuted"/>
     public ValueTask OnAutoModerationRuleExecuted(DiscordClient client, AutoModerationRuleExecuteEventArgs args);
 }

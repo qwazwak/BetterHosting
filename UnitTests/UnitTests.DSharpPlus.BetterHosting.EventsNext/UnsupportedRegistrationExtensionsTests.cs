@@ -1,10 +1,10 @@
 ﻿using DSharpPlus.BetterHosting.EventsNext.Services;
 using Microsoft.Extensions.DependencyInjection;
-using UnitTests.DSharpPlus.BetterHosting.EventsNext;
 using DSharpPlus.BetterHosting.EventsNext.Exceptions;
 using System;
+using DSharpPlus.BetterHosting.EventsNext;
 
-namespace DSharpPlus.BetterHosting.EventsNext;
+namespace UnitTests.DSharpPlus.BetterHosting.EventsNext;
 
 [TestFixture(TestOf = typeof(RegistrationExtensions))]
 [TestFixtureSource(typeof(HandlerTypesTestData), nameof(HandlerTypesTestData.GenericEventHandlerTypes))]

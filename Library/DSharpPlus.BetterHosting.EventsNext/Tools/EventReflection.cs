@@ -17,9 +17,17 @@ internal static partial class EventReflection
             => new(typeof(TManager), typeof(TArgument));
     }
 
-    private static ImmutableHashSet<Type> GetExactInterfaces() => weakDetails.Target().Keys.ToImmutableHashSet();
-    private static readonly AutoWeakReference<ImmutableHashSet<Type>> weakExactInterfaces = new(() => GetExactInterfaces());
-
     private static partial ImmutableDictionary<Type, DetailsRecord> GetDeails();
     private static readonly AutoWeakReference<ImmutableDictionary<Type, DetailsRecord>> weakDetails = new(GetDeails);
+
+    private static DetailsRecord DetailsFor<TInterface>() where TInterface : IDiscordEventHandler => DetailsFor(typeof(TInterface));
+    private static DetailsRecord DetailsFor(Type interfaceType)
+    {
+        Debug.Assert(interfaceType.IsAssignableTo(typeof(IDiscordEventHandler)));
+        weakDetails.GetTarget(out ImmutableDictionary<Type, DetailsRecord> dict);
+        if (!dict.TryGetValue(interfaceType, out DetailsRecord? details))
+            Debug.Fail($"{interfaceType.Name} is not valid");
+
+        return details;
+    }
 }

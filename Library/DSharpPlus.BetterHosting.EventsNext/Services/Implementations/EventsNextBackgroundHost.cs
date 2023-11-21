@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using DSharpPlus.BetterHosting.Services.Hosted;
 using DSharpPlus.BetterHosting.Services.Interfaces;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 namespace DSharpPlus.BetterHosting.EventsNext.Services.Implementations;
 
-internal sealed class EventsNextBackgroundHost<TManager> : IHostedService where TManager : IEventHandlerManager
+internal sealed class EventsNextBackgroundHost<TManager> : BackgroundLifecycleService where TManager : IEventHandlerManager
 {
     private readonly ILogger<EventsNextBackgroundHost<TManager>> logger;
     private readonly TManager manager;
@@ -20,12 +20,22 @@ internal sealed class EventsNextBackgroundHost<TManager> : IHostedService where 
         this.clientProvider = clientProvider;
     }
 
-    public async Task StartAsync(CancellationToken cancellationToken)
+    /// <inheritdoc />
+    public override Task StartingAsync(CancellationToken cancellationToken)
+    {
+        if (manager.CanBeTriggered())
+            return base.StartingAsync(cancellationToken);
+
+        logger.LogInformation("Startup cancellation requested, not starting event manager {type}", typeof(TManager).Name);
+        return Task.CompletedTask;
+    }
+
+    protected override async Task Start(CancellationToken cancellationToken)
     {
         DiscordShardedClient client;
         try
         {
-            client = await clientProvider.GetClientAsync(cancellationToken).AsTask().WaitAsync(cancellationToken);
+            client = await clientProvider.GetClientAsync(cancellationToken);
         }
         catch (OperationCanceledException)
         {
@@ -39,7 +49,9 @@ internal sealed class EventsNextBackgroundHost<TManager> : IHostedService where 
             logger.LogInformation("Events for handlers managed by {HandlerType} were declared to not happen, so exiting quick", typeof(TManager).Name);
     }
 
-    public Task StopAsync(CancellationToken cancellationToken)
+    protected override Task ExecuteAsync(CancellationToken stoppingToken) => Task.CompletedTask;
+
+    protected override Task Stop(CancellationToken cancellationToken)
     {
         manager.Stop();
         return Task.CompletedTask;

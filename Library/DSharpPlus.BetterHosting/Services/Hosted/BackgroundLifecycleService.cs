@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
@@ -19,21 +20,21 @@ public abstract class BackgroundLifecycleService : BackgroundService, IHostedLif
     protected abstract Task Stop(CancellationToken stoppingToken);
 
     /// <inheritdoc />
-    public Task StartingAsync(CancellationToken cancellationToken) => StartTask(out startTask, out startCTS, cancellationToken);
+    public virtual Task StartingAsync(CancellationToken cancellationToken) => StartTask(Start, out startTask, out startCTS, cancellationToken);
     /// <inheritdoc />
-    public Task StartedAsync(CancellationToken cancellationToken) => EndTask(startTask, cancellationToken);
+    public virtual Task StartedAsync(CancellationToken cancellationToken) => EndTask(startTask, startCTS, cancellationToken);
     /// <inheritdoc />
-    public Task StoppingAsync(CancellationToken cancellationToken) => StartTask(out stopTask, out stopCTS, cancellationToken);
+    public virtual Task StoppingAsync(CancellationToken cancellationToken) => StartTask(Stop, out stopTask, out stopCTS, cancellationToken);
     /// <inheritdoc />
-    public Task StoppedAsync(CancellationToken cancellationToken) => EndTask(stopTask, cancellationToken);
+    public virtual Task StoppedAsync(CancellationToken cancellationToken) => EndTask(stopTask, stopCTS, cancellationToken);
 
-    private Task StartTask(out Task task, out CancellationTokenSource cts, CancellationToken cancellationToken)
+    private static Task StartTask(Func<CancellationToken, Task> method, out Task task, out CancellationTokenSource cts, CancellationToken cancellationToken)
     {
         // Create linked token to allow cancelling executing task from provided token
         cts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
 
         // Store the task we're executing
-        task = Start(cts.Token);
+        task = method(cts.Token);
 
         // If the task is completed then return it, this will bubble cancellation and failure to the caller
         if (task.IsCompleted)
@@ -43,18 +44,22 @@ public abstract class BackgroundLifecycleService : BackgroundService, IHostedLif
         return Task.CompletedTask;
     }
 
-    private async Task EndTask(Task? task, CancellationToken cancellationToken)
+    private static Task EndTask(Task? task, CancellationTokenSource? cts, CancellationToken cancellationToken)
     {
         // Stop called without start
         if (task == null)
-        {
-            return;
-        }
+            return Task.CompletedTask;
 
+        Debug.Assert(cts != null);
+
+        return EndTaskAsync(task, cts, cancellationToken);
+    }
+    private static async Task EndTaskAsync(Task task, CancellationTokenSource cts, CancellationToken cancellationToken)
+    {
         try
         {
             // Signal cancellation to the executing method
-            startCTS!.Cancel();
+            cts!.Cancel();
         }
         finally
         {

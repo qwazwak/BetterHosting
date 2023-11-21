@@ -14,14 +14,14 @@ public sealed class RegistrationBuilder<TEventInterface> where TEventInterface :
 {
     static RegistrationBuilder() => EventReflection.Verification.VerifyExactInterface<TEventInterface>();
 
-    private readonly IServiceCollection services;
+    public IServiceCollection Services { get; }
     private HandlerRegistry<TEventInterface>? registry;
     private HandlerRegistry<TEventInterface> Registry => registry ??= RegistrationBuilderHelper.GetHandlerRegistration<TEventInterface>(services);
 
     internal RegistrationBuilder(IServiceCollection services)
     {
         ArgumentNullException.ThrowIfNull(services);
-        this.services = services;
+        Services = services;
     }
 
     /// <summary>

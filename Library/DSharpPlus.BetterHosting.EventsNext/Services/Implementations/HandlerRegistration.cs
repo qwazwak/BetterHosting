@@ -6,10 +6,7 @@ internal readonly struct HandlerRegistration : IEquatable<HandlerRegistration>
 {
     public readonly Guid Key;
 
-    public HandlerRegistration(Guid key)
-    {
-        Key = key;
-    }
+    public HandlerRegistration(Guid key) => Key = key;
 
     public override bool Equals(object? obj) => obj is HandlerRegistration other && Equals(other);
     public bool Equals(HandlerRegistration other) => Key.Equals(other.Key);

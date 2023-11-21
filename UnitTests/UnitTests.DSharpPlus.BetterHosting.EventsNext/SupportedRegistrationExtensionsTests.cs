@@ -2,6 +2,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using UnitTests.DSharpPlus.BetterHosting.EventsNext;
 using System;
+using DSharpPlus.BetterHosting.EventsNext;
+using DSharpPlus.BetterHosting.EventsNext.Services;
 using DSharpPlus.BetterHosting.EventsNext.Services.Implementations;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -106,9 +108,6 @@ public class SupportedRegistrationExtensionsTests<TEventInterface> where TEventI
     [Test]
     public void ConstructorDoesNothing()
     {
-        Assert.That(TypeDict.TryGetValue(typeof(TEventInterface), out Type? managerType), Is.True, "Handler manager was not found in the testing dictionary");
-        Debug.Assert(managerType != null);
-
         Mock<IServiceCollection> mockServices = new(MockBehavior.Strict);
         RegistrationBuilder<TEventInterface> result = RegistrationExtensions.AddEventHandlers<TEventInterface>(mockServices.Object);
 

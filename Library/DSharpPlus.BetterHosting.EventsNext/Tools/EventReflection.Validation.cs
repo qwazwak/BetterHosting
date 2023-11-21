@@ -7,7 +7,7 @@ namespace DSharpPlus.BetterHosting.EventsNext.Tools;
 
 internal static partial class EventReflection
 {
-    internal static class Validation
+    public static class Validation
     {
         public static bool IsExactInterface<TInterface>() where TInterface : IDiscordEventHandler => IsExactInterface(typeof(TInterface));
         public static bool IsExactInterface(Type interfaceType)

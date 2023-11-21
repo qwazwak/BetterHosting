@@ -12,7 +12,7 @@ using DSharpPlus.EventArgs;
 /// </summary>
 public interface <#=naming.InterfaceName#> : IDiscordEventHandler<<#=naming.ArgumentType#>>
 {
-    /// <inheritdoc cref="DiscordShardedClient.<#=naming.EventName#>"/>
+    /// <inheritdoc cref="DiscordClient.<#=naming.EventName#>"/>
     public ValueTask <#=naming.MethodName#>(DiscordClient client, <#=naming.ArgumentType#> args);
 }
 <# } #>

@@ -13,7 +13,8 @@ public static partial class RegistrationExtensions
     {
 <# foreach(EventNaming naming in EventsList) { #>
         if (typeof(TImplementation).IsAssignableTo(typeof(<#=naming.InterfaceName#>)))
-            services.AddEventHandlers<<#=naming.InterfaceName#>>().RegisterHandler(typeof(TImplementation));
+            services.Add<#=naming.EventName#>Handlers().RegisterHandler(typeof(TImplementation));
+
 <#} #>
         return services;
     }

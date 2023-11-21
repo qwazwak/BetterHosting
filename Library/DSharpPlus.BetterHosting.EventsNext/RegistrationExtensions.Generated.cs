@@ -10,161 +10,239 @@ public static partial class RegistrationExtensions
     public static partial IServiceCollection AutoRegisterHandler<TImplementation>(this IServiceCollection services) where TImplementation : class, IDiscordEventHandler
     {
         if (typeof(TImplementation).IsAssignableTo(typeof(ISocketErroredEventHandler)))
-            services.AddEventHandlers<ISocketErroredEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddSocketErroredHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(ISocketOpenedEventHandler)))
-            services.AddEventHandlers<ISocketOpenedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddSocketOpenedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(ISocketClosedEventHandler)))
-            services.AddEventHandlers<ISocketClosedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddSocketClosedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(ISessionCreatedEventHandler)))
-            services.AddEventHandlers<ISessionCreatedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddSessionCreatedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(ISessionResumedEventHandler)))
-            services.AddEventHandlers<ISessionResumedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddSessionResumedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IHeartbeatedEventHandler)))
-            services.AddEventHandlers<IHeartbeatedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddHeartbeatedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IZombiedEventHandler)))
-            services.AddEventHandlers<IZombiedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddZombiedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IApplicationCommandPermissionsUpdatedEventHandler)))
-            services.AddEventHandlers<IApplicationCommandPermissionsUpdatedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddApplicationCommandPermissionsUpdatedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IChannelCreatedEventHandler)))
-            services.AddEventHandlers<IChannelCreatedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddChannelCreatedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IChannelUpdatedEventHandler)))
-            services.AddEventHandlers<IChannelUpdatedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddChannelUpdatedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IChannelDeletedEventHandler)))
-            services.AddEventHandlers<IChannelDeletedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddChannelDeletedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IDmChannelDeletedEventHandler)))
-            services.AddEventHandlers<IDmChannelDeletedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddDmChannelDeletedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IChannelPinsUpdatedEventHandler)))
-            services.AddEventHandlers<IChannelPinsUpdatedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddChannelPinsUpdatedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IGuildCreatedEventHandler)))
-            services.AddEventHandlers<IGuildCreatedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddGuildCreatedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IGuildAvailableEventHandler)))
-            services.AddEventHandlers<IGuildAvailableEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddGuildAvailableHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IGuildUpdatedEventHandler)))
-            services.AddEventHandlers<IGuildUpdatedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddGuildUpdatedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IGuildDeletedEventHandler)))
-            services.AddEventHandlers<IGuildDeletedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddGuildDeletedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IGuildUnavailableEventHandler)))
-            services.AddEventHandlers<IGuildUnavailableEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddGuildUnavailableHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IGuildDownloadCompletedEventHandler)))
-            services.AddEventHandlers<IGuildDownloadCompletedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddGuildDownloadCompletedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IGuildEmojisUpdatedEventHandler)))
-            services.AddEventHandlers<IGuildEmojisUpdatedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddGuildEmojisUpdatedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IGuildStickersUpdatedEventHandler)))
-            services.AddEventHandlers<IGuildStickersUpdatedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddGuildStickersUpdatedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IGuildIntegrationsUpdatedEventHandler)))
-            services.AddEventHandlers<IGuildIntegrationsUpdatedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddGuildIntegrationsUpdatedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IGuildAuditLogCreatedEventHandler)))
-            services.AddEventHandlers<IGuildAuditLogCreatedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddGuildAuditLogCreatedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IScheduledGuildEventCreatedEventHandler)))
-            services.AddEventHandlers<IScheduledGuildEventCreatedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddScheduledGuildEventCreatedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IScheduledGuildEventUpdatedEventHandler)))
-            services.AddEventHandlers<IScheduledGuildEventUpdatedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddScheduledGuildEventUpdatedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IScheduledGuildEventDeletedEventHandler)))
-            services.AddEventHandlers<IScheduledGuildEventDeletedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddScheduledGuildEventDeletedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IScheduledGuildEventCompletedEventHandler)))
-            services.AddEventHandlers<IScheduledGuildEventCompletedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddScheduledGuildEventCompletedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IScheduledGuildEventUserAddedEventHandler)))
-            services.AddEventHandlers<IScheduledGuildEventUserAddedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddScheduledGuildEventUserAddedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IScheduledGuildEventUserRemovedEventHandler)))
-            services.AddEventHandlers<IScheduledGuildEventUserRemovedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddScheduledGuildEventUserRemovedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IGuildBanAddedEventHandler)))
-            services.AddEventHandlers<IGuildBanAddedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddGuildBanAddedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IGuildBanRemovedEventHandler)))
-            services.AddEventHandlers<IGuildBanRemovedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddGuildBanRemovedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IGuildMemberAddedEventHandler)))
-            services.AddEventHandlers<IGuildMemberAddedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddGuildMemberAddedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IGuildMemberRemovedEventHandler)))
-            services.AddEventHandlers<IGuildMemberRemovedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddGuildMemberRemovedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IGuildMemberUpdatedEventHandler)))
-            services.AddEventHandlers<IGuildMemberUpdatedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddGuildMemberUpdatedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IGuildMembersChunkedEventHandler)))
-            services.AddEventHandlers<IGuildMembersChunkedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddGuildMembersChunkedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IGuildRoleCreatedEventHandler)))
-            services.AddEventHandlers<IGuildRoleCreatedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddGuildRoleCreatedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IGuildRoleUpdatedEventHandler)))
-            services.AddEventHandlers<IGuildRoleUpdatedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddGuildRoleUpdatedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IGuildRoleDeletedEventHandler)))
-            services.AddEventHandlers<IGuildRoleDeletedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddGuildRoleDeletedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IInviteCreatedEventHandler)))
-            services.AddEventHandlers<IInviteCreatedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddInviteCreatedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IInviteDeletedEventHandler)))
-            services.AddEventHandlers<IInviteDeletedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddInviteDeletedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IMessageCreatedEventHandler)))
-            services.AddEventHandlers<IMessageCreatedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddMessageCreatedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IMessageAcknowledgedEventHandler)))
-            services.AddEventHandlers<IMessageAcknowledgedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddMessageAcknowledgedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IMessageUpdatedEventHandler)))
-            services.AddEventHandlers<IMessageUpdatedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddMessageUpdatedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IMessageDeletedEventHandler)))
-            services.AddEventHandlers<IMessageDeletedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddMessageDeletedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IMessagesBulkDeletedEventHandler)))
-            services.AddEventHandlers<IMessagesBulkDeletedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddMessagesBulkDeletedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IMessageReactionAddedEventHandler)))
-            services.AddEventHandlers<IMessageReactionAddedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddMessageReactionAddedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IMessageReactionRemovedEventHandler)))
-            services.AddEventHandlers<IMessageReactionRemovedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddMessageReactionRemovedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IMessageReactionsClearedEventHandler)))
-            services.AddEventHandlers<IMessageReactionsClearedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddMessageReactionsClearedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IMessageReactionRemovedEmojiEventHandler)))
-            services.AddEventHandlers<IMessageReactionRemovedEmojiEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddMessageReactionRemovedEmojiHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IPresenceUpdatedEventHandler)))
-            services.AddEventHandlers<IPresenceUpdatedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddPresenceUpdatedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IUserSettingsUpdatedEventHandler)))
-            services.AddEventHandlers<IUserSettingsUpdatedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddUserSettingsUpdatedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IUserUpdatedEventHandler)))
-            services.AddEventHandlers<IUserUpdatedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddUserUpdatedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IVoiceStateUpdatedEventHandler)))
-            services.AddEventHandlers<IVoiceStateUpdatedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddVoiceStateUpdatedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IVoiceServerUpdatedEventHandler)))
-            services.AddEventHandlers<IVoiceServerUpdatedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddVoiceServerUpdatedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IThreadCreatedEventHandler)))
-            services.AddEventHandlers<IThreadCreatedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddThreadCreatedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IThreadUpdatedEventHandler)))
-            services.AddEventHandlers<IThreadUpdatedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddThreadUpdatedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IThreadDeletedEventHandler)))
-            services.AddEventHandlers<IThreadDeletedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddThreadDeletedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IThreadListSyncedEventHandler)))
-            services.AddEventHandlers<IThreadListSyncedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddThreadListSyncedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IThreadMemberUpdatedEventHandler)))
-            services.AddEventHandlers<IThreadMemberUpdatedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddThreadMemberUpdatedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IThreadMembersUpdatedEventHandler)))
-            services.AddEventHandlers<IThreadMembersUpdatedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddThreadMembersUpdatedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IIntegrationCreatedEventHandler)))
-            services.AddEventHandlers<IIntegrationCreatedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddIntegrationCreatedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IIntegrationUpdatedEventHandler)))
-            services.AddEventHandlers<IIntegrationUpdatedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddIntegrationUpdatedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IIntegrationDeletedEventHandler)))
-            services.AddEventHandlers<IIntegrationDeletedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddIntegrationDeletedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IStageInstanceCreatedEventHandler)))
-            services.AddEventHandlers<IStageInstanceCreatedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddStageInstanceCreatedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IStageInstanceUpdatedEventHandler)))
-            services.AddEventHandlers<IStageInstanceUpdatedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddStageInstanceUpdatedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IStageInstanceDeletedEventHandler)))
-            services.AddEventHandlers<IStageInstanceDeletedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddStageInstanceDeletedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IInteractionCreatedEventHandler)))
-            services.AddEventHandlers<IInteractionCreatedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddInteractionCreatedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IComponentInteractionCreatedEventHandler)))
-            services.AddEventHandlers<IComponentInteractionCreatedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddComponentInteractionCreatedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IModalSubmittedEventHandler)))
-            services.AddEventHandlers<IModalSubmittedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddModalSubmittedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IContextMenuInteractionCreatedEventHandler)))
-            services.AddEventHandlers<IContextMenuInteractionCreatedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddContextMenuInteractionCreatedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(ITypingStartedEventHandler)))
-            services.AddEventHandlers<ITypingStartedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddTypingStartedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IUnknownEventEventHandler)))
-            services.AddEventHandlers<IUnknownEventEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddUnknownEventHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IWebhooksUpdatedEventHandler)))
-            services.AddEventHandlers<IWebhooksUpdatedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddWebhooksUpdatedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IClientErroredEventHandler)))
-            services.AddEventHandlers<IClientErroredEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddClientErroredHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IAutoModerationRuleCreatedEventHandler)))
-            services.AddEventHandlers<IAutoModerationRuleCreatedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddAutoModerationRuleCreatedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IAutoModerationRuleUpdatedEventHandler)))
-            services.AddEventHandlers<IAutoModerationRuleUpdatedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddAutoModerationRuleUpdatedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IAutoModerationRuleDeletedEventHandler)))
-            services.AddEventHandlers<IAutoModerationRuleDeletedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddAutoModerationRuleDeletedHandlers().RegisterHandler(typeof(TImplementation));
+
         if (typeof(TImplementation).IsAssignableTo(typeof(IAutoModerationRuleExecutedEventHandler)))
-            services.AddEventHandlers<IAutoModerationRuleExecutedEventHandler>().RegisterHandler(typeof(TImplementation));
+            services.AddAutoModerationRuleExecutedHandlers().RegisterHandler(typeof(TImplementation));
+
         return services;
     }
 

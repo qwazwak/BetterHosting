@@ -5,7 +5,7 @@ using DSharpPlus.EventArgs;
 
 namespace UnitTests.DSharpPlus.BetterHosting.EventsNext;
 
-public static class HandlerTypesTestData
+public static partial class HandlerTypesTestData
 {
     public static readonly Type[] EventHandlerBaseInterface = new[] { typeof(IDiscordEventHandler) };
     public static readonly Type[] EventArgTypes = new[]
@@ -91,7 +91,7 @@ public static class HandlerTypesTestData
     };
 
     public static readonly Type[] GenericEventHandlerTypes = EventArgTypes.Select(a => typeof(IDiscordEventHandler<>).MakeGenericType(a)).ToArray();
-    public static Type[] SpecificHandlerInterfaces => new[]
+    public static readonly Type[] SpecificHandlerInterfaces = new[]
     {
         typeof(ISocketErroredEventHandler),
         typeof(ISocketOpenedEventHandler),

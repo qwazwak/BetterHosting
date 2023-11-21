@@ -15,38 +15,60 @@ internal abstract class EventHandlerManager<TInterface, TArgument> : IEventHandl
     where TArgument : DiscordEventArgs
 {
     private readonly ILogger<EventHandlerManager<TInterface, TArgument>> logger;
-    protected readonly HandlerRegistry<TInterface> registry;
+    private readonly ImmutableArray<Guid> registrations;
     private readonly IKeyedServiceProvider provider;
     private DiscordShardedClient client = null!;
+    private bool started;
 
     protected EventHandlerManager(ILogger<EventHandlerManager<TInterface, TArgument>> logger, HandlerRegistry<TInterface> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider)
     {
         this.logger = logger;
-        this.registry = registry;
+        this.registrations = ImmutableArray.CreateRange(registry.Registrations.Select(i => i.Key));
         this.provider = provider;
     }
 
-    public virtual bool CanBeTriggered(DiscordShardedClient client) => registry.Registrations.Count != 0;
+    public virtual bool CanBeTriggered() => registrations.Length != 0;
+    public virtual bool CanBeTriggered(DiscordShardedClient client) => true;
 
     public void Start(DiscordShardedClient client)
     {
         this.client = client;
         Stopwatch sw = new();
-        logger.LogTrace("Setting up event handler");
-        sw.Start();
-        SetBindingState(true);
-        sw.Stop();
-        logger.LogInformation("Finished event handler setup in {time}", sw.Elapsed);
+        try
+        {
+            logger.LogTrace("Setting up event handler");
+            sw.Start();
+            SetBindingState(true);
+            started = true;
+        }
+        finally
+        {
+            sw.Stop();
+            logger.LogInformation("Finished event handler setup in {time}", sw.Elapsed);
+        }
     }
 
     public void Stop()
     {
+        if (!started)
+        {
+            logger.LogTrace("No need to shutdown manager as it was not started");
+            return;
+        }
+        started = false;
+
         Stopwatch sw = new();
-        logger.LogTrace("Tearing down event handler");
-        sw.Start();
-        SetBindingState(false);
-        sw.Stop();
-        logger.LogInformation("Finished event handler teardown in {time}", sw.Elapsed);
+        try
+        {
+            logger.LogTrace("Tearing down event handler");
+            sw.Start();
+            SetBindingState(false);
+        }
+        finally
+        {
+            sw.Stop();
+            logger.LogInformation("Finished event handler teardown in {time}", sw.Elapsed);
+        }
     }
 
     private bool _bindingState;
@@ -78,29 +100,31 @@ internal abstract class EventHandlerManager<TInterface, TArgument> : IEventHandl
         sw.Start();
         await OnEventCore(sender, args);
         sw.Stop();
-        int count = registry.Registrations.Count;
-        logger.LogDebug("Finished calling of {count} handlers in {elapsed}", count, sw.Elapsed);
+        logger.LogDebug("Finished calling of {count} handlers in {elapsed}", registrations.Length, sw.Elapsed);
     }
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private Task OnEventCore(DiscordClient sender, TArgument args) => Parallel.ForEachAsync(registry.Registrations, (reg, ct) => ct.IsCancellationRequested ? ValueTask.FromCanceled(ct) : OnEventSingle(sender, reg, args));
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private async ValueTask OnEventSingle(DiscordClient sender, HandlerRegistration handlerRegistration, TArgument args)
+    private Task OnEventCore(DiscordClient sender, TArgument args) => Parallel.ForEachAsync(registrations, (key, _) => new(OnEventSingle(sender, key, args)));
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private async Task OnEventSingle(DiscordClient sender, Guid key, TArgument args)
     {
         try
         {
-            await using AsyncServiceScope scope = this.provider.CreateAsyncScope();
-            TInterface handler = scope.ServiceProvider.GetRequiredKeyedService<TInterface>(handlerRegistration.Key);
+            await using AsyncServiceScope scope = provider.CreateAsyncScope();
+            TInterface handler = scope.ServiceProvider.GetRequiredKeyedService<TInterface>(key);
             await Invoke(handler, sender, args);
         }
         catch (Exception ex)
         {
-            logger.LogWarning(ex, "A problem occured while handling event with {EventName} with handler ID {HandlerName}", typeof(TInterface).Name, handlerRegistration.Key);
+            logger.LogWarning(ex, "A problem occured while handling event with {EventName} with handler ID {HandlerName}", typeof(TInterface).Name, key);
             throw;
         }
     }
 
     protected abstract void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, TArgument> handler);
     protected abstract void UnbindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, TArgument> handler);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
     protected abstract ValueTask Invoke(TInterface handler, DiscordClient sender, TArgument args);
 }

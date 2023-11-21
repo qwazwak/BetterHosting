@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 using DSharpPlus.BetterHosting.Services.Interfaces.Extensions;
 
 namespace DSharpPlus.BetterHosting.Services.Implementation.Extensions;
@@ -16,8 +18,12 @@ public class DiscordExtensionConfiguratorAdapter<TSpecific, TExtension> : IDisco
     static DiscordExtensionConfiguratorAdapter()
     {
         if (typeof(TSpecific) == typeof(IDiscordExtensionConfigurator<TExtension>))
-            throw new ArgumentException($"{nameof(TSpecific)} must be derived from {nameof(IDiscordExtensionConfigurator<TExtension>)} but not exactly equal", nameof(TSpecific));
+            ThrowInvalidInterface();
     }
+
+    [DoesNotReturn]
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    static void ThrowInvalidInterface() => throw new ArgumentException($"{nameof(TSpecific)} must be derived from {nameof(IDiscordExtensionConfigurator<TExtension>)} but not exactly equal", nameof(TSpecific));
 
     /// <summary>
     /// Constructor

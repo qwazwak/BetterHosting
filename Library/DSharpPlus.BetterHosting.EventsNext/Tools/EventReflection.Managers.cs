@@ -9,11 +9,14 @@ internal static partial class EventReflection
 {
     public static class Managers
     {
-        public static Type For<TInterface>() where TInterface : IDiscordEventHandler
+        public static Type For<TInterface>() where TInterface : IDiscordEventHandler => For(typeof(TInterface));
+        private static Type For(Type interfaceType)
         {
+            Debug.Assert(interfaceType.IsAssignableTo(typeof(IDiscordEventHandler)));
             weakDetails.GetTarget(out ImmutableDictionary<Type, DetailsRecord> dict);
-            if (!dict.TryGetValue(typeof(TInterface), out DetailsRecord? details))
-                Debug.Fail($"{typeof(TInterface).Name} is not valid");
+            if (!dict.TryGetValue(interfaceType, out DetailsRecord? details))
+                Debug.Fail($"{interfaceType.Name} is not valid");
+
             return details.Manager;
         }
     }
