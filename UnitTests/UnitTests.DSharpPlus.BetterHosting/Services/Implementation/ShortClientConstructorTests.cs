@@ -5,6 +5,7 @@ using DSharpPlus;
 using DSharpPlus.BetterHosting.Services.Implementation.Internal;
 using DSharpPlus.BetterHosting.Services.Interfaces.Internal;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Moq.AutoMock;
 
 namespace UnitTests.DSharpPlus.BetterHosting.Services.Implementation;
