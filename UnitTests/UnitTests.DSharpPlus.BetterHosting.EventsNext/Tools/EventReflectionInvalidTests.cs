@@ -19,7 +19,7 @@ public class EventReflectionInvalidTests<TInterface> where TInterface : IDiscord
 
     private protected static void AssertNoDetails(Func<EventReflection.DetailsRecord> testDelegate)
     {
-        Assume.That(DebugException, Is.Not.Null, "Could not find exception type");
-        Assert.Throws(Is.AssignableTo<Exception>().And.TypeOf(DebugException), () => testDelegate.Invoke());
+        Exception ex = Assert.Throws(Is.AssignableTo<Exception>(), () => testDelegate.Invoke());
+        Assert.That(ex.GetType().Name, Is.EqualTo("DebugAssertException"));
     }
 }
