@@ -13,13 +13,7 @@ public static partial class EventsNextBetterHostExtensions
     //Internal for testing
     internal static class Helpers
     {
-        public static void AddEventManagers(IServiceCollection services)
-        {
-            foreach (EventReflection.DetailsRecord detail in EventReflection.AllDetails)
-                AddEventManager(services, detail);
-        }
-
-        private static void AddEventManager(IServiceCollection services, EventReflection.DetailsRecord detail)
+        public static void AddEventManager(IServiceCollection services, EventReflection.DetailsRecord detail)
         {
             Type manager = CreateEventManager(detail);
             services.TryAddKeyedSingleton(service: typeof(IEventHandlerManager), serviceKey: detail.EventInterface, implementationType: manager);

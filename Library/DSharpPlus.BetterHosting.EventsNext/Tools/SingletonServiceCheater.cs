@@ -12,11 +12,12 @@ internal static class SingletonServiceCheater
             throw ex;
         return instance;
     }
+
     public static bool TryGet<T>(this IServiceCollection services, [NotNullWhen(true), MaybeNullWhen(false)] out T? instance) where T : class => TryGet(services, out instance, out Exception? _);
 
     public static T GetOrAddSingleton<T>(this IServiceCollection services, Func<T> factory) where T : class
     {
-        if (TryGet<T>(services, out T? instance))
+        if (TryGet(services, out T? instance))
             return instance;
 
         T newInstance = factory.Invoke();

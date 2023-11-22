@@ -1,7 +1,8 @@
 ﻿using System;
 using DSharpPlus.BetterHosting.EventsNext.Services;
 using DSharpPlus.BetterHosting.EventsNext.Services.Implementations;
-﻿using Microsoft.Extensions.DependencyInjection;
+using DSharpPlus.BetterHosting.EventsNext.Tools;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace DSharpPlus.BetterHosting.EventsNext;
@@ -19,9 +20,12 @@ public static partial class EventsNextBetterHostExtensions
     public static IServiceCollection AddEventsNext(this IServiceCollection services)
     {
         ArgumentNullException.ThrowIfNull(services);
-        services.TryAddTransient(typeof(IHandlerRegistry<>), typeof(HandlerRegistry<>));
         services.TryAddTransient(typeof(IHandlerRegistryKeyProvider<>), typeof(HandlerRegistryKeyProvider<>));
-        Helpers.AddEventManagers(services);
+        foreach (EventReflection.DetailsRecord detail in EventReflection.AllDetails)
+        {
+            services.TryAdd(ServiceDescriptor.Singleton(serviceType: typeof(IHandlerRegistry<>).MakeGenericType(detail.EventInterface), implementationInstance: Activator.CreateInstance(typeof(HandlerRegistry<>).MakeGenericType(detail.EventInterface))!));
+            Helpers.AddEventManager(services, detail);
+        }
         return services;
     }
 }

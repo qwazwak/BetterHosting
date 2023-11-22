@@ -2,7 +2,6 @@
 using System;
 using Microsoft.Extensions.DependencyInjection;
 using DSharpPlus.BetterHosting.EventsNext.Tools;
-using DSharpPlus.BetterHosting.EventsNext.Services.Implementations;
 
 namespace DSharpPlus.BetterHosting.EventsNext;
 
@@ -42,14 +41,15 @@ public sealed class RegistrationBuilder<TEventInterface> where TEventInterface :
         if (!handlerType.IsAssignableTo(typeof(TEventInterface)))
             throw new ArgumentException("Invalid handler type");
 
+        IHandlerRegistry<TEventInterface> registry = Services.GetSingleton<IHandlerRegistry<TEventInterface>>();
         Guid key;
         do
         {
             key = Guid.NewGuid();
         }
-        while (!RegistrationBuilderHelper.CanAddService(Services, typeof(HandlerRegistration<TEventInterface>), key));
+        while (!registry.Add(key));
 
-        Services.AddKeyedTransient<IHandlerRegistration<TEventInterface>, HandlerRegistration<TEventInterface>>(key);
+        Services.AddKeyedTransient(typeof(TEventInterface), key, handlerType);
         return this;
     }
 }
