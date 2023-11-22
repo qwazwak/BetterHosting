@@ -23,6 +23,7 @@ public class ShortClientConstructorTests
     public void SetUp()
     {
         autoMocker = new(MockBehavior.Strict);
+        autoMocker.Use(Mock.Of<ILogger<ShortClientConstructor>>());
 
         mockProvider = autoMocker.GetMock<IServiceProvider>();
         mockScope = autoMocker.GetMock<IServiceScope>();
