@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
@@ -22,11 +21,50 @@ public abstract class BackgroundLifecycleService : BackgroundService, IHostedLif
     /// <inheritdoc />
     public virtual Task StartingAsync(CancellationToken cancellationToken) => StartTask(Start, out startTask, out startCTS, cancellationToken);
     /// <inheritdoc />
-    public virtual Task StartedAsync(CancellationToken cancellationToken) => EndTask(startTask, startCTS, cancellationToken);
+    public virtual Task StartedAsync(CancellationToken cancellationToken)
+    {
+        if (startTask == null)
+            return Task.CompletedTask;
+
+        Task result = startTask.WaitAsync(cancellationToken);
+        startTask = null;
+        return result.WaitAsync(cancellationToken);
+    }
+
     /// <inheritdoc />
     public virtual Task StoppingAsync(CancellationToken cancellationToken) => StartTask(Stop, out stopTask, out stopCTS, cancellationToken);
+
     /// <inheritdoc />
-    public virtual Task StoppedAsync(CancellationToken cancellationToken) => EndTask(stopTask, stopCTS, cancellationToken);
+    public virtual async Task StoppedAsync(CancellationToken cancellationToken)
+    {
+        if (startTask == null && stopTask == null)
+            return;
+
+        // Stop called without start
+        try
+        {
+            // Signal cancellation to the executing method
+            //if (startTask != null)
+            startCTS?.Cancel();
+
+            //if (stopTask != null)
+            stopCTS?.Cancel();
+
+        }
+        finally
+        {
+#pragma warning disable CS8509 // The switch expression does not handle all possible values of its input type (it is not exhaustive).
+            Task awaitTask = (startTask != null, stopTask != null) switch
+            {
+                (true, true) => Task.WhenAll(startTask!, stopTask!),
+                (true, false) => startTask!,
+                (false, true) => stopTask!
+            };
+#pragma warning restore CS8509 // The switch expression does not handle all possible values of its input type (it is not exhaustive).
+            await SafeAwait(awaitTask, cancellationToken);
+        }
+    }
+
 
     private static Task StartTask(Func<CancellationToken, Task> method, out Task task, out CancellationTokenSource cts, CancellationToken cancellationToken)
     {
@@ -44,31 +82,13 @@ public abstract class BackgroundLifecycleService : BackgroundService, IHostedLif
         return Task.CompletedTask;
     }
 
-    private static Task EndTask(Task? task, CancellationTokenSource? cts, CancellationToken cancellationToken)
+    private static async Task SafeAwait(Task task, CancellationToken cancellationToken)
     {
-        // Stop called without start
-        if (task == null)
-            return Task.CompletedTask;
-
-        Debug.Assert(cts != null);
-
-        return EndTaskAsync(task, cts, cancellationToken);
-    }
-    private static async Task EndTaskAsync(Task task, CancellationTokenSource cts, CancellationToken cancellationToken)
-    {
-        try
-        {
-            // Signal cancellation to the executing method
-            cts!.Cancel();
-        }
-        finally
-        {
-            // Wait until the task completes or the stop token triggers
-            TaskCompletionSource<object> tcs = new();
-            using CancellationTokenRegistration registration = cancellationToken.Register(s => ((TaskCompletionSource<object>)s!).SetCanceled(), tcs);
-            // Do not await the _executeTask because cancelling it will throw an OperationCanceledException which we are explicitly ignoring
-            await Task.WhenAny(task, tcs.Task).ConfigureAwait(false);
-        }
+        // Wait until the task completes or the stop token triggers
+        TaskCompletionSource<object> tcs = new();
+        using CancellationTokenRegistration registration = cancellationToken.Register(s => ((TaskCompletionSource<object>)s!).SetCanceled(), tcs);
+        // Do not await the _executeTask because cancelling it will throw an OperationCanceledException which we are explicitly ignoring
+        await Task.WhenAny(task, tcs.Task).ConfigureAwait(false);
     }
 
     /// <inheritdoc />

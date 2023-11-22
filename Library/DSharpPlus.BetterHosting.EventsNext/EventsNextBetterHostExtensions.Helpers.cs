@@ -24,8 +24,7 @@ public static partial class EventsNextBetterHostExtensions
             Type manager = CreateEventManager(detail);
             services.TryAddKeyedSingleton(service: typeof(IEventHandlerManager), serviceKey: detail.EventInterface, implementationType: manager);
 
-            Type hostType = typeof(EventsNextBackgroundHost<>).MakeGenericType(detail.EventInterface);
-            services.TryAddSingleton(typeof(IHostedService), hostType);
+            services.AddSingleton(typeof(IHostedService), typeof(EventsNextBackgroundHost<>).MakeGenericType(detail.EventInterface));
         }
 
         private static Type CreateEventManager(EventReflection.DetailsRecord detail) => typeof(AutoCallEventHandlerManager<,>).MakeGenericType(detail.EventInterface, detail.ArgumentType);
