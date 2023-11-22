@@ -16,9 +16,12 @@ internal partial class AutoEventHandlerAdapter<TInterface, TArgument>
     static AutoEventHandlerAdapter() => EventReflection.Verification.VerifyExactInterface<TInterface>();
 
     /// <inheritdoc />
+    [ExcludeFromCodeCoverage(Justification = CoveCoverageExclusionReasons.DSharpSealed)]
     [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.AggressiveOptimization)]
     public static partial void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, TArgument> handler);
+
     /// <inheritdoc />
+    [ExcludeFromCodeCoverage(Justification = CoveCoverageExclusionReasons.DSharpSealed)]
     [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.AggressiveOptimization)]
     public static partial void UnbindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, TArgument> handler);
 
