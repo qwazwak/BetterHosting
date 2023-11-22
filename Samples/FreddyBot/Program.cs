@@ -14,11 +14,12 @@ using Microsoft.Extensions.Hosting.Internal;
 using FreddyBot.Options;
 using DSharpPlus.BetterHosting.SlashCommands;
 
-await Host.CreateDefaultBuilder(args)
+IHostBuilder builder = Host.CreateDefaultBuilder(args)
     .ConfigureServices(ConfigureServices)
-    .ConfigureServices(s => s.AddSingleton<IHostLifetime, ConsoleLifetime>())
-    .Build()
-    .RunAsync();
+    .ConfigureServices(s => s.AddSingleton<IHostLifetime, ConsoleLifetime>());
+
+IHost host = builder.Build();
+await host.RunAsync();
 
 static void ConfigureServices(IServiceCollection services)
 {

@@ -7,6 +7,7 @@ using DSharpPlus.Entities;
 using System.Linq;
 using System.Threading;
 using FreddyBot.Services.Implementation;
+using System;
 
 namespace FreddyBot.Handlers;
 
@@ -46,7 +47,16 @@ public sealed partial class SusImageHandler : IMessageCreatedEventHandler
 
         async Task<bool> CheckAttachment(DiscordAttachment attachment, CancellationToken cancellationToken)
         {
-            float[] res = await predictor.Predict(attachment, cancellationToken);
+            float[] res;
+            try
+            {
+                res = await predictor.Predict(attachment, cancellationToken);
+            }
+            catch (OperationCanceledException)
+            {
+                return false;
+            }
+
             if (res.Length == 0)
             {
                 logger.LogDebug("attachment {name} was had no elements labeled sus.", attachment.FileName);
