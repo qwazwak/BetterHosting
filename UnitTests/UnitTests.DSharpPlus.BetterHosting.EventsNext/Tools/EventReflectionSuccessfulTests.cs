@@ -40,8 +40,6 @@ public class EventReflectionSuccessfulTests
             Assert.That(detail.EventInterface, Is.Not.Null);
             Assert.That(detail.EventInterface, Is.EqualTo(interfaceType));
             Assert.That(detail.ArgumentType, Is.Not.Null);
-            Assert.That(detail.BinderAdapter, Is.Not.Null);
-            Assert.That(detail.CallAdapter, Is.Not.Null);
         });
     }
 

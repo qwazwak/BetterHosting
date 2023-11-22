@@ -9,7 +9,7 @@ namespace DSharpPlus.BetterHosting.EventsNext.Tools;
 
 internal static partial class EventReflection
 {
-    private static partial ImmutableDictionary<Type, DetailsRecord> GetDeails() => ImmutableDictionary.CreateRange(
+    private static partial ImmutableDictionary<Type, DetailsRecord> GetDetails() => ImmutableDictionary.CreateRange(
     [
         KeyValuePair.Create(typeof(ISocketErroredEventHandler), DetailsRecord.Create<ISocketErroredEventHandler, SocketErrorEventArgs>()),
         KeyValuePair.Create(typeof(ISocketOpenedEventHandler), DetailsRecord.Create<ISocketOpenedEventHandler, SocketEventArgs>()),

@@ -1,8 +1,9 @@
 ﻿using System;
 using DSharpPlus.EventArgs;
 using DSharpPlus.BetterHosting.EventsNext.Services;
-using DSharpPlus.BetterHosting.EventsNext.Services.Implementations;
 using System.Collections.Immutable;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace DSharpPlus.BetterHosting.EventsNext.Tools;
 
@@ -16,8 +17,8 @@ internal static partial class EventReflection
             => new(typeof(TEventInterface), typeof(TArgument));
     }
 
-    private static partial ImmutableDictionary<Type, DetailsRecord> GetDeails();
-    private static readonly AutoWeakReference<ImmutableDictionary<Type, DetailsRecord>> weakDetails = new(GetDeails);
+    private static partial ImmutableDictionary<Type, DetailsRecord> GetDetails();
+    private static readonly AutoWeakReference<ImmutableDictionary<Type, DetailsRecord>> weakDetails = new(GetDetails);
 
     public static IEnumerable<DetailsRecord> AllDetails => weakDetails.Target().Values;
 
