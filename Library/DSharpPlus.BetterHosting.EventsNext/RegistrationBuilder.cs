@@ -14,11 +14,16 @@ public sealed class RegistrationBuilder<TEventInterface> where TEventInterface :
 {
     static RegistrationBuilder() => EventReflection.Verification.VerifyExactInterface<TEventInterface>();
 
+    /// <summary>
+    /// The <see cref="IServiceCollection"/> to add registrations to
+    /// </summary>
     public IServiceCollection Services { get; }
-    private HandlerRegistry<TEventInterface>? registry;
-    private HandlerRegistry<TEventInterface> Registry => registry ??= RegistrationBuilderHelper.GetHandlerRegistration<TEventInterface>(services);
 
-    internal RegistrationBuilder(IServiceCollection services)
+    /// <summary>
+    /// Constructs a new builder
+    /// </summary>
+    /// <param name="services"></param>
+    public RegistrationBuilder(IServiceCollection services)
     {
         ArgumentNullException.ThrowIfNull(services);
         Services = services;
@@ -37,9 +42,14 @@ public sealed class RegistrationBuilder<TEventInterface> where TEventInterface :
         if (!handlerType.IsAssignableTo(typeof(TEventInterface)))
             throw new ArgumentException("Invalid handler type");
 
-        HandlerRegistration registration = Registry.AddHandler();
-        Guid key = registration.Key;
-        services.AddKeyedScoped(typeof(TEventInterface), key, handlerType);
+        Guid key;
+        do
+        {
+            key = Guid.NewGuid();
+        }
+        while (!RegistrationBuilderHelper.CanAddService(Services, typeof(HandlerRegistration<TEventInterface>), key));
+
+        Services.AddKeyedTransient<IHandlerRegistration<TEventInterface>, HandlerRegistration<TEventInterface>>(key);
         return this;
     }
 }

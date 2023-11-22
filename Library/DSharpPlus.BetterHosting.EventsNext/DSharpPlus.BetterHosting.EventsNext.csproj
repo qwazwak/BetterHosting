@@ -45,19 +45,19 @@
   </ItemGroup>
   
   <ItemGroup>
-    <None Update="Services\Implementations\EventHandlerManager.Generated.tt">
+    <None Update="Services\Implementations\AutoCallEventHandlerManager.Generated.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>EventHandlerManager.Generated.cs</LastGenOutput>
+      <LastGenOutput>AutoCallEventHandlerManager.Generated.cs</LastGenOutput>
       <!--<DependentUpon>DiscordEventsBase.tt</DependentUpon>-->
     </None>
 
-    <Compile Update="Services\Implementations\EventHandlerManager.Generated.cs">
+    <Compile Update="Services\Implementations\AutoCallEventHandlerManager.Generated.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>EventHandlerManager.Generated.tt</DependentUpon>
+      <DependentUpon>AutoCallEventHandlerManager.Generated.tt</DependentUpon>
     </Compile>
   </ItemGroup>
-  
+
   <ItemGroup>
     <None Update="Services\IDiscordEventHandlers.Generated.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

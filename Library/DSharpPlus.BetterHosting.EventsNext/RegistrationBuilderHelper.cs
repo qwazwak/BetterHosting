@@ -1,24 +1,26 @@
-﻿using DSharpPlus.BetterHosting.EventsNext.Services;
-using Microsoft.Extensions.DependencyInjection;
-using DSharpPlus.BetterHosting.EventsNext.Services.Implementations;
-using DSharpPlus.BetterHosting.EventsNext.Tools;
-using Microsoft.Extensions.Hosting;
+﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 
 namespace DSharpPlus.BetterHosting.EventsNext;
 
 internal static class RegistrationBuilderHelper
 {
-    public static HandlerRegistry<TInterface> GetHandlerRegistration<TInterface>(IServiceCollection services) where TInterface : IDiscordEventHandler
+    public static bool CanAddService(IServiceCollection services, Type serviceType, object? serviceKey)
     {
-        if (services.TryGet(out HandlerRegistry<TInterface>? instance))
-            return instance;
+        ArgumentNullException.ThrowIfNull(services);
+        ArgumentNullException.ThrowIfNull(serviceType);
 
-        HandlerRegistry<TInterface> registryInstance = new();
-        Type managerType = EventReflection.Managers.For<TInterface>();
-        services.AddSingleton(registryInstance);
-        services.AddSingleton(managerType);
-        services.AddSingleton(typeof(IHostedService), typeof(EventsNextBackgroundHost<>).MakeGenericType(managerType));
-        return registryInstance;
+        int count = services.Count;
+        for (int i = 0; i < count; i++)
+        {
+            ServiceDescriptor service = services[i];
+            if (service.ServiceType == serviceType && service.ServiceKey == serviceKey)
+            {
+                // Already added
+                return false;
+            }
+        }
+
+        return true;
     }
 }

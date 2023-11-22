@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Collections.Immutable;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using DSharpPlus.AsyncEvents;
-using DSharpPlus.BetterHosting.Services;
 using DSharpPlus.EventArgs;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -20,11 +20,11 @@ internal abstract class EventHandlerManager<TInterface, TArgument> : IEventHandl
     private DiscordShardedClient client = null!;
     private bool started;
 
-    protected EventHandlerManager(ILogger<EventHandlerManager<TInterface, TArgument>> logger, HandlerRegistry<TInterface> registry, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider)
+    protected EventHandlerManager(ILogger<EventHandlerManager<TInterface, TArgument>> logger, IKeyedServiceProvider provider, IHandlerRegistryKeyProvider<TInterface> registry)
     {
         this.logger = logger;
-        this.registrations = ImmutableArray.CreateRange(registry.Registrations.Select(i => i.Key));
         this.provider = provider;
+        registrations = registry.GetKeys();
     }
 
     public virtual bool CanBeTriggered() => registrations.Length != 0;
@@ -98,13 +98,22 @@ internal abstract class EventHandlerManager<TInterface, TArgument> : IEventHandl
         Stopwatch sw = new();
         logger.LogDebug("Meta-handler invocation started for interface {handlerName}", typeof(TInterface).Name);
         sw.Start();
-        await OnEventCore(sender, args);
+        await OnEventCore(sender, args).ConfigureAwait(false);
         sw.Stop();
         logger.LogDebug("Finished calling of {count} handlers in {elapsed}", registrations.Length, sw.Elapsed);
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private Task OnEventCore(DiscordClient sender, TArgument args) => Parallel.ForEachAsync(registrations, (key, _) => new(OnEventSingle(sender, key, args)));
+    private Task OnEventCore(DiscordClient sender, TArgument args)
+    {
+#if para
+        return Parallel.ForEachAsync(registrations, (key, _) => new(OnEventSingle(sender, key, args)));
+#else
+        Task[] tasks = new Task[registrations.Length];
+        Parallel.For(0, registrations.Length, i => tasks[i] = OnEventSingle(sender, registrations[i], args));
+        return Task.WhenAll(tasks);
+#endif
+    }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private async Task OnEventSingle(DiscordClient sender, Guid key, TArgument args)

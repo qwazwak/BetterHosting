@@ -8,20 +8,23 @@ namespace DSharpPlus.BetterHosting.EventsNext.Tools;
 
 internal static partial class EventReflection
 {
-    private record class DetailsRecord(Type Manager, Type Arguments)
+    internal record DetailsRecord(Type EventInterface, Type ArgumentType)
     {
-        public static DetailsRecord Create<TManager, TEventInterface, TArgument>()
-            where TManager : EventHandlerManager<TEventInterface, TArgument>
+        public static DetailsRecord Create<TEventInterface, TArgument>()
             where TEventInterface : IDiscordEventHandler<TArgument>
             where TArgument : DiscordEventArgs
-            => new(typeof(TManager), typeof(TArgument));
+            => new(typeof(TEventInterface), typeof(TArgument));
     }
 
     private static partial ImmutableDictionary<Type, DetailsRecord> GetDeails();
     private static readonly AutoWeakReference<ImmutableDictionary<Type, DetailsRecord>> weakDetails = new(GetDeails);
 
-    private static DetailsRecord DetailsFor<TInterface>() where TInterface : IDiscordEventHandler => DetailsFor(typeof(TInterface));
-    private static DetailsRecord DetailsFor(Type interfaceType)
+    public static IEnumerable<DetailsRecord> AllDetails => weakDetails.Target().Values;
+
+    //Internal for testing
+    internal static DetailsRecord DetailsFor<TInterface>() where TInterface : IDiscordEventHandler => DetailsFor(typeof(TInterface));
+    //Internal for testing
+    internal static DetailsRecord DetailsFor(Type interfaceType)
     {
         Debug.Assert(interfaceType.IsAssignableTo(typeof(IDiscordEventHandler)));
         weakDetails.GetTarget(out ImmutableDictionary<Type, DetailsRecord> dict);

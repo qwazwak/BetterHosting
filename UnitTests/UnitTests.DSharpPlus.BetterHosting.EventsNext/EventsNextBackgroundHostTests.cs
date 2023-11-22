@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using DSharpPlus;
 using DSharpPlus.BetterHosting.EventsNext.Services;
@@ -9,34 +10,52 @@ using Moq.AutoMock;
 
 namespace UnitTests.DSharpPlus.BetterHosting.EventsNext;
 
-[TestFixture(TestOf = typeof(EventsNextBackgroundHost<>))]
+[TestOf(typeof(EventsNextBackgroundHostBase))]
 public class EventsNextBackgroundHostTests
 {
     AutoMocker mocker = default!;
     Mock<IEventHandlerManager> manager = default!;
     Mock<IConnectedClientProvider> provider = default!;
-    EventsNextBackgroundHost<IEventHandlerManager> host = default!;
+    EventsNextBackgroundHostBase host = default!;
 
     [SetUp]
     public void SetUp()
     {
         mocker = new(MockBehavior.Strict);
-        mocker.Use(new Mock<ILogger<EventsNextBackgroundHost<IEventHandlerManager>>>(MockBehavior.Loose));
+        mocker.Use(new Mock<ILogger<EventsNextBackgroundHostBase>>(MockBehavior.Loose));
         manager = mocker.GetMock<IEventHandlerManager>();
         provider = mocker.GetMock<IConnectedClientProvider>();
-        host = mocker.CreateInstance<EventsNextBackgroundHost<IEventHandlerManager>>();
+        host = mocker.CreateInstance<EventsNextBackgroundHostBase>();
     }
 
     [TearDown]
     public void TearDown() => mocker.Verify();
 
     [Test]
-    public async Task NoHandlersExitFast()
+    public void NoHandlersExitFast()
     {
         DiscordShardedClient client = new(new());
-        provider.Setup(p => p.GetClientAsync(It.IsAny<CancellationToken>())).ReturnsAsync(client).Verifiable(Times.Once);
+        manager.Setup(m => m.CanBeTriggered()).Returns(false);
+        Task result = host.StartingAsync(CancellationToken.None);
+        Assert.That(result, Is.SameAs(Task.CompletedTask));
+    }
 
+    [Test]
+    public async Task ExitAfterClient()
+    {
+        DiscordShardedClient client = new(new());
+        manager.Setup(m => m.CanBeTriggered()).Returns(value: true);
         manager.Setup(m => m.CanBeTriggered(client)).Returns(false);
+        provider.Setup(p => p.GetClientAsync(It.IsAny<CancellationToken>()))
+            .ReturnsAsync(client, TimeSpan.FromMilliseconds(5))
+            .Verifiable(Times.Once);
+
+        await host.StartingAsync(CancellationToken.None);
+    }
+
+    [Test]
+    public async Task ExecuteNothing()
+    {
         Task result = host.StartAsync(CancellationToken.None);
         Assert.That(result, Is.SameAs(Task.CompletedTask));
         await result;
@@ -46,7 +65,7 @@ public class EventsNextBackgroundHostTests
     public async Task CallStop()
     {
         manager.Setup(m => m.Stop()).Verifiable(Times.Once);
-        Task result = host.StopAsync(CancellationToken.None);
+        Task result = host.StoppingAsync(CancellationToken.None);
         Assert.That(result, Is.SameAs(Task.CompletedTask));
         await result;
     }

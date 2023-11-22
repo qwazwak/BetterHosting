@@ -1,14 +1,16 @@
 ﻿using System;
+using DSharpPlus.BetterHosting.EventsNext.Services;
 using DSharpPlus.BetterHosting.EventsNext.Services.Implementations;
 
 namespace UnitTests.DSharpPlus.BetterHosting.EventsNext.Services.Implementation;
 
-public class HandlerRegistrationTests
+[TestFixtureSource(typeof(HandlerTypesTestData), nameof(HandlerTypesTestData.SpecificHandlerInterfaces))]
+public class HandlerRegistrationTests<TInterface> where TInterface : IDiscordEventHandler
 {
     [TestCaseSource(typeof(HandlerRegistrationTestData), nameof(HandlerRegistrationTestData.Keys))]
     public void KeyIsSaved(Guid key)
     {
-        HandlerRegistration registration = new(key);
+        HandlerRegistration<TInterface> registration = new(key);
         Assert.That(registration.Key, Is.EqualTo(key));
     }
 
@@ -16,7 +18,7 @@ public class HandlerRegistrationTests
     public void KeyHashIsSame(Guid key)
     {
         int expectedHash = key.GetHashCode();
-        HandlerRegistration registration = new(key);
+        HandlerRegistration<TInterface> registration = new(key);
         int actualHash = registration.GetHashCode();
         Assert.That(actualHash, Is.EqualTo(expectedHash));
     }
@@ -24,8 +26,8 @@ public class HandlerRegistrationTests
     [TestCaseSource(typeof(HandlerRegistrationTestData), nameof(HandlerRegistrationTestData.Keys))]
     public void Equals(Guid key)
     {
-        HandlerRegistration first = new(key);
-        HandlerRegistration second = new(key);
+        HandlerRegistration<TInterface> first = new(key);
+        HandlerRegistration<TInterface> second = new(key);
         bool result = first.Equals(second);
         Assert.That(result, Is.True);
     }
@@ -33,8 +35,8 @@ public class HandlerRegistrationTests
     [TestCaseSource(typeof(HandlerRegistrationTestData), nameof(HandlerRegistrationTestData.Keys))]
     public void EqualsObject(Guid key)
     {
-        HandlerRegistration first = new(key);
-        HandlerRegistration second = new(key);
+        HandlerRegistration<TInterface> first = new(key);
+        HandlerRegistration<TInterface> second = new(key);
         bool result = first.Equals((object)second);
         Assert.That(result, Is.True);
     }
@@ -42,7 +44,7 @@ public class HandlerRegistrationTests
     [TestCaseSource(typeof(HandlerRegistrationTestData), nameof(HandlerRegistrationTestData.Keys))]
     public void EqualsNullObject(Guid key)
     {
-        HandlerRegistration first = new(key);
+        HandlerRegistration<TInterface> first = new(key);
         bool result = first.Equals(null);
         Assert.That(result, Is.False);
     }

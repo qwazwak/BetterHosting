@@ -1,23 +1,34 @@
-﻿using System.Collections.Generic;
-using System;
-using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace DSharpPlus.BetterHosting.EventsNext.Services.Implementations;
 
-internal class HandlerRegistry<TInterface> where TInterface : IDiscordEventHandler
+internal sealed class HandlerRegistry<TInterface> : IHandlerRegistry<TInterface>, IDisposable
+    where TInterface : IDiscordEventHandler
 {
-    public ReadOnlyCollection<HandlerRegistration> Registrations { get; }
+    private List<IHandlerRegistration<TInterface>>? registrations;
+    private bool isDisposed;
 
-    private readonly List<HandlerRegistration> registrations = new();
-    private readonly HashSet<Guid> usedKeys = new();
+    public HandlerRegistry(IEnumerable<IHandlerRegistration<TInterface>> registrations) => this.registrations = new(registrations);
 
-    public HandlerRegistry() => Registrations = new(registrations);
+    public int Count => registrations!.Count;
 
-    public HandlerRegistration AddHandler()
+    public IEnumerator<IHandlerRegistration<TInterface>> GetEnumerator() => registrations!.GetEnumerator();
+    IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable)registrations!).GetEnumerator();
+
+    public void Dispose()
     {
-        Guid key = HandlerRegistryHelper.GenerateKey(usedKeys);
-        HandlerRegistration reg = new(key);
-        registrations.Add(reg);
-        return reg;
+        if (!isDisposed)
+        {
+            Debug.Assert(registrations != null);
+            registrations.Clear();
+            registrations.TrimExcess();
+            registrations.Capacity = 0;
+            registrations = null;
+            isDisposed = true;
+        }
+        GC.SuppressFinalize(this);
     }
 }
