@@ -61,6 +61,7 @@ internal class EventsNextBackgroundHostBase : BackgroundLifecycleService
 
 internal class EventsNextBackgroundHost<TEventInterface> : EventsNextBackgroundHostBase
 {
+    [ActivatorUtilitiesConstructor]
     public EventsNextBackgroundHost(ILogger<EventsNextBackgroundHost<TEventInterface>> logger, IServiceProvider provider, IConnectedClientProvider clientProvider) : base(logger, provider.GetRequiredKeyedService<IEventHandlerManager>(typeof(TEventInterface)), clientProvider) { }
-    internal EventsNextBackgroundHost(ILogger<EventsNextBackgroundHost<TEventInterface>> logger, IEventHandlerManager manager, IConnectedClientProvider clientProvider) : base(logger, manager, clientProvider) { }
+    public EventsNextBackgroundHost(ILogger<EventsNextBackgroundHost<TEventInterface>> logger, IEventHandlerManager manager, IConnectedClientProvider clientProvider) : base(logger, manager, clientProvider) { }
 }

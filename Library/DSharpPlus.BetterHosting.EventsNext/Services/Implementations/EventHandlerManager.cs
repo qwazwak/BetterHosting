@@ -17,6 +17,7 @@ internal abstract class EventHandlerManager<TInterface, TArgument> : IEventHandl
     private readonly ILogger<EventHandlerManager<TInterface, TArgument>> logger;
     private readonly ImmutableArray<Guid> registrations;
     private readonly IKeyedServiceProvider provider;
+    private readonly AsyncEventHandler<DiscordClient, TArgument> handlerMethod;
     private DiscordShardedClient client = null!;
     private bool started;
 
@@ -24,6 +25,7 @@ internal abstract class EventHandlerManager<TInterface, TArgument> : IEventHandl
     {
         this.logger = logger;
         this.provider = provider;
+        handlerMethod = logger.IsEnabled(LogLevel.Debug) ? OnEventLoggingWrapper : OnEventCore;
         registrations = registry.GetKeys();
     }
 
@@ -84,15 +86,14 @@ internal abstract class EventHandlerManager<TInterface, TArgument> : IEventHandl
         sw.Start();
 
         if (value)
-            BindHandler(client, HandlerMethod);
+            BindHandler(client, handlerMethod);
         else
-            UnbindHandler(client, HandlerMethod);
+            UnbindHandler(client, handlerMethod);
 
         sw.Stop();
         logger.LogDebug("Finished binding change in {time}", sw.Elapsed);
     }
 
-    private AsyncEventHandler<DiscordClient, TArgument> HandlerMethod => logger.IsEnabled(LogLevel.Debug) ? OnEventLoggingWrapper : OnEventCore;
     private async Task OnEventLoggingWrapper(DiscordClient sender, TArgument args)
     {
         Stopwatch sw = new();

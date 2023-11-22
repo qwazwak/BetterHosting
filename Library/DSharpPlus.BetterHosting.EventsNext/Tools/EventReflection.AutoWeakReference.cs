@@ -20,17 +20,18 @@ internal static partial class EventReflection
         //          DoSomething(ref.Target)
         //
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public readonly void GetTarget(out T target) => target = Target();
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public readonly T Target()
+        public readonly void GetTarget(out T target)
         {
             if (weakReference.TryGetTarget(out T? cached) && cached != null)
-                return cached;
-
-            T newValue = factory.Invoke();
-            weakReference.SetTarget(newValue);
-            return newValue;
+            {
+                target = cached;
+            }
+            else
+            {
+                T newValue = factory.Invoke();
+                weakReference.SetTarget(newValue);
+                target = newValue;
+            }
         }
 
         public readonly void SetTarget(T target) => weakReference.SetTarget(target);

@@ -1,5 +1,10 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using DSharpPlus.BetterHosting.EventsNext.Services.Implementations;
+using DSharpPlus.BetterHosting.EventsNext.Services;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using System;
+using DSharpPlus.BetterHosting.EventsNext.Tools;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace DSharpPlus.BetterHosting.EventsNext;
 
@@ -22,5 +27,11 @@ internal static class RegistrationBuilderHelper
         }
 
         return true;
+    }
+    public static void TryAddHandlerSupport<TEventInterface>(IServiceCollection services)
+    {
+        Type managerType = typeof(AutoCallEventHandlerManager<,>).MakeGenericType(typeof(TEventInterface), EventReflection.ArgumentType.For(typeof(TEventInterface)));
+        services.TryAddKeyedSingleton(service: typeof(IEventHandlerManager), serviceKey: typeof(TEventInterface), implementationType: managerType);
+        services.AddSingleton(typeof(IHostedService), typeof(EventsNextBackgroundHost<TEventInterface>));
     }
 }

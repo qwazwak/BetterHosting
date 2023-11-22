@@ -21,7 +21,8 @@ public static partial class EventsNextBetterHostExtensions
     {
         ArgumentNullException.ThrowIfNull(services);
         services.TryAddTransient(typeof(IHandlerRegistryKeyProvider<>), typeof(HandlerRegistryKeyProvider<>));
-        foreach (EventReflection.DetailsRecord detail in EventReflection.AllDetails)
+        EventReflection.AllDetails(out System.Collections.Generic.IEnumerable<EventReflection.DetailsRecord>? details);
+        foreach (EventReflection.DetailsRecord detail in details)
         {
             services.TryAdd(ServiceDescriptor.Singleton(serviceType: typeof(IHandlerRegistry<>).MakeGenericType(detail.EventInterface), implementationInstance: Activator.CreateInstance(typeof(HandlerRegistry<>).MakeGenericType(detail.EventInterface))!));
             Helpers.AddEventManager(services, detail);
