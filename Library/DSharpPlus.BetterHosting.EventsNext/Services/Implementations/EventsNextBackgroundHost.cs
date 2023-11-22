@@ -27,7 +27,7 @@ internal class EventsNextBackgroundHostBase : BackgroundLifecycleService
         if (manager.CanBeTriggered())
             return base.StartingAsync(cancellationToken);
 
-        logger.LogInformation("Startup cancellation requested, not starting event manager");
+        logger.LogTrace("Manager was not able to be trigged, ending fast");
         return Task.CompletedTask;
     }
 
@@ -40,7 +40,7 @@ internal class EventsNextBackgroundHostBase : BackgroundLifecycleService
         }
         catch (OperationCanceledException)
         {
-            logger.LogInformation("Startup cancellation requested, not starting event manager");
+            logger.LogDebug("Startup cancellation requested, not starting event manager");
             return;
         }
 
