@@ -8,10 +8,11 @@ using System.Linq;
 using System.Threading;
 using FreddyBot.Services.Implementation;
 using System;
+using System.Collections.Generic;
 
 namespace FreddyBot.Handlers;
 
-public sealed partial class SusImageHandler : IMessageCreatedEventHandler
+public sealed class SusImageHandler : IMessageCreatedEventHandler
 {
     private readonly ILogger<SusImageHandler> logger;
     private readonly SusPredictor predictor;
@@ -36,11 +37,13 @@ public sealed partial class SusImageHandler : IMessageCreatedEventHandler
 
     public async Task OnMessageCreatedAsync(MessageCreateEventArgs args)
     {
+        IReadOnlyList<DiscordAttachment> attachments = args.Message.Attachments;
+        Task<bool>[] tasks = new Task<bool>[args.Message.Attachments.Count];
         CancellationTokenSource cts = new();
-        Task<bool> containedSusTask = Task.WhenAny(args.Message.Attachments.Select(a => CheckAttachment(a, cts.Token))).Unwrap();
+        Parallel.For(0, args.Message.Attachments.Count, i => tasks[i] = CheckAttachment(attachments[i], cts.Token));
 
-        bool containedSus = await containedSusTask;
-        cts.Cancel();
+        bool[] susChecks = await Task.WhenAll(tasks).ConfigureAwait(false);
+        bool containedSus = susChecks.Any(i => i);
 
         if (containedSus)
             await args.Message.RespondAsync(helper.BuildStupidString());
@@ -50,7 +53,7 @@ public sealed partial class SusImageHandler : IMessageCreatedEventHandler
             float[] res;
             try
             {
-                res = await predictor.Predict(attachment, cancellationToken);
+                res = await predictor.Predict(attachment, cancellationToken).ConfigureAwait(false);
             }
             catch (OperationCanceledException)
             {
@@ -59,12 +62,17 @@ public sealed partial class SusImageHandler : IMessageCreatedEventHandler
 
             if (res.Length == 0)
             {
-                logger.LogDebug("attachment {name} was had no elements labeled sus.", attachment.FileName);
+                logger.LogDebug("attachment {name} had no elements labeled sus.", attachment.FileName);
                 return false;
             }
 
             logger.LogDebug("attachment {name} was {amount}% sus.", attachment.FileName, res.Max());
-            return res.Any(f => f >= 0.4f);
+            if(res.Any(f => f >= 0.4f))
+            {
+                cts.Cancel();
+                return true;
+            }
+            return false;
         }
     }
 }
