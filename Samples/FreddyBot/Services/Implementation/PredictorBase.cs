@@ -14,6 +14,7 @@ namespace FreddyBot.Services.Implementation;
 
 public abstract class PredictorBase : IDisposable
 {
+    protected abstract string[] Labels { get; }
     protected abstract string Name { get; }
 
     private readonly HttpClient client;
@@ -21,7 +22,7 @@ public abstract class PredictorBase : IDisposable
 
     private bool isDisposed;
 
-    protected PredictorBase(HttpClient client, string[] Labels)
+    protected PredictorBase(HttpClient client)
     {
         predictor = YoloV5Predictor.Create($"Assets/Weights/{Name}.onnx", Labels);
         this.client = client;
