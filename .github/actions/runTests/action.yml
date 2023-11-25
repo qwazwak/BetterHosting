@@ -27,4 +27,4 @@ runs:
       dotnet-version: 8.0.x
   - name: Test
     shell: bash
-    run: dotnet test --no-restore --no-build --verbosity normal -l trx
+    run: dotnet test .\ --no-restore --no-build --verbosity normal -l trx
