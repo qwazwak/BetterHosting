@@ -12,6 +12,8 @@ internal static partial class EventReflection
         public static bool IsExactInterface<TInterface>() where TInterface : IDiscordEventHandler => IsExactInterface(typeof(TInterface));
         public static bool IsExactInterface(Type interfaceType)
         {
+            if (!interfaceType.IsInterface || !typeof(IDiscordEventHandler).IsAssignableFrom(interfaceType))
+                return false;
             weakDetails.GetTarget(out ImmutableDictionary<Type, DetailsRecord> dict);
             return dict.ContainsKey(interfaceType);
         }
