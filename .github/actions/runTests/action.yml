@@ -15,6 +15,7 @@ runs:
       shell: bash
       run: dotnet test BetterHosting.sln --settings:"./UnitTests/.runsettings" --results-directory:"./UnitTests/TestResults"
       # --no-restore --no-build
+
     - name: Upload test results
       if: ${{ always() }} # Always publish results
       uses: actions/upload-artifact@v3
@@ -22,23 +23,23 @@ runs:
         name: dotnet-results
         path: ./UnitTests/TestResults/*.trx
            
+    - name: Generate (nice) report
+      uses: danielpalme/ReportGenerator-GitHub-Action@5.2.0
+      with:
+        reports: ./UnitTests/TestResults/**/coverage.cobertura.xml
+        targetdir: combinedCoverageReports
+        reporttypes: Cobertura;HtmlInline
+
     - name: Upload code coverage
       if: ${{ always() }} # Always publish results
       uses: actions/upload-artifact@v3
       with:
          name: dotnet-coverage
-         path: ./UnitTests/TestResults/**/coverage.cobertura.xml
+         path: combinedCoverageReports/Cobertura.xml
 
-    - name: Generate (nice) report
-      uses: danielpalme/ReportGenerator-GitHub-Action@5.2.0
-      with:
-        reports: ./UnitTests/TestResults/**/coverage.cobertura.xml
-        targetdir: coveragereport
-        reporttypes: Cobertura;MarkdownSummaryGithub
-        #Html_Dark;HtmlInline;
 
     - name: Upload coverage report artifact
       uses: actions/upload-artifact@v2.2.3
       with:
         name: CoverageReport # Artifact name        
-        path: coveragereport # Directory containing files to upload
+        path: combinedCoverageReports # Directory containing files to upload
