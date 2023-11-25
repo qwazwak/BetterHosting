@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using DSharpPlus.BetterHosting.EventsNext.Services;
 using DSharpPlus.BetterHosting.EventsNext.Tools;
 
@@ -18,6 +19,10 @@ public class EventReflectionInvalidTests<TInterface> where TInterface : IDiscord
     private protected static void AssertNoDetails(Func<EventReflection.DetailsRecord> testDelegate)
     {
         Exception ex = Assert.Throws(Is.AssignableTo<Exception>(), () => testDelegate.Invoke());
+#if DEBUG
         Assert.That(ex.GetType().Name, Is.EqualTo("DebugAssertException"));
+#else
+        Assert.That(ex, Is.OfType<KeyNotFoundException>());
+#endif
     }
 }
