@@ -14,7 +14,7 @@ internal static partial class EventReflection
     private static partial ImmutableDictionary<Type, DetailsRecord> GetDetails() => ImmutableDictionary.CreateRange(
     [
 <#foreach(EventNaming naming in EventsList) {#>
-        KeyValuePair.Create(typeof(<#=naming.InterfaceName#>), DetailsRecord.Create<<#=naming.InterfaceName#>, <#=naming.ArgumentType#>>()),
+        KeyValuePair.Create<Type, DetailsRecord>(typeof(<#=naming.InterfaceName#>), new(typeof(<#=naming.InterfaceName#>), typeof(<#=naming.ArgumentType#>))),
 <#}#>
     ]);
 }

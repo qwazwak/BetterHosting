@@ -15,13 +15,7 @@ namespace DSharpPlus.BetterHosting.EventsNext.Tools;
 internal static partial class EventReflection
 {
     //Internal for testing
-    internal record DetailsRecord(Type EventInterface, Type ArgumentType)
-    {
-        public static DetailsRecord Create<TEventInterface, TArgument>()
-            where TEventInterface : IDiscordEventHandler<TArgument>
-            where TArgument : DiscordEventArgs
-            => new(typeof(TEventInterface), typeof(TArgument));
-    }
+    internal record DetailsRecord(Type EventInterface, Type ArgumentType);
 
     private static partial ImmutableDictionary<Type, DetailsRecord> GetDetails();
     private static readonly AutoWeakReference<ImmutableDictionary<Type, DetailsRecord>> weakDetails = new(GetDetails);
