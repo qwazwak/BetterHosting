@@ -28,7 +28,7 @@ public static partial class RegistrationExtensions
     public static IServiceCollection AutoRegisterHandler<TImplementation>(this IServiceCollection services) where TImplementation : class, IDiscordEventHandler
     {
         foreach (Type implementedExactInterface in typeof(TImplementation).GetInterfaces().Where(EventReflection.Validation.IsExactInterface))
-            RegistrationBuilderHelper.RegisterHandler(services, implementedExactInterface, HandlerDescriptor.Describe(implementedExactInterface, typeof(TImplementation)), false);
+            RegistrationBuilderHelper.RegisterHandler(services, implementedExactInterface, HandlerDescriptor.Describe(implementedExactInterface, typeof(TImplementation)));
         return services;
     }
 }

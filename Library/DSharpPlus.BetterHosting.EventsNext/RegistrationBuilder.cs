@@ -14,8 +14,6 @@ public sealed class RegistrationBuilder<TEventInterface> where TEventInterface :
 {
     static RegistrationBuilder() => EventReflection.Validation.VerifyExactInterface<TEventInterface>();
 
-    private bool supportKnownAdded;
-
     /// <summary>
     /// The <see cref="IServiceCollection"/> to add registrations to
     /// </summary>
@@ -61,8 +59,7 @@ public sealed class RegistrationBuilder<TEventInterface> where TEventInterface :
     /// <returns>The same <see cref="RegistrationBuilder{TInterface}"/> for chaining</returns>
     private RegistrationBuilder<TEventInterface> RegisterHandlerCore(HandlerDescriptor descriptor)
     {
-        RegistrationBuilderHelper.RegisterHandler(Services, typeof(TEventInterface), descriptor, supportKnownAdded);
-        supportKnownAdded = true;
+        RegistrationBuilderHelper.RegisterHandler(Services, typeof(TEventInterface), descriptor);
         return this;
     }
 }

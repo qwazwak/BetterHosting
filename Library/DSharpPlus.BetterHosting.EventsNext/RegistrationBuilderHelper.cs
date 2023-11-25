@@ -11,7 +11,7 @@ namespace DSharpPlus.BetterHosting.EventsNext;
 
 internal static class RegistrationBuilderHelper
 {
-    public static void RegisterHandler(IServiceCollection services, Type eventInterface, HandlerDescriptor descriptor, bool supportKnownAdded = false)
+    public static void RegisterHandler(IServiceCollection services, Type eventInterface, HandlerDescriptor descriptor)
     {
         Debug.Assert(services != null);
         Debug.Assert(eventInterface != null);
@@ -26,18 +26,10 @@ internal static class RegistrationBuilderHelper
         {
             registry = new HandlerRegistry();
             services.AddKeyedSingleton(serviceKey: eventInterface, implementationInstance: registry);
-            if (!supportKnownAdded)
-                AddHandlerSupport(services, eventInterface);
+            services.AddKeyedSingleton(serviceType: typeof(IEventHandlerManager), serviceKey: eventInterface, implementationType: EventReflection.ManagerType.For(eventInterface));
+            services.AddSingleton(typeof(IHostedService), EventReflection.ManagerHostType.For(eventInterface));
         }
 
         registry.Add(descriptor);
-    }
-
-    //internal for testing - treat as private
-    internal static void AddHandlerSupport(IServiceCollection services, Type eventInterface)
-    {
-        services.AddKeyedSingleton(serviceType: typeof(IEventHandlerManager), serviceKey: eventInterface, implementationType: EventReflection.ManagerType.For(eventInterface));
-        
-        services.AddSingleton(typeof(IHostedService), EventReflection.ManagerHostType.For(eventInterface));
     }
 }

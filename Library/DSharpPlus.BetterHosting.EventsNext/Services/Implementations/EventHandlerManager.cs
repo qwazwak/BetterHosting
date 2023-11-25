@@ -107,14 +107,15 @@ internal abstract class EventHandlerManager<TInterface, TArgument> : IEventHandl
 
     private static ArrayPool<Task> OnEventArrayPool => ArrayPool<Task>.Shared;
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private async Task OnEventCore2(DiscordClient sender, TArgument args)
+    private async Task OnEventCore(DiscordClient sender, TArgument args)
     {
         Task[] tasks = OnEventArrayPool.Rent(registry.Count);
         try
         {
             Parallel.For(0, registry.Count, i => tasks[i] = OnEventSingle(sender, registry[i], args));
-            if(tasks.Length > registry.Count)
-                Array.Fill(tasks, Task.CompletedTask, registry.Count, tasks.Length);
+            int extraArrayElements = tasks.Length - registry.Count;
+            if (extraArrayElements > 0)
+                Array.Fill(tasks, Task.CompletedTask, registry.Count, extraArrayElements);
 
             await Task.WhenAll(tasks).ConfigureAwait(false);
         }
@@ -122,14 +123,6 @@ internal abstract class EventHandlerManager<TInterface, TArgument> : IEventHandl
         {
             OnEventArrayPool.Return(tasks);
         }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private Task OnEventCore(DiscordClient sender, TArgument args)
-    {
-        Task[] tasks = new Task[registry.Count];
-        Parallel.For(0, registry.Count, i => tasks[i] = OnEventSingle(sender, registry[i], args));
-        return Task.WhenAll(tasks);
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
@@ -143,7 +136,7 @@ internal abstract class EventHandlerManager<TInterface, TArgument> : IEventHandl
         }
         catch (Exception ex)
         {
-            logger.LogWarning(ex, "A problem occured while handling event handler {HandlerName}", factory.Name);
+            logger.LogWarning(ex, "A problem occurred while handling event handler {HandlerName}", factory.Name);
             throw;
         }
     }

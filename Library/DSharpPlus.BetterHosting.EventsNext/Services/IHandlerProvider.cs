@@ -2,6 +2,4 @@
 
 namespace DSharpPlus.BetterHosting.EventsNext.Services;
 
-internal interface IHandlerProvider<TInterface> : IReadOnlyList<IHandlerBuilder<TInterface>>
-{
-}
+internal interface IHandlerProvider<TInterface> : IReadOnlyList<IHandlerBuilder<TInterface>> { }

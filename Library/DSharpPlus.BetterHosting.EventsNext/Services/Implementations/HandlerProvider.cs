@@ -6,7 +6,6 @@ using System.Collections.Immutable;
 using DSharpPlus.BetterHosting.EventsNext.Entities;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using DSharpPlus.BetterHosting.EventsNext.Entities.Internal;
 using System;
 
 namespace DSharpPlus.BetterHosting.EventsNext.Services.Implementations;
@@ -24,18 +23,18 @@ internal class HandlerProvider<TInterface> : IHandlerProvider<TInterface>
     {
         if (descriptor.ImplementationType is not null)
         {
-            return TypeInstanceFactory<TInterface>.Create(descriptor.ImplementationType);
+            return new TypeInstanceFactory<TInterface>(descriptor.ImplementationType);
         }
         else if (descriptor.ImplementationFactory is not null)
         {
-            return DelegateInstanceFactory<TInterface>.Create(descriptor.ImplementationFactory!);
+            return new DelegateInstanceFactory<TInterface>(descriptor.ImplementationFactory!);
         }
         else
         {
             Debug.Assert(descriptor.ImplementationInstance is not null, "descriptor had no valid implementations");
             object instance = descriptor.ImplementationInstance;
             Debug.Assert(instance is TInterface);
-            return InstanceFactoryWrapper<TInterface>.Create((TInterface)instance);
+            return new InstanceFactoryWrapper<TInterface>((TInterface)instance);
         }
     }
 
@@ -49,62 +48,4 @@ internal class HandlerProvider<TInterface> : IHandlerProvider<TInterface>
 
     public IEnumerator<IHandlerBuilder<TInterface>> GetEnumerator() => ((IEnumerable<IHandlerBuilder<TInterface>>)core).GetEnumerator();
     IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable)core).GetEnumerator();
-}
-
-file readonly struct TypeInstanceFactory<TInterface> : IHandlerBuilder<TInterface>
-{
-    private readonly ObjectFactory factory;
-    public string Name { get; }
-
-    public static TypeInstanceFactory<TInterface> Create(Type handlerType) => new(handlerType);
-    private TypeInstanceFactory(Type handlerType)
-    {
-        factory = ActivatorUtilities.CreateFactory(handlerType, Type.EmptyTypes);
-        Name = handlerType.Name;
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public DisposingWrapper<TInterface> CreateInstance(IServiceProvider provider)
-    {
-        object instance = factory(provider, null);
-        Debug.Assert(instance is TInterface);
-        return new((TInterface)instance);
-    }
-}
-
-file readonly struct DelegateInstanceFactory<TInterface> : IHandlerBuilder<TInterface>
-{
-    private readonly Func<IServiceProvider, object> factory;
-    public string Name { get; }
-
-    public static DelegateInstanceFactory<TInterface> Create(Func<IServiceProvider, object> factory) => new(factory);
-    private DelegateInstanceFactory(Func<IServiceProvider, object> factory)
-    {
-        this.factory = factory;
-        Name = factory.GetType().GetGenericArguments()[1].Name;
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public DisposingWrapper<TInterface> CreateInstance(IServiceProvider provider)
-    {
-        object instance = factory(provider);
-        Debug.Assert(instance is TInterface);
-        return new((TInterface)instance);
-    }
-}
-
-file readonly struct InstanceFactoryWrapper<TInterface> : IHandlerBuilder<TInterface>
-{
-    private readonly TInterface instance;
-    public string Name => $"{instance!.GetType().Name} ({instance})";
-
-    public static InstanceFactoryWrapper<TInterface> Create(TInterface instance) => new(instance);
-    private InstanceFactoryWrapper(TInterface instance)
-    {
-        ArgumentNullException.ThrowIfNull(instance);
-        this.instance = instance;
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public DisposingWrapper<TInterface> CreateInstance(IServiceProvider provider) => new(instance, dispose: false);
 }
