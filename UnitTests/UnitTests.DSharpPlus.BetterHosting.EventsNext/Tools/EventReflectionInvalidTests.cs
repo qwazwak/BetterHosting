@@ -14,8 +14,8 @@ public class EventReflectionInvalidTests<TInterface> where TInterface : IDiscord
     public void NoResultsByType()
     {
         Type interfaceType = typeof(TInterface);
-        
-        InvalidHandlerInterfaceException ex = Assert.Throws<InvalidHandlerInterfaceException>(() => EventReflection.DetailsFor(interfaceType));
-        Assert.That(ex.InvalidHandlerInterface, Is.SameAs(interfaceType));
+
+        InvalidHandlerInterfaceException invalidHandlerEx = Assert.Throws<InvalidHandlerInterfaceException>(() => EventReflection.DetailsFor(interfaceType));
+        Assert.That(invalidHandlerEx.InvalidHandlerInterface, Is.SameAs(interfaceType));
     }
 }
