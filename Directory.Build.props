@@ -9,6 +9,7 @@
   <PropertyGroup>
     <SolutionDirWorkaround>$(MSBuildThisFileDirectory)</SolutionDirWorkaround>
     <LibraryDir>$(MSBuildThisFileDirectory)Library/</LibraryDir>
+    <UnitTestDir>$(MSBuildThisFileDirectory)UnitTests/</UnitTestDir>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">

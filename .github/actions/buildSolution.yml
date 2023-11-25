@@ -1,0 +1,25 @@
+name: Build Better Hosting Solution (base)
+
+inputs:
+  Configuration:
+    required: true
+    type: string
+    default: Release
+  NightlyID:
+    required: false
+    type: number
+    default: 0
+
+runs:
+  using: "composite"
+  steps:
+  - name: Setup .NET
+    uses: actions/setup-dotnet@v3
+    with:
+      dotnet-version: 8.0.x
+  
+  - name: Restore dependencies
+    run: dotnet restore
+
+  - name: Build
+    run: dotnet build --no-restore --configuration  ${{ inputs.Configuration }} ${{ inputs.NightlyID != 'null' && inputs.NightlyID != '0' && '-p:Nightly=${{ inputs.NightlyID }}' || '' }}

@@ -1,0 +1,22 @@
+name: Publish Better Hosting Solution
+
+inputs:
+  Configuration:
+    required: true
+    type: string
+    default: Release
+  SolutionAlreadyBuilt:
+    required: true
+    type: boolean
+    default: false
+
+runs:
+  using: "composite"
+  steps:
+  - uses: ./.github/workflows/action_buildSolution.yml
+    with:
+    Configuration: ${{ inputs.Configuration }}
+    if: ${{ inputs.SolutionAlreadyBuilt == true }}
+    
+  - name: Publish
+    run: dotnet publish --configuration  ${{ inputs.Configuration }}

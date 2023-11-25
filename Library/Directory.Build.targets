@@ -1,12 +1,8 @@
 <Project>
   <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.targets', '$(MSBuildThisFileDirectory)../'))"/>
-  <!--
   <PropertyGroup>
-    <DocumentationFile Condition="'$(DocumentationFile)' != ''">$(OutputDir)\$(AssemblyName).xml</DocumentationFile>
-  </PropertyGroup>-->
-  <PropertyGroup>
+    <PublishDir>$(LibraryDir)/Publish/$(LibraryCoreName)</PublishDir>
     <ReferenceBetterHostBase Condition="'$(ProjectName)' != ('DSharpPlus.BetterHosting') and '$(ReferenceBetterHostBase)' == ''">True</ReferenceBetterHostBase>
-    <!--<LibraryCoreName>DSharpPlus.*.*</LibraryCoreName>-->
   </PropertyGroup>
   
   <Target Name="ValidateLibraryValues">
