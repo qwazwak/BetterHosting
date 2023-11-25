@@ -1,40 +1,48 @@
 <Project>
   <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))"/>
 
-  <PropertyGroup>
-    <AssemblyName>$(LibraryCoreName)</AssemblyName>
-    <RootNamespace>$(LibraryCoreName)</RootNamespace>
-    <PackageId>$(LibraryCoreName)</PackageId>
-    <!-- general properties -->
+  <PropertyGroup Label="Fixed properties">
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>disable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <LangVersion>Latest</LangVersion>
     <OutputType>Library</OutputType>
+    
     <IsPackable>true</IsPackable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
     <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
+  </PropertyGroup>
+  
+  <PropertyGroup Label="Package 'configurable options'">
     <Authors>Qwazwak</Authors>
-    <!--<Company>DSharpPlus developers</Company-->
+    <AssemblyVersion>0.0.0</AssemblyVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Package 'fixed' options">
+    <!--<Company>DSharpPlus developers</Company>-->
     <PackageProjectUrl>https://github.com/qwazwak/DSharpPlus.BetterHosting</PackageProjectUrl>
     <RepositoryUrl>https://github.com/qwazwak/DSharpPlus.BetterHosting</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <!--<PackageLicenseExpression></PackageLicenseExpression>-->
     <PackageIcon>logo.png</PackageIcon>
     <PackageIconUrl>https://raw.githubusercontent.com/qwazwak/DSharpPlus.BetterHosting/master/DSharpPlus.BetterHosting/logo.png</PackageIconUrl>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <PublishDocumentationFile>True</PublishDocumentationFile>
-    <!--<NoWarn>CS1591</NoWarn>-->
-    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
-
-    <!-- SourceLink -->
+    
+    <!-- Sourcelink -->
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <IncludeSymbols>true</IncludeSymbols>
+    <IncludeSource>true</IncludeSource>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
 
-    <AssemblyVersion>0.0.0</AssemblyVersion>
+  <PropertyGroup Label="'Derived' properties">
+    <AssemblyName>$(LibraryCoreName)</AssemblyName>
+    <RootNamespace>$(LibraryCoreName)</RootNamespace>
+    <PackageId>$(LibraryCoreName)</PackageId>
+
     <Version>$(AssemblyVersion)-alpha</Version>
     <Version Condition="'$(Nightly)' != ''">$(Version)-nightly-$(Nightly)</Version>
   </PropertyGroup>
@@ -55,20 +63,7 @@
   <ItemGroup>
     <ProjectReference Include="$(MSBuildThisFileDirectory)DSharpPlus.BetterHosting\DSharpPlus.BetterHosting.csproj"  Condition="'$(ReferenceBetterHostBase)' == 'True'" />
   </ItemGroup>
-<!--
-  <PropertyGroup>
-    <CoreCompileDependsOn>$(CoreCompileDependsOn);_DisableAnalyzers</CoreCompileDependsOn>
-  </PropertyGroup>
 
-  <Target Name="_DisableAnalyzers" DependsOnTargets="ResolveTargetingPackAssets" Inputs="@(RemoveAnalyzer)" Outputs="|%(Identity)|">
-    <PropertyGroup>
-      <_RemoveAnalyzer>%(RemoveAnalyzer.Identity)</_RemoveAnalyzer>
-    </PropertyGroup>
-    <ItemGroup>
-      <Analyzer Remove="$(_RemoveAnalyzer)"/>
-      <Analyzer Remove="@(Analyzer)" Condition="'%(Analyzer.Filename)' == '$(_RemoveAnalyzer)'"/>
-    </ItemGroup>
-  </Target>-->
   <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
       <_Parameter1>UnitTests.$(MSBuildProjectName)</_Parameter1>
