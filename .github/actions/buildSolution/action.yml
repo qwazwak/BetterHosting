@@ -18,7 +18,7 @@ runs:
   steps:
   - name: Restore dependencies
     shell: bash
-    run: dotnet restore
+    run: dotnet restore --verbosity minimal
 
   - name: Build
     shell: bash
