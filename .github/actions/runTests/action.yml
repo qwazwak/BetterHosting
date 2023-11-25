@@ -13,8 +13,8 @@ runs:
   steps:
     - name: Run dotnet test
       shell: bash
-      run: dotnet test BetterHosting.sln --no-restore --no-build --settings:"./UnitTests/.runsettings" --logger:"trx"
-
+      run: dotnet test BetterHosting.sln --settings:"./UnitTests/.runsettings" --logger:"trx"
+      # --no-restore --no-build
     - name: Upload test results
       if: ${{ always() }} # Always publish results
       uses: actions/upload-artifact@v3
