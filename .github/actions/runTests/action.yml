@@ -19,7 +19,8 @@ runs:
   - uses: ./.github/workflows/action_buildSolution.yml
     with:
       Configuration: ${{ inputs.Configuration }}
-    if: ${{ inputs.SolutionAlreadyBuilt == 'true' }}
+    if: ${{ inputs.SolutionAlreadyBuilt != 'true' }}
+
   - name: Test
     shell: bash
     run: dotnet test --no-restore --no-build --verbosity normal
