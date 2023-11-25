@@ -23,4 +23,4 @@ runs:
 
   - name: Test
     shell: bash
-    run: dotnet test --no-restore --configuration ${{ inputs.configuration }} --no-build --verbosity normal -l trx .\BetterHosting.sln 
+    run: dotnet test --no-restore --configuration ${{ inputs.configuration }} --no-build --verbosity normal -l trx BetterHosting.sln 
