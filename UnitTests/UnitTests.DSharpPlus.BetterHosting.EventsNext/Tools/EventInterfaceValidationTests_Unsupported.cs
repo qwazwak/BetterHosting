@@ -18,7 +18,7 @@ public class EventReflectionValidationTests_Unsupported<TInterface> where TInter
     }
 
     [Test]
-    public void VerifyExactInterface_ByType() => Assert.Throws<InvalidHandlerInterfaceException>([ExcludeFromCodeCoverage(Justification = "Method call for unit test")] () => EventReflection.Verification.VerifyExactInterface(typeof(TInterface)));
+    public void VerifyExactInterface_ByType() => Assert.Throws<InvalidHandlerInterfaceException>([ExcludeFromCodeCoverage(Justification = "Method call for unit test")] () => EventReflection.Validation.VerifyExactInterface(typeof(TInterface)));
 
     [Test]
     public void IsExactInterface_ByGeneric()
@@ -28,5 +28,5 @@ public class EventReflectionValidationTests_Unsupported<TInterface> where TInter
     }
 
     [Test]
-    public void VerifyExactInterface_ByGeneric() => Assert.Throws<InvalidHandlerInterfaceException>(EventReflection.Verification.VerifyExactInterface<TInterface>);
+    public void VerifyExactInterface_ByGeneric() => Assert.Throws<InvalidHandlerInterfaceException>(EventReflection.Validation.VerifyExactInterface<TInterface>);
 }

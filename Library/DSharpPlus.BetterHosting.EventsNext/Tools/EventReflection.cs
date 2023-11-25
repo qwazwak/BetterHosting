@@ -67,20 +67,6 @@ internal static partial class EventReflection
         public static Type For(Type eventInterface) => typeof(EventsNextBackgroundHost<>).MakeGenericType(eventInterface);
     }
 
-    public static class Verification
-    {
-        public static void VerifyExactInterface<TInterface>() where TInterface : IDiscordEventHandler => VerifyExactInterface(typeof(TInterface));
-        public static void VerifyExactInterface(Type interfaceType)
-        {
-            ArgumentNullException.ThrowIfNull(interfaceType);
-            if (!Validation.IsExactInterface(interfaceType))
-                ThrowInvalidExactInterface(interfaceType);
-        }
-
-        [MethodImpl(MethodImplOptions.NoInlining)]
-        [DoesNotReturn]
-        private static void ThrowInvalidExactInterface(Type interfaceType) => throw new InvalidHandlerInterfaceException(interfaceType);
-    }
     public static class Validation
     {
         public static bool IsExactInterface<TInterface>() where TInterface : IDiscordEventHandler => IsExactInterface(typeof(TInterface));
@@ -98,6 +84,18 @@ internal static partial class EventReflection
             weakDetails.GetTarget(out ImmutableDictionary<Type, DetailsRecord> dict);
             return dict.Keys.Any(t => t.IsAssignableFrom(handlerType));
         }
+
+        public static void VerifyExactInterface<TInterface>() where TInterface : IDiscordEventHandler => VerifyExactInterface(typeof(TInterface));
+        public static void VerifyExactInterface(Type interfaceType)
+        {
+            ArgumentNullException.ThrowIfNull(interfaceType);
+            if (!IsExactInterface(interfaceType))
+                ThrowInvalidExactInterface(interfaceType);
+        }
+
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        [DoesNotReturn]
+        private static void ThrowInvalidExactInterface(Type interfaceType) => throw new InvalidHandlerInterfaceException(interfaceType);
     }
 
     private readonly struct AutoWeakReference<T>(Func<T> factory) where T : class?

@@ -53,5 +53,5 @@ public class EventReflectionValidationTests
     public void VerifyExactInterface_Generic() => Assert.DoesNotThrow(() => IsExactInterfaceGenericDelegate.Invoke());
 
     [Test]
-    public void VerifyExactInterface_ByType() => Assert.DoesNotThrow(() => EventReflection.Verification.VerifyExactInterface(interfaceType));
+    public void VerifyExactInterface_ByType() => Assert.DoesNotThrow(() => EventReflection.Validation.VerifyExactInterface(interfaceType));
 }
