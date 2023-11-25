@@ -17,6 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-    - uses: ./action_runTests.yml
+    - uses: actions/checkout@v3
+    - uses: ./.github/workflows/action_runTests.yml
       with:
         Configuration: ${{ inputs.Configuration }}
