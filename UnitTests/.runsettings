@@ -14,7 +14,7 @@
         <MaxCpuCount>0</MaxCpuCount>
 
         <!-- Path relative to directory that contains .runsettings file-->
-        <ResultsDirectory>..\TestResults</ResultsDirectory>
+        <ResultsDirectory>TestResults</ResultsDirectory>
 
         <!-- TestSessionTimeout was introduced in Visual Studio 2017 version 15.5 -->
         <!-- Specify timeout in milliseconds. A valid value should be greater than 0 -->

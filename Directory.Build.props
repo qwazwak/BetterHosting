@@ -4,6 +4,7 @@
     <Nullable>enable</Nullable>
     <LangVersion>Latest</LangVersion>
     <ManagePackageVersionsCentrally>True</ManagePackageVersionsCentrally>
+    <NoWarn>NETSDK1057</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup>

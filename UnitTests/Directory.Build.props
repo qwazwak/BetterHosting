@@ -5,6 +5,7 @@
     <TargetFramework Condition="'$(TargetFramework)' == ''">net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <LangVersion>Latest</LangVersion>
+    <CollectCoverage>True</CollectCoverage>
     
     <IsPackable>false</IsPackable>
     <RunSettingsFilePath>$(UnitTestDir).runsettings</RunSettingsFilePath>
