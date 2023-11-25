@@ -22,10 +22,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-#    - uses: actions/checkout@v3
-#    - uses: ./.github/actions/runTests
-#      with:
-#        Configuration: 'Release'
+      - uses: actions/checkout@v3
+#     - uses: ./.github/actions/runTests
+#       with:
+#         Configuration: 'Release'
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
