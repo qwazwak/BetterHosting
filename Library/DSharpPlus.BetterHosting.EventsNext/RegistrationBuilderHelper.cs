@@ -17,11 +17,6 @@ internal static class RegistrationBuilderHelper
         Debug.Assert(eventInterface != null);
         Debug.Assert(descriptor != null);
 
-        if (!eventInterface.IsAssignableFrom(descriptor.GetImplementationType()))
-            throw new ArgumentException($"{nameof(descriptor)} does not represent a compatible handler to the event interface {eventInterface.Name}", nameof(descriptor));
-
-        //if (!interfaceType.IsAssignableFrom(handlerType))
-        //    throw new ArgumentException("Invalid handler type");
         IHandlerRegistry registry;
         if (SingletonServiceCheater.TryGet(services, key: eventInterface, out IHandlerRegistry? existing))
         {

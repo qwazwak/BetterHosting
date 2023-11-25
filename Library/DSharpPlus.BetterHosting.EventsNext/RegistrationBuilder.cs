@@ -31,32 +31,36 @@ public sealed class RegistrationBuilder<TEventInterface> where TEventInterface :
         Services = services;
     }
 
-    /// <summary>
-    /// Registers the handler <typeparamref name="TEventInterface"/> in the <see cref="IServiceCollection"/> to recieve events for <typeparamref name="TEventInterface"/>
-    /// </summary>
-    /// <typeparam name="TImplementation"></typeparam>
-    /// <returns>The same <see cref="RegistrationBuilder{TInterface}"/> for chaining</returns>
-    public RegistrationBuilder<TEventInterface> RegisterHandler<TImplementation>() where TImplementation : class, TEventInterface => RegisterHandler(HandlerDescriptor.Handler<TEventInterface, TImplementation>());
+    /// <inheritdoc cref="RegisterHandlerCore(HandlerDescriptor)"/>
+    public RegistrationBuilder<TEventInterface> RegisterHandler<TImplementation>() where TImplementation : class, TEventInterface => RegisterHandlerCore(HandlerDescriptor.Handler<TEventInterface, TImplementation>());
 
-    /// <summary>
-    /// Registers a handler <typeparamref name="TEventInterface"/> in the <see cref="IServiceCollection"/> to recieve events for <typeparamref name="TEventInterface"/>
-    /// </summary>
-    /// <returns>The same <see cref="RegistrationBuilder{TInterface}"/> for chaining</returns>
-    public RegistrationBuilder<TEventInterface> RegisterHandler(TEventInterface instance) => RegisterHandler(HandlerDescriptor.OfInstance(instance));
+    /// <inheritdoc cref="RegisterHandlerCore(HandlerDescriptor)"/>
+    public RegistrationBuilder<TEventInterface> RegisterHandler(TEventInterface instance)
+    {
+        ArgumentNullException.ThrowIfNull(instance);
+        return RegisterHandlerCore(HandlerDescriptor.OfInstance(instance));
+    }
 
-    /// <summary>
-    /// Registers a handler <typeparamref name="TEventInterface"/> in the <see cref="IServiceCollection"/> to recieve events for <typeparamref name="TEventInterface"/>
-    /// </summary>
-    /// <returns>The same <see cref="RegistrationBuilder{TInterface}"/> for chaining</returns>
-    public RegistrationBuilder<TEventInterface> RegisterHandler(Func<IServiceProvider, TEventInterface> factory) => RegisterHandler(HandlerDescriptor.Handler<TEventInterface>(factory));
+    /// <inheritdoc cref="RegisterHandlerCore(HandlerDescriptor)"/>
+    public RegistrationBuilder<TEventInterface> RegisterHandler(Func<IServiceProvider, TEventInterface> factory)
+    {
+        ArgumentNullException.ThrowIfNull(factory);
+        return RegisterHandlerCore(HandlerDescriptor.Handler<TEventInterface>(factory));
+    }
 
-    /// <summary>
-    /// Registers a handler <typeparamref name="TEventInterface"/> in the <see cref="IServiceCollection"/> to recieve events for <typeparamref name="TEventInterface"/>
-    /// </summary>
-    /// <returns>The same <see cref="RegistrationBuilder{TInterface}"/> for chaining</returns>
+    /// <inheritdoc cref="RegisterHandlerCore(HandlerDescriptor)"/>
     public RegistrationBuilder<TEventInterface> RegisterHandler(HandlerDescriptor descriptor)
     {
         ArgumentNullException.ThrowIfNull(descriptor);
+        return RegisterHandlerCore(descriptor);
+    }
+
+    /// <summary>
+    /// Registers a handler <typeparamref name="TEventInterface"/> in the <see cref="IServiceCollection"/> to receive events for <typeparamref name="TEventInterface"/>
+    /// </summary>
+    /// <returns>The same <see cref="RegistrationBuilder{TInterface}"/> for chaining</returns>
+    private RegistrationBuilder<TEventInterface> RegisterHandlerCore(HandlerDescriptor descriptor)
+    {
         RegistrationBuilderHelper.RegisterHandler(Services, typeof(TEventInterface), descriptor, supportKnownAdded);
         supportKnownAdded = true;
         return this;
