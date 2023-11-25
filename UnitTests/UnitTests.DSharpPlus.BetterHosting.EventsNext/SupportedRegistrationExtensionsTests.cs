@@ -1,7 +1,6 @@
 ﻿using System;
 using DSharpPlus.BetterHosting.EventsNext;
 using DSharpPlus.BetterHosting.EventsNext.Services;
-using DSharpPlus.BetterHosting.EventsNext.Services.Implementations;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace UnitTests.DSharpPlus.BetterHosting.EventsNext;

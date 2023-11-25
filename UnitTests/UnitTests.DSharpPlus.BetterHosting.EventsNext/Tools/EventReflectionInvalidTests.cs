@@ -9,8 +9,6 @@ namespace UnitTests.DSharpPlus.BetterHosting.EventsNext.Tools;
 [TestFixtureSource(typeof(HandlerTypesTestData), nameof(HandlerTypesTestData.GenericEventHandlerTypes))]
 public class EventReflectionInvalidTests<TInterface> where TInterface : IDiscordEventHandler
 {
-    private static readonly Type DebugException = Type.GetType("Microsoft.VisualStudio.TestPlatform.TestHost.DebugAssertException")!;
-
     [Test]
     public void NoResultsByType() => AssertNoDetails(() => EventReflection.DetailsFor(typeof(TInterface)));
 

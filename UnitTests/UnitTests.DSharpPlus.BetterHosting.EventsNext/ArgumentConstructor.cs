@@ -44,8 +44,8 @@ public static class ArgumentConstructor<TArgument> where TArgument : DiscordEven
         ConstructorInfo? constructor = typeof(GuildDownloadCompletedEventArgs).GetConstructor(BindingFlags.Instance | BindingFlags.NonPublic, [typeof(IReadOnlyDictionary<ulong, DiscordGuild>)])!;
         Assume.That(constructor, Is.Not.Null);
         return (GuildDownloadCompletedEventArgs)constructor.Invoke([Mock.Of<IReadOnlyDictionary<ulong, DiscordGuild>>()]);
-
     }
+
     private static ModalSubmitEventArgs ConstructModalSubmitEventArgs()
     {
         ConstructorInfo? constructor = typeof(ModalSubmitEventArgs).GetConstructor(BindingFlags.Instance | BindingFlags.NonPublic, [typeof(DiscordInteraction)])!;

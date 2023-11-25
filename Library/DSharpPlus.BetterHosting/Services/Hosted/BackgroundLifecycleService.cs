@@ -49,7 +49,6 @@ public abstract class BackgroundLifecycleService : BackgroundService, IHostedLif
 
             //if (stopTask != null)
             stopCTS?.Cancel();
-
         }
         finally
         {

@@ -66,7 +66,7 @@ public sealed class SusImageHandler : IMessageCreatedEventHandler
                 return false;
             }
 
-            logger.LogDebug("attachment {name} was {amount}% sus.", attachment.FileName, res.Max());
+            logger.LogDebug("attachment {name} was {amount}% sus.", attachment.FileName, res.Max() * 100f);
             if(res.Any(f => f >= 0.4f))
             {
                 cts.Cancel();
