@@ -18,8 +18,8 @@ runs:
   steps:
   - name: Restore dependencies
     shell: bash
-    run: dotnet restore --verbosity quiet
+    run: dotnet restore --verbosity minimal
 
   - name: Build
     shell: bash
-    run: dotnet build BetterHosting.sln --no-restore  --configuration ${{ inputs.Configuration }} ${{ inputs.NightlyID != 'null' && inputs.NightlyID != '0' && inputs.NightlyID != '' && '-p:Nightly=${{ inputs.NightlyID }}' || '' }}
+    run: dotnet build BetterHosting.sln --no-restore --configuration ${{ inputs.Configuration }} ${{ inputs.NightlyID != 'null' && inputs.NightlyID != '0' && inputs.NightlyID != '' && '-p:Nightly=${{ inputs.NightlyID }}' || '' }}
