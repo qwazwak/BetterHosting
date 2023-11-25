@@ -29,7 +29,7 @@ jobs:
   
     #below is temp for testing
     - name: Test
-      run: dotnet test BetterHosting.sln --no-restore --no-build --verbosity normal --configuration ${{ inputs.Configuration }}
+      run: dotnet test BetterHosting.sln --no-restore --no-build --verbosity normal --configuration 'Release'
 
     #
     #- uses: ./.github/actions/buildSolution
