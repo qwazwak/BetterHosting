@@ -28,10 +28,11 @@ runs:
 
   - name: Build
     shell: bash
-    run: dotnet build --no-restore --configuration ${{ inputs.Configuration }} ${{ inputs.NightlyID != 'null' && inputs.NightlyID != '0' && inputs.NightlyID != '' && '-p:Nightly=${{ inputs.NightlyID }}' || '' }}
+    run: dotnet build --configuration ${{ inputs.Configuration }} ${{ inputs.NightlyID != 'null' && inputs.NightlyID != '0' && inputs.NightlyID != '' && '-p:Nightly=${{ inputs.NightlyID }}' || '' }}
+    #--no-restore
 
   #below is temp for testing
   - name: Test
     shell: bash
-    run: dotnet test .\BetterHosting.sln --verbosity normal --configuration ${{ inputs.Configuration }}
+    run: dotnet test BetterHosting.sln --verbosity normal --configuration ${{ inputs.Configuration }}
     #--no-restore --no-build
