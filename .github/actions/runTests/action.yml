@@ -23,14 +23,4 @@ runs:
         path: ./TestResults/**
       # Use always() to always run this step to publish test results when there are test failures
       if: ${{ always() }}
-
-    - name: Dotnet Test Reporter
-      uses: bibipkins/dotnet-test-reporter@v1.3.3
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        comment-title: 'Unit Test Results'
-        results-path: ./TestResults/**/*.trx
-        coverage-path: ./TestResults/**/coverage.cobertura.xml
-        coverage-threshold: 75
-      if: ${{ always() }}
             

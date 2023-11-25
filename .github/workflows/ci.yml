@@ -28,19 +28,14 @@ jobs:
       uses: ./.github/actions/setupDotNet
     - name: Run Unit Tests
       uses: ./.github/actions/runTests
-  
-    #below is temp for testing
- #   - name: Test
- #     run: dotnet test BetterHosting.sln --no-restore --no-build --verbosity normal --configuration 'Release'
 
-    #
-    #- uses: ./.github/actions/buildSolution
-    #  with:
-    #    Configuration: 'Release'
-    #- name: Build solution
-    #  run: dotnet build --no-restore --configuration Release
-    #- uses: ./.github/actions/runTests
-    #  with:
-    #    Configuration: 'Release'
-    #- name: Test
-    #  run: dotnet test --no-restore --no-build --verbosity normal
+    - name: Dotnet Test Reporter
+      uses: bibipkins/dotnet-test-reporter@v1.3.3
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        comment-title: 'Unit Test Results'
+        results-path: ./TestResults/**/*.trx
+        coverage-path: ./TestResults/**/coverage.cobertura.xml
+        coverage-threshold: 75
+      if: ${{ always() }}
+ 
