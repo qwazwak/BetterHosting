@@ -13,7 +13,9 @@ runs:
   steps:
     - name: Run dotnet test
       shell: bash
-      run: dotnet test BetterHosting.sln --logger trx
+      run: dotnet test BetterHosting.sln --settings:"./UnitTests/.runsettings"
+      #--logger trx
+      
       # --verbosity normal --configuration ${{ inputs.Configuration }}
       #run: dotnet test --logger trx --results-directory "TestResults"
 #    - name: Upload dotnet test results
