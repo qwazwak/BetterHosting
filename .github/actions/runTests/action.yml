@@ -20,12 +20,12 @@ runs:
       uses: actions/upload-artifact@v3
       with:
         name: dotnet-results
-        path: TestResults/*.trx
+        path: **/TestResults/*.trx
            
     - name: Upload code coverage
       if: ${{ always() }} # Always publish results
       uses: actions/upload-artifact@v3
       with:
          name: dotnet-coverage
-         path: TestResults/**/coverage.cobertura*.xml
+         path: **/TestResults/**/coverage.cobertura*.xml
             
