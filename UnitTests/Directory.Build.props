@@ -1,13 +1,13 @@
 <Project>
   <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
+
   <PropertyGroup>
     <TargetFramework Condition="'$(TargetFramework)' == ''">net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <LangVersion>Latest</LangVersion>
     
     <IsPackable>false</IsPackable>
-    <IsTestProject>true</IsTestProject>
-    <RunSettingsFilePath>$(MSBuildThisFileDirectory).runsettings</RunSettingsFilePath>
+    <RunSettingsFilePath>$(UnitTestDir).runsettings</RunSettingsFilePath>
   </PropertyGroup>
 
   <ItemGroup>

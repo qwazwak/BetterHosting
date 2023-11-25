@@ -6,4 +6,8 @@
     <TestingTargetProject Condition="'$(TestingTargetProject)' == ''">$([System.Text.RegularExpressions.Regex]::Replace("$(MSBuildProjectName)", "^UnitTests\.(.+)$", "$1", "System.Text.RegularExpressions.RegexOptions.ECMAScript"))</TestingTargetProject>
     <UseHelperProject Condition="'$(UseHelperProject)' == '' and '$(MSBuildProjectName)' != 'UnitTestHelpers'">true</UseHelperProject>
   </PropertyGroup>
+
+  <PropertyGroup Condition="'$(IsTestProject)' == ''">
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
 </Project>

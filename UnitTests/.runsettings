@@ -16,9 +16,6 @@
         <!-- Path relative to directory that contains .runsettings file-->
         <ResultsDirectory>..\TestResults</ResultsDirectory>
 
-        <!-- TestCaseFilter expression -->
-        <TestCaseFilter>(TestCategory != Integration) &amp; (TestCategory != UnfinishedFeature)</TestCaseFilter>
-
         <!-- TestSessionTimeout was introduced in Visual Studio 2017 version 15.5 -->
         <!-- Specify timeout in milliseconds. A valid value should be greater than 0 -->
         <!-- With MSTest a test method with multiple data options has to finish all versions in this time -->
@@ -32,6 +29,7 @@
 
     <!-- Parameters used by tests at run time -->
     <TestRunParameters>
+        <Parameter name="RunsettingsMagicWord" value="The magic words" />
     </TestRunParameters>
 
     <!-- Configurations for data collectors -->
@@ -70,8 +68,14 @@
     <!-- Configuration for loggers -->
     <LoggerRunSettings>
         <Loggers>
-            <Logger friendlyName="console" enabled="True" />
             <Logger friendlyName="blame" enabled="True" />
+            <Logger friendlyName="trx" enabled="True" />
+            <Logger friendlyName="html" enabled="True" />
+            <Logger friendlyName="console" enabled="True">
+                <Configuration>
+                    <Verbosity>quiet</Verbosity>
+                </Configuration>
+            </Logger>
         </Loggers>
     </LoggerRunSettings>
 </RunSettings>
