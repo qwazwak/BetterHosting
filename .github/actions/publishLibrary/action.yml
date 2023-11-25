@@ -1,22 +1,26 @@
 name: Publish Better Hosting Solution
+description: runs dotnet publish
 
 inputs:
   Configuration:
+    description: Debug/Release build configuration
     required: true
-    type: string
+    #type: string
     default: Release
   SolutionAlreadyBuilt:
+    description: the string 'true' iff the building of the solution should be skipped
     required: true
-    type: boolean
-    default: false
+    #type: boolean
+    default: 'false'
 
 runs:
   using: "composite"
   steps:
   - uses: ./.github/workflows/action_buildSolution.yml
     with:
-    Configuration: ${{ inputs.Configuration }}
+      Configuration: ${{ inputs.Configuration }}
     if: ${{ inputs.SolutionAlreadyBuilt == true }}
     
   - name: Publish
+    shell: bash
     run: dotnet publish --configuration  ${{ inputs.Configuration }}

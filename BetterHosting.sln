@@ -82,19 +82,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests.DSharpPlus.Better
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{88073139-CF30-41ED-BA41-98CCA3C5F1EB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "actions", "actions", "{00C396EB-D034-4E87-8A0A-BE985F50B987}"
-	ProjectSection(SolutionItems) = preProject
-		.github\actions\buildSolution.yml = .github\actions\buildSolution.yml
-		.github\actions\publishLibrary.yml = .github\actions\publishLibrary.yml
-		.github\actions\runTests.yml = .github\actions\runTests.yml
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{C9B7B279-0388-4429-B4BD-9030A488E962}"
 	ProjectSection(SolutionItems) = preProject
 		.github\workflows\ci.yml = .github\workflows\ci.yml
 		.github\workflows\release-preview.yml = .github\workflows\release-preview.yml
 		.github\workflows\release.yml = .github\workflows\release.yml
-		.github\actions\runTests.yml = .github\actions\runTests.yml
 	EndProjectSection
 EndProject
 Global

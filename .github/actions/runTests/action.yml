@@ -1,22 +1,26 @@
 name: Test Better Hosting Library
+description: Tests the solution
 
 inputs:
   Configuration:
+    description: Debug/Release build configuration
     required: true
-    type: string
+    #type: string
     default: Release
   SolutionAlreadyBuilt:
+    description: the string 'true' iff the building of the solution should be skipped
     required: true
-    type: boolean
-    default: false
+    #type: boolean
+    default: 'false'
 
 runs:
   using: "composite"
   steps:
   - uses: ./.github/workflows/action_buildSolution.yml
     with:
-    Configuration: ${{ inputs.Configuration }}
-    if: ${{ inputs.SolutionAlreadyBuilt == true }}
+      Configuration: ${{ inputs.Configuration }}
+    if: ${{ inputs.SolutionAlreadyBuilt == 'true' }}
 
   - name: Test
+    shell: bash
     run: dotnet test --no-restore --configuration ${{ inputs.configuration }} --no-build --verbosity normal -l trx 
