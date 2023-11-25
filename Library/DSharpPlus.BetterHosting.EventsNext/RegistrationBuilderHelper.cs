@@ -4,34 +4,45 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using DSharpPlus.BetterHosting.EventsNext.Tools;
-using Microsoft.Extensions.DependencyInjection.Extensions;
+using System.Diagnostics;
+using DSharpPlus.BetterHosting.EventsNext.Entities;
 
 namespace DSharpPlus.BetterHosting.EventsNext;
 
 internal static class RegistrationBuilderHelper
 {
-    public static bool CanAddService(IServiceCollection services, Type serviceType, object? serviceKey)
+    public static void RegisterHandler(IServiceCollection services, Type eventInterface, HandlerDescriptor descriptor, bool supportKnownAdded = false)
     {
-        ArgumentNullException.ThrowIfNull(services);
-        ArgumentNullException.ThrowIfNull(serviceType);
+        Debug.Assert(services != null);
+        Debug.Assert(eventInterface != null);
+        Debug.Assert(descriptor != null);
 
-        int count = services.Count;
-        for (int i = 0; i < count; i++)
+        if (!eventInterface.IsAssignableFrom(descriptor.GetImplementationType()))
+            throw new ArgumentException($"{nameof(descriptor)} does not represent a compatible handler to the event interface {eventInterface.Name}", nameof(descriptor));
+
+        //if (!interfaceType.IsAssignableFrom(handlerType))
+        //    throw new ArgumentException("Invalid handler type");
+        IHandlerRegistry registry;
+        if (SingletonServiceCheater.TryGet(services, key: eventInterface, out IHandlerRegistry? existing))
         {
-            ServiceDescriptor service = services[i];
-            if (service.ServiceType == serviceType && service.ServiceKey == serviceKey)
-            {
-                // Already added
-                return false;
-            }
+            registry = existing;
+        }
+        else
+        {
+            registry = new HandlerRegistry();
+            services.AddKeyedSingleton(serviceKey: eventInterface, implementationInstance: registry);
+            if (!supportKnownAdded)
+                AddHandlerSupport(services, eventInterface);
         }
 
-        return true;
+        registry.Add(descriptor);
     }
-    public static void TryAddHandlerSupport<TEventInterface>(IServiceCollection services)
+
+    //internal for testing - treat as private
+    internal static void AddHandlerSupport(IServiceCollection services, Type eventInterface)
     {
-        Type managerType = typeof(AutoCallEventHandlerManager<,>).MakeGenericType(typeof(TEventInterface), EventReflection.ArgumentType.For(typeof(TEventInterface)));
-        services.TryAddKeyedSingleton(service: typeof(IEventHandlerManager), serviceKey: typeof(TEventInterface), implementationType: managerType);
-        services.AddSingleton(typeof(IHostedService), typeof(EventsNextBackgroundHost<TEventInterface>));
+        services.AddKeyedSingleton(serviceType: typeof(IEventHandlerManager), serviceKey: eventInterface, implementationType: EventReflection.ManagerType.For(eventInterface));
+        
+        services.AddSingleton(typeof(IHostedService), EventReflection.ManagerHostType.For(eventInterface));
     }
 }

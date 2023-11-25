@@ -1,9 +1,10 @@
 ﻿using System;
-using System.Collections.Immutable;
+using System.Buffers;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using DSharpPlus.AsyncEvents;
+using DSharpPlus.BetterHosting.EventsNext.Entities.Internal;
 using DSharpPlus.EventArgs;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -15,21 +16,21 @@ internal abstract class EventHandlerManager<TInterface, TArgument> : IEventHandl
     where TArgument : DiscordEventArgs
 {
     private readonly ILogger<EventHandlerManager<TInterface, TArgument>> logger;
-    private readonly ImmutableArray<Guid> registrations;
-    private readonly IKeyedServiceProvider provider;
+    private readonly IHandlerProvider<TInterface> registry;
+    private readonly IServiceProvider provider;
     private readonly AsyncEventHandler<DiscordClient, TArgument> handlerMethod;
     private DiscordShardedClient client = null!;
     private bool started;
 
-    protected EventHandlerManager(ILogger<EventHandlerManager<TInterface, TArgument>> logger, IKeyedServiceProvider provider, IHandlerRegistryKeyProvider<TInterface> registry)
+    protected EventHandlerManager(ILogger<EventHandlerManager<TInterface, TArgument>> logger, IServiceProvider provider, IHandlerProvider<TInterface> registry)
     {
         this.logger = logger;
         this.provider = provider;
+        this.registry = registry;
         handlerMethod = logger.IsEnabled(LogLevel.Debug) ? OnEventLoggingWrapper : OnEventCore;
-        registrations = registry.GetKeys();
     }
 
-    public virtual bool CanBeTriggered() => registrations.Length != 0;
+    public virtual bool CanBeTriggered() => registry.Count != 0;
     public virtual bool CanBeTriggered(DiscordShardedClient client) => true;
 
     public void Start(DiscordShardedClient client)
@@ -101,34 +102,48 @@ internal abstract class EventHandlerManager<TInterface, TArgument> : IEventHandl
         sw.Start();
         await OnEventCore(sender, args).ConfigureAwait(false);
         sw.Stop();
-        logger.LogDebug("Finished calling of {count} handlers in {elapsed}", registrations.Length, sw.Elapsed);
+        logger.LogDebug("Finished calling of {count} handlers in {elapsed}", registry.Count, sw.Elapsed);
+    }
+
+    private static ArrayPool<Task> OnEventArrayPool => ArrayPool<Task>.Shared;
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private async Task OnEventCore2(DiscordClient sender, TArgument args)
+    {
+        Task[] tasks = OnEventArrayPool.Rent(registry.Count);
+        try
+        {
+            Parallel.For(0, registry.Count, i => tasks[i] = OnEventSingle(sender, registry[i], args));
+            if(tasks.Length > registry.Count)
+                Array.Fill(tasks, Task.CompletedTask, registry.Count, tasks.Length);
+
+            await Task.WhenAll(tasks).ConfigureAwait(false);
+        }
+        finally
+        {
+            OnEventArrayPool.Return(tasks);
+        }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private Task OnEventCore(DiscordClient sender, TArgument args)
     {
-#if para
-        return Parallel.ForEachAsync(registrations, (key, _) => new(OnEventSingle(sender, key, args)));
-#else
-        Task[] tasks = new Task[registrations.Length];
-        Parallel.For(0, registrations.Length, i => tasks[i] = OnEventSingle(sender, registrations[i], args));
+        Task[] tasks = new Task[registry.Count];
+        Parallel.For(0, registry.Count, i => tasks[i] = OnEventSingle(sender, registry[i], args));
         return Task.WhenAll(tasks);
-#endif
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private async Task OnEventSingle(DiscordClient sender, Guid key, TArgument args)
+    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    private async Task OnEventSingle(DiscordClient sender, IHandlerBuilder<TInterface> factory, TArgument args)
     {
         try
         {
             await using AsyncServiceScope scope = provider.CreateAsyncScope();
-            TInterface handler = scope.ServiceProvider.GetRequiredKeyedService<TInterface>(key);
-            await using DisposingWrapper wrapper = new(handler);
-            await Invoke(handler, sender, args);
+            await using DisposingWrapper<TInterface> wrapper = factory.CreateInstance(scope.ServiceProvider);
+            await Invoke(wrapper.Instance, sender, args).ConfigureAwait(false);
         }
         catch (Exception ex)
         {
-            logger.LogWarning(ex, "A problem occured while handling event with {EventName} with handler ID {HandlerName}", typeof(TInterface).Name, key);
+            logger.LogWarning(ex, "A problem occured while handling event handler {HandlerName}", factory.Name);
             throw;
         }
     }

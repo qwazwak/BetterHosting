@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using DSharpPlus.BetterHosting.Services;
 using DSharpPlus.BetterHosting.EventsNext.Tools;
+using System;
 
 namespace DSharpPlus.BetterHosting.EventsNext.Services.Implementations;
 
@@ -14,7 +15,7 @@ internal class AutoCallEventHandlerManager<TInterface, TArgument> : EventHandler
     where TInterface : IDiscordEventHandler<TArgument>
     where TArgument : DiscordEventArgs
 {
-    public AutoCallEventHandlerManager(ILogger<AutoCallEventHandlerManager<TInterface, TArgument>> logger, [FromKeyedServices(NamedServices.RootServiceProvider)] IKeyedServiceProvider provider, IHandlerRegistryKeyProvider<TInterface> registrations) : base(logger, provider, registrations) { }
+    public AutoCallEventHandlerManager(ILogger<AutoCallEventHandlerManager<TInterface, TArgument>> logger, [FromKeyedServices(NamedServices.RootServiceProvider)] IServiceProvider provider, IHandlerProvider<TInterface> registrations) : base(logger, provider, registrations) { }
 
     [ExcludeFromCodeCoverage(Justification = "Code is generated and DSharpPlus cant be tested")]
     protected override void BindHandler(DiscordShardedClient client, AsyncEventHandler<DiscordClient, TArgument> handler) => AutoEventHandlerAdapter<TInterface, TArgument>.BindHandler(client, handler);

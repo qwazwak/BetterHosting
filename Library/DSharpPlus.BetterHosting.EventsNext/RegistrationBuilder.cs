@@ -2,6 +2,7 @@
 using System;
 using Microsoft.Extensions.DependencyInjection;
 using DSharpPlus.BetterHosting.EventsNext.Tools;
+using DSharpPlus.BetterHosting.EventsNext.Entities;
 
 namespace DSharpPlus.BetterHosting.EventsNext;
 
@@ -12,6 +13,8 @@ namespace DSharpPlus.BetterHosting.EventsNext;
 public sealed class RegistrationBuilder<TEventInterface> where TEventInterface : class, IDiscordEventHandler
 {
     static RegistrationBuilder() => EventReflection.Verification.VerifyExactInterface<TEventInterface>();
+
+    private bool supportKnownAdded;
 
     /// <summary>
     /// The <see cref="IServiceCollection"/> to add registrations to
@@ -33,23 +36,29 @@ public sealed class RegistrationBuilder<TEventInterface> where TEventInterface :
     /// </summary>
     /// <typeparam name="TImplementation"></typeparam>
     /// <returns>The same <see cref="RegistrationBuilder{TInterface}"/> for chaining</returns>
-    public RegistrationBuilder<TEventInterface> RegisterHandler<TImplementation>() where TImplementation : class, TEventInterface => RegisterHandler(typeof(TImplementation));
+    public RegistrationBuilder<TEventInterface> RegisterHandler<TImplementation>() where TImplementation : class, TEventInterface => RegisterHandler(HandlerDescriptor.Handler<TEventInterface, TImplementation>());
 
-    internal RegistrationBuilder<TEventInterface> RegisterHandler(Type handlerType)
+    /// <summary>
+    /// Registers a handler <typeparamref name="TEventInterface"/> in the <see cref="IServiceCollection"/> to recieve events for <typeparamref name="TEventInterface"/>
+    /// </summary>
+    /// <returns>The same <see cref="RegistrationBuilder{TInterface}"/> for chaining</returns>
+    public RegistrationBuilder<TEventInterface> RegisterHandler(TEventInterface instance) => RegisterHandler(HandlerDescriptor.OfInstance(instance));
+
+    /// <summary>
+    /// Registers a handler <typeparamref name="TEventInterface"/> in the <see cref="IServiceCollection"/> to recieve events for <typeparamref name="TEventInterface"/>
+    /// </summary>
+    /// <returns>The same <see cref="RegistrationBuilder{TInterface}"/> for chaining</returns>
+    public RegistrationBuilder<TEventInterface> RegisterHandler(Func<IServiceProvider, TEventInterface> factory) => RegisterHandler(HandlerDescriptor.Handler<TEventInterface>(factory));
+
+    /// <summary>
+    /// Registers a handler <typeparamref name="TEventInterface"/> in the <see cref="IServiceCollection"/> to recieve events for <typeparamref name="TEventInterface"/>
+    /// </summary>
+    /// <returns>The same <see cref="RegistrationBuilder{TInterface}"/> for chaining</returns>
+    public RegistrationBuilder<TEventInterface> RegisterHandler(HandlerDescriptor descriptor)
     {
-        ArgumentNullException.ThrowIfNull(handlerType);
-        if (!handlerType.IsAssignableTo(typeof(TEventInterface)))
-            throw new ArgumentException("Invalid handler type");
-
-        IHandlerRegistry<TEventInterface> registry = Services.GetSingleton<IHandlerRegistry<TEventInterface>>();
-        Guid key;
-        do
-        {
-            key = Guid.NewGuid();
-        }
-        while (!registry.Add(key));
-
-        Services.AddKeyedTransient(typeof(TEventInterface), key, handlerType);
+        ArgumentNullException.ThrowIfNull(descriptor);
+        RegistrationBuilderHelper.RegisterHandler(Services, typeof(TEventInterface), descriptor, supportKnownAdded);
+        supportKnownAdded = true;
         return this;
     }
 }

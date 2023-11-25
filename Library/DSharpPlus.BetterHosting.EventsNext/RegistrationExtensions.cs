@@ -1,4 +1,8 @@
-﻿using DSharpPlus.BetterHosting.EventsNext.Services;
+﻿using System;
+using System.Linq;
+using DSharpPlus.BetterHosting.EventsNext.Entities;
+using DSharpPlus.BetterHosting.EventsNext.Services;
+using DSharpPlus.BetterHosting.EventsNext.Tools;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DSharpPlus.BetterHosting.EventsNext;
@@ -21,5 +25,15 @@ public static partial class RegistrationExtensions
     /// </summary>
     /// <typeparam name="TImplementation"></typeparam>
     /// <returns>The same <see cref="IServiceCollection"/> for chaining</returns>
+#if SourceGenerated_AutoRegisterHandler
     public static partial IServiceCollection AutoRegisterHandler<TImplementation>(this IServiceCollection services) where TImplementation : class, IDiscordEventHandler;
+
+#else
+    public static IServiceCollection AutoRegisterHandler<TImplementation>(this IServiceCollection services) where TImplementation : class, IDiscordEventHandler
+    {
+        foreach (Type implementedExactInterface in typeof(TImplementation).GetInterfaces().Where(EventReflection.Validation.IsExactInterface))
+            RegistrationBuilderHelper.RegisterHandler(services, implementedExactInterface, HandlerDescriptor.Describe(implementedExactInterface, typeof(TImplementation)), false);
+        return services;
+    }
+#endif
 }

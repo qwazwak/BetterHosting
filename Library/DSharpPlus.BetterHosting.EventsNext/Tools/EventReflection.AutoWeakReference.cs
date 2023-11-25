@@ -35,5 +35,7 @@ internal static partial class EventReflection
         }
 
         public readonly void SetTarget(T target) => weakReference.SetTarget(target);
+
+        public readonly void Clear() => weakReference.SetTarget(null!);
     }
 }

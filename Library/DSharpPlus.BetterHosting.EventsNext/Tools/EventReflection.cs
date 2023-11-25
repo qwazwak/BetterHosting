@@ -4,6 +4,7 @@ using DSharpPlus.BetterHosting.EventsNext.Services;
 using System.Collections.Immutable;
 using System.Collections.Generic;
 using System.Diagnostics;
+using DSharpPlus.BetterHosting.EventsNext.Services.Implementations;
 
 namespace DSharpPlus.BetterHosting.EventsNext.Tools;
 
@@ -44,5 +45,21 @@ internal static partial class EventReflection
         public static Type For<TInterface>() where TInterface : IDiscordEventHandler => For(typeof(TInterface));
         //Internal for testing
         internal static Type For(Type interfaceType) => DetailsFor(interfaceType).ArgumentType;
+    }
+
+    public static class ManagerType
+    {
+        public static Type For(Type eventInterface) => For(eventInterface, DetailsFor(eventInterface).ArgumentType);
+        public static Type For(Type eventInterface, Type eventArgument)
+        {
+            Debug.Assert(Validation.IsExactInterface(eventInterface));
+            Debug.Assert(eventArgument.IsAssignableTo(typeof(DiscordEventArgs)));
+            return typeof(AutoCallEventHandlerManager<,>).MakeGenericType(eventInterface, eventArgument);
+        }
+    }
+
+    public static class ManagerHostType
+    {
+        public static Type For(Type eventInterface) => typeof(EventsNextBackgroundHost<>).MakeGenericType(eventInterface);
     }
 }

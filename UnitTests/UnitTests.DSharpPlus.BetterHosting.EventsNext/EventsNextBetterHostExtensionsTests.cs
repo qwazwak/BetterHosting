@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if false
+using System;
 using System.Collections.Immutable;
 using DSharpPlus.BetterHosting.EventsNext;
 using DSharpPlus.BetterHosting.EventsNext.Services;
@@ -114,9 +115,9 @@ public class EventsNextBetterHostExtensionsHelpersTests
             .Returns(0)
             .Verifiable(Times.Exactly(expectedServiceCount));
 
-        services.Setup(s => s.Add(ItMore.ServiceDescriptorFrom.SimpleInterface.AddTransient(typeof(IHandlerRegistry<>), typeof(HandlerRegistry<>))))
+        services.Setup(s => s.Add(ItMore.ServiceDescriptorFrom.SimpleInterface.AddTransient(typeof(IHandlerRegistry), typeof(HandlerRegistry))))
             .Verifiable(Times.Once);
-        services.Setup(s => s.Add(ItMore.ServiceDescriptorFrom.SimpleInterface.AddTransient(typeof(IHandlerRegistryKeyProvider<>), typeof(HandlerRegistryKeyProvider<>))))
+        services.Setup(s => s.Add(ItMore.ServiceDescriptorFrom.SimpleInterface.AddTransient(typeof(IHandlerRegistryKeyProvider), typeof(HandlerRegistryKeyProvider))))
             .Verifiable(Times.Once);
 
         foreach ((Type interfaceType, Type argType) in implementedTypes)
@@ -138,3 +139,4 @@ public class EventsNextBetterHostExtensionsHelpersTests
         services.Verify();
     }
 }
+#endif

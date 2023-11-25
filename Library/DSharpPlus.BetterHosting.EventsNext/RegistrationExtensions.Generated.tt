@@ -9,15 +9,17 @@ using Microsoft.Extensions.DependencyInjection;
 
 public static partial class RegistrationExtensions
 {
+#if SourceGenerated_AutoRegisterHandler
     public static partial IServiceCollection AutoRegisterHandler<TImplementation>(this IServiceCollection services) where TImplementation : class, IDiscordEventHandler
     {
 <# foreach(EventNaming naming in EventsList) { #>
         if (typeof(TImplementation).IsAssignableTo(typeof(<#=naming.InterfaceName#>)))
-            services.Add<#=naming.EventName#>Handlers().RegisterHandler(typeof(TImplementation));
+            services.Add<#=naming.EventName#>Handlers().RegisterHandler(HandlerDescriptor.Describe(typeof(<#=naming.InterfaceName#>), typeof(TImplementation)));
 
 <#} #>
         return services;
     }
+#endif
 <# foreach(EventNaming naming in EventsList) { #>
 
     /// <summary>
