@@ -33,4 +33,5 @@ runs:
   #below is temp for testing
   - name: Test
     shell: bash
-    run: dotnet test --no-restore --no-build --verbosity normal
+    run: dotnet test .\BetterHosting.sln --verbosity normal --configuration ${{ inputs.Configuration }}
+    #--no-restore --no-build
