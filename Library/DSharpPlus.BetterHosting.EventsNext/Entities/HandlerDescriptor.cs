@@ -15,10 +15,7 @@ public class HandlerDescriptor
     /// </summary>
     /// <param name="serviceType">The <see cref="Type"/> of the service.</param>
     /// <param name="implementationType">The <see cref="Type"/> implementing the service.</param>
-    public HandlerDescriptor(
-        Type serviceType,
-        [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)] Type implementationType)
-        : this(serviceType)
+    public HandlerDescriptor(Type serviceType,[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)] Type implementationType) : this(serviceType)
     {
         ArgumentNullException.ThrowIfNull(serviceType);
         ArgumentNullException.ThrowIfNull(implementationType);
@@ -114,8 +111,16 @@ public class HandlerDescriptor
         where TService : class
         where TImplementation : class, TService => Describe<TService, TImplementation>();
 
-    public static HandlerDescriptor OfInstance<TService>(TService instance)
-        where TService : class => Describe(typeof(TService), instance);
+    /// <summary>
+    /// Creates an instance of <see cref="HandlerDescriptor"/> with the specified
+    /// <typeparamref name="TService"/>, <paramref name="implementationInstance"/>,
+    /// and the Singleton lifetime.
+    /// </summary>
+    /// <typeparam name="TService">The type of the service.</param>
+    /// <param name="implementationInstance">The instance of the implementation.</param>
+    /// <returns>A new instance of <see cref="HandlerDescriptor"/>.</returns>
+    public static HandlerDescriptor OfInstance<TService>(TService implementationInstance)
+        where TService : class => Describe(typeof(TService), implementationInstance);
 
     /// <summary>
     /// Creates an instance of <see cref="HandlerDescriptor"/> with the specified
@@ -191,7 +196,7 @@ public class HandlerDescriptor
     /// <param name="serviceType">The type of the service.</param>
     /// <param name="implementationInstance">The instance of the implementation.</param>
     /// <returns>A new instance of <see cref="HandlerDescriptor"/>.</returns>
-    public static HandlerDescriptor Handler(Type serviceType, object implementationInstance)
+    private static HandlerDescriptor Handler(Type serviceType, object implementationInstance)
     {
         ArgumentNullException.ThrowIfNull(serviceType);
         ArgumentNullException.ThrowIfNull(implementationInstance);
@@ -199,6 +204,13 @@ public class HandlerDescriptor
         return new HandlerDescriptor(serviceType, implementationInstance);
     }
 
+    /// <summary>
+    /// Creates an instance of <see cref="HandlerDescriptor"/> with the specified
+    /// <typeparamref name="TService"/>, <typeparamref name="TImplementation"/>.
+    /// </summary>
+    /// <typeparam name="TService">The type of the service.</typeparam>
+    /// <typeparam name="TImplementation">The type of the implementation.</typeparam>
+    /// <returns>A new instance of <see cref="HandlerDescriptor"/>.</returns>
     public static HandlerDescriptor Describe<TService, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)] TImplementation>()
         where TService : class
         where TImplementation : class, TService => Describe(typeof(TService), typeof(TImplementation));

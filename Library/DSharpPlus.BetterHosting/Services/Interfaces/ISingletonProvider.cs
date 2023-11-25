@@ -4,6 +4,10 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace DSharpPlus.BetterHosting.Services.Interfaces;
 
+/// <summary>
+/// Allows accessing of an asynchronously available singleton
+/// </summary>
+/// <typeparam name="T"></typeparam>
 public interface ISingletonProvider<T>
 {
     /// <summary>
