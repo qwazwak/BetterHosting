@@ -22,7 +22,7 @@ runs:
       with:
         name: dotnet-results
         path: ./UnitTests/TestResults/*.trx
-           
+
     - name: Generate (nice) report
       uses: danielpalme/ReportGenerator-GitHub-Action@5.2.0
       with:
@@ -43,3 +43,17 @@ runs:
       with:
         name: CoverageReport # Artifact name        
         path: combinedCoverageReports # Directory containing files to upload
+
+    - name: Code Coverage Summary Report
+      uses: irongut/CodeCoverageSummary@v1.3.0
+      with:
+        filename: ./combinedCoverageReports/Cobertura.xml
+        #filename: ./UnitTests/TestResults/**/coverage.cobertura.xml
+        badge: true
+        fail_below_min: true
+        format: markdown
+        hide_branch_rate: false
+        hide_complexity: false
+        indicators: true
+        output: both
+        thresholds: '60 80'
