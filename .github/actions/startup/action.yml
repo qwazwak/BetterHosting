@@ -23,14 +23,14 @@ runs:
       dotnet-quality: 'preview'
 
   - name: Restore dependencies
-    shell: dotnet
-    run: restore
+    shell: bash
+    run: dotnet restore
 
   - name: Build
-    shell: dotnet
-    run: build --no-restore --configuration ${{ inputs.Configuration }} ${{ inputs.NightlyID != 'null' && inputs.NightlyID != '0' && inputs.NightlyID != '' && '-p:Nightly=${{ inputs.NightlyID }}' || '' }}
+    shell: bash
+    run: dotnet build --no-restore --configuration ${{ inputs.Configuration }} ${{ inputs.NightlyID != 'null' && inputs.NightlyID != '0' && inputs.NightlyID != '' && '-p:Nightly=${{ inputs.NightlyID }}' || '' }}
 
   #below is temp for testing
   - name: Test
-    shell: dotnet
-    run: test --no-restore --no-build --verbosity normal
+    shell: bash
+    run: dotnet test --no-restore --no-build --verbosity normal
