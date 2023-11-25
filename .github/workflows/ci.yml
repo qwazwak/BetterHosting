@@ -22,9 +22,15 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-    - uses: actions/checkout@v3
-    - uses: ./.github/actions/startup
-    #- uses: ./.github/actions/setupDotNet
+    - name: checkout repository
+      uses: actions/checkout@v3
+    - name: Install .NET
+      uses: ./.github/actions/setupDotNet
+  
+    #below is temp for testing
+    - name: Test
+      run: dotnet test BetterHosting.sln --no-restore --no-build --verbosity normal --configuration ${{ inputs.Configuration }}
+
     #
     #- uses: ./.github/actions/buildSolution
     #  with:

@@ -4,8 +4,8 @@ description: Wraps actions/setup-dotnet@v3 into one location
 runs:
   using: "composite"
   steps:
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 8.0.x
-        dotnet-quality: 'preview'
+  - name: Setup .NET
+    uses: actions/setup-dotnet@v3
+    with:
+      dotnet-version: 8.0.x
+      dotnet-quality: 'preview'
