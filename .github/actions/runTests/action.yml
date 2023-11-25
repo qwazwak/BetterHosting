@@ -13,5 +13,14 @@ runs:
   steps:
     - name: Run dotnet test
       shell: bash
-      run: dotnet test BetterHosting.sln --verbosity normal --configuration ${{ inputs.Configuration }}
-      #--no-restore --no-build
+      run: dotnet test BetterHosting.sln --logger trx
+      # --verbosity normal --configuration ${{ inputs.Configuration }}
+      #run: dotnet test --logger trx --results-directory "TestResults"
+    - name: Upload dotnet test results
+      shell: bash
+      uses: actions/upload-artifact@v3
+      with:
+        name: dotnet-results
+        path: TestResults
+      # Use always() to always run this step to publish test results when there are test failures
+      if: ${{ always() }}
