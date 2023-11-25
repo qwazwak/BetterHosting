@@ -1,0 +1,31 @@
+name: Build Better Hosting Solution (base)
+
+on:
+  workflow_call:
+    inputs:
+      Configuration:
+        required: true
+        type: string
+        default: Release
+      NightlyID:
+        required: false
+        type: number
+        default: 0
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 8.0.x
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build
+      run: dotnet build --no-restore --configuration  ${{ inputs.Configuration }} ${{ inputs.NightlyID != 'null' && inputs.NightlyID != '0' && '-p:Nightly=${{ inputs.NightlyID }}' || '' }}

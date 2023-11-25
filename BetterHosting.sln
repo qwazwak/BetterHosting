@@ -84,6 +84,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{8807
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{C9B7B279-0388-4429-B4BD-9030A488E962}"
 	ProjectSection(SolutionItems) = preProject
+		.github\workflows\action_buildSolution.yml = .github\workflows\action_buildSolution.yml
+		.github\workflows\action_publishLibrary.yml = .github\workflows\action_publishLibrary.yml
+		.github\workflows\action_runTests.yml = .github\workflows\action_runTests.yml
 		.github\workflows\ci.yml = .github\workflows\ci.yml
 	EndProjectSection
 EndProject
