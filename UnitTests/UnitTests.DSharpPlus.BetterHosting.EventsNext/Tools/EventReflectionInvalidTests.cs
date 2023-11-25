@@ -22,7 +22,7 @@ public class EventReflectionInvalidTests<TInterface> where TInterface : IDiscord
 #if DEBUG
         Assert.That(ex.GetType().Name, Is.EqualTo("DebugAssertException"));
 #else
-        Assert.That(ex, Is.OfType<KeyNotFoundException>());
+        Assert.That(ex, Is.TypeOf<KeyNotFoundException>());
 #endif
     }
 }
