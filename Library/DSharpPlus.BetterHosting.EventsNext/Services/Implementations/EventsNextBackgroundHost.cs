@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using DSharpPlus.BetterHosting.Services.Hosted;
 using DSharpPlus.BetterHosting.Services.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 namespace DSharpPlus.BetterHosting.EventsNext.Services.Implementations;
 
-internal class EventsNextBackgroundHostBase : BackgroundLifecycleService
+internal class EventsNextBackgroundHostBase : IHostedService
 {
     private readonly ILogger<EventsNextBackgroundHostBase> logger;
     private readonly IEventHandlerManager manager;
@@ -21,17 +21,8 @@ internal class EventsNextBackgroundHostBase : BackgroundLifecycleService
         this.clientProvider = clientProvider;
     }
 
-    /// <inheritdoc />
-    public override Task StartingAsync(CancellationToken cancellationToken)
-    {
-        if (manager.CanBeTriggered())
-            return base.StartingAsync(cancellationToken);
-
-        logger.LogTrace("Manager was not able to be trigged, ending fast");
-        return Task.CompletedTask;
-    }
-
-    protected override async Task Start(CancellationToken cancellationToken)
+    public Task StartAsync(CancellationToken cancellationToken) => manager.CanBeTriggered() ? StartAsyncFull(cancellationToken) : Task.CompletedTask;
+    private async Task StartAsyncFull(CancellationToken cancellationToken)
     {
         DiscordShardedClient client;
         try
@@ -50,9 +41,7 @@ internal class EventsNextBackgroundHostBase : BackgroundLifecycleService
             logger.LogInformation("Events for this manager were declared to not happen, so exiting quick");
     }
 
-    protected override Task ExecuteAsync(CancellationToken stoppingToken) => Task.CompletedTask;
-
-    protected override Task Stop(CancellationToken cancellationToken)
+    public Task StopAsync(CancellationToken cancellationToken)
     {
         manager.Stop();
         return Task.CompletedTask;

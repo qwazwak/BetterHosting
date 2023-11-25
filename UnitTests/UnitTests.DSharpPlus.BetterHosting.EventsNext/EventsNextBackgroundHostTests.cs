@@ -36,7 +36,7 @@ public class EventsNextBackgroundHostTests
     {
         DiscordShardedClient client = new(new());
         manager.Setup(m => m.CanBeTriggered()).Returns(false);
-        Task result = host.StartingAsync(CancellationToken.None);
+        Task result = host.StartAsync(CancellationToken.None);
         Assert.That(result, Is.SameAs(Task.CompletedTask));
     }
 
@@ -50,7 +50,7 @@ public class EventsNextBackgroundHostTests
             .ReturnsAsync(client, TimeSpan.FromMilliseconds(5))
             .Verifiable(Times.Once);
 
-        await host.StartingAsync(CancellationToken.None);
+        await host.StartAsync(CancellationToken.None);
     }
 
     [Test]
@@ -65,7 +65,7 @@ public class EventsNextBackgroundHostTests
     public async Task CallStop()
     {
         manager.Setup(m => m.Stop()).Verifiable(Times.Once);
-        Task result = host.StoppingAsync(CancellationToken.None);
+        Task result = host.StopAsync(CancellationToken.None);
         Assert.That(result, Is.SameAs(Task.CompletedTask));
         await result;
     }
