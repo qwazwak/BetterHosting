@@ -16,11 +16,12 @@ inputs:
 runs:
   using: "composite"
   steps:
-  - uses: ./.github/workflows/action_buildSolution.yml
+  - name: Build solution
+    uses: ./.github/workflows/action_buildSolution.yml
     with:
       Configuration: ${{ inputs.Configuration }}
     if: ${{ inputs.SolutionAlreadyBuilt != 'true' }}
 
-  - name: Test
+  - name: Run unit tests
     shell: bash
     run: dotnet test --no-restore --no-build --verbosity normal

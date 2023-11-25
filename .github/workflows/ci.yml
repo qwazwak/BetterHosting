@@ -23,15 +23,16 @@ jobs:
     timeout-minutes: 10
     steps:
     - uses: actions/checkout@v3
-    - uses: ./.github/actions/setupDotNet
-    
+    - uses: ./.github/actions/startup
+    #- uses: ./.github/actions/setupDotNet
+    #
     #- uses: ./.github/actions/buildSolution
     #  with:
     #    Configuration: 'Release'
-    - name: Build solution
-      run: dotnet build --no-restore --configuration Release
+    #- name: Build solution
+    #  run: dotnet build --no-restore --configuration Release
     #- uses: ./.github/actions/runTests
     #  with:
     #    Configuration: 'Release'
-    - name: Test
-      run: dotnet test --no-restore --no-build --verbosity normal
+    #- name: Test
+    #  run: dotnet test --no-restore --no-build --verbosity normal
