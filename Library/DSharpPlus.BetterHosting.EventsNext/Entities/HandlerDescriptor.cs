@@ -116,7 +116,7 @@ public class HandlerDescriptor
     /// <typeparamref name="TService"/>, <paramref name="implementationInstance"/>,
     /// and the Singleton lifetime.
     /// </summary>
-    /// <typeparam name="TService">The type of the service.</param>
+    /// <typeparam name="TService">The type of the service.</typeparam>
     /// <param name="implementationInstance">The instance of the implementation.</param>
     /// <returns>A new instance of <see cref="HandlerDescriptor"/>.</returns>
     public static HandlerDescriptor OfInstance<TService>(TService implementationInstance)
