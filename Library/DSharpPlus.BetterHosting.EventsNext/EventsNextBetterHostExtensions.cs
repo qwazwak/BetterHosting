@@ -20,6 +20,7 @@ public static partial class EventsNextBetterHostExtensions
     public static IServiceCollection AddEventsNext(this IServiceCollection services)
     {
         ArgumentNullException.ThrowIfNull(services);
+        services.TryAddTransient(typeof(ITypeKeyedService<,>), typeof(TypeKeyedService<,>));
         services.TryAddTransient(typeof(IHandlerRegistryKeyProvider<>), typeof(HandlerRegistryKeyProvider<>));
         EventReflection.AllDetails(out System.Collections.Generic.IEnumerable<EventReflection.DetailsRecord>? details);
         foreach (EventReflection.DetailsRecord detail in details)

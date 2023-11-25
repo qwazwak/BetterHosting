@@ -123,6 +123,7 @@ internal abstract class EventHandlerManager<TInterface, TArgument> : IEventHandl
         {
             await using AsyncServiceScope scope = provider.CreateAsyncScope();
             TInterface handler = scope.ServiceProvider.GetRequiredKeyedService<TInterface>(key);
+            await using DisposingWrapper wrapper = new(handler);
             await Invoke(handler, sender, args);
         }
         catch (Exception ex)
