@@ -22,5 +22,4 @@ runs:
 
   - name: Build
     shell: bash
-    run: dotnet build BetterHosting.sln --configuration ${{ inputs.Configuration }} ${{ inputs.NightlyID != 'null' && inputs.NightlyID != '0' && inputs.NightlyID != '' && '-p:Nightly=${{ inputs.NightlyID }}' || '' }}
-    #--no-restore 
+    run: dotnet build BetterHosting.sln --no-restore  --configuration ${{ inputs.Configuration }} ${{ inputs.NightlyID != 'null' && inputs.NightlyID != '0' && inputs.NightlyID != '' && '-p:Nightly=${{ inputs.NightlyID }}' || '' }}
