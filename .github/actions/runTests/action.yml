@@ -17,7 +17,6 @@ runs:
       # --verbosity normal --configuration ${{ inputs.Configuration }}
       #run: dotnet test --logger trx --results-directory "TestResults"
     - name: Upload dotnet test results
-      shell: bash
       uses: actions/upload-artifact@v3
       with:
         name: dotnet-results
