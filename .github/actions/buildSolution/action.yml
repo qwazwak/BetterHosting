@@ -6,7 +6,7 @@ inputs:
     description: Debug/Release build configuration
     required: true
     #type: string
-    default: Release
+    default: 'Release'
   NightlyID:
     description: the Nightly msbuild value, empty, null, or the string '0' for not nightly
     required: false

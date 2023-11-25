@@ -6,7 +6,7 @@ inputs:
     description: Debug/Release build configuration
     required: true
     #type: string
-    default: Release
+    default: 'Release'
   SolutionAlreadyBuilt:
     description: the string 'true' iff the building of the solution should be skipped
     required: true
