@@ -129,9 +129,7 @@ public class HandlerDescriptor
     /// <param name="service">The type of the service.</param>
     /// <param name="implementationType">The type of the implementation.</param>
     /// <returns>A new instance of <see cref="HandlerDescriptor"/>.</returns>
-    public static HandlerDescriptor Handler(
-        Type service,
-        [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)] Type implementationType)
+    public static HandlerDescriptor Handler(Type service, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)] Type implementationType)
     {
         ArgumentNullException.ThrowIfNull(service);
         ArgumentNullException.ThrowIfNull(implementationType);
@@ -148,8 +146,7 @@ public class HandlerDescriptor
     /// <typeparam name="TImplementation">The type of the implementation.</typeparam>
     /// <param name="implementationFactory">A factory to create new instances of the service implementation.</param>
     /// <returns>A new instance of <see cref="HandlerDescriptor"/>.</returns>
-    public static HandlerDescriptor Handler<TService, TImplementation>(
-        Func<IServiceProvider, TImplementation> implementationFactory)
+    public static HandlerDescriptor Handler<TService, TImplementation>(Func<IServiceProvider, TImplementation> implementationFactory)
         where TService : class
         where TImplementation : class, TService
     {
@@ -175,37 +172,6 @@ public class HandlerDescriptor
 
     /// <summary>
     /// Creates an instance of <see cref="HandlerDescriptor"/> with the specified
-    /// <paramref name="service"/>, <paramref name="implementationFactory"/>.
-    /// </summary>
-    /// <param name="service">The type of the service.</param>
-    /// <param name="implementationFactory">A factory to create new instances of the service implementation.</param>
-    /// <returns>A new instance of <see cref="HandlerDescriptor"/>.</returns>
-    public static HandlerDescriptor Handler(Type service, Func<IServiceProvider, object> implementationFactory)
-    {
-        ArgumentNullException.ThrowIfNull(service);
-        ArgumentNullException.ThrowIfNull(implementationFactory);
-
-        return Describe(service, implementationFactory);
-    }
-
-    /// <summary>
-    /// Creates an instance of <see cref="HandlerDescriptor"/> with the specified
-    /// <paramref name="serviceType"/>, <paramref name="implementationInstance"/>,
-    /// and the Singleton lifetime.
-    /// </summary>
-    /// <param name="serviceType">The type of the service.</param>
-    /// <param name="implementationInstance">The instance of the implementation.</param>
-    /// <returns>A new instance of <see cref="HandlerDescriptor"/>.</returns>
-    private static HandlerDescriptor Handler(Type serviceType, object implementationInstance)
-    {
-        ArgumentNullException.ThrowIfNull(serviceType);
-        ArgumentNullException.ThrowIfNull(implementationInstance);
-
-        return new HandlerDescriptor(serviceType, implementationInstance);
-    }
-
-    /// <summary>
-    /// Creates an instance of <see cref="HandlerDescriptor"/> with the specified
     /// <typeparamref name="TService"/>, <typeparamref name="TImplementation"/>.
     /// </summary>
     /// <typeparam name="TService">The type of the service.</typeparam>
@@ -222,9 +188,7 @@ public class HandlerDescriptor
     /// <param name="serviceType">The type of the service.</param>
     /// <param name="implementationType">The type of the implementation.</param>
     /// <returns>A new instance of <see cref="HandlerDescriptor"/>.</returns>
-    public static HandlerDescriptor Describe(
-        Type serviceType,
-        [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)] Type implementationType) => new(serviceType, implementationType);
+    public static HandlerDescriptor Describe(Type serviceType, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)] Type implementationType) => new(serviceType, implementationType);
 
     /// <summary>
     /// Creates an instance of <see cref="HandlerDescriptor"/> with the specified
@@ -233,9 +197,17 @@ public class HandlerDescriptor
     /// <param name="serviceType">The type of the service.</param>
     /// <param name="implementationFactory">A factory to create new instances of the service implementation.</param>
     /// <returns>A new instance of <see cref="HandlerDescriptor"/>.</returns>
-    public static HandlerDescriptor Describe(Type serviceType, Func<IServiceProvider, object> implementationFactory) => new(serviceType, implementationFactory);
+    private static HandlerDescriptor Describe(Type serviceType, Func<IServiceProvider, object> implementationFactory) => new(serviceType, implementationFactory);
 
-    private static HandlerDescriptor Describe(Type serviceType, object instance) => new(serviceType, instance);
+    /// <summary>
+    /// Creates an instance of <see cref="HandlerDescriptor"/> with the specified
+    /// <paramref name="serviceType"/>, <paramref name="implementationInstance"/>,
+    /// and the Singleton lifetime.
+    /// </summary>
+    /// <param name="serviceType">The type of the service.</param>
+    /// <param name="implementationInstance">The instance of the implementation.</param>
+    /// <returns>A new instance of <see cref="HandlerDescriptor"/>.</returns>
+    private static HandlerDescriptor Describe(Type serviceType, object implementationInstance) => new(serviceType, implementationInstance);
 
     /// <inheritdoc />
     public override string ToString()
