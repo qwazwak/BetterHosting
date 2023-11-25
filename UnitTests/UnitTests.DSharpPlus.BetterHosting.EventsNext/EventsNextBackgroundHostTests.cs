@@ -54,14 +54,6 @@ public class EventsNextBackgroundHostTests
     }
 
     [Test]
-    public async Task ExecuteNothing()
-    {
-        Task result = host.StartAsync(CancellationToken.None);
-        Assert.That(result, Is.SameAs(Task.CompletedTask));
-        await result;
-    }
-
-    [Test]
     public async Task CallStop()
     {
         manager.Setup(m => m.Stop()).Verifiable(Times.Once);

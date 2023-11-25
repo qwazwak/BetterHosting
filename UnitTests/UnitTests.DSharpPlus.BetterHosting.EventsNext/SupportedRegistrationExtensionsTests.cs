@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using DSharpPlus.BetterHosting.EventsNext;
 using DSharpPlus.BetterHosting.EventsNext.Services;
+using DSharpPlus.BetterHosting.EventsNext.Services.Implementations;
+using DSharpPlus.BetterHosting.EventsNext.Tools;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace UnitTests.DSharpPlus.BetterHosting.EventsNext;
 
@@ -33,19 +37,28 @@ public class SupportedRegistrationExtensionsTests<TEventInterface> where TEventI
     {
         Mock<IServiceCollection> mockServices = new(MockBehavior.Strict);
         mockServices.Setup(s => s.Add(It.Is<ServiceDescriptor>(d =>
-                    d.Lifetime == ServiceLifetime.Transient &&
-                    //d.ServiceType == typeof(IHandlerRegistration<TEventInterface>) &&
-                    //d.KeyedImplementationType == typeof(HandlerRegistration<TEventInterface>) &&
-                    d.ServiceKey is Guid)))
+                    d.Lifetime == ServiceLifetime.Singleton &&
+                    d.ServiceType == typeof(IHandlerRegistry) &&
+                    d.ServiceKey != null &&
+                    (Type)d.ServiceKey == typeof(TEventInterface) &&
+                    d.KeyedImplementationInstance != null &&
+                    d.KeyedImplementationInstance.GetType() == typeof(HandlerRegistry))))
             .Verifiable(Times.Once);
 
-        mockServices.Setup(s => s.Count)
-            .Returns(1)
+        mockServices.Setup(s => s.Add(It.Is<ServiceDescriptor>(d =>
+                    d.Lifetime == ServiceLifetime.Singleton &&
+                    d.ServiceType == typeof(IEventHandlerManager) &&
+                    d.ServiceKey != null &&
+                    (Type)d.ServiceKey == typeof(TEventInterface) &&
+                    d.KeyedImplementationType == EventReflection.ManagerType.For(typeof(TEventInterface)))))
+            .Verifiable(Times.Once);
+        mockServices.Setup(s => s.Add(It.Is<ServiceDescriptor>(d =>
+                    d.Lifetime == ServiceLifetime.Singleton &&
+                    d.ServiceType == typeof(IHostedService) &&
+                    d.ImplementationType == EventReflection.ManagerHostType.For(typeof(TEventInterface)))))
             .Verifiable(Times.Once);
 
-     //   mockServices.Setup(s => s[0])
-    //        .Returns(ServiceDescriptor.KeyedTransient<IHandlerRegistration<TEventInterface>>(Guid.NewGuid(), (sp, k)  => null!))
-     //       .Verifiable(Times.Once);
+        mockServices.GetEnumerableReturnsNone();
 
         RegistrationBuilder<TEventInterface> result = RegistrationExtensions.AddEventHandlers<TEventInterface>(mockServices.Object);
 
@@ -56,5 +69,22 @@ public class SupportedRegistrationExtensionsTests<TEventInterface> where TEventI
         Assert.That(result2, Is.SameAs(result));
 
         mockServices.Verify();
+    }
+}
+
+public static class MockServiceCollectionExtensions
+{
+    public static Moq.Language.Flow.IReturnsResult<IServiceCollection> GetEnumerableReturnsNone(this Mock<IServiceCollection> mockServices) => mockServices.GetEnumerableReturnsNone(Times.Once());
+    public static Moq.Language.Flow.IReturnsResult<IServiceCollection> GetEnumerableReturnsNone(this Mock<IServiceCollection> mockServices, Times times) => mockServices.GetEnumerableReturnsNone(times, out Mock <IEnumerator<ServiceDescriptor>> _);
+    public static Moq.Language.Flow.IReturnsResult<IServiceCollection> GetEnumerableReturnsNone(this Mock<IServiceCollection> mockServices, Times times, out Mock<IEnumerator<ServiceDescriptor>> mockEnumerator)
+    {
+        mockEnumerator = new(MockBehavior.Strict);
+        mockEnumerator.Setup(e => e.MoveNext())
+            .Returns(false)
+            .Verifiable(times);
+        mockEnumerator.Setup(e => e.Dispose())
+            .Verifiable(times);
+        return mockServices.Setup(s => s.GetEnumerator())
+            .Returns(mockEnumerator.Object);
     }
 }
