@@ -24,7 +24,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - uses: ./.github/actions/setupDotNet
-    - uses: ./.github/actions/buildSolution.yml
+    - uses: ./.github/actions/buildSolution
       with:
         Configuration: 'Release'
     #- uses: ./.github/actions/runTests
