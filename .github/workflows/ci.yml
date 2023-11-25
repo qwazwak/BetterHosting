@@ -26,10 +26,10 @@ jobs:
     - uses: ./.github/actions/setupDotNet
     
     #- uses: ./.github/actions/buildSolution
+    #  with:
+    #    Configuration: 'Release'
     - name: Build solution
       run: dotnet build --no-restore --configuration Release
-      with:
-        Configuration: 'Release'
     #- uses: ./.github/actions/runTests
     #  with:
     #    Configuration: 'Release'
