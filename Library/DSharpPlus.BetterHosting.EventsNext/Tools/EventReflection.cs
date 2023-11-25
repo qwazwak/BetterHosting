@@ -33,7 +33,7 @@ internal static partial class EventReflection
     //Internal for testing
     internal static DetailsRecord DetailsFor(Type interfaceType)
     {
-        Debug.Assert(interfaceType.IsAssignableTo(typeof(IDiscordEventHandler)), $"{interfaceType.Name} is not valid");
+        Debug.Assert(Validation.IsExactInterface(interfaceType), $"{interfaceType.Name} is not valid");
         weakDetails.GetTarget(out ImmutableDictionary<Type, DetailsRecord> dict);
         return dict[interfaceType];
     }
