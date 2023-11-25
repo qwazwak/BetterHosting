@@ -13,19 +13,19 @@ runs:
   steps:
     - name: Run dotnet test
       shell: bash
-      run: dotnet test BetterHosting.sln --settings:"./UnitTests/.runsettings"
+      run: dotnet test BetterHosting.sln --settings:"./UnitTests/.runsettings" --logger:"trx"
 
     - name: Upload test results
       if: ${{ always() }} # Always publish results
       uses: actions/upload-artifact@v3
       with:
         name: dotnet-results
-        path: **/TestResults/*.trx
+        path: ./TestResults/*.trx
            
     - name: Upload code coverage
       if: ${{ always() }} # Always publish results
       uses: actions/upload-artifact@v3
       with:
          name: dotnet-coverage
-         path: **/TestResults/**/coverage.cobertura*.xml
+         path: ./TestResults/**/coverage.cobertura*.xml
             
