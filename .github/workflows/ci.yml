@@ -26,6 +26,8 @@ jobs:
       uses: actions/checkout@v4
     - name: Install .NET
       uses: ./.github/actions/setupDotNet
+    - name: Build the solution
+      uses: ./.github/actions/buildSolution
     - name: Run Unit Tests
       uses: ./.github/actions/runTests
 
