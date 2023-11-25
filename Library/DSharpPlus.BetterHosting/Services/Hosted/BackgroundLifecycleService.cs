@@ -15,7 +15,19 @@ public abstract class BackgroundLifecycleService : BackgroundService, IHostedLif
     private CancellationTokenSource? startCTS;
     private CancellationTokenSource? stopCTS;
 
+    /// <summary>
+    /// This method is called when the <see cref="IHostedService"/> begins starting. The implementation should return a task that represents
+    /// the lifetime of the process to start the service.
+    /// </summary>
+    /// <param name="stoppingToken">Triggered when <see cref="IHostedService.StopAsync(CancellationToken)"/> is called.</param>
+    /// <returns>A <see cref="Task"/> that represents the long running operations.</returns>
     protected abstract Task Start(CancellationToken stoppingToken);
+    /// <summary>
+    /// This method is called when the <see cref="IHostedService"/> begins stopping. The implementation should return a task that represents
+    /// the lifetime of the process to stop the service.
+    /// </summary>
+    /// <param name="stoppingToken">Triggered when <see cref="IHostedService.StopAsync(CancellationToken)"/> is cancelled.</param>
+    /// <returns>A <see cref="Task"/> that represents the long running operations.</returns>
     protected abstract Task Stop(CancellationToken stoppingToken);
 
     /// <inheritdoc />
@@ -26,9 +38,9 @@ public abstract class BackgroundLifecycleService : BackgroundService, IHostedLif
         if (startTask == null)
             return Task.CompletedTask;
 
-        Task result = startTask.WaitAsync(cancellationToken);
+        Task result = startTask;
         startTask = null;
-        return result.WaitAsync(cancellationToken);
+        return result;
     }
 
     /// <inheritdoc />
@@ -60,7 +72,7 @@ public abstract class BackgroundLifecycleService : BackgroundService, IHostedLif
                 (false, true) => stopTask!
             };
 #pragma warning restore CS8509 // The switch expression does not handle all possible values of its input type (it is not exhaustive).
-            await SafeAwait(awaitTask, cancellationToken);
+            await SafeAwait(awaitTask, cancellationToken).ConfigureAwait(false);
         }
     }
 

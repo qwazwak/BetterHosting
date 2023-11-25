@@ -26,25 +26,21 @@ internal class DiscordClientHost : BackgroundLifecycleService
 
     protected override async Task Start(CancellationToken stoppingToken)
     {
-        if(client != null)
-        {
-            logger.LogWarning("Service restarted without shutdown, how??");
-            return;
-        }
+        Debug.Assert(client == null, "Service restarted without shutdown, how??");
 
         logger.LogInformation("Starting discord setup...");
 
         try
         {
 
-            client = await clientConstructor.ConstructClient(stoppingToken);
+            client = await clientConstructor.ConstructClient(stoppingToken).ConfigureAwait(false);
 
             stoppingToken.ThrowIfCancellationRequested();
             logger.LogDebug("Constructed discord client");
 
             try
             {
-                await client.StartAsync().WaitAsync(stoppingToken);
+                await client.StartAsync().WaitAsync(stoppingToken).ConfigureAwait(false);
             }
             catch (Exception ex) when (ex is not TaskCanceledException)
             {
@@ -73,17 +69,19 @@ internal class DiscordClientHost : BackgroundLifecycleService
             clientManager.Set(client);
     }
 
+    public override Task StoppingAsync(CancellationToken cancellationToken)
+    {
+        clientManager.SetCancelled(cancellationToken);
+        return base.StoppingAsync(cancellationToken);
+    }
+
     protected override Task Stop(CancellationToken cancellationToken)
     {
         DiscordShardedClient? client = this.client;
-        // Stop called without start
+        this.client = null;
         if (client == null)
             return Task.CompletedTask;
         logger.LogInformation("Starting discord shutdown...");
-
-        this.client = null;
-
-        clientManager.SetCancelled(cancellationToken);
         return client.StopAsync();
     }
 }

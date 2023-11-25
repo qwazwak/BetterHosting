@@ -14,7 +14,7 @@ public interface ISingletonProvider<T>
     ValueTask<T> WaitAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Without the weight of asyncronous blocking, quickly checks if the singleton is available.
+    /// Without the weight of asynchronous blocking, quickly checks if the singleton is available.
     /// </summary>
     /// <param name="value"></param>
     bool TryGetNow([NotNullWhen(true), MaybeNullWhen(false)] out T value);
