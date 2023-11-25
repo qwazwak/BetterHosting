@@ -12,7 +12,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: action_buildSolution.yml
+    - uses: ./action_buildSolution.yml
       with:
         Configuration: ${{ inputs.Configuration }}
     - name: Test
