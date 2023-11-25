@@ -80,6 +80,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests.DSharpPlus.Better
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests.DSharpPlus.BetterHosting.VoiceNext", "UnitTests\UnitTests.DSharpPlus.BetterHosting.VoiceNext\UnitTests.DSharpPlus.BetterHosting.VoiceNext.csproj", "{B49974C1-7B98-4BDD-AB7C-DB6D00C674DF}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{88073139-CF30-41ED-BA41-98CCA3C5F1EB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{C9B7B279-0388-4429-B4BD-9030A488E962}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\ci.yml = .github\workflows\ci.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -320,6 +327,7 @@ Global
 		{79A0AD92-B87C-49B1-8A67-11C14A647B9C} = {41CF7FA4-20DB-430E-B001-E9E55CDA44F2}
 		{DE825551-CC11-4CBD-9EDE-908320F454CF} = {41CF7FA4-20DB-430E-B001-E9E55CDA44F2}
 		{B49974C1-7B98-4BDD-AB7C-DB6D00C674DF} = {41CF7FA4-20DB-430E-B001-E9E55CDA44F2}
+		{C9B7B279-0388-4429-B4BD-9030A488E962} = {88073139-CF30-41ED-BA41-98CCA3C5F1EB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {918D175B-C124-4E86-85C4-C4B53D366A97}
