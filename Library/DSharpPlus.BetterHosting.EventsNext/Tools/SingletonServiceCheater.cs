@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 
 namespace DSharpPlus.BetterHosting.EventsNext.Tools;
 
@@ -45,18 +46,9 @@ internal static class SingletonServiceCheater
 
     private static bool TryGet(IServiceCollection services, Type serviceType, object? key, [NotNullWhen(true), MaybeNullWhen(false)] out object? instance, [NotNullWhen(false), MaybeNullWhen(true)] out Exception exception)
     {
-        int count = services.Count;
-        ServiceDescriptor? descriptor = null;
         bool expectKey = key != null;
-        for (int i = 0; i < count; i++)
-        {
-            ServiceDescriptor? d = services[i];
-            if (d.ServiceType == serviceType && d.IsKeyedService == expectKey && (expectKey ? d.KeyedImplementationInstance : d.ImplementationInstance) != null)
-            {
-                descriptor = d;
-                break;
-            }
-        }
+
+        ServiceDescriptor? descriptor = services.FirstOrDefault(d => d.ServiceType == serviceType && d.IsKeyedService == expectKey && (expectKey ? d.KeyedImplementationInstance : d.ImplementationInstance) != null);
 
         if (descriptor == null)
         {
