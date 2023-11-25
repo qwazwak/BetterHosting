@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using DSharpPlus.BetterHosting.EventsNext.Services;
-using System.Reflection;
 using DSharpPlus.BetterHosting.EventsNext.Tools;
 
 namespace UnitTests.DSharpPlus.BetterHosting.EventsNext.Tools;
@@ -9,31 +7,14 @@ namespace UnitTests.DSharpPlus.BetterHosting.EventsNext.Tools;
 [TestOf(typeof(EventReflection))]
 [TestFixture]
 [TestFixtureSource(typeof(HandlerTypesTestData), nameof(HandlerTypesTestData.SpecificHandlerInterfaces))]
-public class EventReflectionSuccessfulTests
+public class EventReflectionSuccessfulTests(Type interfaceType)
 {
-    const int RepeatCount = 5;
-    private static readonly MethodInfo CallGenericCoreInfo = typeof(EventReflectionSuccessfulTests).GetMethod(nameof(CallGenericCore), BindingFlags.Static | BindingFlags.NonPublic, Type.EmptyTypes)!;
-    private static EventReflection.DetailsRecord CallGenericCore<TInterface>() where TInterface : IDiscordEventHandler => EventReflection.DetailsFor<TInterface>();
-
-    private readonly Type interfaceType;
-    private readonly Func<EventReflection.DetailsRecord> genericMethod;
-
-    public EventReflectionSuccessfulTests(Type interfaceType)
-    {
-        this.interfaceType = interfaceType;
-        Assume.That(CallGenericCoreInfo, Is.Not.Null, $"Did not find {nameof(CallGenericCore)}");
-        genericMethod = CallGenericCoreInfo.MakeGenericMethod(interfaceType).CreateDelegate<Func<EventReflection.DetailsRecord>>();
-    }
+    private readonly Type interfaceType = interfaceType;
 
     [Test]
-    public void InterfaceGetsDetailsByType() => InterfaceGetsDetailsCore(() => EventReflection.DetailsFor(interfaceType));
-
-    [Test]
-    public void InterfaceGetsDetailsGeneric() => InterfaceGetsDetailsCore(genericMethod);
-
-    private void InterfaceGetsDetailsCore(Func<EventReflection.DetailsRecord> method)
+    public void InterfaceGetsDetails()
     {
-        EventReflection.DetailsRecord detail = method();
+        EventReflection.DetailsRecord detail = EventReflection.DetailsFor(interfaceType);
         Assert.That(detail, Is.Not.Null);
         Assert.Multiple(() =>
         {
@@ -43,18 +24,15 @@ public class EventReflectionSuccessfulTests
         });
     }
 
-    [Test]
-    public void MultipleCallsReturnSameByType() => MultipleCallsReturnSame(() => EventReflection.DetailsFor(interfaceType));
+    const int RepeatCount = 5;
 
     [Test]
-    public void MultipleCallsReturnSameGeneric() => MultipleCallsReturnSame(genericMethod);
-
-    private protected static void MultipleCallsReturnSame(Func<EventReflection.DetailsRecord> getDetail)
+    public void MultipleCallsReturnSameByType()
     {
-        List<EventReflection.DetailsRecord> pastResults = new(RepeatCount) { getDetail.Invoke() };
+        List<EventReflection.DetailsRecord> pastResults = new(RepeatCount) { EventReflection.DetailsFor(interfaceType) };
         for (int i = 0; i < RepeatCount; i++)
         {
-            EventReflection.DetailsRecord newDetail = getDetail();
+            EventReflection.DetailsRecord newDetail = EventReflection.DetailsFor(interfaceType);
 
             Assume.That(pastResults, Has.All.SameAs(newDetail));
             Assert.That(pastResults, Has.All.EqualTo(newDetail));

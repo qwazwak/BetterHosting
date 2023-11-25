@@ -13,7 +13,7 @@ internal partial class AutoEventHandlerAdapter<TInterface, TArgument>
     where TInterface : IDiscordEventHandler<TArgument>
     where TArgument : DiscordEventArgs
 {
-    static AutoEventHandlerAdapter() => EventReflection.Validation.VerifyExactInterface<TInterface>();
+    static AutoEventHandlerAdapter() => EventReflection.Validation.VerifyExactInterface(typeof(TInterface));
 
     /// <inheritdoc />
     [ExcludeFromCodeCoverage(Justification = CoveCoverageExclusionReasons.DSharpSealed)]

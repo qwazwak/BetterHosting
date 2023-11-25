@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using DSharpPlus.BetterHosting.EventsNext.Exceptions;
 using DSharpPlus.BetterHosting.EventsNext.Services;
 using DSharpPlus.BetterHosting.EventsNext.Tools;
 
@@ -11,18 +11,11 @@ namespace UnitTests.DSharpPlus.BetterHosting.EventsNext.Tools;
 public class EventReflectionInvalidTests<TInterface> where TInterface : IDiscordEventHandler
 {
     [Test]
-    public void NoResultsByType() => AssertNoDetails(() => EventReflection.DetailsFor(typeof(TInterface)));
-
-    [Test]
-    public void NoResultsByGeneric() => AssertNoDetails(EventReflection.DetailsFor<TInterface>);
-
-    private protected static void AssertNoDetails(Func<EventReflection.DetailsRecord> testDelegate)
+    public void NoResultsByType()
     {
-        Exception ex = Assert.Throws(Is.AssignableTo<Exception>(), () => testDelegate.Invoke());
-#if DEBUG
-        Assert.That(ex.GetType().Name, Is.EqualTo("DebugAssertException"));
-#else
-        Assert.That(ex, Is.TypeOf<KeyNotFoundException>());
-#endif
+        Type interfaceType = typeof(TInterface);
+        
+        InvalidHandlerInterfaceException ex = Assert.Throws<InvalidHandlerInterfaceException>(() => EventReflection.DetailsFor(interfaceType));
+        Assert.That(ex.InvalidHandlerInterface, Is.SameAs(interfaceType));
     }
 }

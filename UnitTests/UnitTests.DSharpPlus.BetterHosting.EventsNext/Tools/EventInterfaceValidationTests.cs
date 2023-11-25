@@ -1,57 +1,57 @@
 ﻿using System;
-using System.Reflection;
+using System.Collections.Generic;
+using System.Linq;
+using DSharpPlus.BetterHosting.EventsNext.Exceptions;
 using DSharpPlus.BetterHosting.EventsNext.Tools;
 
 namespace UnitTests.DSharpPlus.BetterHosting.EventsNext.Tools;
 
-[TestFixtureSource(typeof(HandlerTypesTestData), nameof(HandlerTypesTestData.SpecificHandlerInterfaces))]
-public class EventReflectionValidationTests
+[TestFixture]
+public class EventInterfaceValidationTests
 {
-    private static readonly MethodInfo openGenericIsExact = typeof(EventReflection.Validation).GetMethod(nameof(EventReflection.Validation.IsExactInterface), BindingFlags.Static | BindingFlags.Public, Type.EmptyTypes)!;
-    private static readonly MethodInfo openGenericAssignableAny = typeof(EventReflection.Validation).GetMethod(nameof(EventReflection.Validation.IsAssignableToAny), BindingFlags.Static | BindingFlags.Public, Type.EmptyTypes)!;
-
-    private readonly Type interfaceType;
-    private readonly Func<bool> IsExactInterfaceGenericDelegate;
-    private readonly Func<bool> IsAssignableToAnyGenericDelegate;
-
-    public EventReflectionValidationTests(Type interfaceType)
-    {
-        this.interfaceType = interfaceType;
-        IsExactInterfaceGenericDelegate = openGenericIsExact.MakeGenericMethod(interfaceType).CreateDelegate<Func<bool>>();
-        IsAssignableToAnyGenericDelegate = openGenericAssignableAny.MakeGenericMethod(interfaceType).CreateDelegate<Func<bool>>();
-    }
+    [Test]
+    [TestCaseSource(typeof(DataSources), nameof(DataSources.Supported))]
+    public void VerifyExactInterface(Type interfaceType) => Assert.DoesNotThrow(() => EventReflection.Validation.VerifyExactInterface(interfaceType));
 
     [Test]
-    public void IsExactInterface_Generic()
-    {
-        bool isExact = IsExactInterfaceGenericDelegate();
-        Assert.That(isExact, Is.True);
-    }
-
-    [Test]
-    public void IsExactInterface_ByType()
+    [TestCaseSource(typeof(DataSources), nameof(DataSources.Supported))]
+    public void IsExactInterface(Type interfaceType)
     {
         bool isExact = EventReflection.Validation.IsExactInterface(interfaceType);
         Assert.That(isExact, Is.True);
     }
 
     [Test]
-    public void IsAssignableToAny_Generic()
-    {
-        bool isExact = IsAssignableToAnyGenericDelegate();
-        Assert.That(isExact, Is.True);
-    }
-
-    [Test]
-    public void IsAssignableToAny_ByType()
+    [TestCaseSource(typeof(DataSources), nameof(DataSources.Supported))]
+    public void IsAssignableToAny(Type interfaceType)
     {
         bool isExact = EventReflection.Validation.IsAssignableToAny(interfaceType);
         Assert.That(isExact, Is.True);
     }
 
     [Test]
-    public void VerifyExactInterface_Generic() => Assert.DoesNotThrow(() => IsExactInterfaceGenericDelegate.Invoke());
+    [TestCaseSource(typeof(DataSources), nameof(DataSources.Invalid))]
+    public void IsExactInterfaceInvalid(Type interfaceType)
+    {
+        bool isExact = EventReflection.Validation.IsExactInterface(interfaceType);
+        Assert.That(isExact, Is.False);
+    }
 
     [Test]
-    public void VerifyExactInterface_ByType() => Assert.DoesNotThrow(() => EventReflection.Validation.VerifyExactInterface(interfaceType));
+    [TestCaseSource(typeof(DataSources), nameof(DataSources.Invalid))]
+    public void VerifyExactInterfaceThrowsWrong(Type interfaceType)
+    {
+        InvalidHandlerInterfaceException ex = Assert.Throws<InvalidHandlerInterfaceException>(() => EventReflection.Validation.VerifyExactInterface(interfaceType));
+
+        Assert.That(ex.InvalidHandlerInterface, Is.SameAs(interfaceType));
+    }
+}
+
+file static class DataSources
+{
+    public static IEnumerable<Type> Supported => HandlerTypesTestData.SpecificHandlerInterfaces;
+    public static IEnumerable<Type> Invalid =>
+            HandlerTypesTestData.EventHandlerBaseInterface
+                .Concat(InvalidHandlerTypesTestData.InvalidGenericEventHandlerTypes)
+                .Concat(HandlerTypesTestData.GenericEventHandlerTypes);
 }
