@@ -65,7 +65,6 @@ public abstract class BackgroundLifecycleService : BackgroundService, IHostedLif
         }
     }
 
-
     private static Task StartTask(Func<CancellationToken, Task> method, out Task task, out CancellationTokenSource cts, CancellationToken cancellationToken)
     {
         // Create linked token to allow cancelling executing task from provided token
