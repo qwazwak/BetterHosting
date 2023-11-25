@@ -9,7 +9,7 @@ namespace DSharpPlus.BetterHosting.EventsNext;
 /// <summary>
 /// The entry point to add <see cref="EventsNext"/>
 /// </summary>
-public static partial class EventsNextBetterHostExtensions
+public static class EventsNextBetterHostExtensions
 {
     /// <summary>
     /// Adds the EventsNext extension to the <see cref="IServiceCollection"/> with the default configuration path "EventsNextConfiguration"
