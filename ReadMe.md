@@ -5,6 +5,9 @@
 An unofficial wrapper for [DSharpPlus](https://github.com/DSharpPlus/DSharpPlus), but able to be used in a more standard hosting model.
 No relation to [DSharpPlus](https://github.com/DSharpPlus/DSharpPlus)
 
+# BetterHosting.EventsNext
+Extension of BetterHosting which allows for proper dependency injection of event handlers
+
 # Installing
 
 You can install the library from following sources:
