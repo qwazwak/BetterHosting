@@ -25,7 +25,7 @@ public static class BetterLavalinkHostExtensions
     {
         services.AddHostedDiscordService<LavalinkBackgroundService>();
         services.AddTransient<IDiscordClientConfigurator, LavalinkSetup>();
-        services.AddExtensionConfiguratorAdapter<ILavalinkConfigurator, LavalinkExtension>();
+        services.AddExtensionConfiguratorAdapter<LavalinkExtension, ILavalinkConfigurator>();
         return services;
     }
 

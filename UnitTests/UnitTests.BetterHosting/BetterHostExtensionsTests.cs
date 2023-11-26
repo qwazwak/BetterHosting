@@ -11,6 +11,7 @@ namespace BetterHosting;
 
 [TestFixture(TestOf = typeof(BetterHostExtensions))]
 [System.Diagnostics.CodeAnalysis.SuppressMessage("Roslynator", "RCS1196:Call extension method as instance method.", Justification = "Make SUT clear")]
+[System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0079:Remove unnecessary suppression", Justification = "Suppression is required")]
 public class BetterHostExtensionsTests
 {
     [Test]

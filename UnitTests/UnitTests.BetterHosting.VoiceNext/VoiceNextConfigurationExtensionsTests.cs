@@ -9,6 +9,7 @@ namespace UnitTests.BetterHosting.VoiceNext;
 
 [TestFixture(TestOf = typeof(VoiceNextConfigurationExtensions))]
 [SuppressMessage("Roslynator", "RCS1196:Call extension method as instance method.", Justification = "Make SUT clear")]
+[SuppressMessage("CodeQuality", "IDE0079:Remove unnecessary suppression", Justification = "Suppression is required")]
 public class VoiceNextConfigurationExtensionsTests
 {
     [Test]

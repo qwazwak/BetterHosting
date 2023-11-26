@@ -21,7 +21,7 @@ public static class CommandsNextBetterHostingExtensions
     {
         ArgumentNullException.ThrowIfNull(services);
         services.AddTransient<IConfigureOptions<CommandsNextConfiguration>, CommandsNextOptionConfigure>();
-        services.AddExtensionConfiguratorAdapter<ICommandsNextConfigurator, CommandsNextExtension>();
+        services.AddExtensionConfiguratorAdapter<CommandsNextExtension, ICommandsNextConfigurator>();
 
         services.AddTransient<IDiscordClientConfigurator, CommandsNextSetup>();
         return services;

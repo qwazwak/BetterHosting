@@ -1,11 +1,13 @@
-﻿using System.Threading.Tasks;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 
 namespace UnitTests.BetterHosting.CommandsNext.Stubs;
 
-[System.Diagnostics.CodeAnalysis.SuppressMessage("Roslynator", "RCS1163:Unused parameter.", Justification = "Test Stub")]
-[System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Test Stub")]
+[SuppressMessage("CodeQuality", "IDE0079:Remove unnecessary suppression", Justification = "Suppression is required")]
+[SuppressMessage("Roslynator", "RCS1163:Unused parameter.", Justification = "Test Stub")]
+[SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Test Stub")]
 public class StubCommandNextModule : BaseCommandModule
 {
     public int Counter_1 { get; private set; }

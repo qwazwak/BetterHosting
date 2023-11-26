@@ -16,7 +16,7 @@ public static class CommandsNextRegistrationExtensions
     /// <inheritdoc cref="CommandsNextExtension.RegisterCommands{T}()"/>
     public static IServiceCollection RegisterCommand<TCommand>(this IServiceCollection services) where TCommand : BaseCommandModule
     {
-        HandlerExtractor.ThrowIfNotCanidate(typeof(TCommand));
+        HandlerExtractor.ThrowIfNotCandidate(typeof(TCommand));
         return services.AddTransient<TCommand>().AddTransient<ICommandsNextConfigurator, TypeHandlerAdder<TCommand>>();
     }
 
@@ -24,7 +24,7 @@ public static class CommandsNextRegistrationExtensions
     public static IServiceCollection RegisterCommand(this IServiceCollection services, Type commandType)
     {
         ArgumentNullException.ThrowIfNull(commandType);
-        HandlerExtractor.ThrowIfNotCanidate(commandType);
+        HandlerExtractor.ThrowIfNotCandidate(commandType);
         return services.AddTransient(commandType).AddTransient(typeof(ICommandsNextConfigurator), typeof(TypeHandlerAdder<>).MakeGenericType(commandType));
     }
 
@@ -32,7 +32,7 @@ public static class CommandsNextRegistrationExtensions
     public static IServiceCollection RegisterCommands(this IServiceCollection services, Assembly assembly)
     {
         ArgumentNullException.ThrowIfNull(assembly);
-        IEnumerable<Type> types = HandlerExtractor.GetCanidates(assembly);
+        IEnumerable<Type> types = HandlerExtractor.GetCandidates(assembly);
         return services.RegisterCommands(types);
     }
 

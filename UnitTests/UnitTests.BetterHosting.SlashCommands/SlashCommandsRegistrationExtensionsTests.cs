@@ -12,6 +12,7 @@ namespace UnitTests.BetterHosting.SlashCommands;
 [TestFixtureSource(typeof(SlashCommandModuleTestData), nameof(SlashCommandModuleTestData.ApplicationCommandModuleType))]
 [TestFixtureSource(typeof(SlashCommandModuleTestData), nameof(SlashCommandModuleTestData.DerivedTypes))]
 [SuppressMessage("Roslynator", "RCS1196:Call extension method as instance method.", Justification = "Make SUT clear")]
+[SuppressMessage("CodeQuality", "IDE0079:Remove unnecessary suppression", Justification = "Suppression is required")]
 public class SlashCommandsRegistrationExtensionsTests<TCommand> where TCommand : ApplicationCommandModule
 {
     [Test]

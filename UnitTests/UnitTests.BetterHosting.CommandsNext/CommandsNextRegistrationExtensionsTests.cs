@@ -12,11 +12,13 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Security;
+using System.Diagnostics.CodeAnalysis;
 
 namespace UnitTests.BetterHosting.CommandsNext;
 
 [TestFixture(TestOf = typeof(CommandsNextRegistrationExtensions))]
-[System.Diagnostics.CodeAnalysis.SuppressMessage("Roslynator", "RCS1196:Call extension method as instance method.", Justification = "Make SUT clear")]
+[SuppressMessage("Roslynator", "RCS1196:Call extension method as instance method.", Justification = "Make SUT clear")]
+[SuppressMessage("CodeQuality", "IDE0079:Remove unnecessary suppression", Justification = "Suppression is required")]
 public class CommandsNextRegistrationExtensionsTests
 {
     [Test]

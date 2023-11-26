@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using BetterHosting.Services.Hosted;
@@ -17,12 +18,10 @@ internal sealed class LavalinkBackgroundService : IDiscordBackgroundService
     [ExcludeFromCodeCoverage(Justification = CoveCoverageExclusionReasons.DSharpSealed)]
     public async Task AfterConnected(DiscordShardedClient client, CancellationToken stoppingToken)
     {
-        await client.InitializeShardsAsync().WaitAsync(stoppingToken);
+        await client.InitializeShardsAsync();
+        if (stoppingToken.IsCancellationRequested)
+            return;
         LavalinkConfiguration options = this.options.Value;
-        await Parallel.ForEachAsync(client.ShardClients.Values, stoppingToken, [ExcludeFromCodeCoverage(Justification = CoveCoverageExclusionReasons.LambdaWrapper)] (c, st) =>
-        {
-            LavalinkExtension extension = c.GetExtension<LavalinkExtension>();
-            return new(extension.ConnectAsync(options).WaitAsync(st));
-        });
+        await Task.WhenAll(client.ShardClients.Values.Select(c => c.GetExtension<LavalinkExtension>().ConnectAsync(options))).ConfigureAwait(false);
     }
 }

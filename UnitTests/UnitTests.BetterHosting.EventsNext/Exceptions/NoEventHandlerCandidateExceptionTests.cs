@@ -7,20 +7,20 @@ using BetterHosting.EventsNext.Exceptions;
 namespace UnitTests.BetterHosting.EventsNext.Exceptions;
 
 [TestFixtureSource(typeof(TestData), nameof(TestData.Types))]
-[TestFixture(TestOf = typeof(NoEventHandlerCanidateException))]
+[TestFixture(TestOf = typeof(NoEventHandlerCandidateException))]
 [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2208:Instantiate argument exceptions correctly", Justification = "Fixed for testing")]
-public class NoEventHandlerCanidateExceptionTests
+public class NoEventHandlerCandidateExceptionTests
 {
     const string ParamName = "sdifujgbfvid";
 
     private readonly Type type;
 
-    public NoEventHandlerCanidateExceptionTests(Type type) => this.type = type;
+    public NoEventHandlerCandidateExceptionTests(Type type) => this.type = type;
 
     [Test]
     public void MinimalConstructor()
     {
-        NoEventHandlerCanidateException ex = new(ParamName, type);
+        NoEventHandlerCandidateException ex = new(ParamName, type);
 
         Assert.That(ex.InvalidHandlerType, Is.SameAs(type));
     }
@@ -29,7 +29,7 @@ public class NoEventHandlerCanidateExceptionTests
     [TestCaseSource(typeof(TestData), nameof(TestData.Messages))]
     public void ConstructorWithMessage(string message)
     {
-        NoEventHandlerCanidateException ex = new(message, ParamName, type);
+        NoEventHandlerCandidateException ex = new(message, ParamName, type);
         Assert.Multiple(() =>
         {
             Assert.That(ex.InvalidHandlerType, Is.SameAs(type));
@@ -41,7 +41,7 @@ public class NoEventHandlerCanidateExceptionTests
     [TestCaseSource(typeof(TestData), nameof(TestData.MessagesAndInnerExceptions))]
     public void ConstructorWithMessageAndInner(string message, Exception innerException)
     {
-        NoEventHandlerCanidateException ex = new(message, ParamName, type, innerException);
+        NoEventHandlerCandidateException ex = new(message, ParamName, type, innerException);
         Assert.Multiple(() =>
         {
             Assert.That(ex.InvalidHandlerType, Is.SameAs(type));
