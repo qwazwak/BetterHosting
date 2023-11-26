@@ -1,4 +1,4 @@
-﻿![Logo of BetterHosting](https://raw.github.com/Qwazwak/BetterHosting/raw/master/Library/logo/logo.png)
+﻿![Logo of BetterHosting](https://raw.githubusercontent.com/qwazwak/BetterHosting/master/Library/logo/logo.png)
 
 # BetterHosting
 
