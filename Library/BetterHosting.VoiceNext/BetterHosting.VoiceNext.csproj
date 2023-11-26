@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <PackageReference Include="DSharpPlus.VoiceNext" />
+  </ItemGroup>
+  
+  <PropertyGroup>
+    <LibraryCoreName>BetterHosting.VoiceNext</LibraryCoreName>
+  </PropertyGroup>
+</Project>

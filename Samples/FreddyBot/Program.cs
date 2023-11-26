@@ -5,14 +5,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using FreddyBot.Services.Extensions;
-using DSharpPlus.BetterHosting;
+using BetterHosting;
 using DSharpPlus;
-using DSharpPlus.BetterHosting.EventsNext;
+using BetterHosting.EventsNext;
 using FreddyBot.Handlers;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Hosting.Internal;
 using FreddyBot.Options;
-using DSharpPlus.BetterHosting.SlashCommands;
+using BetterHosting.SlashCommands;
 
 IHostBuilder builder = Host.CreateDefaultBuilder(args)
     .ConfigureServices(ConfigureServices)

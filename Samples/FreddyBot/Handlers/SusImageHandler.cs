@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Logging;
 using DSharpPlus;
 using DSharpPlus.EventArgs;
-using DSharpPlus.BetterHosting.EventsNext.Services;
+using BetterHosting.EventsNext.Services;
 using DSharpPlus.Entities;
 using System.Linq;
 using System.Threading;

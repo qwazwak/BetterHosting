@@ -13,7 +13,7 @@ public class PingPongCommand : ApplicationCommandModule
 
     public PingPongCommand(ILogger<PingPongCommand> logger) => this.logger = logger;
 
-    [SlashCommand("ping", "A slash command made to showcase the DSharpPlus.BetterHosting extension!")]
+    [SlashCommand("ping", "A slash command made to showcase the BetterHosting extension!")]
     public async Task PingPong(InteractionContext ctx)
     {
         await ctx.CreateResponseAsync(InteractionResponseType.DeferredChannelMessageWithSource);

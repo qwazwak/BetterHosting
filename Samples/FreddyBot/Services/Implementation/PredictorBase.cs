@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using SixLabors.ImageSharp.Processing;
-using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp;
 using Yolov8Net;
 using System.Linq;

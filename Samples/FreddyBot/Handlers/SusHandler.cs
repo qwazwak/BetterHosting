@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using DSharpPlus;
 using DSharpPlus.EventArgs;
-using DSharpPlus.BetterHosting.EventsNext.Services;
+using BetterHosting.EventsNext.Services;
 using System.Text.RegularExpressions;
 using DSharpPlus.Entities;
 
