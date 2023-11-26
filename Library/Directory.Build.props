@@ -12,6 +12,7 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
     <!--<ProduceReferenceAssembly>False</ProduceReferenceAssembly>-->
+    <PackageLicenseFile>license.md</PackageLicenseFile>
   </PropertyGroup>
   
   <PropertyGroup Label="Package 'configurable options'">
