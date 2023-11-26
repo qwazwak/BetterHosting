@@ -53,8 +53,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="$(LibraryDir)/CodeCoverageExclusionReasons.cs"/>
-    <Compile Include="$(LibraryDir)/NamedServices.cs"/>
+    <Compile Include="$(LibraryDir)/CodeCoverageExclusionReasons.cs" />
+    <Compile Include="$(LibraryDir)/NamedServices.cs" />
   </ItemGroup>
 
   <ItemGroup>

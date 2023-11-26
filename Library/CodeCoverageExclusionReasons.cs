@@ -1,4 +1,4 @@
-﻿namespace BetterHosting;
+﻿//namespace BetterHosting.Internal;
 
 internal static class CodeCoverageExclusionReasons
 {

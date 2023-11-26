@@ -5,7 +5,6 @@ using DSharpPlus.EventArgs;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
-using BetterHosting.Services;
 using BetterHosting.EventsNext.Tools;
 using System;
 using DSharpPlus;
