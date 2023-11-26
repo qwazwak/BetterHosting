@@ -52,7 +52,6 @@ internal static partial class EventReflection
         KeyValuePair.Create<Type, DetailsRecord>(typeof(IInviteCreatedEventHandler), new(typeof(IInviteCreatedEventHandler), typeof(InviteCreateEventArgs))),
         KeyValuePair.Create<Type, DetailsRecord>(typeof(IInviteDeletedEventHandler), new(typeof(IInviteDeletedEventHandler), typeof(InviteDeleteEventArgs))),
         KeyValuePair.Create<Type, DetailsRecord>(typeof(IMessageCreatedEventHandler), new(typeof(IMessageCreatedEventHandler), typeof(MessageCreateEventArgs))),
-        KeyValuePair.Create<Type, DetailsRecord>(typeof(IMessageAcknowledgedEventHandler), new(typeof(IMessageAcknowledgedEventHandler), typeof(MessageAcknowledgeEventArgs))),
         KeyValuePair.Create<Type, DetailsRecord>(typeof(IMessageUpdatedEventHandler), new(typeof(IMessageUpdatedEventHandler), typeof(MessageUpdateEventArgs))),
         KeyValuePair.Create<Type, DetailsRecord>(typeof(IMessageDeletedEventHandler), new(typeof(IMessageDeletedEventHandler), typeof(MessageDeleteEventArgs))),
         KeyValuePair.Create<Type, DetailsRecord>(typeof(IMessagesBulkDeletedEventHandler), new(typeof(IMessagesBulkDeletedEventHandler), typeof(MessageBulkDeleteEventArgs))),
