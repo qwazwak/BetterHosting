@@ -5,7 +5,6 @@ using BetterHosting.EventsNext.Services;
 using DSharpPlus.EventArgs;
 using DSharpPlus;
 
-
 namespace BetterHosting.EventsNext.Tools;
 
 internal partial class AutoEventHandlerAdapter<TInterface, TArgument>
@@ -94,8 +93,6 @@ internal partial class AutoEventHandlerAdapter<TInterface, TArgument>
             client.InviteDeleted += (AsyncEventHandler<DiscordClient, InviteDeleteEventArgs>)handler;
         else if (typeof(TInterface) == typeof(IMessageCreatedEventHandler))
             client.MessageCreated += (AsyncEventHandler<DiscordClient, MessageCreateEventArgs>)handler;
-        else if (typeof(TInterface) == typeof(IMessageAcknowledgedEventHandler))
-            client.MessageAcknowledged += (AsyncEventHandler<DiscordClient, MessageAcknowledgeEventArgs>)handler;
         else if (typeof(TInterface) == typeof(IMessageUpdatedEventHandler))
             client.MessageUpdated += (AsyncEventHandler<DiscordClient, MessageUpdateEventArgs>)handler;
         else if (typeof(TInterface) == typeof(IMessageDeletedEventHandler))
@@ -256,8 +253,6 @@ internal partial class AutoEventHandlerAdapter<TInterface, TArgument>
             client.InviteDeleted -= (AsyncEventHandler<DiscordClient, InviteDeleteEventArgs>)handler;
         else if (typeof(TInterface) == typeof(IMessageCreatedEventHandler))
             client.MessageCreated -= (AsyncEventHandler<DiscordClient, MessageCreateEventArgs>)handler;
-        else if (typeof(TInterface) == typeof(IMessageAcknowledgedEventHandler))
-            client.MessageAcknowledged -= (AsyncEventHandler<DiscordClient, MessageAcknowledgeEventArgs>)handler;
         else if (typeof(TInterface) == typeof(IMessageUpdatedEventHandler))
             client.MessageUpdated -= (AsyncEventHandler<DiscordClient, MessageUpdateEventArgs>)handler;
         else if (typeof(TInterface) == typeof(IMessageDeletedEventHandler))
@@ -419,8 +414,6 @@ internal partial class AutoEventHandlerAdapter<TInterface, TArgument>
             return ((IInviteDeletedEventHandler)handler).OnInviteDeleted(sender, (InviteDeleteEventArgs)(DiscordEventArgs)eventArg);
         else if (typeof(TInterface) == typeof(IMessageCreatedEventHandler))
             return ((IMessageCreatedEventHandler)handler).OnMessageCreated(sender, (MessageCreateEventArgs)(DiscordEventArgs)eventArg);
-        else if (typeof(TInterface) == typeof(IMessageAcknowledgedEventHandler))
-            return ((IMessageAcknowledgedEventHandler)handler).OnMessageAcknowledged(sender, (MessageAcknowledgeEventArgs)(DiscordEventArgs)eventArg);
         else if (typeof(TInterface) == typeof(IMessageUpdatedEventHandler))
             return ((IMessageUpdatedEventHandler)handler).OnMessageUpdated(sender, (MessageUpdateEventArgs)(DiscordEventArgs)eventArg);
         else if (typeof(TInterface) == typeof(IMessageDeletedEventHandler))

@@ -57,7 +57,7 @@ public static partial class HandlerTypesTestData
         (typeof(IInviteCreatedEventHandler), typeof(InviteCreateEventArgs)),
         (typeof(IInviteDeletedEventHandler), typeof(InviteDeleteEventArgs)),
         (typeof(IMessageCreatedEventHandler), typeof(MessageCreateEventArgs)),
-        (typeof(IMessageAcknowledgedEventHandler), typeof(MessageAcknowledgeEventArgs)),
+        //TODO: removed? (typeof(IMessageAcknowledgedEventHandler), typeof(MessageAcknowledgeEventArgs)),
         (typeof(IMessageUpdatedEventHandler), typeof(MessageUpdateEventArgs)),
         (typeof(IMessageDeletedEventHandler), typeof(MessageDeleteEventArgs)),
         (typeof(IMessagesBulkDeletedEventHandler), typeof(MessageBulkDeleteEventArgs)),

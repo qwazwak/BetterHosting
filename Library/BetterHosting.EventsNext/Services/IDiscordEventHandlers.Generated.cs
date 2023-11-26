@@ -375,15 +375,6 @@ public interface IMessageCreatedEventHandler : IDiscordEventHandler<MessageCreat
 }
 
 /// <summary>
-/// Event handler for the discord event <see cref="DiscordShardedClient.MessageAcknowledged"/>
-/// </summary>
-public interface IMessageAcknowledgedEventHandler : IDiscordEventHandler<MessageAcknowledgeEventArgs>
-{
-    /// <inheritdoc cref="DiscordClient.MessageAcknowledged"/>
-    public ValueTask OnMessageAcknowledged(DiscordClient client, MessageAcknowledgeEventArgs args);
-}
-
-/// <summary>
 /// Event handler for the discord event <see cref="DiscordShardedClient.MessageUpdated"/>
 /// </summary>
 public interface IMessageUpdatedEventHandler : IDiscordEventHandler<MessageUpdateEventArgs>
