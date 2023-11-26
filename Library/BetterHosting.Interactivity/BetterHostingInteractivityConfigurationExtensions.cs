@@ -10,7 +10,7 @@ namespace BetterHosting.Interactivity;
 /// <summary>
 /// Extension methods to add <see cref="IOptions{TOptions}"/> for <see cref="InteractivityConfiguration"/>
 /// </summary>
-[ExcludeFromCodeCoverage(Justification = CoveCoverageExclusionReasons.SimpleWrapperExtension)]
+[ExcludeFromCodeCoverage(Justification = CodeCoverageExclusionReasons.SimpleWrapperExtension)]
 public static class BetterHostingInteractivityConfigurationExtensions
 {
     /// <summary>
@@ -32,5 +32,5 @@ public static class BetterHostingInteractivityConfigurationExtensions
     /// <param name="services">The collection to add the configuration to</param>
     /// <param name="configSectionPath">The name of the configuration section to bind from.</param>
     /// <returns>The <see cref="OptionsBuilder{TOptions}"/> so that configure calls can be chained in it.</returns>s
-    public static OptionsBuilder<InteractivityConfiguration> AddInteractivityConfig(this IServiceCollection services, string configSectionPath) => services.AddOptions<InteractivityConfiguration>().BindConfiguration(configSectionPath,  [ExcludeFromCodeCoverage(Justification = CoveCoverageExclusionReasons.LambdaWrapper)] (o) => o.BindNonPublicProperties = true);
+    public static OptionsBuilder<InteractivityConfiguration> AddInteractivityConfig(this IServiceCollection services, string configSectionPath) => services.AddOptions<InteractivityConfiguration>().BindConfiguration(configSectionPath,  [ExcludeFromCodeCoverage(Justification = CodeCoverageExclusionReasons.LambdaWrapper)] (o) => o.BindNonPublicProperties = true);
 }

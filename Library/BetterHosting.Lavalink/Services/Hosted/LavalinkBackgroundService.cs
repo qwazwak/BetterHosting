@@ -15,7 +15,7 @@ internal sealed class LavalinkBackgroundService : IDiscordBackgroundService
 
     public LavalinkBackgroundService(IOptions<LavalinkConfiguration> options) => this.options = options;
 
-    [ExcludeFromCodeCoverage(Justification = CoveCoverageExclusionReasons.DSharpSealed)]
+    [ExcludeFromCodeCoverage(Justification = CodeCoverageExclusionReasons.DSharpSealed)]
     public async Task AfterConnected(DiscordShardedClient client, CancellationToken stoppingToken)
     {
         await client.InitializeShardsAsync();

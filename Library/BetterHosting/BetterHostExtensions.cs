@@ -56,5 +56,5 @@ public static class BetterHostExtensions
     /// </exception>
     /// <seealso cref="OptionsBuilderConfigurationExtensions.Bind{TOptions}(OptionsBuilder{TOptions}, IConfiguration, Action{BinderOptions})"/>
     public static OptionsBuilder<DiscordConfiguration> AddDiscordConfigurationOption(this IServiceCollection services, string configSectionPath = nameof(DiscordConfiguration))
-        => services.AddTransient<IConfigureOptions<DiscordConfiguration>, BindConfigurationLoggerFactory>().AddOptions<DiscordConfiguration>().BindConfiguration(configSectionPath, [ExcludeFromCodeCoverage(Justification = CoveCoverageExclusionReasons.LambdaWrapper)] (o) => o.BindNonPublicProperties = true);
+        => services.AddTransient<IConfigureOptions<DiscordConfiguration>, BindConfigurationLoggerFactory>().AddOptions<DiscordConfiguration>().BindConfiguration(configSectionPath, [ExcludeFromCodeCoverage(Justification = CodeCoverageExclusionReasons.LambdaWrapper)] (o) => o.BindNonPublicProperties = true);
 }

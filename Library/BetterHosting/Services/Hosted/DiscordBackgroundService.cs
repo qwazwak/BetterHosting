@@ -52,6 +52,6 @@ public abstract class DiscordBackgroundServiceBase : BackgroundService
     /// </summary>
     /// <param name="cancellationToken"></param>
     /// <returns>A task which will complete once the <paramref name="cancellationToken"/> is signaled</returns>
-    [ExcludeFromCodeCoverage(Justification = CoveCoverageExclusionReasons.SimpleWrapper)]
+    [ExcludeFromCodeCoverage(Justification = CodeCoverageExclusionReasons.SimpleWrapper)]
     protected static Task WaitForTimeout(CancellationToken cancellationToken) => Task.Delay(Timeout.Infinite, cancellationToken);
 }

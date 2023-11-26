@@ -29,7 +29,7 @@ public static class DefaultActivityProviderExtensions
     /// <param name="configSectionPath">The path to bind options from.</param>
     /// <returns>A <see cref="OptionsBuilder{DiscordActivity}"/> builder to further configure the options with</returns>
     /// <seealso cref="IDefaultActivityProvider"/>
-    public static OptionsBuilder<DiscordActivity> AddDefaultActivityByOptions(this IServiceCollection services, string configSectionPath) => services.AddDefaultActivityProvider<DefaultActivityOptionsAdapter>().AddOptions<DiscordActivity>().BindConfiguration(configSectionPath,  [ExcludeFromCodeCoverage(Justification = CoveCoverageExclusionReasons.LambdaWrapper)] (o) => o.BindNonPublicProperties = true);
+    public static OptionsBuilder<DiscordActivity> AddDefaultActivityByOptions(this IServiceCollection services, string configSectionPath) => services.AddDefaultActivityProvider<DefaultActivityOptionsAdapter>().AddOptions<DiscordActivity>().BindConfiguration(configSectionPath,  [ExcludeFromCodeCoverage(Justification = CodeCoverageExclusionReasons.LambdaWrapper)] (o) => o.BindNonPublicProperties = true);
 
     /// <summary>
     /// Adds an implementation of <see cref="IDefaultActivityProvider"/> to the specified <see cref="IServiceCollection"/> which will return the given <paramref name="activity"/>.
@@ -38,5 +38,5 @@ public static class DefaultActivityProviderExtensions
     /// <param name="activity">The <see cref="DiscordActivity"/> to return.</param>
     /// <returns>The same <see cref="IServiceProvider"/> for chaining</returns>
     /// <seealso cref="IDefaultActivityProvider"/>
-    public static IServiceCollection AddDefaultActivityProvider(this IServiceCollection services, DiscordActivity activity) => services.AddTransient<IDefaultActivityProvider>([ExcludeFromCodeCoverage(Justification = CoveCoverageExclusionReasons.LambdaWrapper)] (_) => new InstanceActivityProvider(activity));
+    public static IServiceCollection AddDefaultActivityProvider(this IServiceCollection services, DiscordActivity activity) => services.AddTransient<IDefaultActivityProvider>([ExcludeFromCodeCoverage(Justification = CodeCoverageExclusionReasons.LambdaWrapper)] (_) => new InstanceActivityProvider(activity));
 }

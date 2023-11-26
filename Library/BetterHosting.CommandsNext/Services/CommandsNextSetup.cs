@@ -10,7 +10,7 @@ using Microsoft.Extensions.Options;
 namespace BetterHosting.CommandsNext.Services;
 
 /// <inheritdoc />
-[ExcludeFromCodeCoverage(Justification = CoveCoverageExclusionReasons.DSharpSealed)]
+[ExcludeFromCodeCoverage(Justification = CodeCoverageExclusionReasons.DSharpSealed)]
 public sealed class CommandsNextSetup : ExtensionAdditionTemplate<CommandsNextExtension>
 {
     private readonly CommandsNextConfiguration config;

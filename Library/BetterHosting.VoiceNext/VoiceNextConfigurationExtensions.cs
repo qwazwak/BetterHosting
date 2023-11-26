@@ -32,6 +32,6 @@ public static class VoiceNextConfigurationExtensions
     public static OptionsBuilder<VoiceNextConfiguration> AddVoiceNextConfig(this IServiceCollection services, string configSectionPath)
     {
         OptionsBuilder<VoiceNextConfiguration> options = services.AddOptions<VoiceNextConfiguration>();
-        return options.BindConfiguration(configSectionPath,  [ExcludeFromCodeCoverage(Justification = CoveCoverageExclusionReasons.LambdaWrapper)] (o) => o.BindNonPublicProperties = true);
+        return options.BindConfiguration(configSectionPath,  [ExcludeFromCodeCoverage(Justification = CodeCoverageExclusionReasons.LambdaWrapper)] (o) => o.BindNonPublicProperties = true);
     }
 }

@@ -40,6 +40,6 @@ public static class CommandsNextBetterHostingExtensions
     public static OptionsBuilder<CommandsNextConfiguration> AddCommandsNextConfiguration(this IServiceCollection services, string configSectionPath)
     {
         ArgumentNullException.ThrowIfNull(services);
-        return services.AddOptions<CommandsNextConfiguration>().BindConfiguration(configSectionPath, [ExcludeFromCodeCoverage(Justification = CoveCoverageExclusionReasons.LambdaWrapper)] (o) => o.BindNonPublicProperties = true);
+        return services.AddOptions<CommandsNextConfiguration>().BindConfiguration(configSectionPath, [ExcludeFromCodeCoverage(Justification = CodeCoverageExclusionReasons.LambdaWrapper)] (o) => o.BindNonPublicProperties = true);
     }
 }
