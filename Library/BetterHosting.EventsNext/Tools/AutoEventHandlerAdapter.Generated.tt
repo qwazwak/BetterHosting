@@ -7,7 +7,6 @@ using BetterHosting.EventsNext.Services;
 using DSharpPlus.EventArgs;
 using DSharpPlus;
 
-
 <#=AutomaticNamespaceLine#>
 
 internal partial class AutoEventHandlerAdapter<TInterface, TArgument>

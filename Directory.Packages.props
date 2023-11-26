@@ -2,8 +2,8 @@
   <PropertyGroup>
     <!--NU1603: Workaround to get semifloating prerelease /w central versioning-->
     <NoWarn>NU1603</NoWarn>
-    <DSharpVersion>5.0.0-nightly-01851</DSharpVersion>
-    <MSExtensionsVersion>8.0.0-rc.2.23479.6</MSExtensionsVersion>
+    <DSharpVersion>5.0.0-nightly-01900</DSharpVersion>
+    <MSExtensionsVersion>8.0.0</MSExtensionsVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageVersion Include="DSharpPlus" Version="$(DSharpVersion)" />
