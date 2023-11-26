@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Hosting;
-using DSharpPlus.BetterHosting;
-using DSharpPlus.BetterHosting.SlashCommands;
+using BetterHosting;
+using BetterHosting.SlashCommands;
 
 await Host.CreateDefaultBuilder(args)
     .ConfigureServices(s =>

@@ -4,7 +4,7 @@ using DSharpPlus.EventArgs;
 using System;
 using FuzzySharp;
 using FreddyBot.Services;
-using DSharpPlus.BetterHosting.EventsNext.Services;
+using BetterHosting.EventsNext.Services;
 
 namespace FreddyBot.Handlers;
 

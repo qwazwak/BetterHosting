@@ -1,9 +1,0 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-  <ItemGroup>
-    <PackageReference Include="DSharpPlus.SlashCommands" />
-  </ItemGroup>
-
-  <PropertyGroup>
-    <LibraryCoreName>DSharpPlus.BetterHosting.SlashCommands</LibraryCoreName>
-  </PropertyGroup>
-</Project>
