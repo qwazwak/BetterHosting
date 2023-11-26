@@ -21,12 +21,12 @@
 
   <PropertyGroup Label="Package 'fixed' options">
     <!--<Company>DSharpPlus developers</Company>-->
-    <PackageProjectUrl>https://github.com/qwazwak/DSharpPlus.BetterHosting</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/qwazwak/DSharpPlus.BetterHosting</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/qwazwak/BetterHosting</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/qwazwak/BetterHosting</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <!--<PackageLicenseExpression></PackageLicenseExpression>-->
     <PackageIcon>logo.png</PackageIcon>
-    <PackageIconUrl>https://raw.githubusercontent.com/qwazwak/DSharpPlus.BetterHosting/master/DSharpPlus.BetterHosting/logo.png</PackageIconUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/qwazwak/BetterHosting/master/BetterHosting/logo.png</PackageIconUrl>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <PublishDocumentationFile>True</PublishDocumentationFile>
     
@@ -62,7 +62,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="$(MSBuildThisFileDirectory)DSharpPlus.BetterHosting\DSharpPlus.BetterHosting.csproj"  Condition="'$(ReferenceBetterHostBase)' == 'True'" />
+    <ProjectReference Include="$(MSBuildThisFileDirectory)BetterHosting\BetterHosting.csproj"  Condition="'$(ReferenceBetterHostBase)' == 'True'" />
   </ItemGroup>
 
   <ItemGroup>

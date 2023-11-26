@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 using DSharpPlus;
 using DSharpPlus.EventArgs;
 using System;
-using DSharpPlus.BetterHosting.EventsNext.Services;
+using BetterHosting.EventsNext.Services;
 
 namespace FreddyBot.Handlers;
 
