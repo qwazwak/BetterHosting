@@ -44,9 +44,10 @@
     <RootNamespace>$(LibraryCoreName)</RootNamespace>
     <PackageId>$(LibraryCoreName)</PackageId>
 
-    <AssemblyVersion>$(BetterHostingVersion)</AssemblyVersion>
-    <Version Condition="'$(Nightly)' == ''">$(AssemblyVersion)-alpha</Version>
-    <Version Condition="'$(Nightly)' != ''">$(Version)-nightly-$(Nightly)</Version>
+    <AssemblyVersion Condition="'$(Nightly)' == ''">$(BetterHostingVersion)</AssemblyVersion>
+    <AssemblyVersion Condition="'$(Nightly)' != ''">$(BetterHostingVersion).$(Nightly)</AssemblyVersion>
+    <Version Condition="'$(Nightly)' == ''">$(BetterHostingVersion)-alpha</Version>
+    <Version Condition="'$(Nightly)' != ''">$(BetterHostingVersion)-nightly-$(Nightly)</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
