@@ -1,0 +1,61 @@
+name: Get nightly values
+description: Gets the nightly build ID and build parameter, if applicable
+
+inputs:
+  IsNightly:
+    description: Debug/Release build configuration
+    required: true
+    #type: number
+    #default: false
+  RunNumber:
+    description: Debug/Release build configuration
+    required: true
+    #type: number
+    #default: ''
+outputs:
+  NightlyID:
+    description: the Nightly build value value, empty, null, or the string '0' for not nightly
+    value: ${{ steps.nightlyID.outputs.version }}
+  NightlyParameter:
+    description: the Nightly msbuild value, empty, null, or the string '0' for not nightly
+    value: ${{ steps.nightlyParameter.outputs.result }}
+  IsNightly:
+    description: Echo of the input IsNightly
+    value: ${{ steps.echoNightly.outputs.result }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Echo is nightly
+      shell: bash
+      id: echoNightly
+      run: |
+        if [[ ${{ inputs.IsNightly }} == true ]]; then
+          printf "result=true" >> "$GITHUB_OUTPUT"
+        else
+          printf "result=false" >> "$GITHUB_OUTPUT"
+        fi
+    - name: Get Nightly Version
+      shell: bash
+      id: nightlyID
+      run: |
+        versNum = 'temp'
+        if [[ ${{ inputs.IsNightly }} == true ]]; then
+          # If we ever move CICD and keep the nightly ID incrementing the same,
+          # we will need to add a constant to factor that in. The 0 stands in to represent that
+          versNum=$(printf "%0*d" 5 $(( 0 + ${{ inputs.RunNumber }} )))
+          echo "NightlyID is ${versNum}"
+        else
+          versNum=''
+          echo "Not a nightly build"
+        fi
+        printf "version=$versNum" >> "$GITHUB_OUTPUT"
+    - name: Get Nightly parameter
+      shell: bash
+      id: nightlyParameter
+      run: |
+        if [[ ${{ inputs.IsNightly }} == true ]]; then
+          printf "result= -p:Nightly=${{ steps.nightlyID.outputs.version }}' || ''" >> "$GITHUB_OUTPUT"
+        else
+          printf "result=" >> "$GITHUB_OUTPUT"
+        fi

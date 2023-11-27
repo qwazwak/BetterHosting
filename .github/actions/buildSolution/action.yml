@@ -12,6 +12,11 @@ inputs:
     required: false
     #type: number
     default: ''
+  IsNightly:
+    description: the Nightly msbuild value, empty, null, or the string '0' for not nightly
+    required: false
+    #type: boolean
+    default: ''
 
 runs:
   using: "composite"
@@ -22,4 +27,4 @@ runs:
 
   - name: Build
     shell: bash
-    run: dotnet build BetterHosting.sln --no-restore --configuration ${{ inputs.Configuration }} ${{ inputs.NightlyID != 'null' && inputs.NightlyID != '0' && inputs.NightlyID != '' && '-p:Nightly=${{ inputs.NightlyID }}' || '' }}
+    run: dotnet build BetterHosting.sln --no-restore --configuration ${{ inputs.Configuration }}${{ inputs.IsNightly && ' -p:Nightly=${{ inputs.NightlyID }}' || '' }}
