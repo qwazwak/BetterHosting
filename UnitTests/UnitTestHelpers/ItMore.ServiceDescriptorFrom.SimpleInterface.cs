@@ -28,8 +28,9 @@ public static partial class ItMore
             public static ServiceDescriptor Add(Type serviceType, Type implementationType, ServiceLifetime lifetime)
                 => It.Is<ServiceDescriptor>(d =>
                     d.Lifetime == lifetime &&
-                    d.ServiceType == serviceType &&
-                    d.ImplementationType == implementationType &&
+                    d.ServiceType.IsEquivalentTo(serviceType) &&
+                    d.ImplementationType != null &&
+                    d.ImplementationType.IsEquivalentTo(implementationType) &&
                     d.ServiceKey == null);
         }
     }

@@ -62,7 +62,6 @@ public class CommandsNextBetterHostingExtensionsTests
     {
         Mock<IServiceCollection> mockServices = new(MockBehavior.Loose);
 
-        mockServices.AddOptions();
         mockServices.Setup(s => s.Add(It.Is<ServiceDescriptor>(d =>
                 d.IsKeyedService == false &&
                 d.Lifetime == ServiceLifetime.Transient &&
@@ -70,7 +69,6 @@ public class CommandsNextBetterHostingExtensionsTests
                 d.ImplementationFactory != null)))
             .Verifiable(Times.Once);
 
-        //IConfigureOptions<TOptions>>(new ConfigureNamedOptions<CommandsNextConfiguration>(Name, configureOptions)
         CommandsNextBetterHostingExtensions.AddCommandsNextConfiguration(mockServices.Object, "config section key for testing");
 
         mockServices.Verify();
