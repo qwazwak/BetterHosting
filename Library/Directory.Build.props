@@ -17,7 +17,7 @@
   
   <PropertyGroup Label="Package 'configurable options'">
     <Authors>Qwazwak</Authors>
-    <BetterHostingVersion>0.0.0</BetterHostingVersion>
+    <BetterHostingVersion>0.0.1</BetterHostingVersion>
   </PropertyGroup>
 
   <PropertyGroup Label="Package 'fixed' options">
