@@ -2,7 +2,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
-using BetterHosting.Services;
 using BetterHosting.Services.Interfaces.Internal;
 using BetterHosting.Services.Implementation.Internal;
 using BetterHosting.Services.Interfaces;
@@ -11,6 +10,7 @@ namespace BetterHosting;
 
 [TestFixture(TestOf = typeof(BetterHostExtensions))]
 [System.Diagnostics.CodeAnalysis.SuppressMessage("Roslynator", "RCS1196:Call extension method as instance method.", Justification = "Make SUT clear")]
+[System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0079:Remove unnecessary suppression", Justification = "Suppression is required")]
 public class BetterHostExtensionsTests
 {
     [Test]
@@ -32,8 +32,6 @@ public class BetterHostExtensionsTests
             .Verifiable(Times.Once);
 
         mockServices.Setup(s => s.Add(It.Is<ServiceDescriptor>(d => d.ServiceType == typeof(IServiceProvider) && NamedServices.RootServiceProvider.Equals(d.ServiceKey) && d.KeyedImplementationFactory != BetterHostExtensions.ServiceProviderFactory)))
-            .Verifiable(Times.Once);
-        mockServices.Setup(s => s.Add(It.Is<ServiceDescriptor>(d => d.ServiceType == typeof(IKeyedServiceProvider) && NamedServices.RootServiceProvider.Equals(d.ServiceKey) && d.KeyedImplementationFactory != BetterHostExtensions.KeyedServiceProviderFactory)))
             .Verifiable(Times.Once);
         BetterHostExtensions.AddBetterHosting(mockServices.Object);
 
@@ -71,20 +69,5 @@ public class BetterHostExtensionsTests
 
         mockProvider.Verify();
         Assert.That(rootProvider, Is.SameAs(mockProvider.Object));
-    }
-
-    [Test]
-    public void KeyedServiceProviderFactoryTest()
-    {
-        IKeyedServiceProvider keyedProviderSentinal = Mock.Of<IKeyedServiceProvider>(MockBehavior.Strict);
-        Mock<IKeyedServiceProvider> mockProvider = new(MockBehavior.Strict);
-        mockProvider.Setup(p => p.GetRequiredKeyedService(typeof(IServiceProvider), NamedServices.RootServiceProvider))
-            .Returns(keyedProviderSentinal)
-            .Verifiable(Times.Once);
-
-        IKeyedServiceProvider rootProvider = BetterHostExtensions.KeyedServiceProviderFactory(mockProvider.Object, Mock.Of<object>());
-
-        mockProvider.Verify();
-        Assert.That(rootProvider, Is.SameAs(keyedProviderSentinal));
     }
 }

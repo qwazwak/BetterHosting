@@ -1,6 +1,6 @@
-﻿namespace BetterHosting;
+﻿//namespace BetterHosting.Internal;
 
-internal static class CoveCoverageExclusionReasons
+internal static class CodeCoverageExclusionReasons
 {
     public const string DSharpSealed = "DSharp does not allow for unit tests involving their classes/methods.";
     public const string SimpleWrapperExtension = "Simple extension methods wrapping pre-tested methods";

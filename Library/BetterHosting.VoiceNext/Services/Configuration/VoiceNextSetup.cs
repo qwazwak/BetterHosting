@@ -18,6 +18,6 @@ public sealed class VoiceNextSetup : ExtensionAdditionTemplate<VoiceNextExtensio
     public VoiceNextSetup(IOptions<VoiceNextConfiguration> configuration, IEnumerable<IDiscordExtensionConfigurator<VoiceNextExtension>> configurators) : base(configurators) => this.configuration = configuration.Value;
 
     /// <inheritdoc/>
-    [ExcludeFromCodeCoverage(Justification = CoveCoverageExclusionReasons.DSharpSealed)]
+    [ExcludeFromCodeCoverage(Justification = CodeCoverageExclusionReasons.DSharpSealed)]
     protected override Task<IReadOnlyDictionary<int, VoiceNextExtension>> UseExtension(DiscordShardedClient shard) => shard.UseVoiceNextAsync(configuration);
 }

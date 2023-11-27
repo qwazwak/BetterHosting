@@ -16,5 +16,7 @@ public static class BetterHostingVoiceNextExtensions
     /// </summary>
     /// <param name="services"></param>
     /// <returns>The same <see cref="IServiceCollection"/> for chaining</returns>
-    public static IServiceCollection AddVoiceNext(this IServiceCollection services) => services.AddTransient<IDiscordClientConfigurator, VoiceNextSetup>().AddExtensionConfiguratorAdapter<IVoiceNextConfigurator, VoiceNextExtension>();
+    public static IServiceCollection AddVoiceNext(this IServiceCollection services)
+        => services.AddTransient<IDiscordClientConfigurator, VoiceNextSetup>()
+        .AddExtensionConfiguratorAdapter<VoiceNextExtension, IVoiceNextConfigurator>();
 }

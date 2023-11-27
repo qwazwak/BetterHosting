@@ -16,6 +16,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Library", "Library", "{A3EE
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Library Items", "Library Items", "{9FB4E309-1679-41BD-A200-3305F2454AC8}"
 	ProjectSection(SolutionItems) = preProject
+		Library\CodeCoverageExclusionReasons.cs = Library\CodeCoverageExclusionReasons.cs
 		Library\Directory.Build.props = Library\Directory.Build.props
 		Library\Directory.Build.targets = Library\Directory.Build.targets
 		Library\Directory.Packages.props = Library\Directory.Packages.props

@@ -21,5 +21,5 @@ public static class BetterHostingSlashCommandsExtensions
     public static IServiceCollection AddSlashCommands(this IServiceCollection services)
         => services.AddTransient<IDiscordClientConfigurator, SlashCommandsSetup>()
         .AddTransient<IConfigureOptions<SlashCommandsConfiguration>, SlashCommandsOptionsConfiguration>()
-        .AddExtensionConfiguratorAdapter<ISlashCommandsExtensionConfigurator, SlashCommandsExtension>();
+        .AddExtensionConfiguratorAdapter<SlashCommandsExtension, ISlashCommandsExtensionConfigurator>();
 }

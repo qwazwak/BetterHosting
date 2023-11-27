@@ -62,7 +62,6 @@ internal static partial class EventReflection
 
     public static class Validation
     {
-        public static bool IsExactInterface<TInterface>() where TInterface : IDiscordEventHandler => IsExactInterface(typeof(TInterface));
         public static bool IsExactInterface(Type interfaceType)
         {
             if (!interfaceType.IsInterface || !typeof(IDiscordEventHandler).IsAssignableFrom(interfaceType))
@@ -74,7 +73,7 @@ internal static partial class EventReflection
         public static bool IsAssignableToAny(Type handlerType)
         {
             GetCachedDetails(out ImmutableDictionary<Type, DetailsRecord> dict);
-            return dict.Keys.Any(t => t.IsAssignableFrom(handlerType));
+            return dict.Keys.Any(handlerType.IsEquivalentTo);
         }
 
         public static void VerifyExactInterface(Type interfaceType)

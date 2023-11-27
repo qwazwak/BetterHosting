@@ -18,7 +18,9 @@ public static class ClientConfiguratorExtensions
     /// <typeparam name="TConfigurator"></typeparam>
     /// <param name="services"></param>
     /// <returns>The same <paramref name="services"/> for chaining</returns>
-    public static IServiceCollection AddConfigurator<TConfigurator>(this IServiceCollection services) where TConfigurator : class, IDiscordClientConfigurator => services.AddTransient<IDiscordClientConfigurator, TConfigurator>();
+    public static IServiceCollection AddConfigurator<TConfigurator>(this IServiceCollection services)
+        where TConfigurator : class, IDiscordClientConfigurator
+        => services.AddTransient<IDiscordClientConfigurator, TConfigurator>();
 
     /// <summary>
     /// Registers <typeparamref name="TConfigurator"/> as a <see cref=" IDiscordExtensionConfigurator{TExtension}"/> which will be run to configure the <typeparamref name="TExtension"/> before discord connects
@@ -27,7 +29,10 @@ public static class ClientConfiguratorExtensions
     /// <typeparam name="TExtension"></typeparam>
     /// <param name="services"></param>
     /// <returns>The same <paramref name="services"/> for chaining</returns>
-    public static IServiceCollection AddExtensionConfigurator<TConfigurator, TExtension>(this IServiceCollection services) where TConfigurator : class, IDiscordExtensionConfigurator<TExtension> where TExtension : BaseExtension => services.AddTransient<IDiscordExtensionConfigurator<TExtension>, TConfigurator>();
+    public static IServiceCollection AddExtensionConfigurator<TExtension, TConfigurator>(this IServiceCollection services)
+        where TExtension : BaseExtension
+        where TConfigurator : class, IDiscordExtensionConfigurator<TExtension>
+        => services.AddTransient<IDiscordExtensionConfigurator<TExtension>, TConfigurator>();
 
     /// <summary>
     /// Registers a service to configure the <typeparamref name="TExtension"/> with the <paramref name="configurationDelegate"/>
@@ -36,7 +41,8 @@ public static class ClientConfiguratorExtensions
     /// <param name="services"></param>
     /// <param name="configurationDelegate"></param>
     /// <returns>The same <paramref name="services"/> for chaining</returns>
-    public static IServiceCollection ConfigureExtension<TExtension>(this IServiceCollection services, Action<int, TExtension> configurationDelegate) where TExtension : BaseExtension
+    public static IServiceCollection ConfigureExtension<TExtension>(this IServiceCollection services, Action<int, TExtension> configurationDelegate)
+        where TExtension : BaseExtension
     {
         ArgumentNullException.ThrowIfNull(configurationDelegate);
         return services.AddSingleton<IDiscordExtensionConfigurator<TExtension>>(new ExtensionConfigureDelegate<TExtension>(configurationDelegate));
@@ -49,5 +55,8 @@ public static class ClientConfiguratorExtensions
     /// <typeparam name="TExtension"></typeparam>
     /// <param name="services"></param>
     /// <returns>The same <paramref name="services"/> for chaining</returns>
-    public static IServiceCollection AddExtensionConfiguratorAdapter<TSpecific, TExtension>(this IServiceCollection services) where TSpecific : class, IDiscordExtensionConfigurator<TExtension> where TExtension : BaseExtension => services.AddExtensionConfigurator<DiscordExtensionConfiguratorAdapter<TSpecific, TExtension>, TExtension>();
+    public static IServiceCollection AddExtensionConfiguratorAdapter<TExtension, TSpecific>(this IServiceCollection services)
+        where TExtension : BaseExtension
+        where TSpecific : class, IDiscordExtensionConfigurator<TExtension>
+        => services.AddExtensionConfigurator<TExtension, DiscordExtensionConfiguratorAdapter<TSpecific, TExtension>>();
 }

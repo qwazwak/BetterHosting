@@ -25,7 +25,7 @@ public static class BetterLavalinkHostExtensions
     {
         services.AddHostedDiscordService<LavalinkBackgroundService>();
         services.AddTransient<IDiscordClientConfigurator, LavalinkSetup>();
-        services.AddExtensionConfiguratorAdapter<ILavalinkConfigurator, LavalinkExtension>();
+        services.AddExtensionConfiguratorAdapter<LavalinkExtension, ILavalinkConfigurator>();
         return services;
     }
 
@@ -48,6 +48,6 @@ public static class BetterLavalinkHostExtensions
     /// <paramref name="services"/> or <paramref name="configSectionPath" /> is <see langword="null"/>.
     /// </exception>
     /// <seealso cref="OptionsBuilderConfigurationExtensions.Bind{TOptions}(OptionsBuilder{TOptions}, IConfiguration, Action{BinderOptions})"/>
-    [ExcludeFromCodeCoverage(Justification = CoveCoverageExclusionReasons.SimpleWrapperExtension)]
-    public static OptionsBuilder<LavalinkConfiguration> AddLavalinkConfig(this IServiceCollection services, string configSectionPath) => services.AddOptions<LavalinkConfiguration>().BindConfiguration(configSectionPath, [ExcludeFromCodeCoverage(Justification = CoveCoverageExclusionReasons.LambdaWrapper)] (o) => o.BindNonPublicProperties = true);
+    [ExcludeFromCodeCoverage(Justification = CodeCoverageExclusionReasons.SimpleWrapperExtension)]
+    public static OptionsBuilder<LavalinkConfiguration> AddLavalinkConfig(this IServiceCollection services, string configSectionPath) => services.AddOptions<LavalinkConfiguration>().BindConfiguration(configSectionPath, [ExcludeFromCodeCoverage(Justification = CodeCoverageExclusionReasons.LambdaWrapper)] (o) => o.BindNonPublicProperties = true);
 }

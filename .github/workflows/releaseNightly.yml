@@ -1,0 +1,49 @@
+name: Build/Release Nightly
+
+on:
+  push:
+    branches:
+      - 'develop'
+
+env:
+  DOTNET_NOLOGO: 1
+  DOTNET_CLI_TELEMETRY_OPTOUT: 1
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+  DOTNET_SYSTEM_GLOBALIZATION_INVARIANT: 1
+
+jobs:
+  build-test-release:
+    name: Build, Test, and Release Better Hosting (nightly)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      - name: Install .NET
+        uses: ./.github/actions/setupDotNet
+      - name: Get nightly version
+        id: nightly
+        uses: ./.github/actions/getNightlyParameter
+        with:
+          IsNightly: true
+          RunNumber: ${{ github.run_number }}
+          
+      - name: Build the solution
+        uses: ./.github/actions/buildSolution
+        with:
+          Configuration: Release
+          IsNightly: true
+          NightlyID: ${{ steps.nightly.outputs.NightlyID }}
+
+      - name: Run Unit Tests
+        uses: ./.github/actions/runTests
+   
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: BetterHosting-Nightly-${{ steps.nightly.outputs.NightlyID }}
+          path: ./Packages/*
+
+      - name: Publish packages
+        run: dotnet nuget push "Packages/*" --skip-duplicate -k ${{ secrets.BetterHostingGithubActionsKey }} -s https://api.nuget.org/v3/index.json

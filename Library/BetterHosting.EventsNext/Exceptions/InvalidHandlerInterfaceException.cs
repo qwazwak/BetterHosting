@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BetterHosting.EventsNext.Exceptions;
 
 /// <summary>
 /// An exception thrown when a method requires the type of one of the exact supported event handler interfaces, but that was not provided
 /// </summary>
-[System.Diagnostics.CodeAnalysis.SuppressMessage("Roslynator", "RCS1194:Implement exception constructors.", Justification = "<Pending>")]
+[SuppressMessage("Roslynator", "RCS1194:Implement exception constructors.", Justification = "Require setting of InvalidHandlerInterface")]
+[SuppressMessage("CodeQuality", "IDE0079:Remove unnecessary suppression", Justification = "Suppression is required")]
 public class InvalidHandlerInterfaceException : InvalidOperationException
 {
     /// <summary>

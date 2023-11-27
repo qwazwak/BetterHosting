@@ -1,5 +1,4 @@
 ﻿using System;
-using BetterHosting.Services;
 using DSharpPlus.SlashCommands;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;

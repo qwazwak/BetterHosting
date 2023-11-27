@@ -13,11 +13,12 @@
     <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
     <!--<ProduceReferenceAssembly>False</ProduceReferenceAssembly>-->
     <PackageLicenseFile>license.md</PackageLicenseFile>
+    <PackageReadmeFile>ReadMe.md</PackageReadmeFile>
   </PropertyGroup>
   
   <PropertyGroup Label="Package 'configurable options'">
     <Authors>Qwazwak</Authors>
-    <AssemblyVersion>0.0.0</AssemblyVersion>
+    <BetterHostingVersion>0.0.1</BetterHostingVersion>
   </PropertyGroup>
 
   <PropertyGroup Label="Package 'fixed' options">
@@ -44,8 +45,10 @@
     <RootNamespace>$(LibraryCoreName)</RootNamespace>
     <PackageId>$(LibraryCoreName)</PackageId>
 
-    <Version>$(AssemblyVersion)-alpha</Version>
-    <Version Condition="'$(Nightly)' != ''">$(Version)-nightly-$(Nightly)</Version>
+    <AssemblyVersion Condition="'$(Nightly)' == ''">$(BetterHostingVersion)</AssemblyVersion>
+    <AssemblyVersion Condition="'$(Nightly)' != ''">$(BetterHostingVersion).$(Nightly)</AssemblyVersion>
+    <Version Condition="'$(Nightly)' == ''">$(BetterHostingVersion)-alpha</Version>
+    <Version Condition="'$(Nightly)' != ''">$(BetterHostingVersion)-nightly-$(Nightly)</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
@@ -53,8 +56,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="$(LibraryDir)/logo/logo.png" Pack="true" PackagePath="/"/>
-    <None Include="$(SolutionDirWorkaround)/license.md" Pack="true" PackagePath=""/>
+    <Compile Include="$(LibraryDir)CodeCoverageExclusionReasons.cs" />
+    <Compile Include="$(LibraryDir)NamedServices.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="$(LibraryDir)logo/logo.png" Pack="true" PackagePath="/"/>
+    <None Include="$(SolutionDirWorkaround)license.md" Pack="true" PackagePath="/"/>
+    <None Include="$(SolutionDirWorkaround)ReadMe.md" Pack="true" PackagePath="/"/>
   </ItemGroup>
 
   <ItemGroup>

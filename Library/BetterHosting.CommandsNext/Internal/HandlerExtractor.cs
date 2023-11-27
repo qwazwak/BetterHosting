@@ -23,16 +23,16 @@ internal static class HandlerExtractor
     public static bool IsModuleCandidateType(Type type) => Reflection.IsModuleCandidateTypeHandler.Invoke(type.GetTypeInfo());
     public static bool IsModuleCandidateType(TypeInfo type) => Reflection.IsModuleCandidateTypeHandler.Invoke(type);
 
-    public static void ThrowIfNotCanidate(Type type) => ThrowIfNotCanidate(type.GetTypeInfo());
-    public static void ThrowIfNotCanidate(TypeInfo type)
+    public static void ThrowIfNotCandidate(Type type) => ThrowIfNotCandidate(type.GetTypeInfo());
+    public static void ThrowIfNotCandidate(TypeInfo type)
     {
         if (!IsModuleCandidateType(type))
-            ThrowNotCanidate(type);
+            ThrowNotCandidate(type);
     }
 
     [DoesNotReturn]
     [MethodImpl(MethodImplOptions.NoInlining)]
-    private static void ThrowNotCanidate(TypeInfo type) => throw new ArgumentException("Command type was not a valid CommandsNext command", nameof(type));
+    private static void ThrowNotCandidate(TypeInfo type) => throw new ArgumentException("Command type was not a valid CommandsNext command", nameof(type));
 
-    public static IEnumerable<Type> GetCanidates(Assembly assembly) =>  assembly.ExportedTypes.Where(IsModuleCandidateType);
+    public static IEnumerable<Type> GetCandidates(Assembly assembly) => assembly.ExportedTypes.Where(IsModuleCandidateType);
 }

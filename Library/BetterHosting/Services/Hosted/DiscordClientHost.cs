@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using BetterHosting.Services.Interfaces.Internal;
@@ -27,27 +26,18 @@ internal class DiscordClientHost : BackgroundLifecycleService
 
     protected override async Task Start(CancellationToken stoppingToken)
     {
-        Debug.Assert(client == null, "Service restarted without shutdown, how??");
+        if(client != null)
+        {
+            logger.LogWarning("Service restarted without shutdown, how??");
+            return;
+        }
 
         logger.LogInformation("Starting discord setup...");
 
         try
         {
-
             client = await clientConstructor.ConstructClient(stoppingToken).ConfigureAwait(false);
-
             stoppingToken.ThrowIfCancellationRequested();
-            logger.LogDebug("Constructed discord client");
-
-            try
-            {
-                await client.StartAsync().WaitAsync(stoppingToken).ConfigureAwait(false);
-            }
-            catch (Exception ex) when (ex is not TaskCanceledException)
-            {
-                logger.LogError(ex, "Unable to connect because of {message}", ex.Message);
-                throw;
-            }
         }
         catch (TaskCanceledException ex)
         {
@@ -60,10 +50,27 @@ internal class DiscordClientHost : BackgroundLifecycleService
             clientManager.SetException(ex);
             throw;
         }
+        logger.LogDebug("Constructed discord client");
+
+        try
+        {
+            await client.StartAsync().WaitAsync(stoppingToken).ConfigureAwait(false);
+            await client.InitializeShardsAsync().WaitAsync(stoppingToken).ConfigureAwait(false);
+        }
+        catch (TaskCanceledException ex)
+        {
+            clientManager.SetCancelled(ex.CancellationToken);
+            return;
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Unable to connect client because of {message}", ex.Message);
+            clientManager.SetException(ex);
+            throw;
+        }
 
         logger.LogInformation("Discord connected");
 
-        Debug.Assert(client != null);
         if (stoppingToken.IsCancellationRequested)
             clientManager.SetCancelled(stoppingToken);
         else
@@ -76,13 +83,26 @@ internal class DiscordClientHost : BackgroundLifecycleService
         return base.StoppingAsync(cancellationToken);
     }
 
-    protected override Task Stop(CancellationToken cancellationToken)
+    protected override async Task Stop(CancellationToken cancellationToken)
     {
         DiscordShardedClient? client = this.client;
         this.client = null;
         if (client == null)
-            return Task.CompletedTask;
+            return;
+
         logger.LogInformation("Starting discord shutdown...");
-        return client.StopAsync();
+        try
+        {
+            await client.StopAsync().WaitAsync(cancellationToken).ConfigureAwait(false);
+        }
+        catch (TaskCanceledException)
+        {
+            return;
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Unable to connect because of {message}", ex.Message);
+            throw;
+        }
     }
 }

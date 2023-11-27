@@ -5,6 +5,6 @@ namespace BetterHosting.CommandsNext.Services;
 
 internal class TypeHandlerAdder<T> : ICommandsNextConfigurator where T : BaseCommandModule
 {
-    [ExcludeFromCodeCoverage(Justification = CoveCoverageExclusionReasons.DSharpSealed)]
+    [ExcludeFromCodeCoverage(Justification = CodeCoverageExclusionReasons.DSharpSealed)]
     public void Configure(int shardID, CommandsNextExtension extension) => extension.RegisterCommands<T>();
 }

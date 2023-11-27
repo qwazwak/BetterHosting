@@ -1,7 +1,6 @@
 <Project>
   <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.targets', '$(MSBuildThisFileDirectory)../'))"/>
   <PropertyGroup>
-    <PublishDir>$(LibraryDir)/Publish/$(LibraryCoreName)</PublishDir>
     <ReferenceBetterHostBase Condition="'$(ProjectName)' != ('BetterHosting') and '$(ReferenceBetterHostBase)' == ''">True</ReferenceBetterHostBase>
   </PropertyGroup>
   

@@ -3,12 +3,14 @@ using Microsoft.Extensions.DependencyInjection;
 using BetterHosting.EventsNext.Exceptions;
 using System;
 using BetterHosting.EventsNext;
+using System.Diagnostics.CodeAnalysis;
 
 namespace UnitTests.BetterHosting.EventsNext;
 
 [TestFixture(TestOf = typeof(RegistrationExtensions))]
 [TestFixtureSource(typeof(HandlerTypesTestData), nameof(HandlerTypesTestData.GenericEventHandlerTypes))]
-[System.Diagnostics.CodeAnalysis.SuppressMessage("Roslynator", "RCS1196:Call extension method as instance method.", Justification = "Make SUT clear")]
+[SuppressMessage("Roslynator", "RCS1196:Call extension method as instance method.", Justification = "Make SUT clear")]
+[SuppressMessage("CodeQuality", "IDE0079:Remove unnecessary suppression", Justification = "Suppression is required")]
 public class UnsupportedRegistrationExtensionsTests<TInterface> where TInterface : class, IDiscordEventHandler
 {
     [Test]

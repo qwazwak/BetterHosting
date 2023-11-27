@@ -2,6 +2,14 @@ name: Run Testing
 
 on:
   pull_request:
+#    branches:
+#    - master
+#    - develop
+#    - 'feature/**'
+  push:
+    tags:
+      - CI
+      - ci
     branches:
     - master
     - develop
@@ -19,20 +27,24 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-    - name: checkout repository
-      uses: actions/checkout@v4
-    - name: Install .NET
-      uses: ./.github/actions/setupDotNet
-    - name: Build the solution
-      uses: ./.github/actions/buildSolution
-    - name: Run Unit Tests
-      uses: ./.github/actions/runTests
+      - name: checkout repository
+        uses: actions/checkout@v4
+      - name: Install .NET
+        uses: ./.github/actions/setupDotNet
+      - name: Build the solution
+        uses: ./.github/actions/buildSolution
+        with:
+          Configuration: Release
+          IsNightly: false
+      - name: Run Unit Tests
+        uses: ./.github/actions/runTests
 
-    - name: Write to Job Summary
-      run: cat code-coverage-results.md >> $GITHUB_STEP_SUMMARY
+      - name: Write to Job Summary
+        run: cat code-coverage-results.md >> $GITHUB_STEP_SUMMARY
 
-    - name: Add Coverage PR Comment
-      uses: marocchino/sticky-pull-request-comment@v2
-      with:
-        recreate: true
-        path: code-coverage-results.md
+      - name: Add Coverage PR Comment
+        uses: marocchino/sticky-pull-request-comment@v2
+        if: github.event_name == 'pull_request'
+        with:
+          recreate: true
+          path: code-coverage-results.md

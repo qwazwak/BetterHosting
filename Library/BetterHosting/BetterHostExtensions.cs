@@ -3,7 +3,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using BetterHosting.Services.Interfaces;
 using System;
-using BetterHosting.Services;
 using BetterHosting.Services.Interfaces.Internal;
 using BetterHosting.Services.Implementation.Internal;
 using BetterHosting.Services.Implementation;
@@ -21,8 +20,6 @@ public static class BetterHostExtensions
 {
     // Internal for unit testing
     internal static IServiceProvider ServiceProviderFactory(IServiceProvider sp, object? _) => sp.GetService<IHost>()?.Services ?? sp;
-    // Internal for unit testing
-    internal static IKeyedServiceProvider KeyedServiceProviderFactory(IServiceProvider sp, object? _) => (IKeyedServiceProvider)sp.GetRequiredKeyedService<IServiceProvider>(NamedServices.RootServiceProvider);
 
     /// <summary>
     /// The entrypoint of adding BetterHosting to an IServiceCollection
@@ -38,11 +35,7 @@ public static class BetterHostExtensions
 
         services.AddSingleton<IHostedService, DiscordClientHost>();
 
-        #region Internal helpers
         services.AddKeyedSingleton(NamedServices.RootServiceProvider, ServiceProviderFactory);
-        services.AddKeyedSingleton(NamedServices.RootServiceProvider, KeyedServiceProviderFactory);
-
-        #endregion Internal helpers
         return services;
     }
     /// <summary>
@@ -56,5 +49,5 @@ public static class BetterHostExtensions
     /// </exception>
     /// <seealso cref="OptionsBuilderConfigurationExtensions.Bind{TOptions}(OptionsBuilder{TOptions}, IConfiguration, Action{BinderOptions})"/>
     public static OptionsBuilder<DiscordConfiguration> AddDiscordConfigurationOption(this IServiceCollection services, string configSectionPath = nameof(DiscordConfiguration))
-        => services.AddTransient<IConfigureOptions<DiscordConfiguration>, BindConfigurationLoggerFactory>().AddOptions<DiscordConfiguration>().BindConfiguration(configSectionPath, [ExcludeFromCodeCoverage(Justification = CoveCoverageExclusionReasons.LambdaWrapper)] (o) => o.BindNonPublicProperties = true);
+        => services.AddTransient<IConfigureOptions<DiscordConfiguration>, BindConfigurationLoggerFactory>().AddOptions<DiscordConfiguration>().BindConfiguration(configSectionPath, [ExcludeFromCodeCoverage(Justification = CodeCoverageExclusionReasons.LambdaWrapper)] (o) => o.BindNonPublicProperties = true);
 }
