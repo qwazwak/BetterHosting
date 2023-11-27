@@ -28,7 +28,6 @@ jobs:
         id: nightly
         uses: ./.github/actions/getNightlyParameter
         with:
-          Configuration: Release
           IsNightly: true
           NightlyID: ${{ steps.nightly.outputs.NightlyParameter }}
           
