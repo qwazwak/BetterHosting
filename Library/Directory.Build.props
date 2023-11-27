@@ -12,8 +12,8 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
     <!--<ProduceReferenceAssembly>False</ProduceReferenceAssembly>-->
-    <PackageLicenseFile>$(SolutionDirWorkaround)/license.md</PackageLicenseFile>
-    <PackageReadmeFile>$(SolutionDirWorkaround)/ReadMe.md</PackageReadmeFile>
+    <PackageLicenseFile>$(SolutionDirWorkaround)license.md</PackageLicenseFile>
+    <PackageReadmeFile>$(SolutionDirWorkaround)ReadMe.md</PackageReadmeFile>
   </PropertyGroup>
   
   <PropertyGroup Label="Package 'configurable options'">
@@ -62,8 +62,8 @@
 
   <ItemGroup>
     <None Include="$(LibraryDir)logo/logo.png" Pack="true" PackagePath="/"/>
-    <None Include="$(SolutionDirWorkaround)license.md" Pack="true" PackagePath=""/>
-    <None Include="$(SolutionDirWorkaround)ReadMe.md" Pack="true" PackagePath="\"/>
+    <None Include="$(SolutionDirWorkaround)license.md" Pack="true" PackagePath="/"/>
+    <None Include="$(SolutionDirWorkaround)ReadMe.md" Pack="true" PackagePath="/"/>
   </ItemGroup>
 
   <ItemGroup>
