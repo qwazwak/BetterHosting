@@ -1,23 +1,10 @@
 name: Build/Release Nightly
 
 on:
-  pull_request:
-    branches:
-      - 'develop'
-      - 'initialRelease'
   push:
     branches:
       - 'develop'
       - 'initialRelease'
-    paths:
-      - ".github/workflows/releaseNightly.yml"
-      - "Library*/**"
-      - "UnitTests/**"
-      - "*.sln"
-      - "Directory.Build.props"
-      - "Directory.Build.targets"
-      - "Directory.Packages.targets"
-  workflow_dispatch:
 
 env:
   DOTNET_NOLOGO: 1
@@ -37,55 +24,32 @@ jobs:
           submodules: recursive
       - name: Install .NET
         uses: ./.github/actions/setupDotNet
-      - uses: ./.github/actions/buildSolution
-        with:
-          Configuration: Release
-
-      - name: Run Unit Tests
-        uses: ./.github/actions/runTests
-
-      - name: Write to Job Summary
-        run: cat code-coverage-results.md >> $GITHUB_STEP_SUMMARY
-
-      - name: Add Coverage PR Comment
-        uses: marocchino/sticky-pull-request-comment@v2
-        if: github.event_name == 'pull_request'
-        with:
-          recreate: true
-          path: code-coverage-results.md
-  package-commit:
-    name: Package Commit
-    runs-on: ubuntu-latest
-    needs: build-commit
-    if: github.ref_name == 'develop' || github.ref_name == 'initialRelease'
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          submodules: recursive
-          fetch-depth: 0
-      - name: Install .NET
-        uses: ./.github/actions/setupDotNet
       - name: Get nightly version
         id: nightly
         uses: ./.github/actions/getNightlyParameter
         with:
+          Configuration: Release
           IsNightly: true
-          RunNumber: ${{ github.run_number }}
-      
+          NightlyID: ${{ steps.nightly.outputs.NightlyParameter }}
+          
       - name: Build the solution
         uses: ./.github/actions/buildSolution
         with:
           Configuration: Release
           IsNightly: true
           NightlyID: ${{ steps.nightly.outputs.NightlyParameter }}
-      - name: Package Project
-        run: dotnet nuget push "Packages/*" --skip-duplicate -k ${{ secrets.NUGET_ORG_API_KEY }} -s https://api.nuget.org/v3/index.json
-        env:
-          NUGET_URL: ${{ secrets.NUGET_URL }}
-          GITHUB_URL : ${{ github.server_url }}/${{ github.repository }}
+
+      - name: Run Unit Tests
+        uses: ./.github/actions/runTests
+   
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
           name: DSharpPlus-Nightly-${{ steps.nightly.outputs.NightlyParameter }}.zip
           path: ./Packages/*
+
+      - name: Publish packages
+        run: dotnet nuget push "Packages/*" --skip-duplicate -k ${{ secrets.NUGET_ORG_API_KEY }} -s https://api.nuget.org/v3/index.json
+        #env:
+        #  NUGET_URL: ${{ secrets.NUGET_URL }}
+        #  GITHUB_URL : ${{ github.server_url }}/${{ github.repository }}

@@ -17,7 +17,7 @@
   
   <PropertyGroup Label="Package 'configurable options'">
     <Authors>Qwazwak</Authors>
-    <AssemblyVersion>0.0.0</AssemblyVersion>
+    <BetterHostingVersion>0.0.0</BetterHostingVersion>
   </PropertyGroup>
 
   <PropertyGroup Label="Package 'fixed' options">
@@ -44,7 +44,8 @@
     <RootNamespace>$(LibraryCoreName)</RootNamespace>
     <PackageId>$(LibraryCoreName)</PackageId>
 
-    <Version>$(AssemblyVersion)-alpha</Version>
+    <AssemblyVersion>$(BetterHostingVersion)</AssemblyVersion>
+    <Version Condition="'$(Nightly)' == ''">$(AssemblyVersion)-alpha</Version>
     <Version Condition="'$(Nightly)' != ''">$(Version)-nightly-$(Nightly)</Version>
   </PropertyGroup>
 
