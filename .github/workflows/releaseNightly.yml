@@ -13,8 +13,8 @@ env:
   DOTNET_SYSTEM_GLOBALIZATION_INVARIANT: 1
 
 jobs:
-  build-commit:
-    name: Build Commit
+  build-test-release:
+    name: Build, Test, and Release Better Hosting (nightly)
     runs-on: ubuntu-latest
     #if: "!contains(format('{0} {1}', github.event.head_commit.message, github.event.pull_request.title), '[ci-skip]')"
     steps:
@@ -36,7 +36,7 @@ jobs:
         with:
           Configuration: Release
           IsNightly: true
-          NightlyID: ${{ steps.nightly.outputs.NightlyParameter }}
+          NightlyID: ${{ steps.nightly.outputs.NightlyID }}
 
       - name: Run Unit Tests
         uses: ./.github/actions/runTests
@@ -44,7 +44,7 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: DSharpPlus-Nightly-${{ steps.nightly.outputs.NightlyParameter }}.zip
+          name: BetterHosting-Nightly-${{ steps.nightly.outputs.NightlyID }}.zip
           path: ./Packages/*
 
       - name: Publish packages
