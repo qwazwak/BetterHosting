@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - 'develop'
-      - 'initialRelease'
 
 env:
   DOTNET_NOLOGO: 1
@@ -16,7 +15,6 @@ jobs:
   build-test-release:
     name: Build, Test, and Release Better Hosting (nightly)
     runs-on: ubuntu-latest
-    #if: "!contains(format('{0} {1}', github.event.head_commit.message, github.event.pull_request.title), '[ci-skip]')"
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -49,6 +47,3 @@ jobs:
 
       - name: Publish packages
         run: dotnet nuget push "Packages/*" --skip-duplicate -k ${{ secrets.BetterHostingGithubActionsKey }} -s https://api.nuget.org/v3/index.json
-        #env:
-        #  NUGET_URL: ${{ secrets.NUGET_URL }}
-        #  GITHUB_URL : ${{ github.server_url }}/${{ github.repository }}
