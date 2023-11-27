@@ -39,7 +39,7 @@ runs:
       shell: bash
       id: nightlyID
       run: |
-        versNum = 'temp'
+        versNum='temp'
         if [[ ${{ inputs.IsNightly }} == true ]]; then
           # If we ever move CICD and keep the nightly ID incrementing the same,
           # we will need to add a constant to factor that in. The 0 stands in to represent that
