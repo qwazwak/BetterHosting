@@ -1,6 +1,10 @@
 name: Build/Release Nightly
 
 on:
+  pull_request:
+    branches:
+      - 'develop'
+      - 'initialRelease'
   push:
     branches:
       - 'develop'
@@ -36,10 +40,13 @@ jobs:
       - uses: ./.github/actions/buildSolution
         with:
           Configuration: Release
+
       - name: Run Unit Tests
         uses: ./.github/actions/runTests
+
       - name: Write to Job Summary
         run: cat code-coverage-results.md >> $GITHUB_STEP_SUMMARY
+
       - name: Add Coverage PR Comment
         uses: marocchino/sticky-pull-request-comment@v2
         if: github.event_name == 'pull_request'
@@ -59,21 +66,26 @@ jobs:
           fetch-depth: 0
       - name: Install .NET
         uses: ./.github/actions/setupDotNet
-      - name: Get Nightly Version
+      - name: Get nightly version
         id: nightly
-        run: printf "version=%0*d" 5 $(( 0 + ${{ github.run_number }} )) >> "$GITHUB_OUTPUT"
-        # If we ever move CICD and keep the nightly ID incrementing the same,
-        # we will need to add a constant to factor that in. The 0 stands in to represent that
+        uses: ./.github/actions/getNightlyParameter
+        with:
+          IsNightly: true
+          RunNumber: ${{ github.run_number }}
+      
+      - name: Build the solution
+        uses: ./.github/actions/buildSolution
+        with:
+          Configuration: Release
+          IsNightly: true
+          NightlyID: ${{ steps.nightly.outputs.NightlyParameter }}
       - name: Package Project
-        run: |
-          dotnet pack -c Release -p:Nightly=${{ steps.nightly.outputs.version }}
-          dotnet nuget push "Packages/*" --skip-duplicate -k ${{ secrets.NUGET_ORG_API_KEY }} -s https://api.nuget.org/v3/index.json
-#          echo LATEST_STABLE_VERSION=$(git describe --abbrev=0 --tags 2>/dev/null || echo '') >> $GITHUB_ENV
+        run: dotnet nuget push "Packages/*" --skip-duplicate -k ${{ secrets.NUGET_ORG_API_KEY }} -s https://api.nuget.org/v3/index.json
         env:
           NUGET_URL: ${{ secrets.NUGET_URL }}
           GITHUB_URL : ${{ github.server_url }}/${{ github.repository }}
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: DSharpPlus-Nightly-${{ steps.nightly.outputs.version }}.zip
+          name: DSharpPlus-Nightly-${{ steps.nightly.outputs.NightlyParameter }}.zip
           path: ./Packages/*
