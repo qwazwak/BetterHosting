@@ -56,14 +56,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="$(LibraryDir)/CodeCoverageExclusionReasons.cs" />
-    <Compile Include="$(LibraryDir)/NamedServices.cs" />
+    <Compile Include="$(LibraryDir)CodeCoverageExclusionReasons.cs" />
+    <Compile Include="$(LibraryDir)NamedServices.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="$(LibraryDir)/logo/logo.png" Pack="true" PackagePath="/"/>
-    <None Include="$(SolutionDirWorkaround)/license.md" Pack="true" PackagePath=""/>
-    <None Include="$(SolutionDirWorkaround)/ReadMe.md" Pack="true" PackagePath="\"/>
+    <None Include="$(LibraryDir)logo/logo.png" Pack="true" PackagePath="/"/>
+    <None Include="$(SolutionDirWorkaround)license.md" Pack="true" PackagePath=""/>
+    <None Include="$(SolutionDirWorkaround)ReadMe.md" Pack="true" PackagePath="\"/>
   </ItemGroup>
 
   <ItemGroup>
