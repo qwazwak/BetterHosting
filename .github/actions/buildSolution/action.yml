@@ -21,10 +21,10 @@ inputs:
 runs:
   using: "composite"
   steps:
-  - name: Restore dependencies
-    shell: bash
-    run: dotnet restore --verbosity minimal
+    - name: Restore dependencies
+      shell: bash
+      run: dotnet restore --verbosity minimal
 
-  - name: Build
-    shell: bash
-    run: dotnet build BetterHosting.sln --no-restore --configuration ${{ inputs.Configuration }}${{ inputs.IsNightly && ' -p:Nightly=${{ inputs.NightlyID }}' || '' }}
+    - name: Build
+      shell: bash
+      run: dotnet build BetterHosting.sln --no-restore --configuration ${{ inputs.Configuration }}${{ inputs.IsNightly && ' -p:Nightly=$( ${{ inputs.NightlyID }} )' || '' }}
