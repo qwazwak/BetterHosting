@@ -27,4 +27,10 @@ runs:
 
     - name: Build
       shell: bash
-      run: dotnet build BetterHosting.sln --no-restore --configuration ${{ inputs.Configuration }}${{ inputs.IsNightly && ' -p:Nightly=$( ${{ inputs.NightlyID }} )' || '' }}
+      run: |
+        if [[ ${{ inputs.IsNightly }} == true ]]; then
+            dotnet build BetterHosting.sln --no-restore --configuration ${{ inputs.Configuration }} -p:Nightly=${{ inputs.NightlyID }}
+        else
+            dotnet build BetterHosting.sln --no-restore --configuration ${{ inputs.Configuration }}
+        fi
+        
