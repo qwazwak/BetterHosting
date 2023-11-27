@@ -44,11 +44,11 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: BetterHosting-Nightly-${{ steps.nightly.outputs.NightlyID }}.zip
+          name: BetterHosting-Nightly-${{ steps.nightly.outputs.NightlyID }}
           path: ./Packages/*
 
       - name: Publish packages
-        run: dotnet nuget push "Packages/*" --skip-duplicate -k ${{ secrets.NUGET_ORG_API_KEY }} -s https://api.nuget.org/v3/index.json
+        run: dotnet nuget push "Packages/*" --skip-duplicate -k ${{ secrets.BetterHostingGithubActionsKey }} -s https://api.nuget.org/v3/index.json
         #env:
         #  NUGET_URL: ${{ secrets.NUGET_URL }}
         #  GITHUB_URL : ${{ github.server_url }}/${{ github.repository }}
